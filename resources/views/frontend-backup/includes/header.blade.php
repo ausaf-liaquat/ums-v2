@@ -123,7 +123,7 @@
                                     </div>
                                 </a>
                             </li>
-                            @endif
+
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                     href="{{ route('frontend.users.profile') }}" role="menuitem">
@@ -187,42 +187,43 @@
                             <form id="logout-form" style="display: none;" action="{{ route('logout') }}" method="POST">
                                 {{ csrf_field() }}
                             </form>
-                        </ul>
-                    </div>
-                @endauth
-                <button
-                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
-                    data-collapse-toggle="navbar-language" type="button" aria-controls="navbar-language"
-                    aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-language">
-                <ul
-                    class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900">
-                    <x-frontend.nav-item :active="request()->routeIs('home')">
-                        {{ __('Home') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.posts.index')" :active="request()->routeIs('frontend.posts.*')">
-                        {{ __('Posts') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.categories.index')" :active="request()->routeIs('frontend.categories.*')">
-                        {{ __('Categories') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item :href="route('frontend.tags.index')" :active="request()->routeIs('frontend.tags.*')">
-                        {{ __('Tags') }}
-                    </x-frontend.nav-item>
-                    <x-frontend.nav-item href="https://nasirkhn.com" target="_blank">
-                        {{ __('Contact') }}
-                    </x-frontend.nav-item>
-                </ul>
-            </div>
-
+                        @endcan
+                    </ul>
+                </div>
+            @endauth
+            <button
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+                data-collapse-toggle="navbar-language" type="button" aria-controls="navbar-language"
+                aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
         </div>
-    </nav>
+
+        <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-language">
+            <ul
+                class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900">
+                <x-frontend.nav-item :active="request()->routeIs('home')">
+                    {{ __('Home') }}
+                </x-frontend.nav-item>
+                <x-frontend.nav-item :href="route('frontend.posts.index')" :active="request()->routeIs('frontend.posts.*')">
+                    {{ __('Posts') }}
+                </x-frontend.nav-item>
+                <x-frontend.nav-item :href="route('frontend.categories.index')" :active="request()->routeIs('frontend.categories.*')">
+                    {{ __('Categories') }}
+                </x-frontend.nav-item>
+                <x-frontend.nav-item :href="route('frontend.tags.index')" :active="request()->routeIs('frontend.tags.*')">
+                    {{ __('Tags') }}
+                </x-frontend.nav-item>
+                <x-frontend.nav-item href="https://nasirkhn.com" target="_blank">
+                    {{ __('Contact') }}
+                </x-frontend.nav-item>
+            </ul>
+        </div>
+
+    </div>
+</nav>

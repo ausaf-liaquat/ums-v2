@@ -1,47 +1,141 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->currentLocale()) }}" dir="{{ language_direction() }}">
+<html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <link href="{{ asset('img/favicon.png') }}" rel="apple-touch-icon" sizes="76x76">
-        <link type="image/png" href="{{ asset('img/favicon.png') }}" rel="icon">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>@yield('title') | {{ config('app.name') }}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="{{ setting('meta_description') }}">
-        <meta name="keyword" content="{{ setting('meta_keyword') }}">
-        @include('frontend.includes.meta')
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+        @yield('title')
+    </title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
 
-        <!-- Shortcut Icon -->
-        <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon">
-        <link type="image/ico" href="{{ asset('img/favicon.png') }}" rel="icon" />
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <style>
+        .gradient {
+            background: linear-gradient(90deg, #1c64f2 0%, #a826ff 100%);
+        }
+    </style>
+    @vite(['resources/css/app-frontend.css', 'resources/js/app-frontend.js'])
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @vite(['resources/css/app-frontend.css', 'resources/js/app-frontend.js'])
+</head>
 
-        @livewireStyles
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+    <!--Nav-->
+    @include('frontend.includes.header')
+    <!--Hero-->
 
-        @stack('after-styles')
+    @yield('content')
 
-        <x-google-analytics />
-    </head>
+    @include('frontend.includes.footer')
 
-    <body>
-        <x-selected-theme />
-        
-        @include('frontend.includes.header')
+    <div>
+        <p class="text-center p-3">Distributed By: <a href="https://themewagon.com/">Themewagon</a></p>
+    </div>
+    <!-- jQuery if you need it
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  -->
+    <script>
+        var scrollpos = window.scrollY;
+        var header = document.getElementById("header");
+        var navcontent = document.getElementById("nav-content");
+        var navaction = document.getElementById("navAction");
+        var navAccount = document.getElementById("navAccount");
+        navAccount
+        var brandname = document.getElementById("brandname");
+        var toToggle = document.querySelectorAll(".toggleColour");
+        var logoAuto = document.getElementById("logoAuto");
+        var lightLogo = "{{ asset('img/logo.png') }}";
+        var darkLogo = "{{ asset('img/logo-dark.png') }}";
 
-        <main class="bg-white dark:bg-gray-800">
-            @yield('content')
-        </main>
+        document.addEventListener("scroll", function() {
+            /*Apply classes for slide in bar*/
+            scrollpos = window.scrollY;
 
-        @include('frontend.includes.footer')
+            if (scrollpos > 10) {
+                header.classList.add("bg-white");
+                navaction.classList.remove("bg-white");
+                navaction.classList.add("gradient");
+                navaction.classList.remove("text-gray-800");
+                navaction.classList.add("text-white");
+                //Use to switch toggleColour colours
+                for (var i = 0; i < toToggle.length; i++) {
+                    toToggle[i].classList.add("text-gray-800");
+                    toToggle[i].classList.remove("text-white");
+                }
+                header.classList.add("shadow");
+                navcontent.classList.remove("bg-gray-100");
+                navcontent.classList.add("bg-white");
+                navcontent.classList.remove("text-white");
+                navcontent.classList.add("text-black");
+                logoAuto.src = darkLogo;
+            } else {
+                header.classList.remove("bg-white");
+                navaction.classList.remove("gradient");
+                navaction.classList.add("bg-white");
+                navaction.classList.remove("text-white");
+                navaction.classList.add("text-gray-800");
+                //Use to switch toggleColour colours
+                for (var i = 0; i < toToggle.length; i++) {
+                    toToggle[i].classList.add("text-white");
+                    toToggle[i].classList.remove("text-gray-800");
+                }
 
-        <!-- Scripts -->
-        @livewireScripts
-        @stack('after-scripts')
-    </body>
+                header.classList.remove("shadow");
+                navcontent.classList.remove("bg-white");
+                navcontent.classList.add("bg-gray-100");
+                navcontent.classList.remove("text-black");
+                navcontent.classList.add("text-white");
+                logoAuto.src = lightLogo;
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script>
+        /*Toggle dropdown list*/
+        /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+        var navMenuDiv = document.getElementById("nav-content");
+        var navMenu = document.getElementById("nav-toggle");
+
+        document.onclick = check;
+
+        function check(e) {
+            var target = (e && e.target) || (event && event.srcElement);
+
+            //Nav Menu
+            if (!checkParent(target, navMenuDiv)) {
+                // click NOT on the menu
+                if (checkParent(target, navMenu)) {
+                    // click on the link
+                    if (navMenuDiv.classList.contains("hidden")) {
+                        navMenuDiv.classList.remove("hidden");
+                    } else {
+                        navMenuDiv.classList.add("hidden");
+                    }
+                } else {
+                    // click both outside link and outside menu, hide menu
+                    navMenuDiv.classList.add("hidden");
+                }
+            }
+        }
+
+        function checkParent(t, elm) {
+            while (t.parentNode) {
+                if (t == elm) {
+                    return true;
+                }
+                t = t.parentNode;
+            }
+            return false;
+        }
+    </script>
+
+</body>
 
 </html>
