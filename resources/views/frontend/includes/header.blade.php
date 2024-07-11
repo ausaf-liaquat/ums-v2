@@ -15,7 +15,7 @@
                 </svg>
             </button>
         </div>
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-white p-4 lg:p-0 z-20"
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent lg:text-white md:text-black p-4 lg:p-0 z-20"
             id="nav-content">
             <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
@@ -38,18 +38,25 @@
                         href="#">Contact Us </a>
                 </li>
             </ul>
-            
-            <button data-popover-target="popover-company-profile" type="button" id="navAccount"
-            class="mx-auto lg:mx-4  hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Login</button>
-
+            @guest
+                <a href="{{ route('register') }}" id="navAccount"
+                    class="mx-auto lg:mx-2  hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Register</a>
+                <a href="{{ route('login') }}" id="navAccount"
+                    class="mx-auto lg:mx-2  hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Login</a>
+            @endguest
+            @auth
+            <a href="{{ route('backend.dashboard') }}" id="navAccount"
+            class="mx-auto lg:mx-2  hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Dashboard</a>
+            @endauth
             <button data-popover-target="popover-company-profile" type="button" id="navAction"
-                class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Start Today</button>
+                class="mx-auto lg:mx-2 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Start
+                Today</button>
 
             <div data-popover id="popover-company-profile" role="tooltip"
                 class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-80 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
                 <div class="p-3">
                     <div class="flex">
-                        <div  class="toggle-box rounded-lg w-96">
+                        <div class="toggle-box rounded-lg w-96">
                             <!-- Nursing Professionals Section -->
                             <div class="bg-blue-100 p-4 rounded-lg mb-4">
                                 <div class="flex items-center">
@@ -57,17 +64,20 @@
                                         class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Professionals</h3>
-                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Join Our Team</button>
+                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Join Our
+                                            Team</button>
                                     </div>
                                 </div>
                             </div>
                             <!-- Nursing Facilities Section -->
                             <div class="bg-blue-100 p-4 rounded-lg">
                                 <div class="flex items-center">
-                                    <img src="nursing_facilities_icon.png" alt="Nursing Facilities" class="w-16 h-16 mr-4">
+                                    <img src="nursing_facilities_icon.png" alt="Nursing Facilities"
+                                        class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Facilities</h3>
-                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Talk To Us</button>
+                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Talk To
+                                            Us</button>
                                     </div>
                                 </div>
                             </div>

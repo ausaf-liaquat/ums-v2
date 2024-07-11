@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\MasterFiles\ColorController;
+use App\Http\Controllers\Backend\MasterFiles\SizeController;
+use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
@@ -13,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 * --------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*
 *
@@ -33,6 +36,25 @@ Route::get('dashboard', 'App\Http\Controllers\Frontend\FrontendController@index'
 // pages
 Route::get('terms', Terms::class)->name('terms');
 Route::get('privacy', Privacy::class)->name('privacy');
+
+
+
+//  ____        _       _____     _     _
+// |  _ \  __ _| |_ __ |_   _|_ _| |__ | | ___
+// | | | |/ _` | __/ _` || |/ _` | '_ \| |/ _ \
+// | |_| | (_| | || (_| || | (_| | |_) | |  __/
+// |____/ \__,_|\__\__,_||_|\__,_|_.__/|_|\___|
+
+Route::get('colors/dataTable', [ColorController::class, 'dataTable'])->name('colors.dataTable');
+Route::get('sizes/dataTable', [SizeController::class, 'dataTable'])->name('sizes.dataTable');
+Route::get('products/dataTable', [ProductController::class, 'dataTable'])->name('products.dataTable');
+
+//     _     _
+//    / \   (_) __ ___  __
+//   / _ \  | |/ _` \ \/ /
+//  /  ___ \ | | (_| |> <
+// /_/   \_\/ |\__,_/_/\_\
+//        |__/
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     Route::get('/', 'FrontendController@index')->name('index');
@@ -70,6 +92,48 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     Route::get('/', 'BackendController@index')->name('home');
     Route::get('dashboard', 'BackendController@index')->name('dashboard');
 
+    /*
+     *
+     *  Colors Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ColorController::class)->group(function () {
+        Route::get("colors", "index")->name("colors");
+        Route::get("colors/create", "create")->name("colors.create");
+        Route::post("colors/store", "store")->name("colors.store");
+        Route::get("colors/edit/{color}", "edit")->name("colors.edit");
+        Route::post("colors/update/{color}", "update")->name("colors.update");
+        Route::delete("colors/destroy", "destroy")->name('colors.destroy');
+    });
+    /*
+     *
+     *  Sizes Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(SizeController::class)->group(function () {
+        Route::get("sizes", "index")->name("sizes");
+        Route::get("sizes/create", "create")->name("sizes.create");
+        Route::post("sizes/store", "store")->name("sizes.store");
+        Route::get("sizes/edit/{color}", "edit")->name("sizes.edit");
+        Route::post("sizes/update/{color}", "update")->name("sizes.update");
+        Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
+    });
+    /*
+     *
+     *  Types Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(::class)->group(function () {
+        Route::get("sizes", "index")->name("sizes");
+        Route::get("sizes/create", "create")->name("sizes.create");
+        Route::post("sizes/store", "store")->name("sizes.store");
+        Route::get("sizes/edit/{color}", "edit")->name("sizes.edit");
+        Route::post("sizes/update/{color}", "update")->name("sizes.update");
+        Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
+    });
     /*
      *
      *  Settings Routes

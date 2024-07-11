@@ -71,8 +71,8 @@
                 header.classList.add("shadow");
                 navcontent.classList.remove("bg-gray-100");
                 navcontent.classList.add("bg-white");
-                navcontent.classList.remove("text-white");
-                navcontent.classList.add("text-black");
+                navcontent.classList.remove("lg:text-white");
+                navcontent.classList.add("md:text-black");
                 logoAuto.src = darkLogo;
             } else {
                 header.classList.remove("bg-white");
@@ -89,8 +89,8 @@
                 header.classList.remove("shadow");
                 navcontent.classList.remove("bg-white");
                 navcontent.classList.add("bg-gray-100");
-                navcontent.classList.remove("text-black");
-                navcontent.classList.add("text-white");
+                // navcontent.classList.remove("");
+                navcontent.classList.add("lg:text-white");
                 logoAuto.src = lightLogo;
             }
         });

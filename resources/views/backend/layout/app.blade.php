@@ -95,7 +95,7 @@
     <script src="{{ asset('assets/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    @vite(['resources/sass/app-backend.scss', 'resources/js/app-backend.js'])
+    {{-- @vite(['resources/sass/app-backend.scss', 'resources/js/app-backend.js']) --}}
 
     @livewireScripts
 
