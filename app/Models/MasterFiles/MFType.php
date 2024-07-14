@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MFType extends Model
 {
     use HasFactory;
+    protected $table = "mf_types";
 }

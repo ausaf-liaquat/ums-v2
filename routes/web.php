@@ -18,12 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-/*
-*
-* Frontend Routes
-*
-* --------------------------------------------------------------------
-*/
+//   ____
+// /  ___|___  _ __ ___  _ __ ___   ___  _ __
+// | |   / _ \| '_ ` _ \| '_ ` _ \ / _ \| '_ \
+// | |__| (_) | | | | | | | | | | | (_) | | | |
+// \____\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
 
 // home route
 Route::get('home', [FrontendController::class, 'index'])->name('home');
@@ -55,6 +54,16 @@ Route::get('products/dataTable', [ProductController::class, 'dataTable'])->name(
 //  /  ___ \ | | (_| |> <
 // /_/   \_\/ |\__,_/_/\_\
 //        |__/
+Route::controller(ColorController::class)->group(function () {
+    Route::get('product/name-unique', 'productNameValidator')->name('product.validator');
+});
+
+
+//  _____ ____   ___  _   _ _____ _____ _   _ ____
+// |  ___|  _ \ / _ \| \ | |_   _| ____| \ | |  _ \
+// | |_  | |_) | | | |  \| | | | |  _| |  \| | | | |
+// |  _| |  _ <| |_| | |\  | | | | |___| |\  | |_| |
+// |_|   |_| \_\\___/|_| \_| |_| |_____|_| \_|____/
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     Route::get('/', 'FrontendController@index')->name('index');
@@ -78,12 +87,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     });
 });
 
-/*
-*
-* Backend Routes
-* These routes need view-backend permission
-* --------------------------------------------------------------------
-*/
+//  ____    _    ____ _  _______ _   _ ____
+// | __ )  / \  / ___| |/ / ____| \ | |  _ \
+// |  _ \ / _ \| |   | ' /|  _| |  \| | | | |
+// | |_) / ___ \ |___| . \| |___| |\  | |_| |
+// |____/_/   \_\____|_|\_\_____|_| \_|____/
+
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth', 'can:view_backend']], function () {
     /**
      * Backend Dashboard
@@ -104,6 +113,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("colors/store", "store")->name("colors.store");
         Route::get("colors/edit/{color}", "edit")->name("colors.edit");
         Route::post("colors/update/{color}", "update")->name("colors.update");
+        Route::patch("colors/status", "status")->name("colors.status");
         Route::delete("colors/destroy", "destroy")->name('colors.destroy');
     });
     /*
@@ -118,15 +128,33 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("sizes/store", "store")->name("sizes.store");
         Route::get("sizes/edit/{color}", "edit")->name("sizes.edit");
         Route::post("sizes/update/{color}", "update")->name("sizes.update");
+        Route::patch("sizes/status", "status")->name("sizes.status");
         Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
     });
+
+    /*
+     *
+     *  Products Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ProductController::class)->group(function () {
+        Route::get("products", "index")->name("products");
+        Route::get("products/create", "create")->name("products.create");
+        Route::post("products/store", "store")->name("products.store");
+        Route::get("products/edit/{product}", "edit")->name("products.edit");
+        Route::post("products/update/{product}", "update")->name("products.update");
+        Route::patch("products/status", "status")->name("products.status");
+        Route::delete("products/destroy", "destroy")->name('products.destroy');
+    });
+
     /*
      *
      *  Types Routes
      *
      * ---------------------------------------------------------------------
      */
-    Route::controller(::class)->group(function () {
+    Route::controller(SizeController::class)->group(function () {
         Route::get("sizes", "index")->name("sizes");
         Route::get("sizes/create", "create")->name("sizes.create");
         Route::post("sizes/store", "store")->name("sizes.store");

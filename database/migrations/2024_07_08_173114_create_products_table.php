@@ -16,10 +16,11 @@ return new class extends Migration
             $table->bigInteger('mf_type_id')->index();
             $table->string('title');
             $table->string('slug')->index();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price', 65,2)->nullable();
             $table->integer('quantity')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

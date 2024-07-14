@@ -1,5 +1,7 @@
 @extends('backend.layout.app')
-
+@section('title')
+Dashboard
+@endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">

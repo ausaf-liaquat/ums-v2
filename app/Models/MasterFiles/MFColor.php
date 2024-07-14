@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class MFColor extends Model
 {
     use HasFactory;
+
+    protected $table = "mf_colors";
+
+    protected $fillable =['name', 'status'];
 }

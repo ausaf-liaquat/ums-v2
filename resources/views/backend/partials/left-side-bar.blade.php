@@ -132,10 +132,41 @@
 
       <ul class="menu-inner py-1">
           <!-- Dashboard -->
-          <li class="menu-item active">
+          <li class="menu-item {{ request()->routeIs('backend.dashboard') ? 'active' : '' }}">
               <a href="{{ route('backend.dashboard') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Dashboard</div>
+              </a>
+          </li>
+          <li class="menu-item {{ request()->routeIs('backend.colors') ? 'active' : '' }}">
+              <a href="{{ route('backend.colors') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                  <div data-i18n="Analytics">Colors</div>
+              </a>
+          </li>
+          <li class="menu-item {{ request()->routeIs('backend.sizes') ? 'active' : '' }}">
+            <a href="{{ route('backend.sizes') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                <div data-i18n="Analytics">Size</div>
+            </a>
+        </li>
+          <li class="menu-item {{ request()->routeIs('backend.products') ? 'active' : '' }}">
+          <li class="menu-item ">
+              <a href="{{ route('backend.products') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cart"></i>
+                  <div data-i18n="Analytics">Products</div>
+              </a>
+          </li>
+          <li class="menu-item ">
+              <a href="{{ route('backend.colors') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div data-i18n="Analytics">Colors</div>
+              </a>
+          </li>
+          <li class="menu-item ">
+              <a href="{{ route('backend.colors') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div data-i18n="Analytics">Colors</div>
               </a>
           </li>
           @foreach ($modules as $module)
