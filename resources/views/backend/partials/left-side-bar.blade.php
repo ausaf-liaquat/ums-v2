@@ -145,19 +145,26 @@
               </a>
           </li>
           <li class="menu-item {{ request()->routeIs('backend.sizes') ? 'active' : '' }}">
-            <a href="{{ route('backend.sizes') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                <div data-i18n="Analytics">Size</div>
-            </a>
-        </li>
+              <a href="{{ route('backend.sizes') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                  <div data-i18n="Analytics">Sizes</div>
+              </a>
+          </li>
           <li class="menu-item {{ request()->routeIs('backend.products') ? 'active' : '' }}">
-          <li class="menu-item ">
+
               <a href="{{ route('backend.products') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-cart"></i>
                   <div data-i18n="Analytics">Products</div>
               </a>
           </li>
-          <li class="menu-item ">
+          <li class="menu-item {{ request()->routeIs('backend.courses') ? 'active' : '' }}">
+
+            <a href="{{ route('backend.courses') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Analytics">Courses</div>
+            </a>
+        </li>
+          {{-- <li class="menu-item ">
               <a href="{{ route('backend.colors') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Colors</div>
@@ -192,7 +199,7 @@
 
                   </li>
               @endcan
-          @endforeach
+          @endforeach --}}
       </ul>
   </aside>
   <!-- / Menu -->

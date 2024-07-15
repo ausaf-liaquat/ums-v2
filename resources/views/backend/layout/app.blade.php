@@ -105,6 +105,37 @@
         .filepond--drip-blob {
             background-color: #7f8a9a;
         }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 37px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 40px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 37px;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+        }
+        .filepond--root {
+          border:none;
+        }
     </style>
 
     @livewireStyles

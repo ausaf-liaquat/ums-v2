@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Backend\Courses\CourseController;
 use App\Http\Controllers\Backend\MasterFiles\ColorController;
 use App\Http\Controllers\Backend\MasterFiles\SizeController;
 use App\Http\Controllers\Backend\Products\ProductController;
+use App\Http\Controllers\Backend\Select2Controller;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
@@ -36,7 +38,16 @@ Route::get('dashboard', 'App\Http\Controllers\Frontend\FrontendController@index'
 Route::get('terms', Terms::class)->name('terms');
 Route::get('privacy', Privacy::class)->name('privacy');
 
-
+//  ____  _____ _     _____ ____ _____   ____
+// / ___|| ____| |   | ____/ ___|_   _| |___ \
+// \___ \|  _| | |   |  _|| |     | |     __) |
+//  ___) | |___| |___| |__| |___  | |    / __/
+// |____/|_____|_____|_____\____| |_|   |_____|
+Route::controller(Select2Controller::class)->group(function () {
+    Route::get('select2/countries', 'countriesSelect2')->name('countries.select2');
+    Route::get('select2/states', 'statesSelect2')->name('states.select2');
+    Route::get('select2/cities', 'citiesSelect2')->name('cities.select2');
+});
 
 //  ____        _       _____     _     _
 // |  _ \  __ _| |_ __ |_   _|_ _| |__ | | ___
@@ -47,6 +58,7 @@ Route::get('privacy', Privacy::class)->name('privacy');
 Route::get('colors/dataTable', [ColorController::class, 'dataTable'])->name('colors.dataTable');
 Route::get('sizes/dataTable', [SizeController::class, 'dataTable'])->name('sizes.dataTable');
 Route::get('products/dataTable', [ProductController::class, 'dataTable'])->name('products.dataTable');
+Route::get('courses/dataTable', [CourseController::class, 'dataTable'])->name('courses.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -126,8 +138,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::get("sizes", "index")->name("sizes");
         Route::get("sizes/create", "create")->name("sizes.create");
         Route::post("sizes/store", "store")->name("sizes.store");
-        Route::get("sizes/edit/{color}", "edit")->name("sizes.edit");
-        Route::post("sizes/update/{color}", "update")->name("sizes.update");
+        Route::get("sizes/edit/{size}", "edit")->name("sizes.edit");
+        Route::post("sizes/update/{size}", "update")->name("sizes.update");
         Route::patch("sizes/status", "status")->name("sizes.status");
         Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
     });
@@ -150,17 +162,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
 
     /*
      *
-     *  Types Routes
+     *  Courses Routes
      *
      * ---------------------------------------------------------------------
      */
-    Route::controller(SizeController::class)->group(function () {
-        Route::get("sizes", "index")->name("sizes");
-        Route::get("sizes/create", "create")->name("sizes.create");
-        Route::post("sizes/store", "store")->name("sizes.store");
-        Route::get("sizes/edit/{color}", "edit")->name("sizes.edit");
-        Route::post("sizes/update/{color}", "update")->name("sizes.update");
-        Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
+    Route::controller(CourseController::class)->group(function () {
+        Route::get("courses", "index")->name("courses");
+        Route::get("courses/create", "create")->name("courses.create");
+        Route::post("courses/store", "store")->name("courses.store");
+        Route::get("courses/edit/{course}", "edit")->name("courses.edit");
+        Route::post("courses/update/{course}", "update")->name("courses.update");
+        Route::patch("courses/status", "status")->name("courses.status");
+        Route::delete("courses/destroy", "destroy")->name('courses.destroy');
     });
     /*
      *

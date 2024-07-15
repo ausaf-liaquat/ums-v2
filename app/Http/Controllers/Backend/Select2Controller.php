@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\State;
+use Illuminate\Http\Request;
+
+class Select2Controller extends Controller
+{
+    public function countriesSelect2(Request $request)
+    {
+        $countries = Country::query()
+            ->when($request->q, function ($query) use ($request) {
+                return $query->where('name', 'like', "%{$request->q}%");
+            })
+            ->limit(10)
+            ->get(['id', 'name as text']);
+
+        return ['results' => $countries];
+    }
+
+    public function statesSelect2(Request $request)
+    {
+        $states = State::query()
+            ->when($request->q, function ($query) use ($request) {
+                return $query->where('name', 'like', "%{$request->q}%");
+            })
+            ->where('country_id', $request->country_id)->limit(10)->get(['id', 'name as text']);
+
+        return ['results' => $states];
+    }
+
+    public function citiesSelect2(Request $request)
+    {
+        $cities = City::query()
+            ->when($request->q, function ($query) use ($request) {
+                return $query->where('name', 'like', "%{$request->q}%");
+            })->where('state_id', $request->state_id)->where('country_id', $request->country_id)->limit(10)->get(['id', 'name as text']);
+
+        return ['results' => $cities];
+    }
+}

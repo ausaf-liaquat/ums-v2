@@ -14,11 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
+        // Schema::disableForeignKeyConstraints();
 
-        $this->call(AuthTableSeeder::class);
+        // $this->call(AuthTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(StatesTableSeeder::class);
+        $this->call(CitiesTableChunkOneSeeder::class);
+        $this->call(CitiesTableChunkTwoSeeder::class);
+        $this->call(CitiesTableChunkThreeSeeder::class);
+        $this->call(CitiesTableChunkFourSeeder::class);
+        $this->call(CitiesTableChunkFiveSeeder::class);
 
-        Schema::enableForeignKeyConstraints();
+        // Schema::enableForeignKeyConstraints();
 
         // User::factory()->create([
         //     'name' => 'Test User',
