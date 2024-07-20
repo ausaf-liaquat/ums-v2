@@ -1,10 +1,16 @@
 <?php
 
 use App\Http\Controllers\Backend\Courses\CourseController;
+use App\Http\Controllers\Backend\FundController;
+use App\Http\Controllers\Backend\MasterFiles\ClinicianTypeController;
 use App\Http\Controllers\Backend\MasterFiles\ColorController;
+use App\Http\Controllers\Backend\MasterFiles\QualificationTypeController;
+use App\Http\Controllers\Backend\MasterFiles\ShiftTypeController;
 use App\Http\Controllers\Backend\MasterFiles\SizeController;
+use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Select2Controller;
+use App\Http\Controllers\Backend\ShiftController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
@@ -47,6 +53,10 @@ Route::controller(Select2Controller::class)->group(function () {
     Route::get('select2/countries', 'countriesSelect2')->name('countries.select2');
     Route::get('select2/states', 'statesSelect2')->name('states.select2');
     Route::get('select2/cities', 'citiesSelect2')->name('cities.select2');
+    Route::get('select2/qualification-types', 'qualificationTypesSelect2')->name('qualification-types.select2');
+    Route::get('select2/shift-types', 'shiftTypesSelect2')->name('shift-types.select2');
+    Route::get('select2/clinician-types', 'clinicianTypesSelect2')->name('clinician-types.select2');
+
 });
 
 //  ____        _       _____     _     _
@@ -59,6 +69,11 @@ Route::get('colors/dataTable', [ColorController::class, 'dataTable'])->name('col
 Route::get('sizes/dataTable', [SizeController::class, 'dataTable'])->name('sizes.dataTable');
 Route::get('products/dataTable', [ProductController::class, 'dataTable'])->name('products.dataTable');
 Route::get('courses/dataTable', [CourseController::class, 'dataTable'])->name('courses.dataTable');
+Route::get('qualification-types/dataTable', [QualificationTypeController::class, 'dataTable'])->name('qualification-types.dataTable');
+Route::get('shift-types/dataTable', [ShiftTypeController::class, 'dataTable'])->name('shift-types.dataTable');
+Route::get('clinician-types/dataTable', [ClinicianTypeController::class, 'dataTable'])->name('clinician-types.dataTable');
+Route::get('payment-methods/dataTable', [PaymentMethodController::class, 'dataTable'])->name('payment-methods.dataTable');
+Route::get('funds/dataTable', [FundController::class, 'dataTable'])->name('funds.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -105,7 +120,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
 // | |_) / ___ \ |___| . \| |___| |\  | |_| |
 // |____/_/   \_\____|_|\_\_____|_| \_|____/
 
-Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth', 'can:view_backend']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth']], function () {
     /**
      * Backend Dashboard
      * Namespaces indicate folder structure.
@@ -146,6 +161,54 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
 
     /*
      *
+     *  Qualification Types Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(QualificationTypeController::class)->group(function () {
+        Route::get("qualification-types", "index")->name("qualification-types");
+        Route::get("qualification-types/create", "create")->name("qualification-types.create");
+        Route::post("qualification-types/store", "store")->name("qualification-types.store");
+        Route::get("qualification-types/edit/{qualification_type}", "edit")->name("qualification-types.edit");
+        Route::post("qualification-types/update/{qualification_type}", "update")->name("qualification-types.update");
+        Route::patch("qualification-types/status", "status")->name("qualification-types.status");
+        Route::delete("qualification-types/destroy", "destroy")->name('qualification-types.destroy');
+    });
+
+    /*
+     *
+     *  Shift Types Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ShiftTypeController::class)->group(function () {
+        Route::get("shift-types", "index")->name("shift-types");
+        Route::get("shift-types/create", "create")->name("shift-types.create");
+        Route::post("shift-types/store", "store")->name("shift-types.store");
+        Route::get("shift-types/edit/{shift_type}", "edit")->name("shift-types.edit");
+        Route::post("shift-types/update/{shift_type}", "update")->name("shift-types.update");
+        Route::patch("shift-types/status", "status")->name("shift-types.status");
+        Route::delete("shift-types/destroy", "destroy")->name('shift-types.destroy');
+    });
+
+    /*
+     *
+     *  Clinician Types Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ClinicianTypeController::class)->group(function () {
+        Route::get("clinician-types", "index")->name("clinician-types");
+        Route::get("clinician-types/create", "create")->name("clinician-types.create");
+        Route::post("clinician-types/store", "store")->name("clinician-types.store");
+        Route::get("clinician-types/edit/{clinician_type}", "edit")->name("clinician-types.edit");
+        Route::post("clinician-types/update/{clinician_type}", "update")->name("clinician-types.update");
+        Route::patch("clinician-types/status", "status")->name("clinician-types.status");
+        Route::delete("clinician-types/destroy", "destroy")->name('clinician-types.destroy');
+    });
+
+    /*
+     *
      *  Products Routes
      *
      * ---------------------------------------------------------------------
@@ -175,6 +238,55 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("courses/status", "status")->name("courses.status");
         Route::delete("courses/destroy", "destroy")->name('courses.destroy');
     });
+
+    /*
+     *
+     *  Payment Methods Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(PaymentMethodController::class)->group(function () {
+        Route::get("payment-methods", "index")->name("payment-methods");
+        Route::get("payment-methods/create", "create")->name("payment-methods.create");
+        Route::post("payment-methods/store", "store")->name("payment-methods.store");
+        Route::get("payment-methods/edit/{payment_method}", "edit")->name("payment-methods.edit");
+        Route::post("payment-methods/update/{payment_method}", "update")->name("payment-methods.update");
+        Route::patch("payment-methods/status", "status")->name("payment-methods.status");
+        Route::delete("payment-methods/destroy", "destroy")->name('payment-methods.destroy');
+    });
+
+    /*
+     *
+     *  Funds Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(FundController::class)->group(function () {
+        Route::get("funds", "index")->name("funds");
+        Route::get("funds/create", "create")->name("funds.create");
+        Route::post("funds/store", "store")->name("funds.store");
+        Route::get("funds/edit/{fund}", "edit")->name("funds.edit");
+        Route::post("funds/update/{fund}", "update")->name("funds.update");
+        Route::patch("funds/status", "status")->name("funds.status");
+        Route::delete("funds/destroy", "destroy")->name('funds.destroy');
+    });
+
+    /*
+     *
+     *  Shifts Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ShiftController::class)->group(function () {
+        Route::get("shifts", "index")->name("shifts");
+        Route::get("shifts/create", "create")->name("shifts.create");
+        Route::post("shifts/store", "store")->name("shifts.store");
+        Route::get("shifts/edit/{shift}", "edit")->name("shifts.edit");
+        Route::post("shifts/update/{shift}", "update")->name("shifts.update");
+        Route::patch("shifts/status", "status")->name("shifts.status");
+        Route::delete("shifts/destroy", "destroy")->name('shifts.destroy');
+    });
+
     /*
      *
      *  Settings Routes

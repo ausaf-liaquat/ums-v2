@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\Frontend\UserRegistered;
 use App\Http\Controllers\Controller;
+use App\Models\Facilities\Facility;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,22 +30,41 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->facility_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'mobile' => $request->phone,
+            'address' => $request->address,
         ]);
 
         // username
         $username = intval(config('app.initial_username')) + $user->id;
         $user->username = strval($username);
         $user->save();
+
+        $user->syncRoles([2]);
+
+        $facility =  Facility::create([
+            'user_id' => $user->id,
+            'unit' => $request->unit,
+            'state_id' => $request->state_id,
+            'city_id' => $request->city_id,
+            'zip_code' => $request->zip_code,
+            'referred_by' => $request->referred_by,
+            'passcode' => $request->passcode,
+            'how_many_unit_need' => $request->facility_unit,
+        ]);
+
+        $facility->clinician_types()->sync($request->clinician_type);
+
+        $user->createAsStripeCustomer();
 
         event(new UserRegistered($request, $user));
 

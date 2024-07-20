@@ -1,5 +1,7 @@
 @extends('layouts.guest')
-
+@section('title')
+    Login
+@endsection
 @section('content')
     <!-- Session Status -->
 

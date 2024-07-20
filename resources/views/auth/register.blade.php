@@ -1,5 +1,14 @@
 @extends('layouts.guest')
-
+@section('title')
+    Register
+@endsection
+@section('css')
+    <style>
+      .authentication-wrapper.authentication-basic .authentication-inner{
+            max-width: none;
+          }
+    </style>
+@endsection
 @section('content')
     <!-- Session Status -->
 
@@ -76,14 +85,50 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Enter your email" autofocus />
-                                <ul class= 'text-sm text-red-600 dark:text-red-400 space-y-1'>
-                                    @foreach ((array) $errors->get('email') as $message)
-                                        <li>{{ $message }}</li>
-                                    @endforeach
-                                </ul>
+                                <label for="facility_name">Facility Name </label>
+                                <input type="text" placeholder="Enter facility name" class="form-control"
+                                    name="facility_name" id="facility_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="unit">Unit</label>
+                                <input type="text" class="form-control" placeholder="Enter unit" name="unit"
+                                    id="unit" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address">Address</label>
+                                {{-- <input type="text" name="address" required> --}}
+                                <textarea name="address" id="" class="form-control" cols="30" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone">Mobile Number</label>
+                                <input type="text" class="form-control" name="phone"
+                                    placeholder="Enter number e.g. 1XXXXXXXXXX" id="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="state" class="form-label">State </label>
+                                <select name="state_id" id="state_id" class="form-control state"
+                                    data-parsley-errors-container="#state-error" required>
+
+                                </select>
+                                <div id="state-error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City </label>
+                                <select name="city_id" id="city_id" class="form-control city"
+                                    data-parsley-errors-container="#city-error" required>
+
+                                </select>
+                                <div id="city-error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="zip_code">Zip Code</label>
+                                <input type="text" class="form-control" name="zip_code"
+                                    placeholder="Enter tour zip code" id="zip_code" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                                    id="email" required>
                             </div>
                             <div class="mb-3 form-password-toggle">
 
@@ -95,10 +140,13 @@
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                  required
+                                  data-parsley-errors-container="#password-error"
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 
                                 </div>
+                                <div id="password-error"></div>
                                 <ul class= 'text-sm text-red-600 dark:text-red-400 space-y-1'>
                                     @foreach ((array) $errors->get('password') as $message)
                                         <li>{{ $message }}</li>
@@ -113,19 +161,63 @@
                                 </div>
 
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password_confirmation"
+                                    <input type="password" id="confirmPassword" class="form-control"
+                                        name="password_confirmation"
+                                        data-parsley-equalto="#password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password_confirmation" />
+                                        data-parsley-errors-container="#confirm-password-error"
+                                        aria-describedby="password_confirmation" required />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 
                                 </div>
+                                <div id="confirm-password-error"></div>
                                 <ul class= 'text-sm text-red-600 dark:text-red-400 space-y-1'>
                                     @foreach ((array) $errors->get('password_confirmation') as $message)
                                         <li>{{ $message }}</li>
                                     @endforeach
                                 </ul>
                             </div>
-                           
+                            <div class="mb-3">
+                                <label for="referred_by">Referred By </label>
+                                <input type="text" class="form-control" name="referred_by"
+                                    placeholder="Enter referred by" id="referred_by" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="clinician_type" class="form-label "><b>What type of clinicians do you
+                                        need?</b> (select all that apply)</label>
+                                <select name="clinician_type[]" id="clinician_type" class="form-control clinicianType"
+                                    data-parsley-errors-container="#clinician_type-error" multiple required>
+
+                                </select>
+                                <div id="clinician_type-error"></div>
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label for="passcode">Passcode</label>
+                                <input type="text" class="form-control" name="passcode" placeholder="Enter passcode"
+                                    id="passcode" required>
+
+                            </div>
+                            <div class="mb-3">
+
+                                <label for="facility_unit">How many units does your facility need covered?</label>
+                                <input type="text" class="form-control" name="facility_unit"
+                                    placeholder="Enter units" id="facility_unit" required>
+
+                            </div>
+                            <div class="mb-3 text-center">
+                                <b>Please review and agree to our <a href="">Privacy Policy</a> , <a
+                                        href="">UMS Facility Agreement </a> and <a href="">SMS Terms of
+                                        Service</a> </b>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check gap-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" required
+                                       >
+                                    <label class="form-check-label" for="defaultCheck2"> I have read and I agree to Unique Med Services Staffing Privacy Policy, UMS Facility Agreement and SMS Terms of Services </label>
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Register</button>
                             </div>
@@ -145,6 +237,83 @@
     </div>
 @endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            clinicianTypeSelect2()
+            stateSelect2()
+            citySelect2()
+
+            $('#formAuthentication').parsley()
+        });
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+
+        FilePond.create(
+            document.querySelector('.filepond'), {
+                instantUpload: false, // Disable instant upload
+                allowMultiple: false, // Allow multiple
+                storeAsFile: true,
+            }
+        );
+
+        function clinicianTypeSelect2() {
+            $('.clinicianType').select2({
+                placeholder: 'Select clinician types',
+                ajax: {
+                    url: "{{ route('clinician-types.select2') }}",
+                    delay: 250,
+                    data: function(params) {
+                        var query = {
+                            q: params.term,
+                        }
+
+                        return query;
+                    }
+                }
+            })
+        }
+
+        function stateSelect2() {
+            $('.state').select2({
+                width: '100%',
+                placeholder: 'Select state',
+                ajax: {
+                    url: "{{ route('states.select2') }}",
+                    delay: 250,
+                    data: function(params) {
+                        var query = {
+                            q: params.term,
+                            country_id: 233
+                        }
+
+                        return query;
+                    }
+                }
+            })
+        }
+
+        function citySelect2() {
+            $('.city').select2({
+                width: '100%',
+
+                placeholder: 'Select city',
+                ajax: {
+                    url: "{{ route('cities.select2') }}",
+                    delay: 250,
+                    data: function(params) {
+                        var query = {
+                            q: params.term,
+                            country_id: 233,
+                            state_id: $('.state').val()
+                        }
+
+                        return query;
+                    }
+                }
+            })
+        }
+    </script>
+@endsection
 
 {{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">

@@ -133,8 +133,9 @@
             border: 1px solid #d3d3d3;
             border-radius: 4px;
         }
+
         .filepond--root {
-          border:none;
+            border: none;
         }
     </style>
 
@@ -148,6 +149,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/assets/js/config.js') }}"></script>
+
+    @yield('css')
 </head>
 
 <body>
@@ -200,6 +203,19 @@
             <div class="toast-body">{{ Session::get('success') }}</div>
         </div>
     @endif
+
+    @if (Session::has('error'))
+        <div class="bg-danger bs-toast fade m-4 show toast end-0 toast-placement-ex top-0" role="alert"
+            aria-live="assertive" aria-atomic="true" data-delay="2000">
+            <div class="toast-header">
+                {{-- <i class="bx bx-bell me-2"></i> --}}
+                {{-- <div class="me-auto fw-semibold">Bootstrap</div>
+        <small>11 mins ago</small> --}}
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">{{ Session::get('error') }}</div>
+        </div>
+    @endif
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
@@ -245,7 +261,15 @@
             });
         </script>
     @endif
-
+    @if (Session::has('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toastPlacementExample = document.getElementById('toastPlacementExample').querySelector('.toast');
+                var toastPlacement = new bootstrap.Toast(toastPlacementExample);
+                toastPlacement.show();
+            });
+        </script>
+    @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"
         integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

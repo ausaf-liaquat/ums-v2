@@ -138,32 +138,78 @@
                   <div data-i18n="Analytics">Dashboard</div>
               </a>
           </li>
-          <li class="menu-item {{ request()->routeIs('backend.colors') ? 'active' : '' }}">
-              <a href="{{ route('backend.colors') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                  <div data-i18n="Analytics">Colors</div>
-              </a>
-          </li>
-          <li class="menu-item {{ request()->routeIs('backend.sizes') ? 'active' : '' }}">
-              <a href="{{ route('backend.sizes') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                  <div data-i18n="Analytics">Sizes</div>
-              </a>
-          </li>
-          <li class="menu-item {{ request()->routeIs('backend.products') ? 'active' : '' }}">
+          @if (auth()->user()->hasRole('super admin'))
+              <li class="menu-item {{ request()->routeIs('backend.colors') ? 'active' : '' }}">
+                  <a href="{{ route('backend.colors') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Colors</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.sizes') ? 'active' : '' }}">
+                  <a href="{{ route('backend.sizes') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Sizes</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.qualification-types') ? 'active' : '' }}">
 
-              <a href="{{ route('backend.products') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-cart"></i>
-                  <div data-i18n="Analytics">Products</div>
-              </a>
-          </li>
-          <li class="menu-item {{ request()->routeIs('backend.courses') ? 'active' : '' }}">
+                  <a href="{{ route('backend.qualification-types') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Qualification Types</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.shift-types') ? 'active' : '' }}">
 
-            <a href="{{ route('backend.courses') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Analytics">Courses</div>
-            </a>
-        </li>
+                  <a href="{{ route('backend.shift-types') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Shift Types</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.clinician-types') ? 'active' : '' }}">
+
+                  <a href="{{ route('backend.clinician-types') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Clinician Types</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.products') ? 'active' : '' }}">
+
+                  <a href="{{ route('backend.products') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-cart"></i>
+                      <div data-i18n="Analytics">Products</div>
+                  </a>
+              </li>
+              <li class="menu-item {{ request()->routeIs('backend.courses') ? 'active' : '' }}">
+
+                  <a href="{{ route('backend.courses') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-file"></i>
+                      <div data-i18n="Analytics">Courses</div>
+                  </a>
+              </li>
+          @endif
+          @if (auth()->user()->hasRole('facility'))
+              <li
+                  class="menu-item {{ request()->routeIs('backend.payment-methods') || request()->routeIs('backend.payment-methods.create') ? 'active' : '' }}">
+                  <a href="{{ route('backend.payment-methods') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+                      <div data-i18n="Analytics">Payment Methods</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.funds') || request()->routeIs('backend.funds.create') ? 'active' : '' }}">
+                  <a href="{{ route('backend.funds') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+                      <div data-i18n="Analytics">Funds</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') ? 'active' : '' }}">
+                  <a href="{{ route('backend.shifts') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                      <div data-i18n="Analytics">Shifts</div>
+                  </a>
+              </li>
+          @endif
           {{-- <li class="menu-item ">
               <a href="{{ route('backend.colors') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>

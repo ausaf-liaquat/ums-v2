@@ -2,18 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
 use App\Models\Traits\HasHashedMediaTrait;
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Traits\HasWalletFloat;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Cashier\Billable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet
 {
     use HasFactory;
     use HasHashedMediaTrait;
@@ -21,6 +27,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     use Notifiable;
     use SoftDeletes;
     use UserPresenter;
+    use Billable;
+    use HasWallet;
+    use HasWalletFloat;
 
     protected $guarded = [
         'id',
@@ -103,5 +112,25 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function getRolesListAttribute()
     {
         return array_map('intval', $this->roles->pluck('id')->toArray());
+    }
+
+    /**
+     * Get the facility associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function facility(): HasOne
+    {
+        return $this->hasOne(Facility::class, 'user_id');
+    }
+
+    // public function transactions()
+    // {
+    //     return $this->hasMany(Transaction::class);
+    // }
+
+    public function balance()
+    {
+        return $this->hasOne(UserAccount::class);
     }
 }
