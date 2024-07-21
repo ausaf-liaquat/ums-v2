@@ -28,7 +28,7 @@ class FundController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = Fund::with('transaction', 'payment_method');
+        $model = Fund::with('transaction', 'payment_method')->where('user_id', auth()->user()->id);
 
         return DataTables::eloquent($model)->addIndexColumn()->make(true);
     }

@@ -139,58 +139,112 @@
               </a>
           </li>
           @if (auth()->user()->hasRole('super admin'))
-              <li class="menu-item {{ request()->routeIs('backend.colors') ? 'active' : '' }}">
-                  <a href="{{ route('backend.colors') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Colors</div>
-                  </a>
-              </li>
-              <li class="menu-item {{ request()->routeIs('backend.sizes') ? 'active' : '' }}">
-                  <a href="{{ route('backend.sizes') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Sizes</div>
-                  </a>
-              </li>
-              <li class="menu-item {{ request()->routeIs('backend.qualification-types') ? 'active' : '' }}">
+              @php
+                  $masterFilesRoutes = [
+                      'backend.colors',
+                      'backend.colors.create',
+                      'backend.colors.edit',
+                      'backend.sizes',
+                      'backend.sizes.create',
+                      'backend.sizes.edit',
+                      'backend.qualification-types',
+                      'backend.qualification-types.create',
+                      'backend.qualification-types.edit',
+                      'backend.shift-types',
+                      'backend.shift-types.create',
+                      'backend.shift-types.edit',
+                      'backend.shift-hours',
+                      'backend.shift-hours.create',
+                      'backend.shift-hours.edit',
+                      'backend.clinician-types',
+                      'backend.clinician-types.create',
+                      'backend.clinician-types.edit',
+                  ];
+              @endphp
+              <li class="menu-item {{ areAnyRoutesActive($masterFilesRoutes) ? 'open' : '' }}" style="">
 
-                  <a href="{{ route('backend.qualification-types') }}" class="menu-link">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
                       <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Qualification Types</div>
+                      <div data-i18n="Misc">Master Files</div>
                   </a>
-              </li>
-              <li class="menu-item {{ request()->routeIs('backend.shift-types') ? 'active' : '' }}">
+                  <ul class="menu-sub">
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.colors') || request()->routeIs('backend.colors.create') || request()->routeIs('backend.colors.edit') ? 'active' : '' }}">
+                          <a href="{{ route('backend.colors') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Colors</div>
+                          </a>
+                      </li>
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.sizes') || request()->routeIs('backend.sizes.create') || request()->routeIs('backend.sizes.edit') ? 'active' : '' }}">
+                          <a href="{{ route('backend.sizes') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Sizes</div>
+                          </a>
+                      </li>
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.qualification-types') || request()->routeIs('backend.qualification-types.create') || request()->routeIs('backend.qualification-types.edit') ? 'active' : '' }}">
 
-                  <a href="{{ route('backend.shift-types') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Shift Types</div>
-                  </a>
-              </li>
-              <li class="menu-item {{ request()->routeIs('backend.shift-hours') ? 'active' : '' }}">
+                          <a href="{{ route('backend.qualification-types') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Qualification Types</div>
+                          </a>
+                      </li>
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.shift-types') || request()->routeIs('backend.shift-types.create') || request()->routeIs('backend.shift-types.edit') ? 'active' : '' }}">
 
-                  <a href="{{ route('backend.shift-hours') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Shift Hours</div>
-                  </a>
-              </li>
-              <li class="menu-item {{ request()->routeIs('backend.clinician-types') ? 'active' : '' }}">
+                          <a href="{{ route('backend.shift-types') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Shift Types</div>
+                          </a>
+                      </li>
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.shift-hours') || request()->routeIs('backend.shift-hours.create') || request()->routeIs('backend.shift-hours.edit') ? 'active' : '' }}">
 
-                  <a href="{{ route('backend.clinician-types') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                      <div data-i18n="Analytics">Clinician Types</div>
-                  </a>
+                          <a href="{{ route('backend.shift-hours') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Shift Hours</div>
+                          </a>
+                      </li>
+                      <li
+                          class="menu-item {{ request()->routeIs('backend.clinician-types') || request()->routeIs('backend.clinician-types.create') || request()->routeIs('backend.clinician-types.edit') ? 'active' : '' }}">
+
+                          <a href="{{ route('backend.clinician-types') }}" class="menu-link">
+                              <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                              <div data-i18n="Analytics">Clinician Types</div>
+                          </a>
+                      </li>
+                  </ul>
               </li>
-              <li class="menu-item {{ request()->routeIs('backend.products') ? 'active' : '' }}">
+
+              <li
+                  class="menu-item {{ request()->routeIs('backend.products') || request()->routeIs('backend.products.create') || request()->routeIs('backend.products.edit') ? 'active' : '' }}">
 
                   <a href="{{ route('backend.products') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-cart"></i>
                       <div data-i18n="Analytics">Products</div>
                   </a>
               </li>
-              <li class="menu-item {{ request()->routeIs('backend.courses') ? 'active' : '' }}">
+              <li
+                  class="menu-item {{ request()->routeIs('backend.courses') || request()->routeIs('backend.courses.create') || request()->routeIs('backend.courses.edit') ? 'active' : '' }}">
 
                   <a href="{{ route('backend.courses') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-file"></i>
                       <div data-i18n="Analytics">Courses</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.facilities') || request()->routeIs('backend.facilities.create') || request()->routeIs('backend.facilities.edit') ? 'active' : '' }}">
+                  <a href="{{ route('backend.facilities') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bxs-user-rectangle"></i>
+                      <div data-i18n="Analytics">Facilities</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.clinicians') || request()->routeIs('backend.clinicians.create') || request()->routeIs('backend.clinicians.edit') ? 'active' : '' }}">
+                  <a href="{{ route('backend.clinicians') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bxs-user-rectangle"></i>
+                      <div data-i18n="Analytics">Clinicians</div>
                   </a>
               </li>
           @endif

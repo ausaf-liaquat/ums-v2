@@ -28,7 +28,7 @@ class ShiftController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = Shift::query()->with('clinician_type', 'shift_hour','mfshift_types.types');
+        $model = Shift::query()->with('clinician_type', 'shift_hour','mfshift_types.types')->where('user_id', auth()->user()->id);
 
         return DataTables::eloquent($model)->addIndexColumn()->make(true);
     }

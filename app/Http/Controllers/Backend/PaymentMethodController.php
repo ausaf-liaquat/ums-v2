@@ -18,7 +18,7 @@ class PaymentMethodController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = FacilityPaymentMethod::query();
+        $model = FacilityPaymentMethod::query()->where('facility_id', auth()->user()->facility->id);
 
         return DataTables::eloquent($model)->addIndexColumn()->make(true);
     }

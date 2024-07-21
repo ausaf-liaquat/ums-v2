@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -28,6 +29,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     use UserPresenter;
     use Billable;
     use HasWalletFloat;
+    use HasApiTokens;
 
     protected $guarded = [
         'id',

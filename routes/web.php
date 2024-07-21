@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\AjaxController;
+use App\Http\Controllers\Backend\Clinicians\ClinicianController;
 use App\Http\Controllers\Backend\Courses\CourseController;
+use App\Http\Controllers\Backend\Facilities\FacilityController;
 use App\Http\Controllers\Backend\FundController;
 use App\Http\Controllers\Backend\MasterFiles\ClinicianTypeController;
 use App\Http\Controllers\Backend\MasterFiles\ColorController;
@@ -59,7 +61,6 @@ Route::controller(Select2Controller::class)->group(function () {
     Route::get('select2/shift-types', 'shiftTypesSelect2')->name('shift-types.select2');
     Route::get('select2/clinician-types', 'clinicianTypesSelect2')->name('clinician-types.select2');
     Route::get('select2/shift-hours', 'shiftHourSelect2')->name('shift-hours.select2');
-
 });
 
 //  ____        _       _____     _     _
@@ -79,6 +80,8 @@ Route::get('payment-methods/dataTable', [PaymentMethodController::class, 'dataTa
 Route::get('funds/dataTable', [FundController::class, 'dataTable'])->name('funds.dataTable');
 Route::get('shifts/dataTable', [ShiftController::class, 'dataTable'])->name('shifts.dataTable');
 Route::get('shift-hours/dataTable', [ShiftHourController::class, 'dataTable'])->name('shift-hours.dataTable');
+Route::get('facilities/dataTable', [FacilityController::class, 'dataTable'])->name('facilities.dataTable');
+Route::get('clinicians/dataTable', [ClinicianController::class, 'dataTable'])->name('clinicians.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -165,7 +168,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("sizes/status", "status")->name("sizes.status");
         Route::delete("sizes/destroy", "destroy")->name('sizes.destroy');
     });
-
     /*
      *
      *  Qualification Types Routes
@@ -181,7 +183,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("qualification-types/status", "status")->name("qualification-types.status");
         Route::delete("qualification-types/destroy", "destroy")->name('qualification-types.destroy');
     });
-
     /*
      *
      *  Shift Types Routes
@@ -197,7 +198,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("shift-types/status", "status")->name("shift-types.status");
         Route::delete("shift-types/destroy", "destroy")->name('shift-types.destroy');
     });
-
     /*
      *
      *  Clinician Types Routes
@@ -213,7 +213,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("clinician-types/status", "status")->name("clinician-types.status");
         Route::delete("clinician-types/destroy", "destroy")->name('clinician-types.destroy');
     });
-
     /*
      *
      *  Products Routes
@@ -229,7 +228,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("products/status", "status")->name("products.status");
         Route::delete("products/destroy", "destroy")->name('products.destroy');
     });
-
     /*
      *
      *  Courses Routes
@@ -245,7 +243,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("courses/status", "status")->name("courses.status");
         Route::delete("courses/destroy", "destroy")->name('courses.destroy');
     });
-
     /*
      *
      *  Payment Methods Routes
@@ -261,7 +258,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("payment-methods/status", "status")->name("payment-methods.status");
         Route::delete("payment-methods/destroy", "destroy")->name('payment-methods.destroy');
     });
-
     /*
      *
      *  Funds Routes
@@ -277,7 +273,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("funds/status", "status")->name("funds.status");
         Route::delete("funds/destroy", "destroy")->name('funds.destroy');
     });
-
     /*
      *
      *  Shifts Routes
@@ -293,7 +288,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("shifts/status", "status")->name("shifts.status");
         Route::delete("shifts/destroy", "destroy")->name('shifts.destroy');
     });
-
     /*
      *
      *  Shift Hour Routes
@@ -309,6 +303,37 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("shift-hours/status", "status")->name("shift-hours.status");
         Route::delete("shift-hours/destroy", "destroy")->name('shift-hours.destroy');
     });
+    /*
+     *
+     *  Facility Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(FacilityController::class)->group(function () {
+        Route::get("facilities", "index")->name("facilities");
+        Route::get("facilities/create", "create")->name("facilities.create");
+        Route::post("facilities/store", "store")->name("facilities.store");
+        Route::get("facilities/edit/{facility}", "edit")->name("facilities.edit");
+        Route::post("facilities/update/{facility}", "update")->name("facilities.update");
+        Route::patch("facilities/status", "status")->name("facilities.status");
+        Route::delete("facilities/destroy", "destroy")->name('facilities.destroy');
+    });
+    /*
+     *
+     *  Clinician Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ClinicianController::class)->group(function () {
+        Route::get("clinicians", "index")->name("clinicians");
+        Route::get("clinicians/create", "create")->name("clinicians.create");
+        Route::post("clinicians/store", "store")->name("clinicians.store");
+        Route::get("clinicians/edit/{clinician}", "edit")->name("clinicians.edit");
+        Route::post("clinicians/update/{clinician}", "update")->name("clinicians.update");
+        Route::patch("clinicians/status", "status")->name("clinicians.status");
+        Route::delete("clinicians/destroy", "destroy")->name('clinicians.destroy');
+    });
+
 
     /*
      *
@@ -368,15 +393,25 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     $module_name = 'users';
     $controller_name = 'UserController';
     Route::get("{$module_name}/{id}/resend-email-confirmation", ['as' => "{$module_name}.emailConfirmationResend", 'uses' => "{$controller_name}@emailConfirmationResend"]);
+
     Route::delete("{$module_name}/user-provider-destroy", ['as' => "{$module_name}.userProviderDestroy", 'uses' => "{$controller_name}@userProviderDestroy"]);
+
     Route::get("{$module_name}/{id}/change-password", ['as' => "{$module_name}.changePassword", 'uses' => "{$controller_name}@changePassword"]);
+
     Route::patch("{$module_name}/{id}/change-password", ['as' => "{$module_name}.changePasswordUpdate", 'uses' => "{$controller_name}@changePasswordUpdate"]);
+
     Route::get("{$module_name}/trashed", ['as' => "{$module_name}.trashed", 'uses' => "{$controller_name}@trashed"]);
+
     Route::patch("{$module_name}/{id}/trashed", ['as' => "{$module_name}.restore", 'uses' => "{$controller_name}@restore"]);
+
     Route::get("{$module_name}/index_data", ['as' => "{$module_name}.index_data", 'uses' => "{$controller_name}@index_data"]);
+
     Route::get("{$module_name}/index_list", ['as' => "{$module_name}.index_list", 'uses' => "{$controller_name}@index_list"]);
+
     Route::patch("{$module_name}/{id}/block", ['as' => "{$module_name}.block", 'uses' => "{$controller_name}@block", 'middleware' => ['can:block_users']]);
+
     Route::patch("{$module_name}/{id}/unblock", ['as' => "{$module_name}.unblock", 'uses' => "{$controller_name}@unblock", 'middleware' => ['can:block_users']]);
+
     Route::resource("{$module_name}", "{$controller_name}");
 });
 

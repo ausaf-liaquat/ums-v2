@@ -598,3 +598,12 @@ function balanceData()
 
     return $data;
 }
+function areAnyRoutesActive(array $routes)
+{
+    foreach ($routes as $route) {
+        if (request()->routeIs($route)) {
+            return true;
+        }
+    }
+    return false;
+}

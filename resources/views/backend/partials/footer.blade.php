@@ -7,8 +7,8 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            , made with ❤️ by
-            <a href="" target="_blank"
+            , Made with ❤️ by
+            <a href="https://github.com/ausaf-liaquat" target="_blank"
                 class="footer-link fw-bolder">Ausaf Liaquat</a>
         </div>
         {{-- <div>

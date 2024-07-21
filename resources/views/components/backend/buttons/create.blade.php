@@ -1,4 +1,4 @@
-@props(['route' => '', 'icon' => 'fas fa-plus', 'title' => 'Create', 'small' => '', 'class' => ''])
+@props(['route' => '', 'icon' => 'tf-icons bx bx-plus-circle', 'title' => 'Create', 'small' => '', 'class' => ''])
 
 @if ($route)
     <a class='btn btn-success {{ $small == 'true' ? 'btn-sm' : '' }} {{ $class }}' data-toggle="tooltip"
