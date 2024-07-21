@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -86,7 +86,7 @@
                         <div class="col-md-6 mb-2">
                             <label for="course_name" class="form-label">Shift Hours</label>
                             <select id="mf_shift_hour" name="shift_hour_id" data-parsley-errors-container="shift-hour-error"
-                                class="form-select" {{ $isEdit ? 'disabled' : '' }}  required>
+                                class="form-select" {{ $isEdit ? 'disabled' : '' }} required>
                                 <option value="">Please select shit hour</option>
 
                                 @foreach ($shiftHours as $shiftHour)
@@ -110,7 +110,8 @@
                                 data-parsley-errors-container="shift_type-error" multiple class="form-select" required>
                                 @if ($isEdit)
                                     @foreach ($shift->mfshift_types as $types)
-                                        <option value="{{ $types->types->id }}" selected>{{ $types->types->name }}</option>
+                                        <option value="{{ $types->types->id }}" selected>{{ $types->types->name }}
+                                        </option>
                                     @endforeach
                                 @endif
                             </select>
@@ -124,7 +125,8 @@
                                 <input type="number" class="form-control" placeholder="Rate per hour" min="0"
                                     aria-label="Amount (to the nearest dollar)" min="0"
                                     value="{{ $shift->rate_per_hour ?? '' }}" data-parsley-errors-container="#amount-error"
-                                    name="rate_per_hour" id="rate_per_hour" step="0.01" {{ $isEdit ? 'readonly' : '' }}  required>
+                                    name="rate_per_hour" id="rate_per_hour" step="0.01"
+                                    {{ $isEdit ? 'readonly' : '' }} required>
                                 <span class="input-group-text">.00</span>
                             </div>
                             <div id="amount-error"></div>
@@ -219,7 +221,7 @@
             });
 
             @if ($isEdit)
-              $('#rate_per_hour').trigger('input')
+                $('#rate_per_hour').trigger('input')
             @endif
         });
 

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -40,7 +40,7 @@
                                 step="0.01" value="{{ $shift_hour->shift_total_hours ?? '' }}"
                                 placeholder="Enter shift total hours" autofocus="" required>
                         </div>
-                        
+
                     </div>
                     <div class="mt-5">
                         <button type="submit" class="btn btn-primary me-2">Save changes</button>

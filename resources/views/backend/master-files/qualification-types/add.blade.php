@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -32,7 +32,8 @@
                         <div class="mb-3 col-md-6">
                             <label for="name" class="form-label">Name</label>
                             <input class="form-control" type="text" id="name" name="name"
-                                value="{{ $qualification_type->name ?? '' }}" placeholder="Enter name" autofocus="" required>
+                                value="{{ $qualification_type->name ?? '' }}" placeholder="Enter name" autofocus=""
+                                required>
                         </div>
 
                     </div>

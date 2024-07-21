@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="container-xxl">
+    <div class="container-fluid">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register -->
@@ -94,4 +94,3 @@
         </div>
     </div>
 @endsection
-

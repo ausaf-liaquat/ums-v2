@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -36,7 +36,7 @@
                     <div>
 
                         <div class="form-group mt-4">
-                          <label for="" class="form-label">Main Content</label>
+                            <label for="" class="form-label">Main Content</label>
                             <textarea id="summernote" class="form-control" name="content" required data-parsley-errors-container="#content-error">{{ $course->course_content->content ?? null }}</textarea>
 
                             <div id="content-error"></div>
@@ -62,13 +62,14 @@
                                     </td>
                                     <td class="text-center">
                                         @if ($loop->first)
-                                        <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3" id="add"></i>
+                                            <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3"
+                                                id="add"></i>
                                             {{-- <button type="button" name="add" id="add" class="btn btn-success">Add
                                                 More
                                             </button> --}}
-
                                         @else
-                                        <i class="tf-icons bx bxs-message-square-x text-danger cursor-pointer remove-tr fs-3" id="add"></i>
+                                            <i class="tf-icons bx bxs-message-square-x text-danger cursor-pointer remove-tr fs-3"
+                                                id="add"></i>
                                         @endif
 
                                     </td>
@@ -85,7 +86,8 @@
 
                                     </td>
                                     <td class="text-center">
-                                      <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3" id="add"></i>
+                                        <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3"
+                                            id="add"></i>
                                         {{-- <button type="button" name="add" id="add" class="btn btn-success">Add
                                             More
                                         </button> --}}

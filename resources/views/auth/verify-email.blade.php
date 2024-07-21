@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    <div class="container-xxl">
+    <div class="container-fluid">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register -->
@@ -70,13 +70,17 @@
                         </div>
                         <!-- /Logo -->
                         <h4 class="mb-2">Welcome to Unique med services! 👋</h4>
-                        <p class="mb-4">Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.</p>
+                        <p class="mb-4">Thanks for signing up! Before getting started, could you verify your email address
+                            by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly
+                            send you another.</p>
 
-                        <form id="formAuthentication" class="mb-3" ethod="POST" action="{{ route('verification.send') }}">
+                        <form id="formAuthentication" class="mb-3" ethod="POST"
+                            action="{{ route('verification.send') }}">
                             @csrf
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Resend Verification Email</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit">Resend Verification
+                                    Email</button>
                             </div>
                         </form>
 

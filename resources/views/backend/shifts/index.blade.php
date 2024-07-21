@@ -3,7 +3,7 @@
     Shifts
 @endsection
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -81,7 +81,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-          let checkUser = "{{ auth()->user()->hasRole('super admin') }}";
+            let checkUser = "{{ auth()->user()->hasRole('super admin') }}";
 
             let table = $("#dataTableSize").DataTable({
                 language: {
@@ -114,7 +114,7 @@
                     },
                     {
                         "data": "user.name",
-                        "visible": checkUser?true:false,
+                        "visible": checkUser ? true : false,
                         "className": "text-center",
                         "defaultContent": "",
 

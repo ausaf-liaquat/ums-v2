@@ -3,18 +3,18 @@
     Colors
 @endsection
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-style1">
-            <li class="breadcrumb-item">
-                <a href="javascript:void(0);">Master Files</a>
-            </li>
-            <li class="breadcrumb-item active">
-                Colors
-            </li>
+    <div class="container-fluid flex-grow-1 container-p-y">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-style1">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0);">Master Files</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Colors
+                </li>
 
-        </ol>
-    </nav>
+            </ol>
+        </nav>
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
@@ -71,7 +71,7 @@
                         "data": "DT_RowIndex",
                         "orderable": false,
                         "searchable": false,
-                         "className": "text-center",
+                        "className": "text-center",
                         "defaultContent": "",
 
                     },

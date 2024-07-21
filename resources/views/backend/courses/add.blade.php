@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -54,7 +54,8 @@
                         </div>
                         <div class="mb-3 col-md-3">
                             <label for="country" class="form-label">Country </label>
-                            <select name="country_id" id="country_id" class="form-control country" data-parsley-errors-container="#country-error" required>
+                            <select name="country_id" id="country_id" class="form-control country"
+                                data-parsley-errors-container="#country-error" required>
                                 @if ($isEdit)
                                     <option value="{{ $course->country_id }}" selected>{{ $course->country->name }}
                                     </option>
@@ -64,7 +65,8 @@
                         </div>
                         <div class="mb-3 col-md-3">
                             <label for="state" class="form-label">State </label>
-                            <select name="state_id" id="state_id" class="form-control state" data-parsley-errors-container="#state-error" required>
+                            <select name="state_id" id="state_id" class="form-control state"
+                                data-parsley-errors-container="#state-error" required>
                                 @if ($isEdit)
                                     <option value="{{ $course->state_id }}" selected>{{ $course->state->name }}</option>
                                 @endif
@@ -73,7 +75,8 @@
                         </div>
                         <div class="mb-3 col-md-3">
                             <label for="city" class="form-label">City </label>
-                            <select name="city_id" id="city_id" class="form-control city" data-parsley-errors-container="#city-error" required>
+                            <select name="city_id" id="city_id" class="form-control city"
+                                data-parsley-errors-container="#city-error" required>
                                 @if ($isEdit)
                                     <option value="{{ $course->city_id }}" selected>{{ $course->city->name }}</option>
                                 @endif
@@ -102,7 +105,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="mf_type" class="form-label">Course Image</label>
-                            <input type="file" class="filepond form-control" name="image" required    >
+                            <input type="file" class="filepond form-control" name="image" required>
                         </div>
 
                     </div>

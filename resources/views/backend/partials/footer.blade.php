@@ -1,15 +1,13 @@
 <!-- Footer -->
 <footer class="content-footer footer bg-footer-theme">
-    <div
-        class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+    <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
         <div class="mb-2 mb-md-0">
             ©
             <script>
                 document.write(new Date().getFullYear());
             </script>
             , Made with ❤️ by
-            <a href="https://github.com/ausaf-liaquat" target="_blank"
-                class="footer-link fw-bolder">Ausaf Liaquat</a>
+            <a href="https://github.com/ausaf-liaquat" target="_blank" class="footer-link fw-bolder">Ausaf Liaquat</a>
         </div>
         {{-- <div>
             <a href="https://themeselection.com/license/" class="footer-link me-4"

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1">
                 <li class="breadcrumb-item">
@@ -29,81 +29,85 @@
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->name }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->name }}</p>
+                        </div>
                     </div>
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->email }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->email }}</p>
+                        </div>
                     </div>
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Unit</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->unit }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Unit</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->unit }}</p>
+                        </div>
                     </div>
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Address</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->address }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Address</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->address }}</p>
+                        </div>
                     </div>
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Mobile</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->mobile }}</p>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">State</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->state->name }}</p>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">City</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->city->name }}</p>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Zip Code</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->zip_code ?? 'N/A' }}</p>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Referred BY</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->referred_by }}</p>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name"><b>WHAT TYPE OF CLINICIANS DO YOU NEED?</b> (SELECT ALL THAT APPLY)</label>
-                      <div class="col-sm-10">
-                        @foreach ($facility->facility->facility_clinician_types as $facility_clinician_type)
-                          <span class="badge bg-label-primary">{{ $facility_clinician_type->clinician_type->name }}</span> <br>
-                        @endforeach
-
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">Passcode</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->passcode }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Mobile</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->mobile }}</p>
+                        </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label" for="basic-default-name">How many units does your facility need covered?</label>
-                      <div class="col-sm-10">
-                        <p>{{ $facility->facility->how_many_unit_need }}</p>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">State</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->state->name }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">City</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->city->name }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Zip Code</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->zip_code ?? 'N/A' }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Referred BY</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->referred_by }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name"><b>WHAT TYPE OF CLINICIANS DO YOU
+                                NEED?</b> (SELECT ALL THAT APPLY)</label>
+                        <div class="col-sm-10">
+                            @foreach ($facility->facility->facility_clinician_types as $facility_clinician_type)
+                                <span
+                                    class="badge bg-label-primary">{{ $facility_clinician_type->clinician_type->name }}</span>
+                                <br>
+                            @endforeach
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Passcode</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->passcode }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">How many units does your facility
+                            need covered?</label>
+                        <div class="col-sm-10">
+                            <p>{{ $facility->facility->how_many_unit_need }}</p>
+                        </div>
                     </div>
 
                     {{-- <div class="mt-5">
