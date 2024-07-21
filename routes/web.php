@@ -239,6 +239,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::get("courses/create", "create")->name("courses.create");
         Route::post("courses/store", "store")->name("courses.store");
         Route::get("courses/edit/{course}", "edit")->name("courses.edit");
+        Route::get("courses/content/{course}", "content")->name("courses.content");
+        Route::post("courses/content/{course}/update", "contentUpdate")->name("courses.content.update");
         Route::post("courses/update/{course}", "update")->name("courses.update");
         Route::patch("courses/status", "status")->name("courses.status");
         Route::delete("courses/destroy", "destroy")->name('courses.destroy');

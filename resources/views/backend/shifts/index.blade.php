@@ -19,31 +19,34 @@
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="d-flex p-4 pt-3">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="{{ asset('assets/assets/img/icons/unicons/wallet.png') }}" alt="User">
-                            </div>
-                            <div>
-                                <small class="text-muted d-block">Total Balance</small>
-                                <div class="d-flex align-items-center">
-                                    <h6 class="mb-0 me-1">${{ balanceData()['currentBalance'] }}</h6>
-                                    <small class="text-success fw-semibold">
-                                        <i class="bx bx-chevron-up"></i>
-                                        {{ balanceData()['percentageIncrease'] }}
-                                    </small>
-                                    <input type="hidden" id="current_balance" name="current_balance"
-                                        value="{{ auth()->user()->wallet->balanceFloatNum }}">
+                @if (auth()->user()->hasRole('facility'))
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex p-4 pt-3">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/assets/img/icons/unicons/wallet.png') }}" alt="User">
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Total Balance</small>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="mb-0 me-1">${{ balanceData()['currentBalance'] }}</h6>
+                                        <small class="text-success fw-semibold">
+                                            <i class="bx bx-chevron-up"></i>
+                                            {{ balanceData()['percentageIncrease'] }}
+                                        </small>
+                                        <input type="hidden" id="current_balance" name="current_balance"
+                                            value="{{ auth()->user()->wallet->balanceFloatNum }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <a href="{{ route('backend.shifts.create') }}" class="btn btn-primary float-end">Add <i
+                                    class="tf-icons bx bx-plus-circle"></i></a>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <a href="{{ route('backend.shifts.create') }}" class="btn btn-primary float-end">Add <i
-                                class="tf-icons bx bx-plus-circle"></i></a>
-                    </div>
-                </div>
+                @endif
+
             </div>
 
             <div class="card-body">
@@ -54,6 +57,7 @@
                             <tr>
                                 <th>Sr. no</th>
                                 <th>Shift Date</th>
+                                <th>Shift Created By (Facility)</th>
                                 <th>Shift Title</th>
                                 <th>Clinician Type</th>
                                 <th>Shift Hours</th>
@@ -77,6 +81,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
+          let checkUser = "{{ auth()->user()->hasRole('super admin') }}";
+
             let table = $("#dataTableSize").DataTable({
                 language: {
                     paginate: {
@@ -102,6 +108,13 @@
                     },
                     {
                         "data": "date",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "user.name",
+                        "visible": checkUser?true:false,
                         "className": "text-center",
                         "defaultContent": "",
 
@@ -153,7 +166,7 @@
 
                 ],
                 columnDefs: [{
-                        "targets": 6,
+                        "targets": 7,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
 
@@ -161,7 +174,7 @@
                         },
                     },
                     {
-                        "targets": 7,
+                        "targets": 8,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             let notes = ''

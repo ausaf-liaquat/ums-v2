@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('city_id')->nullable();
             $table->text('unit')->nullable();
             $table->string('referred_by')->nullable();
+            $table->string('zip_code')->nullable();
             $table->string('passcode')->nullable();
             $table->string('how_many_unit_need')->nullable();
             $table->timestamps();

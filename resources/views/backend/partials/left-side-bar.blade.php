@@ -226,7 +226,7 @@
                   </a>
               </li>
               <li
-                  class="menu-item {{ request()->routeIs('backend.courses') || request()->routeIs('backend.courses.create') || request()->routeIs('backend.courses.edit') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.courses') || request()->routeIs('backend.courses.create') || request()->routeIs('backend.courses.edit') || request()->routeIs('backend.courses.content') ? 'active' : '' }}">
 
                   <a href="{{ route('backend.courses') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-file"></i>
@@ -263,14 +263,14 @@
                       <div data-i18n="Analytics">Funds</div>
                   </a>
               </li>
-              <li
-                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
-                  <a href="{{ route('backend.shifts') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-briefcase"></i>
-                      <div data-i18n="Analytics">Shifts</div>
-                  </a>
-              </li>
           @endif
+          <li
+              class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
+              <a href="{{ route('backend.shifts') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                  <div data-i18n="Analytics">Shifts</div>
+              </a>
+          </li>
           {{-- <li class="menu-item ">
               <a href="{{ route('backend.colors') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>

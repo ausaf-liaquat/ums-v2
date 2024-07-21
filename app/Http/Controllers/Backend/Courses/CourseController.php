@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
+use App\Models\Courses\CourseContent;
+use App\Models\Courses\CourseLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -119,6 +121,50 @@ class CourseController extends Controller
         $course->update(['image' => $file]);
 
         return redirect()->route('backend.courses')->with('success', 'Courses updated successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function content(Course $course)
+    {
+        $data = [
+            'isEdit' => true,
+            'course' => $course
+        ];
+
+        return view('backend.courses.content', $data);
+    }
+    public function contentUpdate(Course $course, Request $request)
+    {
+        // dd($course);
+
+        $course_content = CourseContent::where('course_id', $course->id)->first();
+
+        if ($course_content) {
+            CourseLink::where('course_content_id', $course_content->id)->delete();
+            $course_content->update([
+                'content' => $request->content
+            ]);
+        } else {
+            CourseContent::create([
+                'course_id' => $course->id,
+                'content' => $request->content
+            ]);
+        }
+        if ($request->heading) {
+            foreach ($request->heading ?? [] as $key => $value) {
+                if ($value) {
+                    CourseLink::create([
+                        'course_content_id' => $course_content->id,
+                        'heading' => $value,
+                        'link' => $request->link[$key]
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('backend.courses')->with('success', 'Course Content updated successfully');
     }
 
     public function status(Request $request)

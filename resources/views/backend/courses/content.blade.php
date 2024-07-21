@@ -1,7 +1,13 @@
 @extends('backend.layout.app')
 
 @section('title')
-    {{ $isEdit ? 'Edit' : 'Add' }} Course
+    {{ $isEdit ? 'Edit' : 'Add' }} Course Content
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css"
+        integrity="sha512-ZbehZMIlGA8CTIOtdE+M81uj3mrcgyrh6ZFeG33A4FHECakGrOsTPlPQ8ijjLkxgImrdmSVUHn1j+ApjodYZow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('content')
@@ -20,92 +26,76 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card mb-4">
-            <h5 class="card-header">{{ $isEdit ? 'Edit' : 'Add' }} Courses</h5>
+            <h5 class="card-header">{{ $isEdit ? 'Edit' : 'Add' }} Course Content</h5>
             <!-- Account -->
 
             <div class="card-body">
-                <form id="formSize"
-                    action="{{ $isEdit ? route('backend.courses.update', ['course' => $course->id]) : route('backend.courses.store') }}"
+                <form id="formSize" action="{{ route('backend.courses.content.update', ['course' => $course->id]) }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
 
-                    </div>
-                    <div class="row">
+                        <div class="form-group mt-4">
+                          <label for="" class="form-label">Main Content</label>
+                            <textarea id="summernote" class="form-control" name="content" required data-parsley-errors-container="#content-error">{{ $course->course_content->content ?? null }}</textarea>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="course_name" class="form-label">Course Name</label>
-                            <input class="form-control" type="text" name="course_name" id="course_name"
-                                value="{{ $course->name ?? '' }}" placeholder="Enter course name" name="name"
-                                autofocus="" required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="course_slug" class="form-label">Course Slug</label>
-                            <input class="form-control" type="text" id="course_slug" value="{{ $course->slug ?? '' }}"
-                                placeholder="Enter course slug" name="slug" autofocus="" readonly required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="description" class="form-label">Course Description</label>
-                            <textarea name="description" class="form-control" id="description" cols="30" rows="3" required>{{ $course->description ?? '' }}</textarea>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Course Address</label>
-                            <textarea name="address" class="form-control" id="address" cols="30" rows="3" required>{{ $course->address ?? '' }}</textarea>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="country" class="form-label">Country </label>
-                            <select name="country_id" id="country_id" class="form-control country" data-parsley-errors-container="#country-error" required>
-                                @if ($isEdit)
-                                    <option value="{{ $course->country_id }}" selected>{{ $course->country->name }}
-                                    </option>
-                                @endif
-                            </select>
-                            <div id="country-error"></div>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="state" class="form-label">State </label>
-                            <select name="state_id" id="state_id" class="form-control state" data-parsley-errors-container="#state-error" required>
-                                @if ($isEdit)
-                                    <option value="{{ $course->state_id }}" selected>{{ $course->state->name }}</option>
-                                @endif
-                            </select>
-                            <div id="state-error"></div>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="city" class="form-label">City </label>
-                            <select name="city_id" id="city_id" class="form-control city" data-parsley-errors-container="#city-error" required>
-                                @if ($isEdit)
-                                    <option value="{{ $course->city_id }}" selected>{{ $course->city->name }}</option>
-                                @endif
-                            </select>
-                            <div id="city-error"></div>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="zipcode" class="form-label">Zip Code </label>
-                            <input type="text" name="zip_code" value="{{ $course->zip_code ?? '' }}" id="zipcode"
-                                placeholder="Enter zip code" class="form-control" required>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="course_type" class="form-label"> Course Type </label>
-                            <select name="course_type" id="course_type" class="form-control course_type" required>
-                                <option value="">Select Course Type</option>
-                                <option value="0" {{ $isEdit && $course->type == 0 ? 'selected' : '' }}>Offline
-                                </option>
-                                <option value="1" {{ $isEdit && $course->type == 1 ? 'selected' : '' }}>Online
-                                </option>
-                            </select>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="course_price" class="form-label">Course price </label>
-                            <input type="number" name="course_price" id="course_price" placeholder="Enter course price"
-                                value="{{ $course->price ?? '' }}" class="form-control" required>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="mf_type" class="form-label">Course Image</label>
-                            <input type="file" class="filepond form-control" name="image" required    >
+                            <div id="content-error"></div>
                         </div>
 
+                        <table class="table table-bordered mt-4" id="dynamicTable">
+                            <tr>
+                                <th>Name</th>
+                                <th>Link</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+
+                            @forelse ($course->course_content->links ?? [] as $key => $course_link)
+                                <tr>
+                                    <td>
+                                        <input type="text" name="heading[]" placeholder="Enter heading"
+                                            class="form-control" value="{{ $course_link->heading }}" />
+                                    </td>
+                                    <td>
+
+                                        <input type="text" name="link[]" value="{{ $course_link->link }}"
+                                            placeholder="Enter link" class="form-control" />
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($loop->first)
+                                        <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3" id="add"></i>
+                                            {{-- <button type="button" name="add" id="add" class="btn btn-success">Add
+                                                More
+                                            </button> --}}
+
+                                        @else
+                                        <i class="tf-icons bx bxs-message-square-x text-danger cursor-pointer remove-tr fs-3" id="add"></i>
+                                        @endif
+
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td>
+                                        <input type="text" name="heading[]" placeholder="Enter heading"
+                                            class="form-control" />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="link[]" placeholder="Enter link"
+                                            class="form-control" />
+
+                                    </td>
+                                    <td class="text-center">
+                                      <i class="tf-icons bx bxs-message-square-add text-success cursor-pointer fs-3" id="add"></i>
+                                        {{-- <button type="button" name="add" id="add" class="btn btn-success">Add
+                                            More
+                                        </button> --}}
+                                    </td>
+                                </tr>
+                            @endforelse
+
+                        </table>
                     </div>
+
                     {{-- <div class="customer_records_dynamic"></div> --}} <div class="mt-5">
                         <button type="submit" class="btn btn-primary me-2">Save changes</button>
                     </div>
@@ -118,6 +108,33 @@
     </div>
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"
+        integrity="sha512-lVkQNgKabKsM1DA/qbhJRFQU8TuwkLF2vSN3iU/c7+iayKs08Y8GXqfFxxTZr1IcpMovXnf2N/ZZoMgmZep1YQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 450
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var i = 0;
+
+        $("#add").click(function() {
+
+            ++i;
+
+            $("#dynamicTable").append(
+                '<tr><td><input type="text" name="heading[]" placeholder="Enter heading" class="form-control" /></td><td><input type="text" name="link[]" placeholder="Enter link" class="form-control" /></td> <td class="text-center"> <i class="tf-icons bx bxs-message-square-x text-danger cursor-pointer remove-tr fs-3" id="add"></i></td></tr>'
+            );
+        });
+
+        $(document).on('click', '.remove-tr', function() {
+            $(this).parents('tr').remove();
+        });
+    </script>
     <script>
         $(document).ready(function() {
             countrySelect2()

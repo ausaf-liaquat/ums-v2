@@ -98,7 +98,9 @@
                         "targets": 2,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
-                            var type = data == 1 ? '<span class="badge bg-label-success">Online</span>' : '<span class="badge bg-label-secondary">Offline</span>';
+                            var type = data == 1 ?
+                                '<span class="badge bg-label-success">Online</span>' :
+                                '<span class="badge bg-label-secondary">Offline</span>';
                             return type;
                         },
                     },
@@ -120,10 +122,19 @@
                             var edit = '{{ route('backend.courses.edit', [':course']) }}';
                             edit = edit.replace(':course', data);
 
+                            var content = '{{ route('backend.courses.content', [':course']) }}';
+                            content = content.replace(':course', data);
+                            let contentHtml = ""
+                            if (row.type == 1) {
+                                contentHtml += `
+                                  <a href="` + content + `" class="text-info p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
+                              `
+                            }
+
                             let returnData =
                                 `<div class="text-center">
                                       <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
-
+                                      ${contentHtml}
                                       <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${row.id}"></i>
                                     </div>`;
 
