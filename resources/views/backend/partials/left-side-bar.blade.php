@@ -165,6 +165,13 @@
                       <div data-i18n="Analytics">Shift Types</div>
                   </a>
               </li>
+              <li class="menu-item {{ request()->routeIs('backend.shift-hours') ? 'active' : '' }}">
+
+                  <a href="{{ route('backend.shift-hours') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                      <div data-i18n="Analytics">Shift Hours</div>
+                  </a>
+              </li>
               <li class="menu-item {{ request()->routeIs('backend.clinician-types') ? 'active' : '' }}">
 
                   <a href="{{ route('backend.clinician-types') }}" class="menu-link">
@@ -189,21 +196,21 @@
           @endif
           @if (auth()->user()->hasRole('facility'))
               <li
-                  class="menu-item {{ request()->routeIs('backend.payment-methods') || request()->routeIs('backend.payment-methods.create') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.payment-methods') || request()->routeIs('backend.payment-methods.create') || request()->routeIs('backend.payment-methods.edit') ? 'active' : '' }}">
                   <a href="{{ route('backend.payment-methods') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
                       <div data-i18n="Analytics">Payment Methods</div>
                   </a>
               </li>
               <li
-                  class="menu-item {{ request()->routeIs('backend.funds') || request()->routeIs('backend.funds.create') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.funds') || request()->routeIs('backend.funds.create') || request()->routeIs('backend.funds.edit') ? 'active' : '' }}">
                   <a href="{{ route('backend.funds') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
                       <div data-i18n="Analytics">Funds</div>
                   </a>
               </li>
               <li
-                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
                   <a href="{{ route('backend.shifts') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-briefcase"></i>
                       <div data-i18n="Analytics">Shifts</div>

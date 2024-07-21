@@ -67,7 +67,7 @@ class FundController extends Controller
                 'return_url' => route('backend.funds'),
             ]);
 
-            $transaction = $user->depositFloat($amount);
+            $transaction = $user->wallet->depositFloat($amount);
             $transactionId = $transaction->id;
 
              Fund::create([
@@ -100,7 +100,7 @@ class FundController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Fund $fund)
     {
         $data = [
             'isEdit' => true,
@@ -113,35 +113,9 @@ class FundController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Fund $fund)
     {
 
-        $course->update([
-            'name' => $request->course_name,
-            'slug' => $request->slug,
-            'description' => $request->description,
-            'address' => $request->address,
-            'price' => $request->course_price,
-            'zip_code' => $request->zip_code,
-            'type' => $request->course_type,
-            'country_id' => $request->country_id,
-            'state_id' => $request->state_id,
-            'city_id' => $request->city_id,
-        ]);
-
-        if ($request->file('image')) {
-            Storage::disk('cms')->delete($course->image);
-        }
-
-        $file = null;
-
-        // Check if the request has file
-        if ($request->hasFile('image')) {
-            $path = Storage::disk('cms')->put('', $request->file('image'));
-            $file = $path; // Collect file paths
-        }
-
-        $course->update(['image' => $file]);
 
         return redirect()->route('backend.funds')->with('success', 'funds updated successfully');
     }
@@ -149,11 +123,6 @@ class FundController extends Controller
     public function status(Request $request)
     {
 
-        $course = Course::find($request->id);
-
-        $course->update([
-            'status' => $request->status
-        ]);
 
         return response()->json(200);
     }
@@ -162,9 +131,9 @@ class FundController extends Controller
     public function destroy(Request $request)
     {
 
-        $course = Course::find($request->id);
+        $fund = Fund::find($request->id);
 
-        $course->delete();
+        $fund->delete();
         return response()->json(200);
     }
 }

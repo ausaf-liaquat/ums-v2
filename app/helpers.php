@@ -3,7 +3,11 @@
 /*
  * Global helpers file with misc functions.
  */
-if (! function_exists('app_name')) {
+
+use Bavix\Wallet\Models\Wallet;
+use Carbon\Carbon;
+
+if (!function_exists('app_name')) {
     /**
      * Helper to grab the application name.
      *
@@ -18,7 +22,7 @@ if (! function_exists('app_name')) {
 /*
  * Global helpers file with misc functions.
  */
-if (! function_exists('app_url')) {
+if (!function_exists('app_url')) {
     /**
      * Helper to grab the application name.
      *
@@ -33,7 +37,7 @@ if (! function_exists('app_url')) {
 /*
  * Global helpers file with misc functions.
  */
-if (! function_exists('user_registration')) {
+if (!function_exists('user_registration')) {
     /**
      * Helper to grab the application name.
      *
@@ -57,7 +61,7 @@ if (! function_exists('user_registration')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('label_case')) {
+if (!function_exists('label_case')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -79,7 +83,7 @@ if (! function_exists('label_case')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('show_column_value')) {
+if (!function_exists('show_column_value')) {
     /**
      * Generates the function comment for the given function.
      *
@@ -99,7 +103,7 @@ if (! function_exists('show_column_value')) {
 
         $value = $valueObject->$column_name;
 
-        if (! $value) {
+        if (!$value) {
             return $value;
         }
 
@@ -123,10 +127,10 @@ if (! function_exists('show_column_value')) {
             $img_path = asset($value);
 
             $return_text = '<figure class="figure">
-                                <a href="'.$img_path.'" data-lightbox="image-set" data-title="Path: '.$value.'">
-                                    <img src="'.$img_path.'" style="max-width:200px;" class="figure-img img-fluid rounded img-thumbnail" alt="">
+                                <a href="' . $img_path . '" data-lightbox="image-set" data-title="Path: ' . $value . '">
+                                    <img src="' . $img_path . '" style="max-width:200px;" class="figure-img img-fluid rounded img-thumbnail" alt="">
                                 </a>
-                                <figcaption class="figure-caption">Path: '.$value.'</figcaption>
+                                <figcaption class="figure-caption">Path: ' . $value . '</figcaption>
                             </figure>';
         } else {
             $return_text = $value;
@@ -143,7 +147,7 @@ if (! function_exists('show_column_value')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('field_required')) {
+if (!function_exists('field_required')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -162,7 +166,7 @@ if (! function_exists('field_required')) {
 /**
  * Get or Set the Settings Values.
  */
-if (! function_exists('setting')) {
+if (!function_exists('setting')) {
     function setting($key, $default = null)
     {
         if (is_null($key)) {
@@ -182,7 +186,7 @@ if (! function_exists('setting')) {
 /*
  * Show Human readable file size
  */
-if (! function_exists('humanFilesize')) {
+if (!function_exists('humanFilesize')) {
     function humanFilesize($size, $precision = 2)
     {
         $units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -194,7 +198,7 @@ if (! function_exists('humanFilesize')) {
             $i++;
         }
 
-        return round($size, $precision).$units[$i];
+        return round($size, $precision) . $units[$i];
     }
 }
 
@@ -204,7 +208,7 @@ if (! function_exists('humanFilesize')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('encode_id')) {
+if (!function_exists('encode_id')) {
     /**
      * Encode Id to a Hashids / Sqids.
      */
@@ -222,7 +226,7 @@ if (! function_exists('encode_id')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('decode_id')) {
+if (!function_exists('decode_id')) {
     /**
      * Decode Id from Hashids / Sqids.
      */
@@ -245,7 +249,7 @@ if (! function_exists('decode_id')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('slug_format')) {
+if (!function_exists('slug_format')) {
     /**
      * Format a string to Slug.
      */
@@ -270,13 +274,13 @@ if (! function_exists('slug_format')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('icon')) {
+if (!function_exists('icon')) {
     /**
      * Format a string to Slug.
      */
     function icon($string = 'fa-regular fa-circle-check')
     {
-        return "<i class='".$string."'></i>&nbsp;";
+        return "<i class='" . $string . "'></i>&nbsp;";
     }
 }
 
@@ -288,7 +292,7 @@ if (! function_exists('icon')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('logUserAccess')) {
+if (!function_exists('logUserAccess')) {
     /**
      * Format a string to Slug.
      */
@@ -297,10 +301,10 @@ if (! function_exists('logUserAccess')) {
         $auth_text = '';
 
         if (\Auth::check()) {
-            $auth_text = 'User:'.\Auth::user()->name.' (ID:'.\Auth::user()->id.')';
+            $auth_text = 'User:' . \Auth::user()->name . ' (ID:' . \Auth::user()->id . ')';
         }
 
-        \Log::debug(label_case($text)." | {$auth_text}");
+        \Log::debug(label_case($text) . " | {$auth_text}");
     }
 }
 
@@ -311,7 +315,7 @@ if (! function_exists('logUserAccess')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('bn2enNumber')) {
+if (!function_exists('bn2enNumber')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -331,7 +335,7 @@ if (! function_exists('bn2enNumber')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('en2bnNumber')) {
+if (!function_exists('en2bnNumber')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -351,7 +355,7 @@ if (! function_exists('en2bnNumber')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('en2bnDate')) {
+if (!function_exists('en2bnDate')) {
     /**
      * Convert a English number to Bengali.
      */
@@ -393,7 +397,7 @@ if (! function_exists('en2bnDate')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('banglaDate')) {
+if (!function_exists('banglaDate')) {
     function banglaDate($date_input = '')
     {
         if ($date_input === '') {
@@ -430,7 +434,7 @@ if (! function_exists('banglaDate')) {
             $bn_year -= 1;
         }
 
-        $return_bn_date = $bn_day.' '.$bn_month.' '.$bn_year;
+        $return_bn_date = $bn_day . ' ' . $bn_month . ' ' . $bn_year;
 
         return en2bnNumber($return_bn_date);
     }
@@ -442,7 +446,7 @@ if (! function_exists('banglaDate')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('generate_rgb_code')) {
+if (!function_exists('generate_rgb_code')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -465,7 +469,7 @@ if (! function_exists('generate_rgb_code')) {
  *
  * ------------------------------------------------------------------------
  */
-if (! function_exists('date_today')) {
+if (!function_exists('date_today')) {
     /**
      * Return Date with weekday.
      *
@@ -480,7 +484,7 @@ if (! function_exists('date_today')) {
     }
 }
 
-if (! function_exists('language_direction')) {
+if (!function_exists('language_direction')) {
     /**
      * return direction of languages.
      *
@@ -522,7 +526,7 @@ if (! function_exists('language_direction')) {
 /*
  * Application Demo Mode check
  */
-if (! function_exists('demo_mode')) {
+if (!function_exists('demo_mode')) {
     /**
      * Helper to grab the application name.
      *
@@ -543,7 +547,7 @@ if (! function_exists('demo_mode')) {
 /*
  * Split Name to First Name and Last Name
  */
-if (! function_exists('split_name')) {
+if (!function_exists('split_name')) {
     /**
      * Split Name to First Name and Last Name.
      *
@@ -553,8 +557,44 @@ if (! function_exists('split_name')) {
     {
         $name = trim($name);
         $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
-        $first_name = trim(preg_replace('#'.preg_quote($last_name, '#').'#', '', $name));
+        $first_name = trim(preg_replace('#' . preg_quote($last_name, '#') . '#', '', $name));
 
         return [$first_name, $last_name];
     }
+}
+
+function balanceData()
+{
+    $user = auth()->user()->wallet;
+    $currentBalance = $user->balanceFloatNum;
+
+    // Fetch the balance from one month ago
+    $oneMonthAgo = Carbon::now()->subMonth();
+    $previousBalanceRecord = Wallet::where('holder_id', $user->id)
+        ->where('holder_type', get_class($user))
+        ->where('created_at', '<=', $oneMonthAgo)
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+    // Handle case where there is no previous balance record
+    if ($previousBalanceRecord) {
+        $previousBalance = $previousBalanceRecord->balanceFloatNum;
+    } else {
+        $previousBalance = 0; // Default to 0 if no previous record is found
+    }
+
+    // Calculate the percentage increase
+    if ($previousBalance != 0) {
+        $percentageIncrease = (($currentBalance - $previousBalance) / $previousBalance) * 100;
+    } else {
+        $percentageIncrease = 0; // Handle division by zero
+    }
+
+    $data = [
+        'currentBalance' => $currentBalance,
+        'previousBalance' => $previousBalance,
+        'percentageIncrease' => $percentageIncrease
+    ];
+
+    return $data;
 }

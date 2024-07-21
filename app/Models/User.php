@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
 use App\Models\Traits\HasHashedMediaTrait;
-use Bavix\Wallet\Interfaces\Wallet;
-use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\WalletFloat;
 use Bavix\Wallet\Traits\HasWalletFloat;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +18,7 @@ use Laravel\Cashier\Billable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet
+class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletFloat
 {
     use HasFactory;
     use HasHashedMediaTrait;
@@ -28,7 +27,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet
     use SoftDeletes;
     use UserPresenter;
     use Billable;
-    use HasWallet;
     use HasWalletFloat;
 
     protected $guarded = [

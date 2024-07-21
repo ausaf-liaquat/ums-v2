@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\MasterFiles\MFClinicianType;
 use App\Models\MasterFiles\MFQualificationType;
+use App\Models\MasterFiles\MFShiftHour;
 use App\Models\MasterFiles\MFShiftType;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -74,5 +75,24 @@ class Select2Controller extends Controller
             })->limit(10)->get(['id', 'name as text']);
 
         return ['results' => $clinicianTypes];
+    }
+    public function shiftHourSelect2(Request $request)
+    {
+        $shiftHours = MFShiftHour::query()
+            ->when($request->q, function ($query) use ($request) {
+                return $query->where('name', 'like', "%{$request->q}%");
+            })
+            ->limit(10)
+            ->get();
+
+        $results = $shiftHours->map(function ($shiftHour) {
+            return [
+                'id' => $shiftHour->id,
+                'text' => $shiftHour->name,
+                'shift_total_hour' => $shiftHour->shift_total_hours, // Assuming total_hour is a field or an accessor method
+            ];
+        });
+
+        return response()->json(['results' => $results]);
     }
 }

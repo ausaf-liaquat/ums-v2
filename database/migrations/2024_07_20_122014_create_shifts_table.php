@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('mf_clinician_type_id');
+            $table->bigInteger('mf_shift_hour_id');
             $table->bigInteger('country_id')->nullable();
             $table->bigInteger('state_id')->nullable();
             $table->bigInteger('city_id')->nullable();

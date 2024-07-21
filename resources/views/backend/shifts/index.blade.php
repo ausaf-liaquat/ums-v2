@@ -1,6 +1,6 @@
 @extends('backend.layout.app')
 @section('title')
-    Funds
+    Shifts
 @endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -10,7 +10,7 @@
                     <a href="javascript:void(0);">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    Funds
+                    Shifts
                 </li>
 
             </ol>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <a href="{{ route('backend.funds.create') }}" class="btn btn-primary float-end">Add <i
+                        <a href="{{ route('backend.shifts.create') }}" class="btn btn-primary float-end">Add <i
                                 class="tf-icons bx bx-plus-circle"></i></a>
                     </div>
                 </div>
@@ -53,11 +53,14 @@
                         <thead>
                             <tr>
                                 <th>Sr. no</th>
-                                <th>Datetime</th>
-                                <th>Transaction ID</th>
-                                <th>Payment Method</th>
-                                <th>Amount</th>
-                                {{-- <th>Actions</th> --}}
+                                <th>Shift Date</th>
+                                <th>Shift Title</th>
+                                <th>Clinician Type</th>
+                                <th>Shift Hours</th>
+                                <th>Rate Per Hour</th>
+                                <th>Total Shift Cost</th>
+                                <th>Shift Notes</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                     </table>
@@ -80,14 +83,14 @@
                         previous: "<i class='mdi mdi-chevron-left'>",
                         next: "<i class='mdi mdi-chevron-right'>"
                     },
-                    info: "Showing funds _START_ to _END_ of _TOTAL_",
-                    lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> funds'
+                    info: "Showing shifts _START_ to _END_ of _TOTAL_",
+                    lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> shifts'
                 },
 
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('funds.dataTable') }}',
+                    url: '{{ route('shifts.dataTable') }}',
                 },
                 columns: [{
                         "data": "DT_RowIndex",
@@ -98,75 +101,98 @@
 
                     },
                     {
-                        "data": "datetime",
+                        "data": "date",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "transaction.uuid",
+                        "data": "title",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "payment_method.first",
+                        "data": "clinician_type.name",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "amount",
+                        "data": "shift_hour.name",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
-                    // {
-                    //     "data": "id",
-                    //     "className": "text-center",
-                    //     "defaultContent": "",
+                    {
+                        "data": "rate_per_hour",
+                        "className": "text-center",
+                        "defaultContent": "",
 
-                    // },
+                    },
+                    {
+                        "data": "total_amount",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "mfshift_types",
+                        "searchable": false,
+                        "orderable": false,
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "id",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
 
                 ],
-                columnDefs: [
-                    // {
-                    //       "targets": 2,
-                    //       "className": "text-center",
-                    //       "render": function(data, type, row, meta) {
-                    //           var type = data == 1 ? '<span class="badge bg-label-success">Online</span>' : '<span class="badge bg-label-secondary">Offline</span>';
-                    //           return type;
-                    //       },
-                    //   },
-                    {
-                        "targets": 4,
+                columnDefs: [{
+                        "targets": 6,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
 
                             return `$ ${data}`;
                         },
                     },
-                    // {
-                    //     "targets": -1,
-                    //     "render": function(data, type, row, meta) {
+                    {
+                        "targets": 7,
+                        "className": "text-center",
+                        "render": function(data, type, row, meta) {
+                            let notes = ''
+                            data.forEach(element => {
+                                notes +=
+                                    `<span class="badge bg-label-info mb-2">${element.types.name}</span> <br> `
+                            });
 
-                    //         var edit = '{{ route('backend.funds.edit', [':course']) }}';
-                    //         edit = edit.replace(':course', data);
+                            return notes;
+                        },
+                    },
+                    {
+                        "targets": -1,
+                        "render": function(data, type, row, meta) {
 
-                    //         let returnData =
-                    //             `<div class="text-center">
-                //                   <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${row.id}"></i>
-                //                 </div>`;
+                            var edit = '{{ route('backend.shifts.edit', [':course']) }}';
+                            edit = edit.replace(':course', data);
 
-                    //         return returnData;
-                    //     },
-                    // },
+                            let returnData =
+                                `<div class="text-center">
+                                  <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
+                                  <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="-"></i>
+                                </div>`;
+
+                            return returnData;
+                        },
+                    },
                 ],
                 drawCallback: function() {
-
-
                     $(".js-status-switch").on("change", function() {
-                        let url = "{{ route('backend.funds.status') }}";
+                        let url = "{{ route('backend.shifts.status') }}";
 
                         axios.patch(url, {
                             id: $(this).data("id"),
@@ -186,7 +212,7 @@
                             preConfirm: function(n) {
                                 return axios
                                     .post(
-                                        '{{ route('backend.funds.destroy') }}', {
+                                        '{{ route('backend.shifts.destroy') }}', {
                                             _method: 'delete',
                                             _token: '{{ csrf_token() }}',
                                             id: id,

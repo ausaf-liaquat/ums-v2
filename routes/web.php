@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Backend\AjaxController;
 use App\Http\Controllers\Backend\Courses\CourseController;
 use App\Http\Controllers\Backend\FundController;
 use App\Http\Controllers\Backend\MasterFiles\ClinicianTypeController;
 use App\Http\Controllers\Backend\MasterFiles\ColorController;
 use App\Http\Controllers\Backend\MasterFiles\QualificationTypeController;
+use App\Http\Controllers\Backend\MasterFiles\ShiftHourController;
 use App\Http\Controllers\Backend\MasterFiles\ShiftTypeController;
 use App\Http\Controllers\Backend\MasterFiles\SizeController;
 use App\Http\Controllers\Backend\PaymentMethodController;
@@ -56,6 +58,7 @@ Route::controller(Select2Controller::class)->group(function () {
     Route::get('select2/qualification-types', 'qualificationTypesSelect2')->name('qualification-types.select2');
     Route::get('select2/shift-types', 'shiftTypesSelect2')->name('shift-types.select2');
     Route::get('select2/clinician-types', 'clinicianTypesSelect2')->name('clinician-types.select2');
+    Route::get('select2/shift-hours', 'shiftHourSelect2')->name('shift-hours.select2');
 
 });
 
@@ -74,6 +77,8 @@ Route::get('shift-types/dataTable', [ShiftTypeController::class, 'dataTable'])->
 Route::get('clinician-types/dataTable', [ClinicianTypeController::class, 'dataTable'])->name('clinician-types.dataTable');
 Route::get('payment-methods/dataTable', [PaymentMethodController::class, 'dataTable'])->name('payment-methods.dataTable');
 Route::get('funds/dataTable', [FundController::class, 'dataTable'])->name('funds.dataTable');
+Route::get('shifts/dataTable', [ShiftController::class, 'dataTable'])->name('shifts.dataTable');
+Route::get('shift-hours/dataTable', [ShiftHourController::class, 'dataTable'])->name('shift-hours.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -84,6 +89,8 @@ Route::get('funds/dataTable', [FundController::class, 'dataTable'])->name('funds
 Route::controller(ColorController::class)->group(function () {
     Route::get('product/name-unique', 'productNameValidator')->name('product.validator');
 });
+Route::get('shifts/autocomplete', [AjaxController::class, 'shiftAutocomplete'])->name('shifts.autocomplete');
+
 
 
 //  _____ ____   ___  _   _ _____ _____ _   _ ____
@@ -285,6 +292,22 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("shifts/update/{shift}", "update")->name("shifts.update");
         Route::patch("shifts/status", "status")->name("shifts.status");
         Route::delete("shifts/destroy", "destroy")->name('shifts.destroy');
+    });
+
+    /*
+     *
+     *  Shift Hour Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(ShiftHourController::class)->group(function () {
+        Route::get("shift-hours", "index")->name("shift-hours");
+        Route::get("shift-hours/create", "create")->name("shift-hours.create");
+        Route::post("shift-hours/store", "store")->name("shift-hours.store");
+        Route::get("shift-hours/edit/{shift_hour}", "edit")->name("shift-hours.edit");
+        Route::post("shift-hours/update/{shift_hour}", "update")->name("shift-hours.update");
+        Route::patch("shift-hours/status", "status")->name("shift-hours.status");
+        Route::delete("shift-hours/destroy", "destroy")->name('shift-hours.destroy');
     });
 
     /*
