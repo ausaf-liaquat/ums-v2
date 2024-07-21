@@ -67,7 +67,7 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                                <span class="app-brand-text demo text-body fw-bolder">Unique Med Services</span>
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -111,7 +111,7 @@
                                 </ul>
                             </div>
                             <div class="mb-3">
-                                <div class="form-check">
+                                <div class="form-check gap-3">
                                     <input class="form-check-input" type="checkbox" id="remember-me" />
                                     <label class="form-check-label" for="remember-me"> Remember Me </label>
                                 </div>
