@@ -271,6 +271,15 @@
                   <div data-i18n="Analytics">Shifts</div>
               </a>
           </li>
+          @if (auth()->user()->hasRole('super admin'))
+              <li
+                  class="menu-item {{ request()->routeIs('backend.frontend-contents') || request()->routeIs('backend.frontend-contents.create') || request()->routeIs('backend.frontend-contents.edit') ? 'active' : '' }}">
+                  <a href="{{ route('backend.frontend-contents') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-detail"></i>
+                      <div data-i18n="Analytics">Frontend Contents</div>
+                  </a>
+              </li>
+          @endif
           {{-- <li class="menu-item ">
               <a href="{{ route('backend.colors') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>

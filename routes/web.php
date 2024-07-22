@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AjaxController;
 use App\Http\Controllers\Backend\Clinicians\ClinicianController;
 use App\Http\Controllers\Backend\Courses\CourseController;
 use App\Http\Controllers\Backend\Facilities\FacilityController;
+use App\Http\Controllers\Backend\FrontendContentController;
 use App\Http\Controllers\Backend\FundController;
 use App\Http\Controllers\Backend\MasterFiles\ClinicianTypeController;
 use App\Http\Controllers\Backend\MasterFiles\ColorController;
@@ -82,6 +83,7 @@ Route::get('shifts/dataTable', [ShiftController::class, 'dataTable'])->name('shi
 Route::get('shift-hours/dataTable', [ShiftHourController::class, 'dataTable'])->name('shift-hours.dataTable');
 Route::get('facilities/dataTable', [FacilityController::class, 'dataTable'])->name('facilities.dataTable');
 Route::get('clinicians/dataTable', [ClinicianController::class, 'dataTable'])->name('clinicians.dataTable');
+Route::get('frontend-contents/dataTable', [FrontendContentController::class, 'dataTable'])->name('frontend-contents.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -244,6 +246,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("courses/update/{course}", "update")->name("courses.update");
         Route::patch("courses/status", "status")->name("courses.status");
         Route::delete("courses/destroy", "destroy")->name('courses.destroy');
+    });
+
+    Route::controller(FrontendContentController::class)->group(function () {
+        Route::get("frontend-contents", "index")->name("frontend-contents");
+        Route::get("frontend-contents/create", "create")->name("frontend-contents.create");
+        Route::post("frontend-contents/store", "store")->name("frontend-contents.store");
+        Route::get("frontend-contents/edit/{frontend_page}", "edit")->name("frontend-contents.edit");
+        Route::get("frontend-contents/content/{frontend_page}", "content")->name("frontend-contents.content");
+        Route::post("frontend-contents/content/{frontend_page}/update", "contentUpdate")->name("frontend-contents.content.update");
+        Route::post("frontend-contents/update/{frontend_page}", "update")->name("frontend-contents.update");
+        Route::patch("frontend-contents/status", "status")->name("frontend-contents.status");
+        Route::delete("frontend-contents/destroy", "destroy")->name('frontend-contents.destroy');
     });
     /*
      *
