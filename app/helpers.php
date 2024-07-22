@@ -6,6 +6,7 @@
 
 use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('app_name')) {
     /**
@@ -606,4 +607,18 @@ function areAnyRoutesActive(array $routes)
         }
     }
     return false;
+}
+/**
+ * @return User
+ */
+function getLoggedInUser()
+{
+    return Auth::user();
+}
+/**
+ * @return int
+ */
+function getLoggedInUserId()
+{
+    return Auth::id();
 }

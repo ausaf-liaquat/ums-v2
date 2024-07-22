@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Models\Shifts;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserShift extends Model
+class W9Form extends Model
 {
     use HasFactory;
+
+    protected $table = "w_nine_form";
+
+    protected $guarded  = ['id'];
 }

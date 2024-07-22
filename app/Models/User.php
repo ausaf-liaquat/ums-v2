@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
@@ -132,5 +133,23 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     public function balance()
     {
         return $this->hasOne(UserAccount::class);
+    }
+
+     /**
+     * @return array
+     */
+    public function prepareData(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name ?? 'N/A',
+            'last_name' => $this->last_name ?? 'N/A',
+            'email' => $this->email ?? 'N/A',
+            'phone_number' => $this->phone ?? 'N/A',
+            'image_url' => Storage::disk('cms')->url($this->avatar) ?? 'N/A',
+            'unCompleted_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 0)->count() ?? 0,
+            'completed_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 1)->count() ?? 0
+
+        ];
     }
 }
