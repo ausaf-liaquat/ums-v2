@@ -84,6 +84,7 @@ Route::get('shift-hours/dataTable', [ShiftHourController::class, 'dataTable'])->
 Route::get('facilities/dataTable', [FacilityController::class, 'dataTable'])->name('facilities.dataTable');
 Route::get('clinicians/dataTable', [ClinicianController::class, 'dataTable'])->name('clinicians.dataTable');
 Route::get('frontend-contents/dataTable', [FrontendContentController::class, 'dataTable'])->name('frontend-contents.dataTable');
+Route::get('clinician-documents/dataTable', [ClinicianController::class, 'documentsDataTable'])->name('clinician-documents.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -348,6 +349,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("clinicians/update/{clinician}", "update")->name("clinicians.update");
         Route::patch("clinicians/status", "status")->name("clinicians.status");
         Route::delete("clinicians/destroy", "destroy")->name('clinicians.destroy');
+        Route::patch("clinicians/facility-banned-update/", "facilityBanned")->name("clinicians.facility.banned.update");
+
     });
 
 

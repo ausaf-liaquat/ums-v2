@@ -77,7 +77,7 @@ class AuthController extends Controller
             'password' => Hash::make($request['password']),
             'status' => 1,
             'zip_code' => $request->zip_code,
-            'shift' => $request->shift,
+            'shifts' => $request->shift,
             'experience' => $request->experience,
             'reffered_by' => $request->reffered_by,
             'qualification_type' => $request->qualification_type,

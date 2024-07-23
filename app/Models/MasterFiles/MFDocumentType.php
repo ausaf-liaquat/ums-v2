@@ -9,7 +9,7 @@ class MFDocumentType extends Model
 {
     use HasFactory;
 
-    protected $table = "mf_document_types";
+    protected $table = "document_types";
 
     protected $fillable =['name', 'status'];
 }

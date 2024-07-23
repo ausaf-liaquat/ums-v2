@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Facilities\BannedFacilityClinician;
 use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
 use App\Models\Traits\HasHashedMediaTrait;
@@ -19,6 +20,8 @@ use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
+
+use function Illuminate\Events\queueable;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletFloat
 {
@@ -152,4 +155,26 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
 
         ];
     }
+
+     /**
+     * Retrieve the bannedFacilities associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bannedFacilities()
+    {
+        return $this->hasMany(BannedFacilityClinician::class);
+    }
+
+    /**
+ * The "booted" method of the model.
+ */
+protected static function booted(): void
+{
+    static::updated(queueable(function (User $customer) {
+        if ($customer->hasStripeId()) {
+            $customer->syncStripeCustomerDetails();
+        }
+    }));
+}
 }

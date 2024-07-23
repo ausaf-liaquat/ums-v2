@@ -29,15 +29,11 @@ class ClinicianController extends Controller
 
         $document = Document::create([
             'title'               => $request->title,
-            'mf_document_type_id' => $request->document_type_id,
+            'document_type_id' => $request->document_type_id,
             'user_id'             => auth()->user()->id,
             'uploaded_by'         => auth()->user()->id,
             'notes'               => $request->notes,
         ]);
-
-        if ($request->file('file')) {
-            Storage::disk('cms')->delete($document->image);
-        }
 
         $file = null;
 

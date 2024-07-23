@@ -54,12 +54,12 @@
                             <tr>
                                 <th>Sr. no</th>
                                 <th>Name</th>
-                                <th>Unit</th>
+                                <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Balance</th>
-                                <th>Clinicians Needs</th>
-                                <th>Actions</th>
+                                <th style="width: 320px;">Status</th>
+                                <th>Resume</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -82,10 +82,10 @@
                         previous: "<i class='mdi mdi-chevron-left'>",
                         next: "<i class='mdi mdi-chevron-right'>"
                     },
-                    info: "Showing facilities _START_ to _END_ of _TOTAL_",
-                    lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> facilities'
+                    info: "Showing clinicians _START_ to _END_ of _TOTAL_",
+                    lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> clinicians'
                 },
-
+                order:[],
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -105,12 +105,12 @@
                         "defaultContent": "",
                     },
                     {
-                        "data": "facility.unit",
+                        "data": "email",
                         "className": "text-center",
                         "defaultContent": "",
                     },
                     {
-                        "data": "mobile",
+                        "data": "phone",
                         "className": "text-center",
                         "defaultContent": "",
                     },
@@ -120,14 +120,12 @@
                         "defaultContent": "",
                     },
                     {
-                        "data": "wallet",
+                        "data": "status",
                         "className": "text-center",
                         "defaultContent": "",
                     },
                     {
-                        "data": "facility.facility_clinician_types",
-                        "searchable": false,
-                        "orderable": false,
+                        "data": "resume",
                         "className": "text-center",
                         "defaultContent": "",
                     },
@@ -135,7 +133,6 @@
                         "data": "id",
                         "className": "text-center",
                         "defaultContent": "",
-
                     },
                 ],
                 columnDefs: [
@@ -147,21 +144,21 @@
                     //           return type;
                     //       },
                     //   },
-                    {
-                        "targets": 6,
-                        "className": "text-center",
-                        "render": function(data, type, row, meta) {
-                            let html = ''
+                    // {
+                    //     "targets": 6,
+                    //     "className": "text-center",
+                    //     "render": function(data, type, row, meta) {
+                    //         let html = ''
 
-                            if (data) {
-                                data?.forEach(element => {
-                                    html +=
-                                        `<span class="badge bg-label-info mb-2">${element.clinician_type.name}</span> <br> `
-                                });
-                            }
-                            return html;
-                        },
-                    },
+                    //         if (data) {
+                    //             data?.forEach(element => {
+                    //                 html +=
+                    //                     `<span class="badge bg-label-info mb-2">${element.clinician_type.name}</span> <br> `
+                    //             });
+                    //         }
+                    //         return html;
+                    //     },
+                    // },
                     {
                         "targets": -1,
                         "render": function(data, type, row, meta) {
@@ -226,6 +223,61 @@
                                     });
                             },
                         })
+                    });
+
+                    $('.facility_select').select2({
+                        width: "350px"
+                    });
+
+                    $('.facility_select').on('change.select2', function(e) {
+                        // Store a reference to the Select2 element
+                        let select2 = $(this);
+
+                        // Get selected facility ID(s)
+                        let facilityIds = select2.val();
+
+                        // Ask for confirmation using SweetAlert
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: 'Do you want to update the clinician status?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Prepare data for the request
+                                let data = {
+                                    id: $(this).data("id"),
+                                    facility_ids: facilityIds, // Array of facility IDs
+                                };
+
+                                // Make POST request
+                                axios.patch("{{ route('backend.clinicians.facility.banned.update') }}", data)
+                                    .then((res) => {
+                                        Swal.fire({
+                                            title: "Done!",
+                                            text: "Clinician status successfully updated!",
+                                            icon: "success"
+                                        });
+                                        console.log(table, 'dasasd');
+                                        table.draw();
+                                    })
+                                    .catch((err) => {
+                                        Swal.fire({
+                                            title: "Error!",
+                                            text: `${err}`,
+                                            icon: "error"
+                                        });
+                                        table.draw();
+                                    });
+                            } else {
+                                // If the user cancels the operation, reset the Select2 dropdown to its previous state
+                                // select2.val(e.params.data._result.previousValue)
+                                //     .trigger('change.select2');
+                                table.draw();
+                            }
+                        });
                     });
                 }
             })
