@@ -7,10 +7,12 @@ use App\Models\DepositForm;
 use App\Models\Document;
 use App\Models\EmpBcaForm;
 use App\Models\MasterFiles\MFDocumentType;
+use App\Models\Notification;
 use App\Models\Traits\ApiResponser;
 use App\Models\User;
 use App\Models\W9Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ClinicianController extends Controller
@@ -156,11 +158,11 @@ class ClinicianController extends Controller
     public function getUnreadNotifications()
     {
 
-        return $this->success(getNotification(Notification::PATIENT), 'Unread Notifications', 200);
+        return $this->success(getNotification(Notification::CLINICIAN), 'Unread Notifications', 200);
     }
     public function getReadNotifications()
     {
-        $notifications = Notification::whereUserId(Auth::id())->whereNotificationFor(Notification::NOTIFICATION_FOR[Notification::PATIENT])->whereNotNull('read_at')->orderByDesc('created_at')->toBase()->get();
+        $notifications = Notification::whereUserId(Auth::id())->whereNotificationFor(Notification::NOTIFICATION_FOR[Notification::CLINICIAN])->whereNotNull('read_at')->orderByDesc('created_at')->toBase()->get();
         return $this->success($notifications, 'Read Notifications', 200);
     }
     public function markAsReadNotification(Request $request)

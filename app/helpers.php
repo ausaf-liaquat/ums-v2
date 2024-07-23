@@ -4,6 +4,8 @@
  * Global helpers file with misc functions.
  */
 
+use App\Models\Notification;
+use App\Models\User;
 use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -621,4 +623,41 @@ function getLoggedInUser()
 function getLoggedInUserId()
 {
     return Auth::id();
+}
+/**
+ * @param  array  $data
+ */
+function addNotification($data)
+{
+    $notificationRecord = [
+        'type' => $data[0],
+        'user_id' => $data[1],
+        'notification_for' => $data[2],
+        'title' => $data[3],
+    ];
+
+    if ($user = User::find($data[1])) {
+        Notification::create($notificationRecord);
+    }
+}
+/**
+ * @param  array  $data
+ * @return array
+ */
+function getAllNotificationUser($data)
+{
+    return array_filter($data, function ($key) {
+        return $key != getLoggedInUserId();
+    }, ARRAY_FILTER_USE_KEY);
+}
+/**
+ * @param  array  $role
+ * @return Notification[]|Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection
+ */
+function getNotification($role)
+{
+    return Notification::whereUserId(Auth::id())->whereNotificationFor(Notification::NOTIFICATION_FOR[$role])->where(
+        'read_at',
+        null
+    )->orderByDesc('created_at')->toBase()->get();
 }

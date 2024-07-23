@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClinicianController;
+use App\Http\Controllers\Api\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +25,26 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
 
+        Route::controller(ClinicianController::class)->group(function () {
+            Route::post('/get/user', 'userInfo');
+            Route::post('/user/update', 'updateProfile');
+            Route::post('/documents/upload', 'documentUpload');
+            Route::post('/document/types', 'documentType');
+            Route::post('/user/documents', 'userDocuments');
+            Route::post('/w9/form', 'w9Form');
+            Route::post('/bca/form', 'bcaForm');
+            Route::post('/deposit/form', 'depositForm');
+            Route::post('/get/unread/notifications', 'getUnreadNotifications');
+            Route::post('/get/read/notifications', 'getReadNotifications');
+            Route::post('/mark/notification/read', 'markAsReadNotification');
+        });
 
+        Route::controller(StripeController::class)->group(function () {
+            Route::post('/stripe/register/connect/account',  'stripeConnectedAccount');
+            Route::post('/stripe/login/connect/account',  'stripeConnectedAccountLogin');
+            Route::get('/stripe/oauth',   'oauth');
+            Route::post('/stripe/oauth/authentication',   'authenticate');
+        });
     });
 });
 Route::get('/user', function (Request $request) {

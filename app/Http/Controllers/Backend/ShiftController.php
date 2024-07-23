@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Facilities\FacilityClinicianType;
 use App\Models\MasterFiles\MFClinicianType;
 use App\Models\MasterFiles\MFShiftHour;
+use App\Models\Notification;
 use App\Models\Shifts\Shift;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +22,6 @@ class ShiftController extends Controller
      */
     public function index()
     {
-
         return view('backend.shifts.index'); //
     }
 
@@ -28,10 +29,10 @@ class ShiftController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = Shift::query()->with('clinician_type', 'shift_hour','mfshift_types.types', 'user')
-        ->when(auth()->user()->hasRole('facility'), function ($q) {
-            $q->where('user_id', auth()->user()->id);
-        });
+        $model = Shift::query()->with('clinician_type', 'shift_hour', 'mfshift_types.types', 'user')
+            ->when(auth()->user()->hasRole('facility'), function ($q) {
+                $q->where('user_id', auth()->user()->id);
+            });
 
 
         return DataTables::eloquent($model)->addIndexColumn()->make(true);
@@ -80,6 +81,27 @@ class ShiftController extends Controller
 
             $user->wallet->pay($shift);
 
+            $cliniciansNotification = User::whereHas('roles', function ($q)  {
+                $q->where('name', 'clinician');
+            })->pluck('id')->toArray();
+
+            $userIds = [];
+            foreach ($cliniciansNotification as $key => $userId) {
+                $userIds[$userId] = Notification::NOTIFICATION_FOR[Notification::CLINICIAN];
+            }
+            $users = getAllNotificationUser($userIds);
+
+            foreach ($users as $key => $notification) {
+                if (isset($key)) {
+                    addNotification([
+                        Notification::NOTIFICATION_TYPE['Shifts'],
+                        $key,
+                        $notification,
+                        'Can you work at: ' . $shift->title . ' ' . date('m/d/Y', strtotime($shift->date)) . ' E: ' . $shift->shift_hour . ' as an ' . $shift->clinician_type . '? Pay Rate: ' . $shift->rate_per_hour . '/hour',
+                    ]);
+                }
+            }
+
             DB::commit();
 
             return redirect()->route('backend.shifts')->with('success', 'Shift created successfully');
@@ -100,7 +122,7 @@ class ShiftController extends Controller
     {
         $data = [
             'isEdit' => true,
-            'shift'=>$shift,
+            'shift' => $shift,
             'clinicianTypes' => MFClinicianType::whereStatus(1)->get(),
             'shiftHours' => MFShiftHour::whereStatus(1)->get(),
         ];
