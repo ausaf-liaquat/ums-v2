@@ -10,7 +10,7 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-                WELCOME BACK!
+                <a href="{{ route('home') }}" class="btn btn-primary">GO TO WEBSITE <i class="tf-icons bx bx-globe"></i></a>
             </div>
         </div>
         <!-- /Search -->
