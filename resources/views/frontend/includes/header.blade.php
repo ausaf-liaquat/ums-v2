@@ -60,7 +60,7 @@
                             <!-- Nursing Professionals Section -->
                             <div class="bg-blue-100 p-4 rounded-lg mb-4">
                                 <div class="flex items-center">
-                                    <img src="nursing_professionals_icon.png" alt="Nursing Professionals"
+                                    <img src="{{ asset('img/nursing.svg') }}" alt="Nursing Professionals"
                                         class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Professionals</h3>
@@ -72,7 +72,7 @@
                             <!-- Nursing Facilities Section -->
                             <div class="bg-blue-100 p-4 rounded-lg">
                                 <div class="flex items-center">
-                                    <img src="nursing_facilities_icon.png" alt="Nursing Facilities"
+                                    <img src="{{ asset('img/facility.jpg') }}" alt="Nursing Facilities"
                                         class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Facilities</h3>
