@@ -54,49 +54,19 @@
     </div>
     <section class="bg-white border-b py-8">
 
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <div class="container mx-auto flex flex-wrap pt-4 pb-12 space-x-1 ">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Courses
             </h1>
-            <div class="w-full mb-4">
-                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+
+            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg h-96" style="background-image: url({{ asset('img/img.jpg') }})">
+
             </div>
-            <div class="w-full md:w-1/3 p-3 flex flex-col flex-grow flex-shrink">
-                <figure
-                    class="relative transition-all duration-300 cursor-pointer filter">
-                    <a href="#">
-                        <img class="rounded-lg"
-                            src="{{ asset('img/img.jpg') }}"
-                            alt="image description">
-                    </a>
-                    <figcaption class="absolute px-4 text-lg text-white bottom-6">
-                        <p>Do you want to get notified when a new component is added to Flowbite?</p>
-                    </figcaption>
-                </figure>
+            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg" style="background-image: url({{ asset('img/img-1.jpg') }})">
+
             </div>
-            <div class="w-full md:w-1/3 p-3 flex flex-col flex-grow flex-shrink">
-                <figure
-                    class="relative transition-all duration-300 cursor-pointer filter">
-                    <a href="#">
-                        <img class="rounded-lg"
-                            src="{{ asset('img/img-1.jpg') }}">
-                    </a>
-                    <figcaption class="absolute px-4 text-lg text-white bottom-6">
-                        <p>Do you want to get notified when a new component is added to Flowbite?</p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="w-full md:w-1/3 p-3 flex flex-col flex-grow flex-shrink">
-                <figure
-                    class="relative transition-all duration-300 cursor-pointer filter">
-                    <a href="#">
-                        <img class="rounded-lg"
-                            src="{{ asset('img/img-2.jpg') }}">
-                    </a>
-                    <figcaption class="absolute px-4 text-lg text-white bottom-6">
-                        <p>Do you want to get notified when a new component is added to Flowbite?</p>
-                    </figcaption>
-                </figure>
+            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg" style="background-image: url({{ asset('img/img-2.jpg') }})">
+
             </div>
         </div>
     </section>
