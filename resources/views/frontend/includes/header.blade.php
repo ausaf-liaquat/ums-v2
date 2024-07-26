@@ -15,9 +15,9 @@
                 </svg>
             </button>
         </div>
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent lg:text-white md:text-black p-4 lg:p-0 z-20"
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent p-4 lg:p-0 z-20"
             id="nav-content">
-            <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center mb-4">
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4  font-bold no-underline" href="#">Home</a>
                 </li>

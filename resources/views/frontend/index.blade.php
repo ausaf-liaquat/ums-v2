@@ -10,20 +10,20 @@
             <!--Left Col-->
             <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                 <p class="uppercase tracking-loose w-full">Looking for?</p>
-                <h1 class="my-4 text-5xl font-bold leading-tight">
+                <h1 class="my-4 text-5xl font-bold leading-tight animate-fadeIn">
                     MEDICAL SERVICES
                 </h1>
-                <p class="leading-normal text-2xl mb-8">
+                <p class="leading-normal text-2xl mb-8 animate-fadeIn">
                     Our company is a one stop shop for all medical facilities nationwide. We provide services to keep your
                     facility running smoothly so you can focus on what is most important, patient care.
                 </p>
                 <button
-                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out animate-fadeIn">
                     Services
                 </button>
             </div>
             <!--Right Col-->
-            <div class="w-full md:w-3/5 py-6 text-center">
+            <div class="w-full md:w-3/5 py-6 text-center animate-fadeIn">
                 <img class="w-full md:w-4/5 z-50 rounded-lg float-end"
                     src="{{ asset('frontend/assets/images/Home page.jpg') }}" />
             </div>
@@ -54,19 +54,39 @@
     </div>
     <section class="bg-white border-b py-8">
 
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12 space-x-1 ">
+        <div class="flex flex-wrap">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Courses
+                Our Services
             </h1>
-
-            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg h-96" style="background-image: url({{ asset('img/img.jpg') }})">
-
+            <div class="w-full mb-4">
+                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
-            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg" style="background-image: url({{ asset('img/img-1.jpg') }})">
+        </div>
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img.jpg') }})">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
+                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                </div>
             </div>
-            <div class="w-full md:w-1/3 flex flex-col bg-cover bg-center rounded-lg" style="background-image: url({{ asset('img/img-2.jpg') }})">
-
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-1.jpg') }})">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
+                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-2.jpg') }})">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
+                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -79,7 +99,7 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
             <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
                     <a href="#" class="flex flex-wrap no-underline hover:no-underline">
 
                         <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
@@ -94,7 +114,7 @@
                         </p>
                     </a>
                 </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
                     <div class="flex items-center justify-start">
                         <button
                             class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
@@ -104,7 +124,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
                     <a href="#" class="flex flex-wrap no-underline hover:no-underline">
 
                         <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
@@ -119,7 +139,7 @@
                         </p>
                     </a>
                 </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
                     <div class="flex items-center justify-start">
                         <button
                             class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
@@ -156,88 +176,68 @@
         </div>
     </section>
     <section class="bg-gray-100 py-8">
-        <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
-            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Pricing
-            </h1>
-            <div class="w-full mb-4">
-                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-            </div>
-            <div class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4">
-                <div class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4">
-                    <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow">
-                        <div class="p-8 text-3xl font-bold text-center border-b-4">
-                            Free
+        <div class="container mx-auto flex flex-wrap pt-4 pb-12 ">
+            <div class="flex flex-col md:flex-row">
+                <!-- First Column -->
+                <div class="flex-1 p-4">
+                    <div class="animate-fadeIn">
+                        <!-- Bottom card -->
+                        <div
+                            class=" top-10 left-10 bg-cover bg-center w-full h-full bg-gradient-to-br from-[#a826ff] to-[#9f19f840] rounded-lg">
                         </div>
-                        <ul class="w-full text-center text-sm">
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                        <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
-                            £0
-                            <span class="text-base">for one user</span>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                Sign Up
-                            </button>
+
+                        <!-- Top card -->
+                        {{-- <div class=" bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img class="w-full object-cover" src="{{ asset('img/img-4.jpg') }}" alt="Doctors">
+                        </div> --}}
+                        <!-- card goes here -->
+                        <div class="relative">
+                            <!-- yellow background -->
+                            <div class="absolute -right-4 -bottom-4 bg-gradient-to-br from-[#a826ff] to-[#9f19f840]  h-full w-full rounded-xl"></div>
+
+                            {{-- <div class=" bg-white rounded-lg shadow-lg overflow-hidden">
+
+                          </div> --}}
+                            <div class="relative  text-gray-50 rounded-xl  space-y-7">
+                                <!-- yellow line -->
+                                <img class="w-full rounded-xl object-cover" src="{{ asset('img/img-4.jpg') }}" alt="Doctors">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 shadow-lg z-10">
-                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-                        <div class="w-full p-8 text-3xl font-bold text-center">Basic</div>
-                        <div class="h-1 w-full gradient my-0 py-0 rounded-t"></div>
-                        <ul class="w-full text-center text-base font-bold">
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                        <div class="w-full pt-6 text-4xl font-bold text-center">
-                            £x.99
-                            <span class="text-base">/ per user</span>
+
+                <!-- Second Column -->
+                <div class="flex-1 p-4">
+
+                    <div class="bg-white h-full p-8 rounded-xl shadow-lg animate-fadeIn">
+                        <div class="text-purple-500 font-bold uppercase mb-2">About Us</div>
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Committed to Health,<br>Committed to You</h1>
+                        <p class="text-gray-700 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+                            tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Curabitur vitae lorem purus. Nunc
+                            vel metus id ante semper mattis.</p>
+
+                        <blockquote class="border-l-4 border-purple-500 pl-4 italic text-gray-700 mb-6">
+                            “Healthcare that Has Your Back, and Front, and Sides. Lorem ipsum dolor sit amet, adipiscing
+                            elit.”
+                        </blockquote>
+
+                        <div class="flex items-center mb-6">
+                            <img class="w-12 h-12 rounded-full mr-4" src="{{ asset('assets/assets/img/avatars/5.png') }}" alt="Author">
+                            <div>
+                                <p class="font-bold text-gray-900">Alan Lawson</p>
+                                <p class="text-gray-600">Senior Doctor</p>
+                            </div>
+                            <img class="ml-auto h-8 rounded-xl" src="{{ asset('assets/assets/img/avatars/5.png') }}" alt="Signature">
                         </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4">
-                    <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow">
-                        <div class="p-8 text-3xl font-bold text-center border-b-4">
-                            Pro
-                        </div>
-                        <ul class="w-full text-center text-sm">
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                        <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
-                            £x.99
-                            <span class="text-base">/ per user</span>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                Sign Up
-                            </button>
-                        </div>
+
+                        <a href="#"
+                            class="bg-purple-500 text-white font-bold py-2 px-4 rounded hover:bg-purple-600 transition duration-300">Learn
+                            More</a>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection

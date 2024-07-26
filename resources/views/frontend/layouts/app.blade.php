@@ -46,7 +46,6 @@
         var navcontent = document.getElementById("nav-content");
         var navaction = document.getElementById("navAction");
         var navAccount = document.getElementById("navAccount");
-        navAccount
         var brandname = document.getElementById("brandname");
         var toToggle = document.querySelectorAll(".toggleColour");
         var logoAuto = document.getElementById("logoAuto");
@@ -71,8 +70,10 @@
                 header.classList.add("shadow");
                 navcontent.classList.remove("bg-gray-100");
                 navcontent.classList.add("bg-white");
-                navcontent.classList.remove("lg:text-white");
-                navcontent.classList.add("md:text-black");
+                // navcontent.classList.remove("lg:text-white");
+                // navcontent.classList.add("md:text-black");
+                navcontent.classList.add("text-purple-500");
+
                 logoAuto.src = darkLogo;
             } else {
                 header.classList.remove("bg-white");
@@ -90,7 +91,7 @@
                 navcontent.classList.remove("bg-white");
                 navcontent.classList.add("bg-gray-100");
                 // navcontent.classList.remove("");
-                navcontent.classList.add("lg:text-white");
+                navcontent.classList.remove("text-purple-500");
                 logoAuto.src = lightLogo;
             }
         });
