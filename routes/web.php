@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AjaxController;
 use App\Http\Controllers\Backend\Clinicians\ClinicianController;
 use App\Http\Controllers\Backend\Courses\CourseController;
+use App\Http\Controllers\Backend\Courses\CourseScheduleController;
 use App\Http\Controllers\Backend\Facilities\FacilityController;
 use App\Http\Controllers\Backend\FrontendContentController;
 use App\Http\Controllers\Backend\FundController;
@@ -37,8 +38,20 @@ require __DIR__ . '/auth.php';
 // | |__| (_) | | | | | | | | | | | (_) | | | |
 // \____\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
 
-// home route
-Route::get('home', [FrontendController::class, 'index'])->name('home');
+
+Route::controller(FrontendController::class)->group(function () {
+
+    // frontend routes
+
+    // home route
+    Route::get('home', 'index')->name('home');
+    Route::get('services', 'services')->name('service');
+    Route::get('about-us', 'aboutUs')->name('about-us');
+    Route::get('careers', 'careers')->name('careers');
+    Route::get('services/courses', 'courses')->name('courses');
+    Route::get('services/courses/{slug}', 'courseRegister')->name('courses.register');
+    Route::get('services/courses/checkout', 'courseRegister')->name('course.checkout');
+});
 
 // Language Switch
 Route::get('language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
@@ -85,6 +98,7 @@ Route::get('facilities/dataTable', [FacilityController::class, 'dataTable'])->na
 Route::get('clinicians/dataTable', [ClinicianController::class, 'dataTable'])->name('clinicians.dataTable');
 Route::get('frontend-contents/dataTable', [FrontendContentController::class, 'dataTable'])->name('frontend-contents.dataTable');
 Route::get('clinician-documents/dataTable', [ClinicianController::class, 'documentsDataTable'])->name('clinician-documents.dataTable');
+Route::get('course-schedules/dataTable', [CourseScheduleController::class, 'dataTable'])->name('course-schedules.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -96,7 +110,7 @@ Route::controller(ColorController::class)->group(function () {
     Route::get('product/name-unique', 'productNameValidator')->name('product.validator');
 });
 Route::get('shifts/autocomplete', [AjaxController::class, 'shiftAutocomplete'])->name('shifts.autocomplete');
-
+Route::get('/course/get-dates', [AjaxController::class, 'getDates'])->name('course.get-dates');
 
 
 //  _____ ____   ___  _   _ _____ _____ _   _ ____
@@ -350,7 +364,22 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("clinicians/status", "status")->name("clinicians.status");
         Route::delete("clinicians/destroy", "destroy")->name('clinicians.destroy');
         Route::patch("clinicians/facility-banned-update/", "facilityBanned")->name("clinicians.facility.banned.update");
+    });
 
+/*
+     *
+     *  Course Schedule Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(CourseScheduleController::class)->group(function () {
+        Route::get("course-schedules/{course}", "index")->name("course-schedules");
+        Route::get("course-schedules/{course}/create", "create")->name("course-schedules.create");
+        Route::post("course-schedules/store", "store")->name("course-schedules.store");
+        Route::get("course-schedules/edit/{course_schedule}", "edit")->name("course-schedules.edit");
+        Route::post("course-schedules/update/{course_schedule}", "update")->name("course-schedules.update");
+        Route::patch("course-schedules/status", "status")->name("course-schedules.status");
+        Route::delete("course-schedules/destroy", "destroy")->name('course-schedules.destroy');
     });
 
 

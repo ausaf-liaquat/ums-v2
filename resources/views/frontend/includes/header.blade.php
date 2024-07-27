@@ -17,24 +17,24 @@
         </div>
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent p-4 lg:p-0 z-20"
             id="nav-content">
-            <ul class="list-reset lg:flex justify-end flex-1 items-center mb-4">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4  font-bold no-underline" href="#">Home</a>
+                    <a class="inline-block py-2 px-4 hover:bg-white hover:rounded-lg hover:text-black  {{ request()->routeIs('home') ? 'font-extrabold':'' }} no-underline" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                        href="#">Services</a>
+                    <a class="inline-block {{ request()->routeIs('service') ? 'font-extrabold':'' }} hover:bg-white hover:rounded-lg hover:text-black  hover:text-underline py-2 px-4"
+                        href="{{ route('service') }}">Services</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                        href="#">Careers</a>
+                    <a class="inline-block {{ request()->routeIs('careers') ? 'font-extrabold':'' }} hover:bg-white hover:rounded-lg hover:text-black hover:text-underline py-2 px-4"
+                        href="{{ route('careers') }}">Careers</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                        href="#">About</a>
+                    <a class="inline-block {{ request()->routeIs('about-us') ? 'font-extrabold':'' }} hover:bg-white hover:rounded-lg hover:text-black hover:text-underline py-2 px-4"
+                        href="{{ route('about-us') }}">About</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                    <a class="inline-block hover:bg-white hover:rounded-lg hover:text-black hover:text-underline py-2 px-4"
                         href="#">Contact Us </a>
                 </li>
             </ul>

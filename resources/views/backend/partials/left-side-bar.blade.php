@@ -1,7 +1,7 @@
   <!-- Menu -->
   @php
 
-      
+
       $modules = [
           [
               'module_name' => 'posts',
@@ -224,7 +224,7 @@
                   </a>
               </li>
               <li
-                  class="menu-item {{ request()->routeIs('backend.courses') || request()->routeIs('backend.courses.create') || request()->routeIs('backend.courses.edit') || request()->routeIs('backend.courses.content') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.courses') || request()->routeIs('backend.courses.create') || request()->routeIs('backend.courses.edit') || request()->routeIs('backend.courses.content') || request()->routeIs('backend.course-schedules') || request()->routeIs('backend.course-schedules.create') || request()->routeIs('backend.course-schedules.edit') ? 'active' : '' }}">
 
                   <a href="{{ route('backend.courses') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-file"></i>

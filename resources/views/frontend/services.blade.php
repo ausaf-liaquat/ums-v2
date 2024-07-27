@@ -1,34 +1,48 @@
 @extends('frontend.layouts.app')
 
 @section('title')
-    
+    Services |
 @endsection
 
 @section('content')
-    <div class="pt-32">
-        <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-            <!--Left Col-->
-            <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-                <p class="uppercase tracking-loose w-full">Looking for?</p>
-                <h1 class="my-4 text-5xl font-bold leading-tight animate-fadeIn">
-                    MEDICAL SERVICES
-                </h1>
-                <p class="leading-normal text-2xl mb-8 animate-fadeIn">
-                    Our company is a one stop shop for all medical facilities nationwide. We provide services to keep your
-                    facility running smoothly so you can focus on what is most important, patient care.
-                </p>
-                <button
-                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out animate-fadeIn">
-                    Services
-                </button>
-            </div>
-            <!--Right Col-->
-            <div class="w-full md:w-3/5 py-6 text-center animate-fadeIn">
-                <img class="w-full md:w-4/5 z-50 rounded-lg float-end" src="{{ asset('img/img-5.jpg') }}" />
+    <div class="pt-34 bg-cover bg-center">
+
+    </div>
+    <section class="relative bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
+        <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+
+        <div class="relative px-4 mx-auto max-w-[90rem]  sm:px-6 lg:flex lg:items-center lg:px-8">
+            <h1 class="py-24 lg:py-36 text-white pl-5 text-2xl lg:text-4xl font-semibold uppercase">Services</h1>
+            <div
+                class="breadcrum-div absolute top-[12rem] lg:top-[18.5rem] md:top-[11rem] right-0 lg:right-0 md:right-0 bg-white shadow-xl py-2 lg:py-2 md:py-4 px-2 lg:px-3 md:px-5  rounded-full">
+
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <i
+                            class="p-2 text-lg lg:text-xl text-purple-600 border-4 rounded-full fa-solid fa-house bg-primary-800 border-lblue"></i>
+                    </li>
+                    <li class="inline-flex items-center">
+                        <a class="flex items-center text-gray-600 text-xs lg:text-sm" href="https://www.dwwlg.com">Home
+                            <svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400 dark:text-gray-600"
+                                width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li
+                        class="inline-flex items-center text-purple-600 font-bold ml-1 text-xs lg:text-sm text-primary-800 md:ml-2">
+                        Services
+                    </li>
+                </ol>
             </div>
         </div>
-    </div>
-    <div class="relative -mt-12 lg:-mt-24">
+
+
+    </section>
+    {{-- <div class="relative -mt-12 lg:-mt-24">
         <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -50,8 +64,8 @@
                 </g>
             </g>
         </svg>
-    </div>
-    <section class="bg-white border-b py-8">
+    </div> --}}
+    {{-- <section class="bg-white border-b py-8">
 
         <div class="flex flex-wrap">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
@@ -88,90 +102,77 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="bg-white border-b py-8">
+    </section> --}}
+    <section class="bg-white border-b py-8 bg-cover bg-center">
         <div class="container mx-auto flex flex-wrap pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Courses
+                Services
             </h1>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
 
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
 
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                        <a href="#">
+                            <img class="rounded-lg" src="{{ asset('img/img-7.jpg') }}" alt="image description">
+                        </a>
+                        <figcaption
+                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                            <p>STAFFING</p>
+                        </figcaption>
+                    </figure>
                 </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                <div>
+                  <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                      <a href="{{ route('courses') }}">
+                          <img class="rounded-lg" src="{{ asset('img/img-9.jpg') }}" alt="image description">
 
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
-
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
+                      <figcaption
+                          class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                          <p>COURSES</p>
+                      </figcaption>
+                      </a>
+                  </figure>
+              </div>
+                <div>
+                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                        <a href="#">
+                            <img class="rounded-lg" src="{{ asset('img/img-10.jpg') }}" alt="image description">
+                        </a>
+                        <figcaption
+                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                            <p class="uppercase">Medical Supplies</p>
+                        </figcaption>
+                    </figure>
                 </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
-                    </div>
+                <div>
+                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                        <a href="#">
+                            <img class="rounded-lg" src="{{ asset('img/img-11.jpg') }}" alt="image description">
+                        </a>
+                        <figcaption
+                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                            <p class="uppercase"> Medical Uniform</p>
+                        </figcaption>
+                    </figure>
                 </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
 
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
-
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
-                </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
-                    </div>
+                <div>
+                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                        <a href="#">
+                            <img class="rounded-lg" src="{{ asset('img/img-12.jpg') }}" alt="image description">
+                        </a>
+                        <figcaption
+                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                            <p>Medical Coding and billing (Comming Soon)</p>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
+
         </div>
     </section>
     <section class=" py-8">

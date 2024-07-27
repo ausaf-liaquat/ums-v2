@@ -1,6 +1,6 @@
 @extends('backend.layout.app')
 @section('title')
-    Courses
+    Course Schedules
 @endsection
 @section('content')
     <div class="container-fluid flex-grow-1 container-p-y">
@@ -10,7 +10,7 @@
                     <a href="javascript:void(0);">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    Courses
+                    Course Schedules
                 </li>
 
             </ol>
@@ -19,7 +19,7 @@
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('backend.courses.create') }}" class="btn btn-primary float-end">Add <i
+                <a href="{{ route('backend.course-schedules.create',['course'=>$course->id]) }}" class="btn btn-primary float-end">Add <i
                         class="tf-icons bx bx-plus-circle"></i></a>
             </div>
             {{-- <h5 class="card-header">Table Basic</h5> --}}
@@ -28,8 +28,8 @@
                     <thead>
                         <tr>
                             <th>Sr. no</th>
-                            <th>Name</th>
-                            <th>Type</th>
+                            <th>Schedule Date</th>
+                            <th>Address</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -58,7 +58,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('courses.dataTable') }}',
+                    url: '{{ route('course-schedules.dataTable') }}?course_id='+"{{ $course->id }}",
                 },
                 columns: [{
                         "data": "DT_RowIndex",
@@ -69,13 +69,13 @@
 
                     },
                     {
-                        "data": "name",
+                        "data": "datetime",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "type",
+                        "data": "address",
                         "className": "text-center",
                         "defaultContent": "",
 
@@ -94,23 +94,7 @@
                     },
 
                 ],
-                columnDefs: [{
-                        "targets": 2,
-                        "className": "text-center",
-                        "render": function(data, type, row, meta) {
-                            var type = ""
-                            if (data == 0) {
-                              type = '<span class="badge bg-label-secondary">Offline</span>'
-                            } else if( data ==1) {
-                              type = '<span class="badge bg-label-success">Online</span>'
-
-                            }else{
-                              type = '<span class="badge bg-label-secondary">Offline</span> / '+'<span class="badge bg-label-success">Online</span>'
-                            }
-
-                            return type;
-                        },
-                    },
+                columnDefs: [
                     {
                         "targets": 3,
                         "className": "text-center",
@@ -126,23 +110,15 @@
                         "targets": -1,
                         "render": function(data, type, row, meta) {
 
-                            var edit = '{{ route('backend.courses.edit', [':course']) }}';
+                            var edit = '{{ route('backend.course-schedules.edit', [':course']) }}';
                             edit = edit.replace(':course', data);
 
                             var content = '{{ route('backend.courses.content', [':course']) }}';
                             content = content.replace(':course', data);
-
-                            var schedule = '{{ route('backend.course-schedules', [':course']) }}';
-                            schedule = schedule.replace(':course', data);
-
                             let contentHtml = ""
                             if (row.type == 1) {
                                 contentHtml += `
                                   <a href="` + content + `" class="text-info p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
-                              `
-                            }else{
-                              contentHtml += `
-                                  <a href="` + schedule + `" class="text-info p-1" data-original-title="Edit"    title="Course Schedule" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
                               `
                             }
 
@@ -181,7 +157,7 @@
                             preConfirm: function(n) {
                                 return axios
                                     .post(
-                                        '{{ route('backend.courses.destroy') }}', {
+                                        '{{ route('backend.course-schedules.destroy') }}', {
                                             _method: 'delete',
                                             _token: '{{ csrf_token() }}',
                                             id: id,
@@ -191,7 +167,7 @@
 
                                         Swal.fire(
                                             'Deleted!',
-                                            'Courses has been deleted.',
+                                            'Course schedule has been deleted.',
                                             'success'
                                         )
                                         table.draw(false);

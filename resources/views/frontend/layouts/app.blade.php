@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-        @yield('title')
+        @yield('title') Unique Med Services
     </title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -15,11 +15,15 @@
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .gradient {
             background: linear-gradient(90deg, #1c64f2 0%, #a826ff 100%);
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app-frontend.css', 'resources/js/app-frontend.js'])
 
 
@@ -34,12 +38,13 @@
 
     @include('frontend.includes.footer')
 
-    <div>
+    {{-- <div>
         <p class="text-center p-3">Distributed By: <a href="https://themewagon.com/">Themewagon</a></p>
-    </div>
+    </div> --}}
     <!-- jQuery if you need it
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   -->
+
     <script>
         var scrollpos = window.scrollY;
         var header = document.getElementById("header");
@@ -136,6 +141,8 @@
             return false;
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @yield('script')
 
 </body>
 

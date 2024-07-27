@@ -1,7 +1,7 @@
 @extends('backend.layout.app')
 
 @section('title')
-    {{ $isEdit ? 'Edit' : 'Add' }} Course
+    {{ $isEdit ? 'Edit' : 'Add' }} Course Schedule
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                     <a href="javascript:void(0);">Master Files</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('backend.courses') }}">Course</a>
+                    <a href="{{ route('backend.course-schedules',['course'=>$course->id]) }}">Course Schedule</a>
                 </li>
                 <li class="breadcrumb-item active">{{ $isEdit ? 'Edit' : 'Add' }}</li>
             </ol>
@@ -20,44 +20,37 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card mb-4">
-            <h5 class="card-header">{{ $isEdit ? 'Edit' : 'Add' }} Courses</h5>
+            <h5 class="card-header">{{ $isEdit ? 'Edit' : 'Add' }} Course Schedule</h5>
             <!-- Account -->
 
             <div class="card-body">
                 <form id="formSize"
-                    action="{{ $isEdit ? route('backend.courses.update', ['course' => $course->id]) : route('backend.courses.store') }}"
+                    action="{{ $isEdit ? route('backend.course-schedules.update', ['course_schedule' => $course_schedule->id]) : route('backend.course-schedules.store') }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
 
                     </div>
                     <div class="row">
-
-                        <div class="mb-3 col-md-6">
-                            <label for="course_name" class="form-label">Course Name</label>
-                            <input class="form-control" type="text" name="course_name" id="course_name"
-                                value="{{ $course->name ?? '' }}" placeholder="Enter course name" name="name"
-                                autofocus="" required>
+                      <input type="hidden" name="course_id" value="{{ $course->id }}">
+                        <div class="mb-3 col-md-12">
+                            <label for="course_slug" class="form-label">Datetime</label>
+                            <input class="form-control" type="datetime-local" name="datetime" value="{{ $course_schedule->datetime??'' }}" id="html5-datetime-local-input">
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="course_slug" class="form-label">Course Slug</label>
-                            <input class="form-control" type="text" id="course_slug" value="{{ $course->slug ?? '' }}"
-                                placeholder="Enter course slug" name="slug" autofocus="" readonly required>
+                            <label for="description" class="form-label">Schedule Description</label>
+                            <textarea name="description" class="form-control" id="description" cols="30" rows="3" required>{{ $course_schedule->description ?? '' }}</textarea>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="description" class="form-label">Course Description</label>
-                            <textarea name="description" class="form-control" id="description" cols="30" rows="3" required>{{ $course->description ?? '' }}</textarea>
+                            <label for="address" class="form-label"> Address</label>
+                            <textarea name="address" class="form-control" id="address" cols="30" rows="3" required>{{ $course_schedule->address ?? '' }}</textarea>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Course Address</label>
-                            <textarea name="address" class="form-control" id="address" cols="30" rows="3" >{{ $course->address ?? '' }}</textarea>
-                        </div>
-                        <div class="mb-3 col-md-3">
                             <label for="country" class="form-label">Country </label>
                             <select name="country_id" id="country_id" class="form-control country"
-                                data-parsley-errors-container="#country-error" >
-                                @if ($isEdit && !$course->country_id)
-                                    <option value="{{ $course->country_id }}" selected>{{ $course?->country?->name }}
+                                data-parsley-errors-container="#country-error" required>
+                                @if ($isEdit)
+                                    <option value="{{ $course_schedule->country_id }}" selected>{{ $course_schedule->country->name }}
                                     </option>
                                 @endif
                             </select>
@@ -66,9 +59,9 @@
                         <div class="mb-3 col-md-3">
                             <label for="state" class="form-label">State </label>
                             <select name="state_id" id="state_id" class="form-control state"
-                                data-parsley-errors-container="#state-error" >
-                                @if ($isEdit && !$course->state_id)
-                                    <option value="{{ $course->state_id }}" selected>{{ $course?->state?->name }}</option>
+                                data-parsley-errors-container="#state-error" required>
+                                @if ($isEdit)
+                                    <option value="{{ $course_schedule->state_id }}" selected>{{ $course_schedule->state->name }}</option>
                                 @endif
                             </select>
                             <div id="state-error"></div>
@@ -76,39 +69,18 @@
                         <div class="mb-3 col-md-3">
                             <label for="city" class="form-label">City </label>
                             <select name="city_id" id="city_id" class="form-control city"
-                                data-parsley-errors-container="#city-error" >
-                                @if ($isEdit && !$course->city_id)
-                                    <option value="{{ $course->city_id }}" selected>{{ $course?->city?->name }}</option>
+                                data-parsley-errors-container="#city-error" required>
+                                @if ($isEdit)
+                                    <option value="{{ $course_schedule->city_id }}" selected>{{ $course_schedule->city->name }}</option>
                                 @endif
                             </select>
                             <div id="city-error"></div>
                         </div>
-                        <div class="mb-3 col-md-3">
+                        {{-- <div class="mb-3 col-md-3">
                             <label for="zipcode" class="form-label">Zip Code </label>
                             <input type="text" name="zip_code" value="{{ $course->zip_code ?? '' }}" id="zipcode"
-                                placeholder="Enter zip code" class="form-control" >
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="course_type" class="form-label"> Course Type </label>
-                            <select name="course_type" id="course_type" class="form-control course_type" required>
-                                <option value="">Select Course Type</option>
-                                <option value="0" {{ $isEdit && $course->type == 0 ? 'selected' : '' }}>Offline
-                                </option>
-                                <option value="1" {{ $isEdit && $course->type == 1 ? 'selected' : '' }}>Online
-                                </option>
-                                <option value="2" {{ $isEdit && $course->type == 2 ? 'selected' : '' }}>Online / Offline
-                                </option>
-                            </select>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="course_price" class="form-label">Course price </label>
-                            <input type="number" name="course_price" id="course_price" placeholder="Enter course price"
-                                value="{{ $course->price ?? '' }}" step="0.01" class="form-control" required>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="mf_type" class="form-label">Course Image</label>
-                            <input type="file" class="filepond form-control" name="image" required>
-                        </div>
+                                placeholder="Enter zip code" class="form-control" required>
+                        </div> --}}
 
                     </div>
                     {{-- <div class="customer_records_dynamic"></div> --}} <div class="mt-5">

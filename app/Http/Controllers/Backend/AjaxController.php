@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses\CourseSchedule;
 use App\Models\Products\Product;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -50,5 +52,15 @@ class AjaxController extends Controller
         }
 
         return response()->json(['results' => $data]);
+    }
+
+    public function getDates(Request $request)
+    {
+        $date = Carbon::parse($request->date)->format('Y-m-d');
+        // $formattedDate = Carbon::parse($request->date)->format('Y-m-d');
+        // $course = Course::find($request->course_id);
+        $slots = CourseSchedule::where('course_id', $request->course_id)->where('datetime', $date)->count();
+        $event = CourseSchedule::where('course_id', $request->course_id)->where('datetime', $date)->first();
+        return response()->json(['event' => $event, 'slots' => $slots], 200);
     }
 }

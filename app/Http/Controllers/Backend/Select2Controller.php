@@ -20,7 +20,7 @@ class Select2Controller extends Controller
             ->when($request->q, function ($query) use ($request) {
                 return $query->where('name', 'like', "%{$request->q}%");
             })
-            ->limit(10)
+            ->where('id', 233)
             ->get(['id', 'name as text']);
 
         return ['results' => $countries];
