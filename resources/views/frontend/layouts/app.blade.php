@@ -122,7 +122,9 @@
             scrollpos = window.scrollY;
 
             if (scrollpos > 10) {
-                header.classList.add("bg-white");
+                header.classList.add("backdrop-blur-md");
+                header.classList.add("bg-white/30");
+
                 navaction.classList.remove("bg-white");
                 navaction.classList.add("gradient");
                 navaction.classList.remove("text-gray-800");
@@ -134,14 +136,15 @@
                 }
                 header.classList.add("shadow");
                 navcontent.classList.remove("bg-gray-100");
-                navcontent.classList.add("bg-white");
+                navcontent.classList.remove("gradient");
                 // navcontent.classList.remove("lg:text-white");
                 // navcontent.classList.add("md:text-black");
                 navcontent.classList.add("text-purple-500");
 
                 logoAuto.src = darkLogo;
             } else {
-                header.classList.remove("bg-white");
+                header.classList.remove("backdrop-blur-md");
+                header.classList.remove("bg-white/30");
                 navaction.classList.remove("gradient");
                 navaction.classList.add("bg-white");
                 navaction.classList.remove("text-white");
@@ -153,7 +156,7 @@
                 }
 
                 header.classList.remove("shadow");
-                navcontent.classList.remove("bg-white");
+                navcontent.classList.add("gradient");
                 navcontent.classList.add("bg-gray-100");
                 // navcontent.classList.remove("");
                 navcontent.classList.remove("text-purple-500");

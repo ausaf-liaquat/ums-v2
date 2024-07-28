@@ -12,6 +12,7 @@ use App\Models\TalkToUs;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -104,6 +105,28 @@ class FrontendController extends Controller
     public function careers()
     {
         return view('frontend.careers');
+    }
+    /**
+     * Terms & Conditions Page.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function contactUs()
+    {
+        return view('frontend.contact-us');
+    }
+    public function contactUsStore(Request $request)
+    {
+        DB::table('contact_us')->insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'type'=>$request->type,
+            'message' => $request->message,
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+        return redirect()->back()->with('success','Form has been submitted successfully');
     }
 
     /**
