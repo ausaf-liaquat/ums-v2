@@ -50,7 +50,11 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('careers', 'careers')->name('careers');
     Route::get('services/courses', 'courses')->name('courses');
     Route::get('services/courses/{slug}', 'courseRegister')->name('courses.register');
-    Route::get('services/courses/checkout', 'courseRegister')->name('course.checkout');
+    Route::post('services/courses/checkout/store', 'checkoutStore')->name('course.checkout.store');
+    Route::get('services/courses/checkout/{slug}/{course_schedule}', 'courseCheckout')->name('course.checkout');
+    Route::get('services/course/checkout/stripe', 'checkoutStripe')->name('course.checkout.stripe');
+    Route::get('services/course/checkout/success', 'checkoutSuccess')->name('checkout-course.success');
+    Route::get('services/course/checkout/cancel',  'checkoutCancel')->name('checkout-course.cancel');
 });
 
 // Language Switch

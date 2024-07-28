@@ -12,6 +12,10 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -25,7 +29,63 @@
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app-frontend.css', 'resources/js/app-frontend.js'])
+    <style>
+        .event {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 150px;
+            bottom: 3px;
+            left: calc(50% - 1.5px);
+            content: " ";
+            display: block;
+            background: #9f19f8;
+        }
 
+        .event.busy {
+            background: #f64747;
+        }
+
+        .highlighted-date {
+            background-color: yellow;
+        }
+
+        p {
+            color: #9f19f8;
+            font-weight: 600;
+            line-height: 25.6px;
+        }
+
+        .flatpickr-calendar .flatpickr-innerContainer .flatpickr-rContainer .flatpickr-days .dayContainer .flatpickr-day.selected {
+            background: #9f19f8;
+            border-color: #9f19f8;
+            color: #fff;
+        }
+
+        .flatpickr-calendar .flatpickr-innerContainer .flatpickr-rContainer .flatpickr-days .dayContainer .flatpickr-day.today {
+            background-color: #eed4ff;
+            border-color: #eed4ff;
+            color: #9313e7;
+        }
+
+        .select2-results__option[aria-selected] {
+            cursor: pointer;
+            color: purple;
+        }
+
+        .select2-results__option {
+            padding: 6px;
+            user-select: none;
+            -webkit-user-select: none;
+            color: blueviolet;
+        }
+        .parsley-errors-list {
+            list-style: none;
+            color: #9b0000;
+            font-size: small;
+            
+        }
+    </style>
 
 </head>
 

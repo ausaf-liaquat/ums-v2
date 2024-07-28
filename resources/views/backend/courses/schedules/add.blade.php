@@ -33,19 +33,25 @@
                     </div>
                     <div class="row">
                       <input type="hidden" name="course_id" value="{{ $course->id }}">
-                        <div class="mb-3 col-md-12">
+                        <div class="mb-3 col-md-6">
                             <label for="course_slug" class="form-label">Datetime</label>
                             <input class="form-control" type="datetime-local" name="datetime" value="{{ $course_schedule->datetime??'' }}" id="html5-datetime-local-input">
                         </div>
+
                         <div class="mb-3 col-md-6">
-                            <label for="description" class="form-label">Schedule Description</label>
-                            <textarea name="description" class="form-control" id="description" cols="30" rows="3" required>{{ $course_schedule->description ?? '' }}</textarea>
-                        </div>
+                          <label for="slot" class="form-label">Slot </label>
+                          <input type="number" name="slot" value="{{ $course_schedule->slot ?? '' }}" id="slot"
+                              placeholder="Enter slot" class="form-control" required>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="description" class="form-label">Schedule Description</label>
+                        <textarea name="description" class="form-control" id="description" cols="30" rows="3" required>{{ $course_schedule->description ?? '' }}</textarea>
+                    </div>
                         <div class="mb-3 col-md-6">
                             <label for="address" class="form-label"> Address</label>
                             <textarea name="address" class="form-control" id="address" cols="30" rows="3" required>{{ $course_schedule->address ?? '' }}</textarea>
                         </div>
-                        <div class="mb-3 col-md-6">
+                        {{-- <div class="mb-3 col-md-6">
                             <label for="country" class="form-label">Country </label>
                             <select name="country_id" id="country_id" class="form-control country"
                                 data-parsley-errors-container="#country-error" required>
@@ -75,7 +81,7 @@
                                 @endif
                             </select>
                             <div id="city-error"></div>
-                        </div>
+                        </div> --}}
                         {{-- <div class="mb-3 col-md-3">
                             <label for="zipcode" class="form-label">Zip Code </label>
                             <input type="text" name="zip_code" value="{{ $course->zip_code ?? '' }}" id="zipcode"

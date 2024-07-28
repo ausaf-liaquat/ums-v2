@@ -19,8 +19,8 @@
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('backend.course-schedules.create',['course'=>$course->id]) }}" class="btn btn-primary float-end">Add <i
-                        class="tf-icons bx bx-plus-circle"></i></a>
+                <a href="{{ route('backend.course-schedules.create', ['course' => $course->id]) }}"
+                    class="btn btn-primary float-end">Add <i class="tf-icons bx bx-plus-circle"></i></a>
             </div>
             {{-- <h5 class="card-header">Table Basic</h5> --}}
             <div class="p-4 table-responsive text-nowrap">
@@ -29,6 +29,7 @@
                         <tr>
                             <th>Sr. no</th>
                             <th>Schedule Date</th>
+                            <th>Slot</th>
                             <th>Address</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -58,7 +59,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('course-schedules.dataTable') }}?course_id='+"{{ $course->id }}",
+                    url: '{{ route('course-schedules.dataTable') }}?course_id=' + "{{ $course->id }}",
                 },
                 columns: [{
                         "data": "DT_RowIndex",
@@ -70,6 +71,12 @@
                     },
                     {
                         "data": "datetime",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "slot",
                         "className": "text-center",
                         "defaultContent": "",
 
@@ -94,9 +101,8 @@
                     },
 
                 ],
-                columnDefs: [
-                    {
-                        "targets": 3,
+                columnDefs: [{
+                        "targets": 4,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             var checked = row.status == 1 ? 'checked' : null;

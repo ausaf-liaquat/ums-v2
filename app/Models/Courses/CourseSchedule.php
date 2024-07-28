@@ -20,6 +20,7 @@ class CourseSchedule extends Model
         'state_id',
         'city_id',
         'datetime',
+        'slot',
         'description',
         'address',
         'status'
@@ -34,6 +35,7 @@ class CourseSchedule extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+    
     /**
      * Get the state that owns the Course
      *
@@ -43,6 +45,7 @@ class CourseSchedule extends Model
     {
         return $this->belongsTo(State::class, 'state_id');
     }
+
     /**
      * Get the city that owns the Course
      *
@@ -61,5 +64,16 @@ class CourseSchedule extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+
+
+    /**
+     * Get all of the user_courses for the CourseSchedule
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user_courses(): HasMany
+    {
+        return $this->hasMany(CourseUserSchedule::class, 'course_schedule_id');
     }
 }

@@ -59,8 +59,8 @@ class AjaxController extends Controller
         $date = Carbon::parse($request->date)->format('Y-m-d');
         // $formattedDate = Carbon::parse($request->date)->format('Y-m-d');
         // $course = Course::find($request->course_id);
-        $slots = CourseSchedule::where('course_id', $request->course_id)->where('datetime', $date)->count();
-        $event = CourseSchedule::where('course_id', $request->course_id)->where('datetime', $date)->first();
+        $slots = CourseSchedule::where('course_id', $request->course_id)->whereDate('datetime', $date)->count();
+        $event = CourseSchedule::where('course_id', $request->course_id)->whereDate('datetime', $date)->withCount('user_courses')->with('course')->get();
         return response()->json(['event' => $event, 'slots' => $slots], 200);
     }
 }

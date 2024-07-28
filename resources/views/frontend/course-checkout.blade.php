@@ -53,48 +53,156 @@
     </section>
 
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <div class="container mx-auto pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Courses
             </h1>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
+            <form class="mx-auto" id="formCourse" method="POST" action="{{ route('course.checkout.store') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="cid" value="{{ request()->cid ?? $course->id }}">
+                <input type="hidden" name="course_schedule_id" value="{{ $event->id }}">
 
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                @foreach ($courses as $course)
-                    <div>
-                        <div
-                            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <a href="#">
-                                <img class="rounded-t-lg h-40 w-full" src="{{ Storage::disk('cms')->url($course->image) }}"
-                                    alt="" />
-                            </a>
-                            <div class="p-5 h-48">
-                                <a href="#">
-                                    <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                                        {{ $course->name }}</h5>
-                                </a>
-                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $course->description }}</p>
-                                <div class="flex flex-col items-center pb-10">
+                <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+                    @if (!auth()->check())
+                        <div>
+                            <div class="mb-5">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                                <input type="text" id="base-input" name="first_name" placeholder="Enter first name"
+                                    required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div class="mb-5">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                                <input type="text" id="base-input" name="last_name" placeholder="Enter last name"
+                                    required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div class="mb-5">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" id="base-input" name="email" placeholder="Enter email" required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div class="mb-5">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                <input type="number" id="base-input" name="phone" placeholder="Enter phone" required
+                                    onkeyup='if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")'
+                                    onkeypress='if (/\s/g.test(this.value)) this.value = this.value.replace(/\s/g,"")'
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            @if ($course->type == 1)
+                                <div class="mb-5">
+                                    <label for="base-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                    <input type="password" id="base-input" name="password" placeholder="Enter password"
+                                        required
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                            @endif
+                            @if ($course->id == 3 || $course->id == 5 || $course->id == 7)
+                                @php
+                                    if ($course->id == 3 || $course->id == 5 || $course->id == 7) {
+                                        $text = 'unexpired';
+                                    } else {
+                                        $text = 'current';
+                                    }
 
-                                    <div class="flex">
-                                        <a href="#"
-                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                                            Register</a>
-                                        <a href="#"
-                                            class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Login</a>
+                                @endphp
+                                <div class="mb-5">
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        for="user_avatar">Upload {{ $text }}
+                                        {{ str_replace(' RENEWAL', '', $course->name) }} card</label>
+                                    <input
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        aria-describedby="user_avatar_help" id="user_avatar" type="file">
+
+                                </div>
+                            @endif
+                            @if ($course->id == 9 || $course->id == 10)
+                                <div class="mb-5">
+                                    {{-- @if ($course->type == 1) --}}
+                                    <div class="col-md-6 mb-sm-7 mb-4">
+                                        <label for="address"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                        <textarea id="address" name="address" rows="4"
+                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Leave a address..."></textarea>
+                                    </div>
+                                    {{-- @endif --}}
+                                </div>
+                                <div class="mb-5">
+                                    <label for="base-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
+                                        Code</label>
+                                    <input type="text" id="base-input" name="zip_code" placeholder="Enter zip code"
+                                        required
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                                <div class="row">
+                                    {{-- @if ($course->type == 1) --}}
+                                    <div class="col-md-6 mb-sm-7 mb-4">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State:
+
+                                        </label>
+                                        <select name="state_id" id="state_id"
+                                            class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 state"
+                                            data-parsley-errors-container="#state-error">
+
+                                        </select>
+                                        <div id="state-error"></div>
+                                    </div>
+                                    {{-- @endif --}}
+
+                                    <div class="col-md-6 mb-sm-7 mb-4">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City:
+
+                                        </label>
+                                        <select name="city_id" id="city_id"
+                                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 city"
+                                            data-parsley-errors-container="#city-error">
+
+                                        </select>
+                                        <div id="city-error"></div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
                         </div>
+                    @endif
 
+                    <div>
+                        <div class="about-right pb-5 pt-lg-5 text-lg-start text-center">
+                            <h3 class="mt-md-3 text-black font-extrabold uppercase">Course Details</h3>
+                            <div class="mt-md-5 service_details">
+                                <p>{{ $course->name }}</p>
+                                <p>{{ $course->address }}</p>
+                                <p>
+                                    {{ $course->zip_code }} {{ $course?->state?->name ?? '' }}
+                                    {{ $course?->city?->name ?? '' }}
+                                </p>
+                                @if ($course->type != 1)
+                                    <p>{{ date('F j, Y h:i a', strtotime($event->datetime)) }}</p>
+                                @endif
+
+                                <br>
+                                <h4>Payment Details</h4>
+                                <p>Total: ${{ number_format($course->price) }}</p>
+                                <br>
+                                <button type="submit"
+                                    class="text-black bg-yellow-300 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-ybg-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-yellow-300 dark:hover:bg-yellow-300 dark:focus:ring-ybg-yellow-300">Pay
+                                    Now <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
                     </div>
-                @endforeach
-            </div>
-
+                </div>
+            </form>
         </div>
     </section>
     <section class=" py-8">
@@ -324,4 +432,58 @@
     </section>
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
+@endsection
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"
+        integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+
+            stateSelect2()
+            citySelect2()
+            let form = $('#formCourse').parsley()
+
+        })
+
+        function stateSelect2() {
+            $('.state').select2({
+                placeholder: 'Select state',
+                ajax: {
+                    url: "{{ route('states.select2') }}",
+                    delay: 250,
+                    data: function(params) {
+                        var query = {
+                            q: params.term,
+                            country_id: 233
+                        }
+
+                        return query;
+                    }
+                }
+            })
+        }
+
+        function citySelect2() {
+            $('.city').select2({
+                placeholder: 'Select city',
+                ajax: {
+                    url: "{{ route('cities.select2') }}",
+                    delay: 250,
+                    data: function(params) {
+                        var query = {
+                            q: params.term,
+                            country_id: 233,
+                            state_id: $('.state').val()
+                        }
+
+                        return query;
+                    }
+                }
+            })
+        }
+    </script>
 @endsection
