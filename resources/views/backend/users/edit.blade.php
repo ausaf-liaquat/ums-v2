@@ -41,9 +41,9 @@
 
                     @if (auth()->user()->hasRole('super admin'))
                         <x-backend.buttons.return-back :small=true />
-                        <x-backend.buttons.show class="ms-1"
+                        {{-- <x-backend.buttons.show class="ms-1"
                             title="{{ __('Show') }} {{ ucwords(Str::singular($module_name)) }}"
-                            route='{!! route("backend.$module_name.show", $$module_name_singular) !!}' :small=true />
+                            route='{!! route("backend.$module_name.show", $$module_name_singular) !!}' :small=true /> --}}
                     @endif
 
                 </x-slot>
@@ -387,7 +387,7 @@
                                             title="{{ __('labels.backend.delete') }}"><i class="fas fa-trash-alt"></i>
                                             Delete</a>
                                     @endif
-                                    <x-backend.buttons.return-back>@lang('Cancel')</x-backend.buttons.return-back>
+                                    {{-- <x-backend.buttons.return-back>@lang('Cancel')</x-backend.buttons.return-back> --}}
                                 </div>
                             </div>
                         @endif

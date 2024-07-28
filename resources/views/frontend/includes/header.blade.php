@@ -1,11 +1,6 @@
 <nav id="header" class="fixed w-full z-30 top-0  text-white">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-        <div class="pl-4 flex items-center">
-            <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-                href="#">
-                <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
-            </a>
-        </div>
+
         <div class="block lg:hidden pr-4">
             <button id="nav-toggle"
                 class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
@@ -15,8 +10,14 @@
                 </svg>
             </button>
         </div>
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 gradient lg:bg-transparent p-4 lg:p-0 z-20"
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto rounded-full hidden mt-2 lg:mt-0 gradient lg:bg-transparent p-4 lg:p-0 z-20"
             id="nav-content">
+            <div class="pl-4 flex items-center">
+              <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+                  href="{{ route('home') }}">
+                  <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
+              </a>
+          </div>
             <ul class="list-reset lg:flex justify-end flex-1 items-center mt-5 mb-5">
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4 hover:bg-white hover:rounded-lg hover:text-black  {{ request()->routeIs('home') ? 'font-extrabold':'' }} no-underline" href="{{ route('home') }}">Home</a>

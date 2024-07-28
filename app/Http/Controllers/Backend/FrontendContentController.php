@@ -20,7 +20,7 @@ class FrontendContentController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = FrontendPage::query();
+        $model = FrontendPage::query()->whereStatus(1);
 
         return DataTables::eloquent($model)->addIndexColumn()->make(true);
     }

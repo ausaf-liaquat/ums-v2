@@ -19,8 +19,8 @@
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('backend.frontend-contents.create') }}" class="btn btn-primary float-end">Add <i
-                        class="tf-icons bx bx-plus-circle"></i></a>
+                {{-- <a href="{{ route('backend.frontend-contents.create') }}" class="btn btn-primary float-end">Add <i
+                        class="tf-icons bx bx-plus-circle"></i></a> --}}
             </div>
             {{-- <h5 class="card-header">Table Basic</h5> --}}
             <div class="p-4 table-responsive text-nowrap">
@@ -29,7 +29,7 @@
                         <tr>
                             <th>Sr. no</th>
                             <th>Name</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -73,12 +73,12 @@
                         "defaultContent": "",
 
                     },
-                    {
-                        "data": "status",
-                        "className": "text-center",
-                        "defaultContent": "",
+                    // {
+                    //     "data": "status",
+                    //     "className": "text-center",
+                    //     "defaultContent": "",
 
-                    },
+                    // },
                     {
                         "data": "id",
                         "className": "text-center",
@@ -88,17 +88,17 @@
 
                 ],
                 columnDefs: [
-                    {
-                        "targets":2,
-                        "className": "text-center",
-                        "render": function(data, type, row, meta) {
-                            var checked = row.status == 1 ? 'checked' : null;
-                            return `<div class="form-check form-switch mb-2">
-                        <input class="form-check-input js-status-switch" type="checkbox" data-id="${row.id}"  ${checked}>
+                    // {
+                    //     "targets":2,
+                    //     "className": "text-center",
+                    //     "render": function(data, type, row, meta) {
+                    //         var checked = row.status == 1 ? 'checked' : null;
+                    //         return `<div class="form-check form-switch mb-2">
+                    //     <input class="form-check-input js-status-switch" type="checkbox" data-id="${row.id}"  ${checked}>
 
-                      </div>`;
-                        },
-                    },
+                    //   </div>`;
+                    //     },
+                    // },
                     {
                         "targets": -1,
                         "render": function(data, type, row, meta) {

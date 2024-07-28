@@ -44,7 +44,7 @@ Route::controller(FrontendController::class)->group(function () {
     // frontend routes
 
     // home route
-    Route::get('home', 'index')->name('home');
+    Route::get('/', 'index')->name('home');
     Route::get('services', 'services')->name('service');
     Route::get('about-us', 'aboutUs')->name('about-us');
     Route::get('contact-us', 'contactUs')->name('contact-us');
@@ -130,7 +130,7 @@ Route::get('/course/get-dates', [AjaxController::class, 'getDates'])->name('cour
 // |_|   |_| \_\\___/|_| \_| |_| |_____|_| \_|____/
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
-    Route::get('/', 'FrontendController@index')->name('index');
+    // Route::get('/', 'FrontendController@index')->name('index');
 
     Route::group(['middleware' => ['auth']], function () {
         /*
@@ -162,7 +162,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
      * Backend Dashboard
      * Namespaces indicate folder structure.
      */
-    Route::get('/', 'BackendController@index')->name('home');
+    // Route::get('/', 'BackendController@index')->name('home');
     Route::get('dashboard', 'BackendController@index')->name('dashboard');
 
     /*

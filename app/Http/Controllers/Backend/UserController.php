@@ -508,7 +508,8 @@ class UserController extends Controller
 
         logUserAccess("{$module_title} {$module_action} {$$module_name_singular->name} ($id)");
 
-        return redirect("admin/{$module_name}");
+        // return redirect("admin/{$module_name}");
+        return redirect()->back();
     }
 
     /**
