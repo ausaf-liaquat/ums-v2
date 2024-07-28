@@ -80,7 +80,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="py-2">
-                                                                {{ $user->full_name }}<br>
+                                                                {{ $user->name }}<br>
                                                                 #{{ $order->order_number }}<br>
                                                                 {{ $order->created_at->format('m/d/Y') }}
                                                             </td>

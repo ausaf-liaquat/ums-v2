@@ -292,9 +292,13 @@ class FrontendController extends Controller
 
         try {
             $session = Session::retrieve($sessionId);
-            if (!$session) {
 
-                throw new NotFoundHttpException();
+            $user = User::find(session('user_id'));
+
+            // dd($user,$session,$request->session()->all());
+            if (!$user) {
+
+               return redirect()->route('courses');
             }
             // $customer = \Stripe\Customer::retrieve($session->customer);
 
@@ -323,9 +327,9 @@ class FrontendController extends Controller
                     'type' => 1,
                 ]);
             }
-            $user = User::find(session('user_id'));
+
             // Mail::to($order->email)->send(new SuccessPurchased($user, $course, $order));
-            // session()->flush();
+            session()->flush();
             return view('frontend.course-success', compact('user', 'course', 'order'));
         } catch (\Exception $e) {
             dd($e->getMessage());

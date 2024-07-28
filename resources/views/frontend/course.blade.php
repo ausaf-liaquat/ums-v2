@@ -71,10 +71,10 @@
                                 <img class="rounded-t-lg h-40 w-full" src="{{ Storage::disk('cms')->url($course->image) }}"
                                     alt="" />
                             </a>
-                            <div class="p-5 h-48">
+                            <div class="p-5 h-44">
                                 <a href="#">
                                     <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                                        {{ $course->name }}</h5>
+                                        {{ Str::limit($course->name, 24) }}</h5>
                                     @if ($course->type == 0)
                                         <span
                                             class="rounded-full bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5  dark:bg-gray-700 dark:text-gray-300">Offline</span>
@@ -88,7 +88,7 @@
                                             class="rounded-full bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5  dark:bg-green-900 dark:text-green-300">Online</span>
                                     @endif
                                 </a>
-                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">{{ $course->description }}
+                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($course->description, 31) }}
                                 </p>
                                 <div class="flex flex-col items-center pb-10">
 
