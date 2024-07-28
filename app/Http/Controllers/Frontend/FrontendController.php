@@ -8,6 +8,7 @@ use App\Models\Courses\Course;
 use App\Models\Courses\CourseSchedule;
 use App\Models\Courses\CourseUserSchedule;
 use App\Models\Order;
+use App\Models\TalkToUs;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,6 +70,31 @@ class FrontendController extends Controller
     {
         return view('frontend.about-us');
     }
+    /**
+     * Terms & Conditions Page.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function joinOurTeam()
+    {
+        return view('frontend.join-our-team');
+    }
+     /**
+     * Terms & Conditions Page.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function talkToUs()
+    {
+        return view('frontend.talk-to-us');
+    }
+
+    public function talkToUsStore(Request $request)
+    {
+        TalkToUs::create($request->all());
+        return redirect()->back()->with('status', "Form Submitted Successfully");
+    }
+
 
     /**
      * Terms & Conditions Page.

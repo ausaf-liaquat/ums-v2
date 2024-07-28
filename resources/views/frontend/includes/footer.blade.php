@@ -28,15 +28,14 @@
     </svg>
     <section class="container mx-auto text-center py-6 mb-12">
         <div class="w-full flex flex-col md:flex-row py-6">
-            <div class="flex-1 mb-6 text-black">
-                <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-                    href="#">
-                    <!--Icon from: http://www.potlabicons.com/ -->
-                    <img class="w-1/2" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
-                </a>
-            </div>
+          <div class="flex justify-center mb-6 text-black">
+            <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+                <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
+            </a>
+        </div>
+
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Links</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Links</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -53,7 +52,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Legal</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -66,7 +65,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Social</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Social</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -83,7 +82,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Company</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -119,7 +118,7 @@
                 </a>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Links</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Links</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -136,7 +135,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Legal</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -149,7 +148,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Social</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Social</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -166,7 +165,7 @@
                 </ul>
             </div>
             <div class="flex-1">
-                <p class="uppercase text-white md:mb-6">Company</p>
+                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"

@@ -50,11 +50,11 @@
             background-color: yellow;
         }
 
-        p {
+        /* p {
             color: #9f19f8;
             font-weight: 600;
             line-height: 25.6px;
-        }
+        } */
 
         .flatpickr-calendar .flatpickr-innerContainer .flatpickr-rContainer .flatpickr-days .dayContainer .flatpickr-day.selected {
             background: #9f19f8;
@@ -83,7 +83,7 @@
             list-style: none;
             color: #9b0000;
             font-size: small;
-            
+
         }
     </style>
 

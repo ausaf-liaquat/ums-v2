@@ -8,7 +8,7 @@
     <div class="pt-34 bg-cover bg-center">
 
     </div>
-    <section class="relative bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
+    <section class="relative mt-10 bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
         <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
 
         <div class="relative px-4 mx-auto max-w-[90rem]  sm:px-6 lg:flex lg:items-center lg:px-8">
@@ -22,7 +22,7 @@
                             class="p-2 text-lg lg:text-xl text-purple-600 border-4 rounded-full fa-solid fa-house bg-primary-800 border-lblue"></i>
                     </li>
                     <li class="inline-flex items-center">
-                        <a class="flex items-center text-gray-600 text-xs lg:text-sm" href="https://www.dwwlg.com">Home
+                        <a class="flex items-center text-gray-600 text-xs lg:text-sm" href="{{ route('home') }}">Home
                             <svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400 dark:text-gray-600"
                                 width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,8 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
 
-            <p class="text-gray-700 mb-6">Our company provides our team with a flexible, satisfying and stress free career.
+            <p class="text-gray-700 mb-6 p-5">Our company provides our team with a flexible, satisfying and stress free
+                career.
                 As long as you are willing to work professionally, in a timely fashion and accurately. We treat our team
                 with respect, dignity and care. We hope you relay the same in return to us, our clients and patients. If you
                 are interested in joining our team please search for a list of careers below and apply. Thank you for
@@ -121,22 +122,24 @@
         </div>
 
         <div class="container mx-auto flex flex-wrap pt-4 pb-12 text-2xl">
-          <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-              The Life You Want Starts Here
-          </h1>
-          <div class="w-full mb-4">
-              <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-          </div>
+            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                The Life You Want Starts Here
+            </h1>
+            <div class="w-full mb-4">
+                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+            </div>
 
-          <p class="text-gray-700 mb-6 text-center"><b>UMA Staffing</b>
-              If you are a CNA, PST, EGK, MAP, PST, PCT, PT, OT, RT, LPN, RN or ARNP looking to work as needed at
-              different facilities please click button to apply
-          </p>
+            <p class="text-gray-700 mb-6 text-center p-5"><b>UMA Staffing</b>
+                If you are a CNA, PST, EGK, MAP, PST, PCT, PT, OT, RT, LPN, RN or ARNP looking to work as needed at
+                different facilities please click button to apply
+            </p>
 
-          <div class="w-full flex justify-center">
-              <a href="" class="text-white font-bold uppercase text-xl bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-sm px-5 py-2.5 text-center mb-2">Join UMA Staffing</a>
-          </div>
-      </div>
+            <div class="w-full flex justify-center">
+                <a href=""
+                    class="text-white font-bold uppercase text-xl bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg px-5 py-2.5 text-center mb-2">Join
+                    UMA Staffing</a>
+            </div>
+        </div>
 
 
     </section>

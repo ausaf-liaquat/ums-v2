@@ -17,7 +17,7 @@
         </div>
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent p-4 lg:p-0 z-20"
             id="nav-content">
-            <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center mt-5 mb-5">
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4 hover:bg-white hover:rounded-lg hover:text-black  {{ request()->routeIs('home') ? 'font-extrabold':'' }} no-underline" href="{{ route('home') }}">Home</a>
                 </li>
@@ -64,8 +64,8 @@
                                         class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Professionals</h3>
-                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Join Our
-                                            Team</button>
+                                        <a href="{{ route('join-our-team') }}" class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Join Our
+                                            Team</a>
                                     </div>
                                 </div>
                             </div>
@@ -76,8 +76,8 @@
                                         class="w-16 h-16 mr-4">
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Nursing Facilities</h3>
-                                        <button class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Talk To
-                                            Us</button>
+                                        <a href="{{ route('talk-to-us') }}" class="mt-2 bg-purple-500 text-white py-1 px-4 rounded">Talk To
+                                            Us</a>
                                     </div>
                                 </div>
                             </div>

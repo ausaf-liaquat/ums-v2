@@ -14,6 +14,7 @@ class CourseUserSchedule extends Model
         'user_id',
         'course_id',
         'course_schedule_id',
+        'type'
     ];
 
    /**

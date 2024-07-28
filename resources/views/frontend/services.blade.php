@@ -8,7 +8,7 @@
     <div class="pt-34 bg-cover bg-center">
 
     </div>
-    <section class="relative bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
+    <section class="relative mt-10 bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
         <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
 
         <div class="relative px-4 mx-auto max-w-[90rem]  sm:px-6 lg:flex lg:items-center lg:px-8">
@@ -22,7 +22,7 @@
                             class="p-2 text-lg lg:text-xl text-purple-600 border-4 rounded-full fa-solid fa-house bg-primary-800 border-lblue"></i>
                     </li>
                     <li class="inline-flex items-center">
-                        <a class="flex items-center text-gray-600 text-xs lg:text-sm" href="https://www.dwwlg.com">Home
+                        <a class="flex items-center text-gray-600 text-xs lg:text-sm" href="{{ route('home') }}">Home
                             <svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400 dark:text-gray-600"
                                 width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +113,7 @@
             </div>
 
 
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
                 <div>
                     <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
                         <a href="#">
@@ -126,17 +126,17 @@
                     </figure>
                 </div>
                 <div>
-                  <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                      <a href="{{ route('courses') }}">
-                          <img class="rounded-lg" src="{{ asset('img/img-9.jpg') }}" alt="image description">
+                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
+                        <a href="{{ route('courses') }}">
+                            <img class="rounded-lg" src="{{ asset('img/img-9.jpg') }}" alt="image description">
 
-                      <figcaption
-                          class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                          <p>COURSES</p>
-                      </figcaption>
-                      </a>
-                  </figure>
-              </div>
+                            <figcaption
+                                class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
+                                <p>COURSES</p>
+                            </figcaption>
+                        </a>
+                    </figure>
+                </div>
                 <div>
                     <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
                         <a href="#">

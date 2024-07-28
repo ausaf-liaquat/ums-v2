@@ -8,7 +8,7 @@
     <div class="pt-34 bg-cover bg-center">
 
     </div>
-    <section class="relative bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
+    <section class="relative mt-10 bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
         <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
 
         <div class="relative px-4 mx-auto max-w-[90rem]  sm:px-6 lg:flex lg:items-center lg:px-8">
@@ -88,7 +88,8 @@
                                             class="rounded-full bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5  dark:bg-green-900 dark:text-green-300">Online</span>
                                     @endif
                                 </a>
-                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">{{ $course->description }}</p>
+                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">{{ $course->description }}
+                                </p>
                                 <div class="flex flex-col items-center pb-10">
 
                                     <div class="flex">

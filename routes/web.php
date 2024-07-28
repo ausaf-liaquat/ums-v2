@@ -47,6 +47,10 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('home', 'index')->name('home');
     Route::get('services', 'services')->name('service');
     Route::get('about-us', 'aboutUs')->name('about-us');
+    Route::get('join-our-team', 'joinOurTeam')->name('join-our-team');
+    Route::get('talk-to-us', 'talkToUs')->name('talk-to-us');
+    Route::post('/talk-to-us/store', 'talkToUsStore')->name('talk-to-us.store');
+
     Route::get('careers', 'careers')->name('careers');
     Route::get('services/courses', 'courses')->name('courses');
     Route::get('services/courses/{slug}', 'courseRegister')->name('courses.register');
