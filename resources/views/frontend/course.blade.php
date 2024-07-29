@@ -62,11 +62,11 @@
             </div>
 
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="grid grid-cols-1 w-full p-4 md:grid-cols-5 gap-4">
                 @foreach ($courses as $course)
                     <div>
                         <div
-                            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            class="max-w-sm bg-white border border-gray-200 hover:shadow-md hover:shadow-purple-500 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                                 <img class="rounded-t-lg h-40 w-full" src="{{ Storage::disk('cms')->url($course->image) }}"
                                     alt="" />
