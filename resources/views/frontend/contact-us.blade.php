@@ -60,7 +60,7 @@
             @endsession
 
 
-            <div class="grid grid-cols-2 w-1/2  md:grid-cols-4 mx-auto gap-2">
+            <div class="grid grid-cols-1 p-5 md:w-2/3  md:grid-cols-4 mx-auto gap-2">
                 <div>
                     <div class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center">
                         <div class="bg-green-100 p-4 rounded-full mb-4">
@@ -119,9 +119,9 @@
                 </div>
             </div>
 
-            <form action="{{ route('contact-us.store') }}" method="post">
+            <form action="{{ route('contact-us.store') }}" class="p-5" method="post">
                 @csrf
-                <div class="lg:w-1/2 md:w-2/3 mx-auto shadow-lg rounded-lg p-5">
+                <div class=" md:w-2/3 mx-auto shadow-lg rounded-lg p-5">
                     <div class="flex flex-wrap -m-2">
                         <div class="p-2 w-1/2">
                             <div class="relative">
