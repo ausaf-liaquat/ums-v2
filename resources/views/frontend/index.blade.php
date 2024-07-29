@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('title')
-    
 @endsection
 
 @section('content')
@@ -66,25 +65,32 @@
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img.jpg') }})">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                <div class="absolute inset-0 flex items-end p-4">
+                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                    </div>
                 </div>
             </div>
+
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img-1.jpg') }})">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                <div class="absolute inset-0 flex items-end p-4">
+                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                    </div>
                 </div>
             </div>
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img-2.jpg') }})">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                <div class="absolute inset-0 flex items-end p-4">
+                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
+                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -399,9 +405,5 @@
         </div>
 
     </section>
-
-
-
-
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection
