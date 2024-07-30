@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Select2Controller;
 use App\Http\Controllers\Backend\ShiftController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
 use App\Livewire\Terms;
@@ -63,11 +64,6 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('services/course/checkout/stripe', 'checkoutStripe')->name('course.checkout.stripe');
     Route::get('services/course/checkout/success', 'checkoutSuccess')->name('checkout-course.success');
     Route::get('services/course/checkout/cancel',  'checkoutCancel')->name('checkout-course.cancel');
-
-    // PRODUCTS
-    Route::get('services/medical-supplies/', 'medicalSupplies')->name('medical-supplies');
-    Route::get('services/medical-uniforms/', 'medicalUniforms')->name('medical-uniforms');
-
 });
 
 // Language Switch
@@ -135,6 +131,12 @@ Route::get('/course/get-dates', [AjaxController::class, 'getDates'])->name('cour
 // | |_  | |_) | | | |  \| | | | |  _| |  \| | | | |
 // |  _| |  _ <| |_| | |\  | | | | |___| |\  | |_| |
 // |_|   |_| \_\\___/|_| \_| |_| |_____|_| \_|____/
+
+Route::controller(FrontendProductController::class)->group(function () {
+    // PRODUCTS
+    Route::get('services/medical-supplies/', 'medicalSupplies')->name('medical-supplies');
+    Route::get('services/medical-uniforms/', 'medicalUniforms')->name('medical-uniforms');
+});
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     // Route::get('/', 'FrontendController@index')->name('index');
@@ -383,7 +385,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::patch("clinicians/facility-banned-update/", "facilityBanned")->name("clinicians.facility.banned.update");
     });
 
-/*
+    /*
      *
      *  Course Schedule Routes
      *

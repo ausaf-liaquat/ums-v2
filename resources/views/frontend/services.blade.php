@@ -139,7 +139,7 @@
                 </div>
                 <div>
                     <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="#">
+                        <a href="{{ route('medical-supplies') }}">
                             <img class="rounded-lg" src="{{ asset('img/img-10.jpg') }}" alt="image description">
                         </a>
                         <figcaption
