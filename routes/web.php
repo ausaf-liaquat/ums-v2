@@ -54,6 +54,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::post('/talk-to-us/store', 'talkToUsStore')->name('talk-to-us.store');
 
     Route::get('careers', 'careers')->name('careers');
+
+    // COURSES
     Route::get('services/courses', 'courses')->name('courses');
     Route::get('services/courses/{slug}', 'courseRegister')->name('courses.register');
     Route::post('services/courses/checkout/store', 'checkoutStore')->name('course.checkout.store');
@@ -61,6 +63,11 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('services/course/checkout/stripe', 'checkoutStripe')->name('course.checkout.stripe');
     Route::get('services/course/checkout/success', 'checkoutSuccess')->name('checkout-course.success');
     Route::get('services/course/checkout/cancel',  'checkoutCancel')->name('checkout-course.cancel');
+
+    // PRODUCTS
+    Route::get('services/medical-supplies/', 'medicalSupplies')->name('medical-supplies');
+    Route::get('services/medical-uniforms/', 'medicalUniforms')->name('medical-uniforms');
+
 });
 
 // Language Switch
