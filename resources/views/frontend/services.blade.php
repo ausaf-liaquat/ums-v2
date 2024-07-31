@@ -116,7 +116,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
                 <div>
                     <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="#">
+                        <a href="{{ route('join-our-team') }}">
                             <img class="rounded-lg" src="{{ asset('img/img-7.jpg') }}" alt="image description">
                         </a>
                         <figcaption

@@ -148,8 +148,8 @@
 
                             <div class="mb-3">
 
-                                <label for="passcode">Passcode</label>
-                                <input type="text" class="form-control" name="passcode" placeholder="Enter passcode"
+                                <label for="passcode">Verbal Passcode</label>
+                                <input type="text" class="form-control" name="passcode" placeholder="Enter verbal passcode"
                                     id="passcode" required>
 
                             </div>

@@ -90,11 +90,11 @@
                             Blog</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
+                        <a href="{{ route('about-us') }}"
                             class="no-underline hover:underline text-white hover:text-blue-500">About Us</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
+                        <a href="{{ route('contact-us') }}"
                             class="no-underline hover:underline text-white hover:text-blue-500">Contact</a>
                     </li>
                 </ul>

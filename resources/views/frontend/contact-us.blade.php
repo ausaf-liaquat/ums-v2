@@ -71,7 +71,9 @@
                             </svg>
                         </div>
                         <div class=" font-bolder text-gray-900 mb-2">9415291867</div>
-                        <div class="text-gray-500">Call Today</div>
+                        <div class="text-gray-500">Call Us 9am-5pm  (Mountain Standard Time)
+
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -86,7 +88,7 @@
                             </svg>
                         </div>
                         <div class=" font-bolder text-gray-900 mb-2">Info@uniquemedsvcs.com</div>
-                        <div class="text-gray-500">Contact Hospital</div>
+                        <div class="text-gray-500"> Email Us 24/7</div>
                     </div>
                 </div>
                 <div>
@@ -98,7 +100,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3" />
                             </svg>
                         </div>
-                        <div class=" font-bolder text-gray-900 mb-2">9 AM to 9 PM</div>
+                        <div class=" font-bolder text-gray-900 mb-2">9 AM to 5 PM</div>
                         <div class="text-gray-500">Open Hours</div>
                     </div>
                 </div>
@@ -113,7 +115,7 @@
                                     d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z" />
                             </svg>
                         </div>
-                        <div class=" font-bolder text-gray-900 mb-2">P.O. Box 3421 Riverview, FL 33568</div>
+                        <div class=" font-bolder text-gray-900 mb-2">514 Americas Way PMB 22605 Box Elder, SD 57719</div>
                         <div class="text-gray-500">Our Location</div>
                     </div>
                 </div>
@@ -204,7 +206,7 @@
 
         </div>
     </section>
-   
+
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection
 

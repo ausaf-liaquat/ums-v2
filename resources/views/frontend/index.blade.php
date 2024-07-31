@@ -16,10 +16,10 @@
                     Our company is a one stop shop for all medical facilities nationwide. We provide services to keep your
                     facility running smoothly so you can focus on what is most important, patient care.
                 </p>
-                <button
+                <a href="{{ route('service') }}"
                     class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out animate-fadeIn">
                     Services
-                </button>
+                </a>
             </div>
             <!--Right Col-->
             <div class="w-full md:w-3/5 py-6 text-center animate-fadeIn">
@@ -180,6 +180,6 @@
             </div>
         </div>
     </section>
-   
+
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection
