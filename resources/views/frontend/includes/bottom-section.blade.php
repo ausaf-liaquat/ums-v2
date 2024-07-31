@@ -1,8 +1,8 @@
 <section class=" py-8">
-    <div class="container mx-auto flex flex-wrap pt-4 pb-12 ">
+    <div class="container mx-auto pt-4 pb-12 ">
         <div class="flex flex-col md:flex-row">
             <!-- First Column -->
-            <div class="flex-1 p-4">
+            <div class="flex-1 mt-10 p-4">
                 <div class="animate-fadeIn">
                     <div
                         class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
@@ -39,7 +39,7 @@
                     <p class="text-gray-700 mb-6"> If you are a: </p>
 
 
-                    <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400 mb-4">
+                    <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400 mb-4 pl-16">
                         <li class="flex items-center space-x-3 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">

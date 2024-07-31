@@ -88,7 +88,8 @@
                                             class="rounded-full bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5  dark:bg-green-900 dark:text-green-300">Online</span>
                                     @endif
                                 </a>
-                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($course->description, 31) }}
+                                <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">
+                                    {{ Str::limit($course->description, 31) }}
                                 </p>
                                 <div class="flex flex-col items-center pb-10">
 
@@ -110,7 +111,7 @@
 
         </div>
     </section>
-   
+
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection

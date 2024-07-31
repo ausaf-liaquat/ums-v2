@@ -97,87 +97,58 @@
     </section>
     <section class="bg-white border-b py-8">
         <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Courses
             </h1>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+            @php
+                $courses = App\Models\Courses\Course::whereStatus(1)->take(4)->get();
+            @endphp
+            @foreach ($courses as $course)
+                <div class=" w-full md:w-1/4 p-6 flex flex-col flex-grow flex-shrink">
+                    <div class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
 
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
-
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
+                        <div
+                            class="bg-purple-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                            @if ($course->type == 0)
+                                Offline
+                            @elseif($course->type == 1)
+                                Online
+                            @else
+                                Offline / Online
+                            @endif
                         </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
-                </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
+
+                        <a href="{{ route('courses') }}" class="flex flex-wrap no-underline hover:no-underline">
+
+                            <img class="h-[500px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
+                                alt="">
+
+                            <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6 mb-5">
+                                {{ Str::limit($course->name, 24) }}
+                            </div>
+                            {{-- <p class="text-gray-800 text-base px-6 mb-5">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
+                          posuere et sit amet ligula.
+                      </p> --}}
+
+                        </a>
                     </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
-
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
+                    {{-- <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
+                        <div class="flex items-center justify-start">
+                            <button
+                                class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                Action
+                            </button>
                         </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
+                    </div> --}}
                 </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-xl">
-                    <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+            @endforeach
 
-                        <img class="h-auto max-w-lg mx-auto" src="{{ asset('frontend/assets/courses/c1.png') }}"
-                            alt="">
 
-                        <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6">
-                            CPR/FIRST-AID
-                        </div>
-                        <p class="text-gray-800 text-base px-6 mb-5">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-                            posuere et sit amet ligula.
-                        </p>
-                    </a>
-                </div>
-                <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
-                    <div class="flex items-center justify-start">
-                        <button
-                            class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Action
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
