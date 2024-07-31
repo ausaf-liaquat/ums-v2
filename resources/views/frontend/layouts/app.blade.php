@@ -98,6 +98,8 @@
 
     @yield('content')
 
+    @include('frontend.includes.bottom-section')
+
     @include('frontend.includes.footer')
 
     {{-- <div>
