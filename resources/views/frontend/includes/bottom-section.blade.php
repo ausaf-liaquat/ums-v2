@@ -1,8 +1,8 @@
-<section class=" py-8">
+<section class="py-8">
     <div class="container mx-auto pt-4 pb-12 ">
         <div class="flex flex-col md:flex-row">
             <!-- First Column -->
-            <div class="flex-1 mt-10 p-4">
+            <div class="flex-1 mt-10">
                 <div class="animate-fadeIn">
                     <div
                         class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
@@ -134,16 +134,16 @@
                     </ul>
 
                     <p class="text-lg font-bold text-gray-900 mb-4">
-                      Looking to work as needed at different facilities please click button to
-                      apply.
+                        Looking to work as needed at different facilities please click button to
+                        apply.
                     </p>
 
                     <div class="flex items-center justify-center">
                         <div>
-                            <h2 class="text-3xl text-white font-extrabold my-3 text-center">Get the app</h2>
-                            <div class="flex flex-col gap-2 p-2 md:flex-row w-full">
+                            <h2 class="text-3xl text-gray-900 font-extrabold  text-center">Get the app</h2>
+                            <div class="flex flex-col gap-2 p-2 ">
                                 <a href="https://apps.apple.com/us/app/ums-staff/id6450438303"
-                                    class="flex items-center justify-center w-48 mb-3 text-white bg-black h-14 rounded-xl">
+                                    class="flex items-center justify-center  w-[250px] md:w-[310px] mb-3 text-white bg-black h-14 rounded-xl">
                                     <div class="mr-3">
                                         <svg viewBox="0 0 384 512" width="30">
                                             <path fill="currentColor"
@@ -162,7 +162,7 @@
                                 </a>
 
                                 <a href="https://apps.apple.com/us/app/ums-staff/id6450438303"
-                                    class="flex items-center justify-center w-48 text-white bg-black rounded-lg h-14">
+                                    class="flex items-center justify-center w-[250px] md:w-[310px] text-white bg-black rounded-lg h-14">
                                     <div class="mr-3">
                                         <svg viewBox="30 336.7 120.9 129.2" width="30">
                                             <path fill="#FFD400"

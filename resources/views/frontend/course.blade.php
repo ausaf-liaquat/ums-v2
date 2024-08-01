@@ -62,10 +62,63 @@
             </div>
 
 
-            <div class="grid grid-cols-1 w-full p-4 md:grid-cols-5 gap-4">
+            <div class="grid grid-cols-1 w-full p-4 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 @foreach ($courses as $course)
                     <div>
-                        <div
+                        <div class="w-full">
+                            <div
+                                class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
+
+                                <div
+                                    class="bg-purple-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                    @if ($course->type == 0)
+                                        Offline
+                                    @elseif($course->type == 1)
+                                        Online
+                                    @else
+                                        Offline / Online
+                                    @endif
+                                </div>
+
+                                <a href="{{ route('courses') }}" class="flex flex-wrap no-underline hover:no-underline">
+
+                                    <img class="h-[350px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
+                                        alt="">
+
+                                    <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6 mb-5">
+                                        {{ Str::limit($course->name, 24) }}
+                                    </div>
+
+                                    {{-- <p class="mb-3 mt-4 font-normal text-gray-700 dark:text-gray-400">
+                                      {{ Str::limit($course->description, 31) }}
+                                    </p> --}}
+                                    {{-- <p class="text-gray-800 text-base px-6 mb-5">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
+                                        posuere et sit amet ligula.
+                                    </p> --}}
+
+                                </a>
+                                <div class="flex flex-col items-center pb-10">
+
+                                    <div class="flex">
+                                        <a href="{{ route('courses.register', ['slug' => $course->slug]) }}"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-yellow-400 dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">
+                                            Register</a>
+                                        <a href="{{ route('login') }}"
+                                            class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-xl p-6">
+                            <div class="flex items-center justify-start">
+                                <button
+                                    class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                    Action
+                                </button>
+                            </div>
+                        </div> --}}
+                        </div>
+                        {{-- <div
                             class="max-w-sm bg-white border border-gray-200 hover:shadow-md hover:shadow-purple-500 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                                 <img class="rounded-t-lg h-40 w-full" src="{{ Storage::disk('cms')->url($course->image) }}"
@@ -103,7 +156,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> --}}
 
                     </div>
                 @endforeach
