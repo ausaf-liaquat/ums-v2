@@ -161,7 +161,7 @@
                                     </div>
                                 </a>
 
-                                <a href="https://apps.apple.com/us/app/ums-staff/id6450438303"
+                                <a href="https://play.google.com/store/apps/details?id=com.ums_staff.app"
                                     class="flex items-center justify-center w-[250px] md:w-[310px] text-white bg-black rounded-lg h-14">
                                     <div class="mr-3">
                                         <svg viewBox="30 336.7 120.9 129.2" width="30">

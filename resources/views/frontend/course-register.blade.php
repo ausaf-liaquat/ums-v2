@@ -96,7 +96,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection
 
@@ -115,8 +115,8 @@
             let course_price = parseFloat("{{ $course->price }}")
             let course_name = "{{ $course->name }}"
             let course_zip_code = "{{ $course->zip_code }}"
-            let course_city = "{{ $course->city->name }}"
-            let course_state = "{{ $course->state->name }}"
+            let course_city = "{{ $course->city?->name }}"
+            let course_state = "{{ $course->state?->name }}"
             let course_slug = "{{ $course->slug }}"
 
             // Define your event data
@@ -172,8 +172,6 @@
 
                             // Handle the response from the server
                             if (res.data.event) {
-
-
                                 let btnStatus = '';
                                 let timeHtml = ''
                                 let servicesDetails = ''
