@@ -80,7 +80,8 @@
                                     @endif
                                 </div>
 
-                                <a href="{{ route('courses') }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <a href="{{ route('courses.register', ['slug' => $course->slug]) }}"
+                                    class="flex flex-wrap no-underline hover:no-underline">
 
                                     <img class="h-[350px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
                                         alt="">
