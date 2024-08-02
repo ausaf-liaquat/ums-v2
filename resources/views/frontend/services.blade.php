@@ -104,75 +104,78 @@
         </div>
     </section> --}}
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <div class="flex flex-wrap">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Services
             </h1>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
+        </div>
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
-                <div>
-                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="{{ route('join-our-team') }}">
-                            <img class="rounded-lg" src="{{ asset('img/img-7.jpg') }}" alt="image description">
-                        </a>
-                        <figcaption
-                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                            <p>STAFFING</p>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div>
-                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="{{ route('courses') }}">
-                            <img class="rounded-lg" src="{{ asset('img/img-9.jpg') }}" alt="image description">
-
-                            <figcaption
-                                class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                                <p>COURSES</p>
-                            </figcaption>
-                        </a>
-                    </figure>
-                </div>
-                <div>
-                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="{{ route('medical-supplies') }}">
-                            <img class="rounded-lg" src="{{ asset('img/img-10.jpg') }}" alt="image description">
-                        </a>
-                        <figcaption
-                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                            <p class="uppercase">Medical Supplies</p>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div>
-                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="#">
-                            <img class="rounded-lg" src="{{ asset('img/img-11.jpg') }}" alt="image description">
-                        </a>
-                        <figcaption
-                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                            <p class="uppercase"> Medical Uniform</p>
-                        </figcaption>
-                    </figure>
-                </div>
-
-                <div>
-                    <figure class="relative max-w-full transition-all duration-300 cursor-pointer filter">
-                        <a href="#">
-                            <img class="rounded-lg" src="{{ asset('img/img-12.jpg') }}" alt="image description">
-                        </a>
-                        <figcaption
-                            class="absolute px-4 text-lg text-white bottom-6 rounded-e-lg bg-purple-600 font-extrabold">
-                            <p>Medical Coding and billing (Comming Soon)</p>
-                        </figcaption>
-                    </figure>
-                </div>
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-7.jpg') }})">
+                <a href="{{ route('join-our-team') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">STAFFING</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
+                    </div>
+                </a>
             </div>
 
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-9.jpg') }})">
+                <a href="{{ route('courses') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">COURSES</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-10.jpg') }})">
+                <a href="{{ route('medical-supplies') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL SUPPLIES</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-11.jpg') }})">
+                <a href="#">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL UNIFORM</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
+                style="background-image: url({{ asset('img/img-12.jpg') }})">
+                <a href="#">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL CODING AND BILLING
+                                (COMING SOON)</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
     <!-- Change the colour #f8fafc to match the previous section colour -->

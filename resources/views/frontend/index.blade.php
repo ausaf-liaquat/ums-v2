@@ -63,35 +63,41 @@
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="absolute inset-0 flex items-end p-4">
-                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
-                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                style="background-image: url({{ asset('img/img-7.jpg') }})">
+                <a href="{{ route('join-our-team') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">STAFFING</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img-1.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="absolute inset-0 flex items-end p-4">
-                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
-                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                style="background-image: url({{ asset('img/img-9.jpg') }})">
+                <a href="{{ route('courses') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">COURSES</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img-2.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="absolute inset-0 flex items-end p-4">
-                    <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
-                        <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                        <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
+                style="background-image: url({{ asset('img/img-10.jpg') }})">
+                <a href="{{ route('medical-supplies') }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
+                    <div class="absolute inset-0 flex items-end p-4">
+                        <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
+                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL SUPPLIES</h6>
+                            {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -109,7 +115,8 @@
             @endphp
             @foreach ($courses as $course)
                 <div class=" w-full md:w-1/4 p-6 flex flex-col flex-grow flex-shrink">
-                    <div class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
+                    <div
+                        class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
 
                         <div
                             class="bg-purple-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
