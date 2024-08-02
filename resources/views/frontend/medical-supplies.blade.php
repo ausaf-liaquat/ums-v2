@@ -107,7 +107,7 @@
             </div>
         </div>
     </section>
-    
+
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
 @endsection
