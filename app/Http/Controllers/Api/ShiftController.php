@@ -27,7 +27,7 @@ class ShiftController extends Controller
     }
     public function acceptedShifts()
     {
-        $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status',1)->pluck('shift_id')->toArray();
+        $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
         $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
@@ -66,12 +66,14 @@ class ShiftController extends Controller
     public function shiftCancel($id)
     {
         $shift = Shift::findOrFail($id);
-        $shift_user = UserShift::where(['user_id' => auth()->user()->id,'shift_id' => $shift->id])->first();
+        $shift_user = UserShift::where(['user_id' => auth()->user()->id, 'shift_id' => $shift->id])->first();
         if (!$shift_user) {
             return $this->error('Shift Not Exist', 404);
         }
-        UserShift::where(['user_id' => auth()->user()->id,
-            'shift_id' => $shift->id])->update([
+        UserShift::where([
+            'user_id' => auth()->user()->id,
+            'shift_id' => $shift->id
+        ])->update([
             'status' => 3,
         ]);
 
@@ -122,5 +124,4 @@ class ShiftController extends Controller
 
         return $this->success($shifts, 'Shifts', 200);
     }
-
 }

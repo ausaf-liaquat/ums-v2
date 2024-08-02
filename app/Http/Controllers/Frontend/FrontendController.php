@@ -80,7 +80,7 @@ class FrontendController extends Controller
     {
         return view('frontend.join-our-team');
     }
-     /**
+    /**
      * Terms & Conditions Page.
      *
      * @return \Illuminate\Contracts\View\View
@@ -121,12 +121,12 @@ class FrontendController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'type'=>$request->type,
+            'type' => $request->type,
             'message' => $request->message,
-            'created_at'=>now(),
-            'updated_at'=>now()
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
-        return redirect()->back()->with('success','Form has been submitted successfully');
+        return redirect()->back()->with('success', 'Form has been submitted successfully');
     }
 
     /**
@@ -218,7 +218,7 @@ class FrontendController extends Controller
                 $username = intval(config('app.initial_username')) + $user->id;
                 $user->username = strval($username);
                 $user->save();
-            }else{
+            } else {
                 $user = $userExist;
             }
 
@@ -298,7 +298,7 @@ class FrontendController extends Controller
             // dd($user,$session,$request->session()->all());
             if (!$user) {
 
-               return redirect()->route('courses');
+                return redirect()->route('courses');
             }
             // $customer = \Stripe\Customer::retrieve($session->customer);
 

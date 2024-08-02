@@ -70,7 +70,7 @@ class AuthController extends Controller
         $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'name'  =>$request->first_name.' '. $request->last_name,
+            'name'  => $request->first_name . ' ' . $request->last_name,
             'email' => $request->email,
             'phone' => $phoneWithoutPlus,
             'gender' => $request->gender == 'male' ? 0 : 1,

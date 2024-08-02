@@ -136,7 +136,7 @@ class ClinicianController extends Controller
         $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'name'  =>$request->first_name.' '. $request->last_name,
+            'name'  => $request->first_name . ' ' . $request->last_name,
             'email' => $request->email,
             'phone' => $phoneWithoutPlus,
             'zip_code' => $request->zip_code,
