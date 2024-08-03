@@ -41,9 +41,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function privacy()
+    public function details($slug)
     {
-        return view('frontend.privacy');
+        $data = [
+            'product'=>Product::whereSlug($slug)->first()
+        ];
+        return view('frontend.product-details', $data);
     }
 
     /**

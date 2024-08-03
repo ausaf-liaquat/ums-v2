@@ -60,50 +60,43 @@
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
+            <div class="font-[sans-serif] bg-gray-100 rounded-2xl">
+                <div class="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
+                    {{-- <h2 class="text-4xl font-extrabold text-gray-800 mb-12">Premium Sneakers</h2> --}}
 
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6">
 
-            <div class="grid grid-cols-1 w-full p-4 md:grid-cols-5 gap-4">
-                @foreach ($products as $product)
-                    <div>
-                        <a href="#"
-                            class="group relative block overflow-hidden rounded-2xl hover:border-purple-500 hover:border">
-                            <button
-                                class="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
-                                <span class="sr-only">Wishlist</span>
+                        @foreach ($products as $product)
+                            <div
+                                class="bg-white rounded-2xl p-5 cursor-pointer hover:-translate-y-2 transition-all relative">
+                                <a href="{{ route('details', ['slug' => $product->slug]) }}">
+                                    <div
+                                        class="bg-gray-100 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-4 right-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16px"
+                                            class="fill-gray-800 inline-block" viewBox="0 0 64 64">
+                                            <path
+                                                d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"
+                                                data-original="#000000"></path>
+                                        </svg>
+                                    </div>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                            </button>
+                                    <div
+                                        class="w-5/6 h-[210px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 md:mb-2 mb-4">
+                                        <img src="{{ Storage::disk('cms')->url(json_decode($product->image)[0]) }}" alt="Product 1"
+                                            class="h-full w-full object-contain" />
+                                    </div>
 
-                            <img src="{{ Storage::disk('cms')->url(json_decode($product->image)[0]) }}" alt=""
-                                class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
-
-                            <div class="relative border border-gray-100 bg-white p-6">
-                                @if ($product->created_at->diffInDays(now()) <= 4)
-                                    <span
-                                        class="whitespace-nowrap bg-yellow-300 px-3 py-1.5 text-xs font-medium rounded-lg">
-                                        <i class="fas fa-bolt"></i> New
-                                    </span>
-                                @endif
-
-                                <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $product->title }}</h3>
-
-                                <p class="mt-1.5 text-sm text-gray-700">${{ number_format($product->price, 2) }}</p>
-
-                                <form class="mt-4">
-                                    <button
-                                        class="block w-full rounded bg-purple-600 p-4 text-sm font-medium transition hover:scale-105">
-                                        Buy Now <i class="fas fa-cart-shopping"></i>
-                                    </button>
-                                </form>
+                                    <div>
+                                        <h3 class="text-lg font-extrabold text-gray-800">{{ $product->title }}</h3>
+                                        <p class="text-gray-600 text-sm mt-2">{{ $product->description }}</p>
+                                        <h4 class="text-lg text-gray-800 font-bold mt-4">${{ number_format($product->price, 2) }}</h4>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                @endforeach
+                        @endforeach
 
+                    </div>
+                </div>
             </div>
         </div>
     </section>

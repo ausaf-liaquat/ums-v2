@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClinicianController;
+use App\Http\Controllers\Api\ShiftController;
 use App\Http\Controllers\Api\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,18 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/stripe/login/connect/account',  'stripeConnectedAccountLogin');
             Route::get('/stripe/oauth',   'oauth');
             Route::post('/stripe/oauth/authentication',   'authenticate');
+        });
+
+        Route::controller(ShiftController::class)->group(function () {
+            Route::post('/shifts',  'shifts');
+            Route::post('/accepted/shifts/list',  'acceptedShifts');
+            Route::post('/shift/{id}/details',  'shiftDetail');
+            Route::post('/shift/{id}/accept',  'shiftAccept');
+            Route::post('/shift/{id}/decline',  'shiftDecline');
+            Route::post('/shift/{id}/cancel',  'shiftCancel');
+            Route::post('/shift/{id}/clockout',  'shiftClockout');
+            Route::post('/shift/{id}/clockin',  'shiftClockin');
+            Route::post('/shifts/filter',  'shiftsFilter');
         });
     });
 });

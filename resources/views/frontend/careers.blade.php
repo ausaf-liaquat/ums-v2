@@ -130,7 +130,7 @@
             </div>
 
             <p class="text-gray-700 mb-6 text-center p-5"><b>UMA Staffing</b>
-                If you are a CNA, PST, EGK, MAP, PST, PCT, PT, OT, RT, LPN, RN or ARNP looking to work as needed at
+                If you are a CNA, PST, EKG, MAP, PST, PCT, PT, OT, RT, LPN, RN or ARNP looking to work as needed at
                 different facilities please click button to apply
             </p>
 
