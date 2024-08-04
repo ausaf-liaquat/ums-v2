@@ -11,5 +11,5 @@ class MFColor extends Model
 
     protected $table = "mf_colors";
 
-    protected $fillable =['name', 'status'];
+    protected $fillable =['name','color', 'status'];
 }

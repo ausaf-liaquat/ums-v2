@@ -29,6 +29,7 @@
                         <tr>
                             <th>Sr. no</th>
                             <th>Name</th>
+                            <th>Color</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -82,6 +83,12 @@
 
                     },
                     {
+                        "data": "color",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
                         "data": "status",
                         "className": "text-center",
                         "defaultContent": "",
@@ -96,7 +103,7 @@
 
                 ],
                 columnDefs: [{
-                        "targets": 2,
+                        "targets": 3,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             var checked = row.status == 1 ? 'checked' : null;

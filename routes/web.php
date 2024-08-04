@@ -137,6 +137,7 @@ Route::controller(FrontendProductController::class)->group(function () {
     Route::get('services/medical-supplies/', 'medicalSupplies')->name('medical-supplies');
     Route::get('services/medical-uniforms/', 'medicalUniforms')->name('medical-uniforms');
     Route::get('services/medical-supplies/{slug}', 'details')->name('details');
+    Route::get('services/medical-supplies/{slug}', 'details')->name('details');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {

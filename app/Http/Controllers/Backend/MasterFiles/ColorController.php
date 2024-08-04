@@ -33,7 +33,8 @@ class ColorController extends Controller
     public function store(Request $request) {
 
         MFColor::create([
-            'name'=>$request->name
+            'name'=>$request->name,
+            'color'=>$request->color
         ]);
 
         return redirect()->route('backend.colors')->with('success', 'Color added successfully');
@@ -52,7 +53,9 @@ class ColorController extends Controller
     public function update(Request $request,MFColor $color) {
 
         $color->update([
-            'name'=>$request->name
+            'name'=>$request->name,
+            'color'=>$request->color
+
         ]);
 
         return redirect()->route('backend.colors')->with('success', 'Color updated successfully');

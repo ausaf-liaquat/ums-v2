@@ -84,18 +84,20 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-                    <div
-                        class="pro-detail w-full flex flex-col justify-center order-last lg:order-none max-lg:max-w-[608px] max-lg:mx-auto">
-                        <p class="font-medium text-lg text-indigo-600 mb-4">Services &nbsp; / &nbsp; Medical Supplies</p>
-                        <h2 class="mb-2 font-manrope font-bold text-3xl leading-10 text-gray-900">
-                            {{ $product->title ?? '' }}
-                        </h2>
-                        <div class="flex flex-col sm:flex-row sm:items-center mb-6">
-                            <h6
-                                class="font-manrope font-semibold text-2xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">
-                                ${{ number_format($product->price, 2) }}</h6>
-                            <div class="flex items-center gap-2">
+                <form action="" method="post">
+                    @csrf <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                        <div
+                            class="pro-detail w-full flex flex-col justify-center order-last lg:order-none max-lg:max-w-[608px] max-lg:mx-auto">
+                            <p class="font-medium text-lg text-indigo-600 mb-4">Services &nbsp; / &nbsp; Medical Supplies
+                            </p>
+                            <h2 class="mb-2 font-manrope font-bold text-3xl leading-10 text-gray-900">
+                                {{ $product->title ?? '' }}
+                            </h2>
+                            <div class="flex flex-col sm:flex-row sm:items-center mb-6">
+                                <h6
+                                    class="font-manrope font-semibold text-2xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">
+                                    ${{ number_format($product->price, 2) }}</h6>
+                                {{-- <div class="flex items-center gap-2">
                                 <div class="flex items-center gap-1">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -165,114 +167,94 @@
 
                                 </div>
                                 <span class="pl-2 font-normal leading-7 text-gray-500 text-sm ">1624 review</span>
+                            </div> --}}
+
                             </div>
-
-                        </div>
-                        <p class="text-gray-500 text-base font-normal mb-8 ">
-                            {{ $product->description }}
-                        </p>
-                        <div class="block w-full">
-                            <p class="font-medium text-lg leading-8 text-gray-900 mb-4">COLOR</p>
-                            <div class="text">
-                              <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                                @foreach ($product->colors as $key => $item)
-                                    <div>
-                                        <label for="color{{ $key }}"
-                                            class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                            tabindex="0">
-                                            <input class="sr-only" id="color{{ $key }}" type="radio"
-                                                tabindex="-1" name="option" />
-
-                                            <span class="text-sm"> {{ $item->name }} </span>
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                                {{-- <div class="flex items-center justify-start gap-3 md:gap-6 relative mb-6 ">
-                                    <button data-ui="checked active"
-                                        class="p-2.5 border border-gray-200 rounded-full transition-all duration-300 hover:border-emerald-500 :border-emerald-500">
-                                        <svg width="20" height="20" viewBox="0 0 40 40" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="20" cy="20" r="20" fill="#10B981" />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="p-2.5 border border-gray-200 rounded-full transition-all duration-300 hover:border-amber-400 focus-within:border-amber-400">
-                                        <svg width="20" height="20" viewBox="0 0 40 40" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="20" cy="20" r="20" fill="#FBBF24" />
-                                        </svg>
-
-                                    </button>
-                                    <button
-                                        class="p-2.5 border border-gray-200 rounded-full transition-all duration-300 hover:border-red-500 focus-within:border-red-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 40 40" fill="none">
-                                            <circle cx="20" cy="20" r="20" fill="#F43F5E" />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="p-2.5 border border-gray-200 rounded-full  transition-all duration-300 hover:border-blue-400 focus-within:border-blue-400">
-                                        <svg width="20" height="20" viewBox="0 0 40 40" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="20" cy="20" r="20" fill="#2563EB" />
-                                        </svg>
-                                    </button>
-
-                                </div> --}}
-                                <div class="block w-full mb-6">
-                                    <p class="font-medium text-lg leading-8 text-gray-900 mb-4">SIZE</p>
+                            <p class="text-gray-500 text-base font-normal mb-8 ">
+                                {{ $product->description }}
+                            </p>
+                            <div class="block w-full">
+                                <p class="font-medium text-lg leading-8 text-gray-900 mb-4">COLOR</p>
+                                <div class="text">
                                     <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                                        @foreach ($product->sizes as $key => $item)
+                                        @foreach ($product->colors as $key => $item)
                                             <div>
-                                                <label for="size{{ $key }}"
-                                                    class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
+                                                <label for="color{{ $key }}"
+                                                    class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black  has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
                                                     tabindex="0">
-                                                    <input class="sr-only" id="size{{ $key }}" type="radio"
-                                                        tabindex="-1" name="option" />
+                                                    <input class="sr-only" id="color{{ $key }}" type="radio"
+                                                        tabindex="-1" name="color" required />
 
                                                     <span class="text-sm"> {{ $item->name }} </span>
                                                 </label>
                                             </div>
                                         @endforeach
                                     </div>
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                                    <div class="flex items-center justify-center w-full">
-                                        <button
-                                            class="group py-4 px-6 border border-gray-400 rounded-l-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
-                                            <svg class="stroke-gray-700 transition-all duration-500 group-hover:stroke-black"
-                                                width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M16.5 11H5.5" stroke="" stroke-width="1.6"
-                                                    stroke-linecap="round" />
-                                                <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2"
-                                                    stroke-width="1.6" stroke-linecap="round" />
-                                                <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2"
-                                                    stroke-width="1.6" stroke-linecap="round" />
-                                            </svg>
-                                        </button>
-                                        <input type="text"
-                                            class="font-semibold text-gray-900 text-lg py-[13px] px-6 w-full lg:max-w-[118px] border-y border-gray-400 bg-transparent placeholder:text-gray-900 text-center hover:bg-gray-50 focus-within:bg-gray-50 outline-0"
-                                            placeholder="1">
-                                        <button
-                                            class="group py-4 px-6 border border-gray-400 rounded-r-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
-                                            <svg class="stroke-gray-700 transition-all duration-500 group-hover:stroke-black"
-                                                width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6"
-                                                    stroke-linecap="round" />
-                                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2"
-                                                    stroke-width="1.6" stroke-linecap="round" />
-                                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2"
-                                                    stroke-width="1.6" stroke-linecap="round" />
-                                            </svg>
-                                        </button>
+
+                                    <div class="block w-full mt-6 mb-6">
+                                        <p class="font-medium text-lg leading-8 text-gray-900 mb-4">SIZE</p>
+                                        <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                                            @foreach ($product->sizes as $key => $item)
+                                                <div>
+                                                    <label for="size{{ $key }}"
+                                                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
+                                                        tabindex="0">
+                                                        <input class="sr-only" id="size{{ $key }}" type="radio"
+                                                            tabindex="-1" name="size" required />
+
+                                                        <span class="text-sm"> {{ $item->name }} </span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                  
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <button
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                                        <p class="font-medium text-lg leading-8 text-gray-900 mb-4">QUANTITY</p>
+
+                                        <div class="w-full">
+                                            <div class="relative flex items-center max-w-[11rem]">
+                                                <button type="button" id="decrement-button"
+                                                    data-input-counter-decrement="bedrooms-input"
+                                                    class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 18 2">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
+                                                    </svg>
+                                                </button>
+                                                <input type="text" id="bedrooms-input" data-input-counter
+                                                    data-input-counter-min="1" data-input-counter-max="5"
+                                                    aria-describedby="helper-text-explanation"
+                                                    class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="" value="3" required />
+                                                <div
+                                                    class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                                                    <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
+                                                    </svg>
+                                                    <span>ITEMS</span>
+                                                </div>
+                                                <button type="button" id="increment-button"
+                                                    data-input-counter-increment="bedrooms-input"
+                                                    class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 18 18">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        {{-- <button
                                         class="group transition-all duration-500 p-4 rounded-full bg-indigo-50 hover:bg-indigo-100 hover:shadow-sm hover:shadow-indigo-300">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
                                             viewBox="0 0 26 26" fill="none">
@@ -282,29 +264,29 @@
                                                 stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
 
-                                    </button>
-                                    <button
-                                        class="text-center w-full px-5 py-4 rounded-[100px] bg-indigo-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">
-                                        Buy Now
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="">
-                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-                            class="swiper main-slide-carousel product-prev mb-6">
-                            <div class="swiper-wrapper">
-                                @foreach (json_decode($product->image) as $item)
-                                    <div class="swiper-slide">
-                                        <img src="{{ Storage::disk('cms')->url($item) }}" alt="Yellow Travel Bag image"
-                                            class="mx-auto rounded-2xl">
+                                    </button> --}}
+                                        <button type="submit"
+                                            class="text-center w-full px-5 py-4 rounded-[100px] bg-indigo-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">
+                                            Buy Now
+                                        </button>
                                     </div>
-                                @endforeach
 
-                                {{-- <div class="swiper-slide">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="">
+                            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                                class="swiper main-slide-carousel product-prev mb-6">
+                                <div class="swiper-wrapper">
+                                    @foreach (json_decode($product->image) as $item)
+                                        <div class="swiper-slide">
+                                            <img src="{{ Storage::disk('cms')->url($item) }}"
+                                                alt="Yellow Travel Bag image" class="mx-auto rounded-2xl">
+                                        </div>
+                                    @endforeach
+
+                                    {{-- <div class="swiper-slide">
                                     <img src="https://pagedone.io/asset/uploads/1711514857.png"
                                         alt="Yellow Travel Bag image" class="mx-auto rounded-2xl">
                                 </div>
@@ -316,24 +298,24 @@
                                     <img src="https://pagedone.io/asset/uploads/1711514892.png"
                                         alt="Yellow Travel Bag image" class="mx-auto rounded-2xl">
                                 </div> --}}
+                                </div>
+
                             </div>
-
-                        </div>
-                        <div thumbsSlider="" class="swiper nav-for-slider product-thumb max-w-[608px] mx-auto">
-                            <div class="swiper-wrapper">
-                                @foreach (json_decode($product->image) as $item)
-                                    <div class="swiper-slide">
-                                        <img src="{{ Storage::disk('cms')->url($item) }}" alt="Travel Bag image"
-                                            class=" cursor-pointer border-2 border-gray-50 transition-all duration-500 hover:border-indigo-600 slide:border-indigo-600">
-                                    </div>
-                                @endforeach
+                            <div thumbsSlider="" class="swiper nav-for-slider product-thumb max-w-[608px] mx-auto">
+                                <div class="swiper-wrapper">
+                                    @foreach (json_decode($product->image) as $item)
+                                        <div class="swiper-slide">
+                                            <img src="{{ Storage::disk('cms')->url($item) }}" alt="Travel Bag image"
+                                                class=" cursor-pointer border-2 border-gray-50 transition-all duration-500 hover:border-indigo-600 slide:border-indigo-600">
+                                        </div>
+                                    @endforeach
 
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                </form>
             </div>
         </div>
     </section>

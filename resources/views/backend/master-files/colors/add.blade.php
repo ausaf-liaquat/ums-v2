@@ -34,6 +34,10 @@
                             <input class="form-control" type="text" id="name" name="name"
                                 value="{{ $color->name ?? '' }}" placeholder="Enter name" autofocus="" required>
                         </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="html5-color-input" class="form-label">Color</label>
+                          <input class="form-control" name="color" type="color" value="{{ $color->color??'' }}" id="html5-color-input" required>
+                        </div>
 
                     </div>
                     <div class="mt-5">
