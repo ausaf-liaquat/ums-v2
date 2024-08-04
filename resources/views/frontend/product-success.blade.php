@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('title')
-    Courses |
+    Product Success |
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
         <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
 
         <div class="relative px-4 mx-auto max-w-[90rem]  sm:px-6 lg:flex lg:items-center lg:px-8">
-            <h1 class="py-24 lg:py-36 text-white pl-5 text-2xl lg:text-4xl font-semibold uppercase">Courses</h1>
+            <h1 class="py-24 lg:py-36 text-white pl-5 text-2xl lg:text-4xl font-semibold uppercase">Product Success</h1>
             <div
                 class="breadcrum-div absolute top-[12rem] lg:top-[18.5rem] md:top-[11rem] right-0 lg:right-0 md:right-0 bg-white shadow-xl py-2 lg:py-2 md:py-4 px-2 lg:px-3 md:px-5  rounded-full">
 
@@ -43,7 +43,7 @@
                     </li>
                     <li
                         class="inline-flex items-center text-purple-600 font-bold ml-1 text-xs lg:text-sm text-primary-800 md:ml-2">
-                        Courses
+                        Product Success
                     </li>
                 </ol>
             </div>
@@ -55,7 +55,7 @@
     <section class="bg-white border-b py-8 bg-cover bg-center">
         <div class="container mx-auto pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Courses
+                Products
             </h1>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
@@ -71,7 +71,7 @@
                                         <tr>
                                             <td class="content-block">
                                                 <h2 class="text-2xl font-semibold">You have successfully purchased this
-                                                    course</h2>
+                                                    product</h2>
                                             </td>
                                         </tr>
                                         <tr>
@@ -92,7 +92,7 @@
                                                                     cellpadding="0" cellspacing="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="py-2">{{ $course->name }}</td>
+                                                                            <td class="py-2">{{ $product->name }}</td>
                                                                             <td class="text-right py-2">
                                                                                 ${{ number_format($order->grand_total, 2) }}
                                                                             </td>

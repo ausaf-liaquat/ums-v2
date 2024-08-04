@@ -84,8 +84,10 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <form action="" method="post">
-                    @csrf <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                <form action="{{ route('product.buy', ['product' => $product->id]) }}" method="post">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                         <div
                             class="pro-detail w-full flex flex-col justify-center order-last lg:order-none max-lg:max-w-[608px] max-lg:mx-auto">
                             <p class="font-medium text-lg text-indigo-600 mb-4">Services &nbsp; / &nbsp; Medical Supplies
@@ -183,7 +185,8 @@
                                                     class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black  has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
                                                     tabindex="0">
                                                     <input class="sr-only" id="color{{ $key }}" type="radio"
-                                                        tabindex="-1" name="color" required />
+                                                        value="{{ $item->id }}" tabindex="-1" name="color"
+                                                        required />
 
                                                     <span class="text-sm"> {{ $item->name }} </span>
                                                 </label>
@@ -199,8 +202,9 @@
                                                     <label for="size{{ $key }}"
                                                         class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
                                                         tabindex="0">
-                                                        <input class="sr-only" id="size{{ $key }}" type="radio"
-                                                            tabindex="-1" name="size" required />
+                                                        <input class="sr-only" value="{{ $item->id }}"
+                                                            id="size{{ $key }}" type="radio" tabindex="-1"
+                                                            name="size" required />
 
                                                         <span class="text-sm"> {{ $item->name }} </span>
                                                     </label>
@@ -227,7 +231,7 @@
                                                     data-input-counter-min="1" data-input-counter-max="5"
                                                     aria-describedby="helper-text-explanation"
                                                     class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="" value="3" required />
+                                                    name="quantity" placeholder="" value="3" required />
                                                 <div
                                                     class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
                                                     <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true"

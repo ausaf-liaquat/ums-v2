@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ProductPurchased;
 use App\Mail\SuccessPurchased;
 use App\Models\Courses\Course;
 use App\Models\Courses\CourseSchedule;
@@ -54,258 +55,116 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function terms()
+    public function buy(Request $request, Product $product)
     {
-        return view('frontend.terms');
+        // dd($request->all());
+        session()->put($request->only([
+            'quantity', 'size', 'color', 'product_id',
+        ]));
+        return redirect()->route('product.checkout', ['slug' => $product->slug]);
     }
 
     /**
-     * Terms & Conditions Page.
+     * Checkout.
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function services()
-    {
-        return view('frontend.services');
-    }
-
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function aboutUs()
-    {
-        return view('frontend.about-us');
-    }
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function joinOurTeam()
-    {
-        return view('frontend.join-our-team');
-    }
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function talkToUs()
-    {
-        return view('frontend.talk-to-us');
-    }
-
-    public function talkToUsStore(Request $request)
-    {
-        TalkToUs::create($request->all());
-        return redirect()->back()->with('status', "Form Submitted Successfully");
-    }
-
-
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function careers()
-    {
-        return view('frontend.careers');
-    }
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function contactUs()
-    {
-        return view('frontend.contact-us');
-    }
-    public function contactUsStore(Request $request)
-    {
-        DB::table('contact_us')->insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'type' => $request->type,
-            'message' => $request->message,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        return redirect()->back()->with('success', 'Form has been submitted successfully');
-    }
-
-    /**
-     * Terms & Conditions Page.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function courses()
+    public function checkout($slug, Request $request)
     {
         $data = [
-            'courses' => Course::whereStatus(1)->get()
+            'product' => Product::whereSlug($slug)->first(),
         ];
-        return view('frontend.course', $data);
+        return view('frontend.product-checkout', $data);
     }
 
-    public function courseRegister($slug, Request $request)
-    {
-
-        $course = Course::whereSlug($slug)->first();
-        if (auth()->check()) {
-            if (auth()->user()->hasRole('super admin') || auth()->user()->hasRole('facility')) {
-                session()->flush();
-                auth()->logout();
-            }
-        }
-        $databaseDates = CourseSchedule::where('course_id', $course->id)->pluck('datetime')->map(function ($datetime) {
-            return Carbon::parse($datetime)->format('Y-m-d');
-        })->toArray();
-        if ($course->type == 1) {
-            return view('frontend.course-checkout', compact('course'));
-        } else {
-            return view('frontend.course-register', compact('course', 'databaseDates'));
-        }
-    }
-
-    public function courseCheckout($slug, CourseSchedule $course_schedule, Request $request)
-    {
-        $course = Course::whereSlug($request->slug)->first();
-        $event = $course_schedule;
-        return view('frontend.course-checkout', compact('course', 'event'));
-    }
+    /**
+     * Terms & Conditions Page.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function checkoutStore(Request $request)
     {
+        session()->put([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'address'=>$request->address,
+            'city'=>$request->city_id,
+            'state'=>$request->state_id,
+            'zip_code'=>$request->zip_code,
+        ]);
+        return redirect()->route('product.checkout.stripe');
 
-        // Store the extracted fields in the session
-
-        if (auth()->check()) {
-            session()->put([
-                'date' => $request->date,
-                'cid' => $request->cid,
-                'course_schedule_id' => $request->course_schedule_id,
-                'first_name' => auth()->user()->first_name,
-                'last_name' => auth()->user()->last_name,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->phone,
-                'user_id' => auth()->user()->id,
-                'file' => $request->file
-            ]);
-        } else {
-
-            session()->put($request->only([
-                'date', 'cid', 'first_name', 'last_name', 'email', 'phone', 'message', 'file', 'course_schedule_id'
-            ]));
-
-
-            // dd($request->session()->all());
-
-            $userExist = User::whereEmail($request->email)->first();
-
-            if (empty($userExist)) {
-                $user             = new User();
-                $user->first_name = $request->first_name;
-                $user->last_name  = $request->last_name;
-                $user->name       = $request->first_name . ' ' . $request->last_name;
-                $user->email      = $request->email;
-                $user->phone      = $request->phone;
-                // $user->course_id            = $request->cid;
-                $user->address  = $request->address;
-                $user->city     = $request->city;
-                $user->state    = $request->state;
-                $user->zip_code = $request->zip_code;
-                // $user->type                 = 1;
-                $user->email_verified_at = now();
-                $user->password          = Hash::make($request->password);
-                $user->status            = 1;
-                // $user->department_id        = $department_id;
-                $user->save();
-
-                $username = intval(config('app.initial_username')) + $user->id;
-                $user->username = strval($username);
-                $user->save();
-            } else {
-                $user = $userExist;
-            }
-
-            $user->syncRoles([3]);
-            session()->put('user_id', $user->id);
-        }
-
-        return redirect()->route('course.checkout.stripe');
     }
+
     public function checkoutStripe()
     {
         // dd(Session::all());
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-        $course = Course::find(session()->get('cid'));
+        $product = Product::find(session()->get('product_id'));
         $lineItems = [];
-        $totalPrice = 0;
+        $totalPrice =  $product->price;
         // foreach ($products as $product) {
 
         $lineItems[] = [
             'price_data' => [
                 'currency' => 'usd',
                 'product_data' => [
-                    'name'   => $course->name,
-                    'images' => [$course->image],
+                    'name' => $product->name,
+                    'images' => [$product->image],
                 ],
-                'unit_amount' => $course->price * 100,
+                'unit_amount' => $totalPrice * 100,
             ],
-            'quantity' => 1,
+            'quantity' => session('quantity'),
         ];
         // }
         $session = Session::create([
-            'line_items'  => $lineItems,
-            'mode'        => 'payment',
-            'success_url' => route('checkout-course.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url'  => route('checkout-course.cancel', [], true),
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('product.checkout.stripe.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => route('checkout-course.cancel', [], true),
         ]);
-        $fileData = session('file');
-        $filename = "";
-        if ($fileData) {
-
-            $filename = Storage::disk('cms')->putFile('', $fileData);
-        }
+        $grand_total = $totalPrice * session('quantity');
         $order = Order::create([
-            'order_number'   => 'ORD-' . strtoupper(uniqid()),
-            'session_id'     => $session->id,
-            'status'         => 'unpaid',
-            'grand_total'    => $course->price,
-            'item_count'     => 1,
-            'user_id'        => session('user_id'),
-            'course_schedule_id'        => session('course_schedule_id'),
-            'course_id'      => $course->id,
+            'order_number' => 'ORD-' . strtoupper(uniqid()),
+            'session_id' => $session->id,
+            'status' => 'unpaid',
+            'grand_total' => $grand_total,
+            'product_price'=>$product->price,
+            'item_count' => session('quantity'),
+            'product_id' => $product->id,
             'payment_status' => 0,
             'payment_method' => null,
-            'first_name'     => session('first_name'),
-            'last_name'      => session('last_name'),
-            'email'          => session('email'),
-            'phone_number'   => session('phone'),
-            'notes'          => session('message'),
-            'file'           => $filename
+            'first_name' => session('first_name'),
+            'last_name' => session('last_name'),
+            'color' => session('color'),
+            'size' => session('size'),
+            'email' => session('email'),
+            'phone_number' => session('phone'),
+            'notes' => session('message'),
+            'address' => session('address'),
+            'city' => session('city'),
+            'state' => session('state'),
+            'zip_code' => session('zip_code'),
         ]);
         // session()->forget(['date', 'cid', 'first_name', 'last_name', 'email', 'phone', 'message']);
-        return view('layouts.stripe-redirect', compact('session'));
+        return view('layouts.stripe-redirect', compact('session', 'product', 'order'));
     }
 
-    public function checkoutSuccess(Request $request)
+    public function checkoutStripeSuccess(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $sessionId = $request->get('session_id');
 
         try {
             $session = Session::retrieve($sessionId);
+            if (!$session) {
 
-            $user = User::find(session('user_id'));
-
-            // dd($user,$session,$request->session()->all());
-            if (!$user) {
-
-                return redirect()->route('courses');
+                throw new NotFoundHttpException();
             }
             // $customer = \Stripe\Customer::retrieve($session->customer);
 
@@ -318,28 +177,13 @@ class ProductController extends Controller
                 $order->status = 'paid';
                 $order->save();
             }
-            $course = Course::find(session('cid'));
-            if ($course?->type == 0) {
-                CourseUserSchedule::create([
-                    'user_id' => session('user_id'),
-                    'course_id' => session('cid'),
-                    'course_schedule_id'        => session('course_schedule_id'),
-                    'type' => 0,
-                ]);
-            } else {
-                CourseUserSchedule::create([
-                    'user_id' => session('user_id'),
-                    'course_id' => session('cid'),
-                    'course_schedule_id'        => session('course_schedule_id'),
-                    'type' => 1,
-                ]);
-            }
+           $product = Product::find($order->product_id);
+           Mail::to($order->email)->send(new ProductPurchased($product,$order));
 
-            // Mail::to($order->email)->send(new SuccessPurchased($user, $course, $order));
             session()->flush();
-            return view('frontend.course-success', compact('user', 'course', 'order'));
+            return view('web.home.product-success',compact('product','order'));
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             throw new NotFoundHttpException();
         }
     }

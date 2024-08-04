@@ -137,7 +137,11 @@ Route::controller(FrontendProductController::class)->group(function () {
     Route::get('services/medical-supplies/', 'medicalSupplies')->name('medical-supplies');
     Route::get('services/medical-uniforms/', 'medicalUniforms')->name('medical-uniforms');
     Route::get('services/medical-supplies/{slug}', 'details')->name('details');
-    Route::get('services/medical-supplies/{slug}', 'details')->name('details');
+    Route::post('services/medical-supplies/{product}/buy', 'buy')->name('product.buy');
+    Route::get('services/medical-supplies/{slug}/buy/checkout', 'checkout')->name('product.checkout');
+    Route::post('services/medical-supplies/buy/checkout-store', 'checkoutStore')->name('product.checkout.store');
+    Route::get('services/medical-supplies/buy/checkout-stripe', 'checkoutStripe')->name('product.checkout.stripe');
+    Route::get('services/medical-supplies/buy/checkout-stripe/success', 'checkoutStripeSuccess')->name('product.checkout.stripe.success');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
