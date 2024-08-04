@@ -80,7 +80,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="py-2">
-                                                                {{ $user->name }}<br>
+                                                                {{ $order->first_name.' '.$order->last_name }}<br>
                                                                 #{{ $order->order_number }}<br>
                                                                 {{ $order->created_at->format('m/d/Y') }}
                                                             </td>
@@ -92,7 +92,7 @@
                                                                     cellpadding="0" cellspacing="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="py-2">{{ $product->name }}</td>
+                                                                            <td class="py-2">{{ $product->title }}</td>
                                                                             <td class="text-right py-2">
                                                                                 ${{ number_format($order->grand_total, 2) }}
                                                                             </td>

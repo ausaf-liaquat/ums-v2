@@ -153,7 +153,7 @@
             </div>
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img-11.jpg') }})">
-                <a href="#">
+                <a href="{{ route('medical-uniforms') }}">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
                     <div class="absolute inset-0 flex items-end p-4">
                         <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">

@@ -4,20 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ProductPurchased;
-use App\Mail\SuccessPurchased;
-use App\Models\Courses\Course;
-use App\Models\Courses\CourseSchedule;
-use App\Models\Courses\CourseUserSchedule;
 use App\Models\Order;
 use App\Models\Products\Product;
-use App\Models\TalkToUs;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -36,6 +27,19 @@ class ProductController extends Controller
         ];
         return view('frontend.medical-supplies', $data);
     }
+    /**
+     * Retrieves the view for the index page of the frontend.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function medicalUniforms()
+    {
+        $data = [
+            'products' => Product::whereMfTypeId(2)->where('status', 1)->get()
+        ];
+        return view('frontend.medical-uniforms', $data);
+    }
+
 
     /**
      * Privacy Policy Page.
@@ -103,7 +107,7 @@ class ProductController extends Controller
     {
         // dd(Session::all());
 
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $product = Product::find(session()->get('product_id'));
         $lineItems = [];
@@ -114,19 +118,21 @@ class ProductController extends Controller
             'price_data' => [
                 'currency' => 'usd',
                 'product_data' => [
-                    'name' => $product->name,
-                    'images' => [$product->image],
+                    'name' => $product->title,
+                    'images' => [json_decode($product->image)[0]],
                 ],
                 'unit_amount' => $totalPrice * 100,
             ],
             'quantity' => session('quantity'),
         ];
         // }
+
+        // dd($product, session()->all());
         $session = Session::create([
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('product.checkout.stripe.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => route('checkout-course.cancel', [], true),
+            'success_url' => route('checkout-product.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => route('checkout-product.cancel', [], true),
         ]);
         $grand_total = $totalPrice * session('quantity');
         $order = Order::create([
@@ -157,7 +163,7 @@ class ProductController extends Controller
 
     public function checkoutStripeSuccess(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
         $sessionId = $request->get('session_id');
 
         try {
@@ -178,18 +184,18 @@ class ProductController extends Controller
                 $order->save();
             }
            $product = Product::find($order->product_id);
-           Mail::to($order->email)->send(new ProductPurchased($product,$order));
+        //    Mail::to($order->email)->send(new ProductPurchased($product,$order));
 
             session()->flush();
-            return view('web.home.product-success',compact('product','order'));
+            return view('frontend.product-success',compact('product','order'));
         } catch (\Exception $e) {
             // dd($e->getMessage());
             throw new NotFoundHttpException();
         }
     }
-    public function checkoutCancel(Request $request)
+    public function checkoutStripeCancel(Request $request)
     {
         session()->flush();
-        return view('frontend.course-cancel');
+        return view('frontend.product-cancel');
     }
 }
