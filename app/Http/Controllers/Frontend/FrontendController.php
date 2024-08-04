@@ -255,7 +255,7 @@ class FrontendController extends Controller
             'line_items'  => $lineItems,
             'mode'        => 'payment',
             'success_url' => route('checkout-course.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url'  => route('checkout-course.cancel', [], true),
+            'cancel_url'  => route('checkout-course.cancel', [], true). "?session_id={CHECKOUT_SESSION_ID}",
         ]);
         $fileData = session('file');
         $filename = "";
@@ -338,6 +338,11 @@ class FrontendController extends Controller
     }
     public function checkoutCancel(Request $request)
     {
+        $sessionId = $request->get('session_id');
+        $session = Session::retrieve($sessionId);
+        $order = Order::where('session_id', $session->id)->first();
+        $order->status = 'cancel';
+        $order->save();
         session()->flush();
         return view('frontend.course-cancel');
     }

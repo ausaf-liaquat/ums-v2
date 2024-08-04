@@ -182,7 +182,7 @@
                                         @foreach ($product->colors as $key => $item)
                                             <div>
                                                 <label for="color{{ $key }}"
-                                                    class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black  has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
+                                                    class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-purple-600  has-[:checked]:border-purple-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white"
                                                     tabindex="0">
                                                     <input class="sr-only" id="color{{ $key }}" type="radio"
                                                         value="{{ $item->id }}" tabindex="-1" name="color"
@@ -200,7 +200,7 @@
                                             @foreach ($product->sizes as $key => $item)
                                                 <div>
                                                     <label for="size{{ $key }}"
-                                                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
+                                                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-purple-600 has-[:checked]:border-purple-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white"
                                                         tabindex="0">
                                                         <input class="sr-only" value="{{ $item->id }}"
                                                             id="size{{ $key }}" type="radio" tabindex="-1"
@@ -228,12 +228,12 @@
                                                     </svg>
                                                 </button>
                                                 <input type="text" id="bedrooms-input" data-input-counter
-                                                    data-input-counter-min="1" data-input-counter-max="5"
+                                                    data-input-counter-min="1" 
                                                     aria-describedby="helper-text-explanation"
                                                     class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     name="quantity" placeholder="" value="3" required />
                                                 <div
-                                                    class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                                                    class="absolute bottom-1 start-1/2 pl-16 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
                                                     <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 20 20">
@@ -270,7 +270,7 @@
 
                                     </button> --}}
                                         <button type="submit"
-                                            class="text-center w-full px-5 py-4 rounded-[100px] bg-indigo-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">
+                                            class="text-center w-full px-5 py-4 rounded-[100px] bg-purple-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-purple-700 hover:shadow-purple-400">
                                             Buy Now
                                         </button>
                                     </div>

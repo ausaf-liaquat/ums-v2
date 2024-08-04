@@ -61,7 +61,7 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
             <div class="font-[sans-serif] bg-gray-100 rounded-2xl">
-                <div class="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
+                <div class="p-4 mx-auto">
                     {{-- <h2 class="text-4xl font-extrabold text-gray-800 mb-12">Premium Sneakers</h2> --}}
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6">
@@ -82,14 +82,15 @@
 
                                     <div
                                         class="w-5/6 h-[210px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 md:mb-2 mb-4">
-                                        <img src="{{ Storage::disk('cms')->url(json_decode($product->image)[0]) }}" alt="Product 1"
-                                            class="h-full w-full object-contain" />
+                                        <img src="{{ Storage::disk('cms')->url(json_decode($product->image)[0]) }}"
+                                            alt="Product 1" class="h-full w-full object-contain" />
                                     </div>
 
                                     <div>
                                         <h3 class="text-lg font-extrabold text-gray-800">{{ $product->title }}</h3>
                                         <p class="text-gray-600 text-sm mt-2">{{ $product->description }}</p>
-                                        <h4 class="text-lg text-gray-800 font-bold mt-4">${{ number_format($product->price, 2) }}</h4>
+                                        <h4 class="text-lg text-gray-800 font-bold mt-4">
+                                            ${{ number_format($product->price, 2) }}</h4>
                                     </div>
                                 </a>
                             </div>

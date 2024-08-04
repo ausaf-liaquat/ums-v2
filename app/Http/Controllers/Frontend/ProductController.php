@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function details($slug)
     {
         $data = [
-            'product'=>Product::whereSlug($slug)->first()
+            'product' => Product::whereSlug($slug)->first()
         ];
         return view('frontend.product-details', $data);
     }
@@ -94,13 +94,12 @@ class ProductController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-            'address'=>$request->address,
-            'city'=>$request->city_id,
-            'state'=>$request->state_id,
-            'zip_code'=>$request->zip_code,
+            'address' => $request->address,
+            'city' => $request->city_id,
+            'state' => $request->state_id,
+            'zip_code' => $request->zip_code,
         ]);
         return redirect()->route('product.checkout.stripe');
-
     }
 
     public function checkoutStripe()
@@ -132,7 +131,7 @@ class ProductController extends Controller
             'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('checkout-product.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => route('checkout-product.cancel', [], true),
+            'cancel_url' => route('checkout-product.cancel', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
         ]);
         $grand_total = $totalPrice * session('quantity');
         $order = Order::create([
@@ -140,7 +139,7 @@ class ProductController extends Controller
             'session_id' => $session->id,
             'status' => 'unpaid',
             'grand_total' => $grand_total,
-            'product_price'=>$product->price,
+            'product_price' => $product->price,
             'item_count' => session('quantity'),
             'product_id' => $product->id,
             'payment_status' => 0,
@@ -183,11 +182,11 @@ class ProductController extends Controller
                 $order->status = 'paid';
                 $order->save();
             }
-           $product = Product::find($order->product_id);
-        //    Mail::to($order->email)->send(new ProductPurchased($product,$order));
+            $product = Product::find($order->product_id);
+            //    Mail::to($order->email)->send(new ProductPurchased($product,$order));
 
             session()->flush();
-            return view('frontend.product-success',compact('product','order'));
+            return view('frontend.product-success', compact('product', 'order'));
         } catch (\Exception $e) {
             // dd($e->getMessage());
             throw new NotFoundHttpException();
@@ -195,6 +194,11 @@ class ProductController extends Controller
     }
     public function checkoutStripeCancel(Request $request)
     {
+        $sessionId = $request->get('session_id');
+        $session = Session::retrieve($sessionId);
+        $order = Order::where('session_id', $session->id)->first();
+        $order->status = 'cancel';
+        $order->save();
         session()->flush();
         return view('frontend.product-cancel');
     }
