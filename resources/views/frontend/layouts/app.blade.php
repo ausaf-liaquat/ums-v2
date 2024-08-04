@@ -81,6 +81,7 @@
             -webkit-user-select: none;
             color: blueviolet;
         }
+
         .parsley-errors-list {
             list-style: none;
             color: #9b0000;
@@ -88,7 +89,8 @@
 
         }
     </style>
-
+    {{-- <link href="https://cdn.jsdelivr.net/npm/pagedone@1.1.2/src/css/pagedone.css" /> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @yield('css')
 </head>
 
@@ -210,6 +212,8 @@
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/pagedone@1.1.2/src/js/pagedone.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @yield('script')
 
 </body>

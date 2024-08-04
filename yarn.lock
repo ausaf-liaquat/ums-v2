@@ -741,6 +741,11 @@ package-json-from-dist@^1.0.0:
   resolved "https://registry.npmjs.org/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz"
   integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
 
+pagedone@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/pagedone/-/pagedone-1.1.2.tgz"
+  integrity sha512-/NoizEeg4zlFqJy7Te/mXSPO6SfiF4uiyB3N7RymeLR5iWlH8NKS8U72cRmNpp3uqAr4guu1e3r3OLG/h3i9dg==
+
 path-key@^3.1.0:
   version "3.1.1"
   resolved "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz"
