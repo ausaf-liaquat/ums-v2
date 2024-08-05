@@ -131,7 +131,7 @@
 
                         <a href="{{ route('courses') }}" class="flex flex-wrap no-underline hover:no-underline">
 
-                            <img class="h-[500px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
+                            <img class="lg:h-[350px] md:h-[350px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
                                 alt="">
 
                             <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6 mb-5">
