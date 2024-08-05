@@ -5,7 +5,7 @@
             <div class="flex-1 mt-16">
                 <div class="animate-fadeIn">
                     <div
-                        class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
+                        class="relative mx-auto lg:ml-4 md:ml-4 border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
                         <div
                             class="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[72px] rounded-s-lg">
                         </div>
