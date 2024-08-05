@@ -143,7 +143,7 @@
                 }
                 header.classList.add("shadow");
                 navcontent.classList.remove("bg-gray-100");
-                // navcontent.classList.remove("gradient");
+                navcontent.classList.remove("backdrop-blur-md");
                 // navcontent.classList.remove("lg:text-white");
                 // navcontent.classList.add("md:text-black");
                 navcontent.classList.add("text-purple-500");
@@ -163,8 +163,8 @@
                 }
 
                 header.classList.remove("shadow");
-                // navcontent.classList.add("gradient");
-                navcontent.classList.add("bg-gray-100");
+                navcontent.classList.add("backdrop-blur-md");
+                // navcontent.classList.add("bg-gray-100");
                 // navcontent.classList.remove("");
                 navcontent.classList.remove("text-purple-500");
                 logoAuto.src = lightLogo;
