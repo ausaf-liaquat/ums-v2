@@ -130,7 +130,7 @@
 
             if (scrollpos > 10) {
                 header.classList.add("backdrop-blur-md");
-                header.classList.add("bg-white/30");
+                header.classList.add("bg-white");
 
                 navaction.classList.remove("bg-white");
                 navaction.classList.add("gradient");
@@ -143,7 +143,7 @@
                 }
                 header.classList.add("shadow");
                 navcontent.classList.remove("bg-gray-100");
-                navcontent.classList.remove("gradient");
+                // navcontent.classList.remove("gradient");
                 // navcontent.classList.remove("lg:text-white");
                 // navcontent.classList.add("md:text-black");
                 navcontent.classList.add("text-purple-500");
@@ -151,7 +151,7 @@
                 logoAuto.src = darkLogo;
             } else {
                 header.classList.remove("backdrop-blur-md");
-                header.classList.remove("bg-white/30");
+                header.classList.remove("bg-white");
                 navaction.classList.remove("gradient");
                 navaction.classList.add("bg-white");
                 navaction.classList.remove("text-white");
@@ -163,7 +163,7 @@
                 }
 
                 header.classList.remove("shadow");
-                navcontent.classList.add("gradient");
+                // navcontent.classList.add("gradient");
                 navcontent.classList.add("bg-gray-100");
                 // navcontent.classList.remove("");
                 navcontent.classList.remove("text-purple-500");

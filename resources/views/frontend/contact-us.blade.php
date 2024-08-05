@@ -42,7 +42,7 @@
     </section>
 
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto  pt-4 pb-12">
+        <div class="container mx-auto max-w-[85rem]  pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Contact Us
             </h1>
@@ -54,15 +54,17 @@
                     asymmetrical gentrify.</p>
             </div>
             @session('success')
-            <div class="p-4 w-1/2 mx-auto mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-             {{ session()->get('success') }}.
-            </div>
+                <div class="p-4 w-1/2 mx-auto mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    {{ session()->get('success') }}.
+                </div>
             @endsession
 
 
             <div class="grid grid-cols-1 p-5 md:w-2/3  md:grid-cols-4 mx-auto gap-2">
                 <div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-500">
+                    <div
+                        class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-500">
                         <div class="bg-green-100 p-4 rounded-full mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -71,13 +73,14 @@
                             </svg>
                         </div>
                         <div class=" font-bolder text-gray-900 mb-2">9415291867</div>
-                        <div class="text-gray-500">Call Us 9am-5pm  (Mountain Standard Time)
+                        <div class="text-gray-500">Call Us 9am-5pm (Mountain Standard Time)
 
                         </div>
                     </div>
                 </div>
                 <div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
+                    <div
+                        class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
                         <div class="bg-purple-100 p-4 rounded-full mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -92,7 +95,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
+                    <div
+                        class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
                         <div class="bg-blue-100 p-4 rounded-full mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -105,7 +109,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
+                    <div
+                        class="bg-white rounded-lg shadow-lg p-6 flex h-full flex-col items-center hover:shadow-md hover:shadow-purple-700">
                         <div class="bg-red-100 p-4 rounded-full mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

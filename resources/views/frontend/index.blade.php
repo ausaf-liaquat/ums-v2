@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="pt-32">
-        <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <div class="container px-3 mx-auto max-w-[85rem] flex flex-wrap flex-col md:flex-row items-center">
             <!--Left Col-->
             <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                 <p class="uppercase tracking-loose w-full">Looking for?</p>
@@ -60,7 +60,7 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
         </div>
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
+        <div class="container mx-auto max-w-[85rem] grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img-7.jpg') }})">
@@ -102,7 +102,7 @@
         </div>
     </section>
     <section class="bg-white border-b py-8">
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <div class="container mx-auto max-w-[85rem] flex flex-wrap pt-4 pb-12">
 
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Courses

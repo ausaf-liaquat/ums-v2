@@ -75,7 +75,7 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
         </div>
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
+        <div class="container mx-auto max-w-[85rem] grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img.jpg') }})">
@@ -112,7 +112,7 @@
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
         </div>
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
+        <div class="container mx-auto max-w-[85rem] grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
 
             <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
                 style="background-image: url({{ asset('img/img-7.jpg') }})">

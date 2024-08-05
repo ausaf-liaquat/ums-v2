@@ -53,7 +53,7 @@
     </section>
 
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto pt-4 pb-12">
+        <div class="container mx-auto max-w-[85rem] pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Product Checkout
             </h1>
@@ -94,16 +94,16 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                         <div class="mb-5">
-                          {{-- @if ($course->type == 1) --}}
-                          <div class="col-md-6 mb-sm-7 mb-4">
-                              <label for="message"
-                                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
-                              <textarea id="message" name="message" rows="4"
-                                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  placeholder="Leave a message..." required></textarea>
-                          </div>
-                          {{-- @endif --}}
-                      </div>
+                            {{-- @if ($course->type == 1) --}}
+                            <div class="col-md-6 mb-sm-7 mb-4">
+                                <label for="message"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+                                <textarea id="message" name="message" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Leave a message..." required></textarea>
+                            </div>
+                            {{-- @endif --}}
+                        </div>
 
                         <div class="mb-5">
                             {{-- @if ($course->type == 1) --}}
@@ -117,10 +117,12 @@
                             {{-- @endif --}}
                         </div>
                         <div class="mb-5">
-                            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
+                            <label for="base-input"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
                                 Code</label>
                             <input type="text" id="base-input" name="zip_code" placeholder="Enter zip code" required
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                         </div>
                         <div class="row">
                             {{-- @if ($course->type == 1) --}}

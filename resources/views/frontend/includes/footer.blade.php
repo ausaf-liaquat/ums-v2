@@ -1,5 +1,5 @@
 <!--Footer-->
-<footer >
+<footer>
     <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -26,24 +26,22 @@
             </g>
         </g>
     </svg>
-    <section class="container mx-auto text-center py-6 mb-12">
+    <section class="container mx-auto max-w-[85rem] text-center py-6 mb-12">
         <div class="w-full flex flex-col md:flex-row py-6">
-          <div class="flex justify-center mb-6 text-black">
-            <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
-            </a>
-        </div>
+            <div class="flex justify-center mb-6 text-black">
+                <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+                    <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
+                </a>
+            </div>
 
             <div class="flex-1">
                 <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Links</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">FAQ</a>
+                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">FAQ</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Help</a>
+                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Help</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -55,8 +53,7 @@
                 <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Terms</a>
+                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Terms</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
@@ -85,8 +82,7 @@
                 <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Official
+                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Official
                             Blog</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
@@ -101,7 +97,7 @@
             </div>
         </div>
     </section>
-    {{-- <div class="container mx-auto px-8">
+    {{-- <div class="container mx-auto max-w-[85rem] px-8">
         <div class="w-full flex flex-col md:flex-row py-6">
             <div class="flex-1 mb-6 text-black">
                 <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"

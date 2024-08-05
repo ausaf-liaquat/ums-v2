@@ -53,7 +53,7 @@
     </section>
 
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto pt-4 pb-12">
+        <div class="container mx-auto max-w-[85rem] pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Products
             </h1>
@@ -63,9 +63,10 @@
 
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div>
-                  <div class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
-                    <span class="font-medium">Warning alert!</span> Something went wrong.
-                  </div>
+                    <div class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+                        role="alert">
+                        <span class="font-medium">Warning alert!</span> Something went wrong.
+                    </div>
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 <section class="py-8">
-    <div class="container mx-auto pt-4 pb-12 ">
+    <div class="container mx-auto max-w-[85rem] pt-4 pb-12 ">
         <div class="flex flex-col md:flex-row">
             <!-- First Column -->
             <div class="flex-1 mt-16">
@@ -199,7 +199,7 @@
 
 </section>
 <section class="bg-white py-8">
-    <div class="container mx-auto flex flex-wrap pt-4 pb-12 ">
+    <div class="container mx-auto max-w-[85rem] flex flex-wrap pt-4 pb-12 ">
         <div class="flex flex-col md:flex-row">
             <!-- First Column -->
             <div class="flex-1 p-4">

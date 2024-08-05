@@ -76,7 +76,7 @@
         </div>
     </section>
     <section class="bg-white border-b py-8 bg-cover bg-center">
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <div class="container mx-auto max-w-[85rem] flex flex-wrap pt-4 pb-12">
             <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                 Medical Supplies
             </h1>
@@ -228,8 +228,7 @@
                                                     </svg>
                                                 </button>
                                                 <input type="text" id="bedrooms-input" data-input-counter
-                                                    data-input-counter-min="1" 
-                                                    aria-describedby="helper-text-explanation"
+                                                    data-input-counter-min="1" aria-describedby="helper-text-explanation"
                                                     class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     name="quantity" placeholder="" value="3" required />
                                                 <div

@@ -5,13 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="container mx-auto flex justify-center">
+    <div class="container mx-auto max-w-[85rem] flex justify-center">
 
         @include('frontend.includes.messages')
 
     </div>
 
-    <div class="container mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div class="container mx-auto max-w-[85rem] max-w-7xl px-4 py-10 sm:px-6">
         <div class="mb-10 md:grid md:grid-cols-3 md:gap-6">
             <div class="sm:col-span-1">
                 <div class="px-4 sm:px-0">

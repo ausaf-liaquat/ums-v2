@@ -57,7 +57,7 @@
     </section>
 
     <section class="bg-gray-100 py-20 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
-        <div class="container mx-auto flex flex-col items-center justify-center px-5">
+        <div class="container mx-auto max-w-[85rem] flex flex-col items-center justify-center px-5">
             <div class="w-full text-center lg:w-2/3">
                 <h1 class="mb-4 text-3xl font-medium text-gray-800 dark:text-gray-200 sm:text-4xl">
                     {{ __('Screenshots of the project') }}

@@ -7,7 +7,7 @@
 @section('content')
 
     <section class="body-font bg-gray-100 px-6 text-gray-600 dark:bg-gray-800 dark:text-gray-400 sm:px-20">
-        <div class="container mx-auto flex flex-col items-center py-8 sm:py-16 md:flex-row">
+        <div class="container mx-auto max-w-[85rem] flex flex-col items-center py-8 sm:py-16 md:flex-row">
             <div
                 class="flex flex-col items-center text-center sm:w-4/12 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-24">
                 <h1 class="mb-4 text-3xl font-medium text-gray-800 dark:text-gray-200 sm:text-4xl">
@@ -29,7 +29,7 @@
     </section>
 
     <section class="px-6 py-6 dark:bg-gray-700 dark:text-gray-300 sm:px-20 sm:py-10">
-        <div class="container mx-auto flex flex-col md:flex-row">
+        <div class="container mx-auto max-w-[85rem] flex flex-col md:flex-row">
             <div class="flex flex-col sm:w-8/12 sm:pr-8 lg:flex-grow">
                 <div class="pb-5">
                     <p>
