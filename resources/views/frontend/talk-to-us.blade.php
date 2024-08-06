@@ -128,7 +128,7 @@
                         can reach your staffing needs.
                     </p>
                 </div>
-                <div>
+                <div class="p-4">
                     <form method="POST" action="{{ route('talk-to-us.store') }}"
                         class="gradient rounded-lg p-5 text-white">
                         @csrf

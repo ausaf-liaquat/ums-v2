@@ -59,7 +59,7 @@
                 <div class="h-1 mx-auto gradient mb-4 w-64 opacity-25 my-0 py-0 rounded-t"></div>
 
 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 p-4 gap-4">
                     <div>
                         <div class="pb-5 pt-lg-5 text-lg-start text-center">
                             <h3 class="mt-md-3 text-black font-extrabold uppercase">Select a Date and Time</h3>
@@ -78,7 +78,7 @@
                     <div>
                         <div class=" pb-5 pt-lg-5 text-lg-start text-center">
                             <h3 class="mt-md-3 text-black font-extrabold uppercase">Availability</h3>
-                            <div class="mt-md-5 availability grid grid-cols-2 md:grid-cols-2 gap-4 place-items-center">
+                            <div class="mt-8 availability grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center">
 
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                     <div>
                         <div class="about-right pb-5 pt-lg-5 text-lg-start text-center">
                             <h3 class="mt-md-3 text-black font-extrabold uppercase">Course Details</h3>
-                            <div class="mt-md-5 service_details">
+                            <div class="mt-10 service_details text-purple-600">
 
                             </div>
 
@@ -175,7 +175,33 @@
                                 let btnStatus = '';
                                 let timeHtml = ''
                                 let servicesDetails = ''
-                                let msg = ''
+                                let msg = `
+                                <div
+                                  class="relative inline-flex rounded-full items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold bg-indigo-50 text-indigo-600 transition-all duration-150 ease-in-out hover:pl-10 hover:pr-6 hover:bg-indigo-100 group">
+
+                                  <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+                                    <svg class="w-5 h-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                                      height="24" viewBox="0 0 24 24" fill="none">
+                                      <path
+                                        d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                        stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    </svg>
+                                  </span>
+                                  <span
+                                    class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+                                    <svg class="w-5 h-5 text-indigo-700" xmlns="http://www.w3.org/2000/svg" width="24"
+                                      height="24" viewBox="0 0 24 24" fill="none">
+                                      <path
+                                        d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                        stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    </svg>
+                                  </span>
+                                  <span
+                                    class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-indigo-700">Next</span>
+                                </div>
+                                `
                                 res.data.event.forEach(element => {
                                     let time = element.datetime.split(' ')[1];
                                     let slots = element.slot
@@ -201,27 +227,55 @@
                                     checkoutRoute = checkoutRoute.replace(
                                         ':course_schedule', element.id);
                                     if (slots === bookedSlots) {
-                                        msg =
-                                            `<p class="text-danger"><i class="fas fa-danger"></i> Slots for this course has been full</p>`
+                                        msg = `
+                                            <div class="p-4 mb-4 text-sm text-red-500 rounded-xl bg-red-50 font-normal mt-4" role="alert">
+                                            <span class="font-semibold mr-2">Danger</span>Slots for this course has been full
+                                            </div>
+                                            `
 
-                                    } else {
-                                        btnStatus =
-                                            ` <a href="${checkoutRoute}" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium mb-5 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" style="border-radius:0px;">Next</a>`
                                     }
                                     servicesDetails += `
-                                        <p class="mt-5">${course_name}</p>
-                                        <p>${element.course.description}</p>
-                                        <p>${element.course.address}</p>
-                                        <p>${formattedDate} at ${convertTo12HourFormat(time)}</p>
-                                        <p>${course_price.toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 0
-                                            })}</p>
-                                        <br>
-                                        ${msg}
-                                      ${btnStatus}
+                                    <a href="${slots === bookedSlots?'#':checkoutRoute}"
+                                      class="relative block overflow-hidden rounded-lg mt-4 mb-4 border border-gray-100 p-4 sm:p-6 lg:p-8">
+                                      <span
+                                      class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+
+                                      <div class="sm:flex sm:justify-between sm:gap-4">
+                                          <div>
+                                              <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                                                  ${course_name} | ${course_price.toLocaleString('en-US', {
+                                                  style: 'currency',
+                                                  currency: 'USD',
+                                                  minimumFractionDigits: 0,
+                                                  maximumFractionDigits: 0
+                                                  })}
+                                              </h3>
+
+
+                                          </div>
+
+                                          <div class="hidden sm:block sm:shrink-0">
+                                              <img alt="" src="{{ Storage::disk('cms')->url('') }}/${element.course.image}"
+                                                  class="size-16 rounded-lg object-cover shadow-sm" />
+                                          </div>
+                                      </div>
+
+                                      <div class="p-4 mb-4 mt-4 text-sm text-indigo-600 rounded-xl bg-indigo-50 font-normal" role="alert">
+                                      <span class="font-semibold mr-2">Description:</span> ${element.course.description}
+                                      </div>
+
+                                      <div class="p-4 mb-4 mt-4 text-sm text-indigo-600 rounded-xl bg-indigo-50 font-normal" role="alert">
+                                      <span class="font-semibold mr-2">Address:</span> ${element.course.address}
+                                      </div>
+
+                                      <div class="p-4 mb-4 text-sm text-amber-500 rounded-xl bg-amber-50 font-normal" role="alert">
+                                        <span class="font-semibold mr-2">Schedule At:</span>${formattedDate} at ${convertTo12HourFormat(time)}
+                                      </div>
+
+                                      ${msg}
+                                    </a>
+
+
                                     `
 
                                 });

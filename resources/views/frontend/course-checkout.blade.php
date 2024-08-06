@@ -6,7 +6,6 @@
 
 @section('content')
     <div class="pt-34 bg-cover bg-center">
-
     </div>
     <section class="relative mt-10 bg-center bg-cover min-h-[10rem] lg:min-h-[10rem]">
         <div class="absolute inset-0  bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
@@ -67,10 +66,13 @@
                 <input type="hidden" name="course_schedule_id" value="{{ $event->id ?? '' }}">
 
 
-                <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 p-5 gap-4">
                     @if (!auth()->check())
-                        <div>
-                            <div class="mb-5">
+                        <div class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                          <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                            Personal Details
+                        </h3>
+                            <div class="mb-5 mt-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                                 <input type="text" id="base-input" name="first_name" placeholder="Enter first name"
@@ -180,26 +182,58 @@
 
                     <div>
                         <div class="about-right pb-5 pt-lg-5 text-lg-start text-center">
-                            <h3 class="mt-md-3 text-black font-extrabold uppercase">Course Details</h3>
-                            <div class="mt-md-5 service_details text-purple-600">
-                                <p>{{ $course->name }}</p>
-                                <p>{{ $course->address }}</p>
-                                <p>
-                                    {{ $course->zip_code }} {{ $course?->state?->name ?? '' }}
-                                    {{ $course?->city?->name ?? '' }}
-                                </p>
+                            <a href="#"
+                                class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
+                                <span
+                                    class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+
+                                <div class="sm:flex sm:justify-between sm:gap-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                                            {{ $course->name }} | ${{ number_format($course->price) }}
+                                        </h3>
+
+                                        <p class="mt-1 text-xs font-medium text-gray-600">
+                                            @if ($course->type == 0)
+                                                Offline
+                                            @elseif($course->type == 1)
+                                                Online
+                                            @else
+                                                Offline / Online
+                                            @endif
+                                        </p>
+                                    </div>
+
+                                    <div class="hidden sm:block sm:shrink-0">
+                                        <img alt="" src="{{ Storage::disk('cms')->url($course->image) }}"
+                                            class="size-16 rounded-lg object-cover shadow-sm" />
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <p class="text-pretty text-sm text-gray-500">
+                                        {{ $course->address }}
+                                    </p>
+                                </div>
                                 @if ($course->type != 1)
-                                    <p>{{ date('F j, Y h:i a', strtotime($event->datetime)) }}</p>
+                                    <dl class="mt-6 flex gap-4 sm:gap-6">
+                                        <div class="flex flex-col-reverse">
+                                            <dt class="text-sm font-medium text-gray-600">Schedule At</dt>
+                                            <dd class="text-xs text-gray-500">
+                                                {{ date('F j, Y h:i a', strtotime($event->datetime)) }}
+
+                                            </dd>
+                                        </div>
+
+
+                                    </dl>
                                 @endif
 
-                                <br>
-                                <h4>Payment Details</h4>
-                                <p>Total: ${{ number_format($course->price) }}</p>
-                                <br>
                                 <button type="submit"
-                                    class="text-black bg-yellow-300 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-ybg-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-yellow-300 dark:hover:bg-yellow-300 dark:focus:ring-ybg-yellow-300">Pay
+                                    class="bg-yellow-300 dark:bg-yellow-300 dark:focus:ring-ybg-yellow-300 dark:hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-ybg-yellow-300 font-semibold hover:bg-yellow-300 mb-2 px-5 py-2.5 rounded-md text-black text-center w-1/2">Pay
                                     Now <i class="fas fa-arrow-right"></i></button>
-                            </div>
+                            </a>
+
                         </div>
                     </div>
                 </div>
