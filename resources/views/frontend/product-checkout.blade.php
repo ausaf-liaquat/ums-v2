@@ -65,8 +65,11 @@
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
-                    <div class="p-20 shadow-md border-purple-500 border-2 rounded-2xl">
+                <div class="grid p-5 grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                        <h3 class="text-lg mb-4 font-bold text-gray-900 sm:text-xl">
+                            Personal Details
+                        </h3>
                         <div class="mb-5">
                             <label for="base-input"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
@@ -150,31 +153,39 @@
                                 </select>
                                 <div id="city-error"></div>
                             </div>
+
+                            <button type="submit" class="rounded-lg mt-4 py-2.5 px-6 text-center w-full text-white bg-indigo-600 font-semibold text-lg transition-all duration-500 hover:bg-indigo-700">Next</button>
                         </div>
 
 
                     </div>
-                    <div class="p-20 ">
-                        <div class="about-right pb-5 pt-lg-5 text-lg-start text-center">
-                            <h3 class="mt-md-3 text-black font-extrabold uppercase">Product Details</h3>
-                            <div class="mt-md-5 service_details text-purple-600">
-                                <p>{{ $product->title }}</p>
-                                <p>{{ $product->address }}</p>
-                                <p>
-                                    {{ $product->zip_code }} {{ $product?->state?->name ?? '' }}
-                                    {{ $product?->city?->name ?? '' }}
-                                </p>
+                    <div class="about-right pb-5 pt-lg-5 text-lg-start text-center ">
+                        <a href="#" class="block rounded-lg p-4 shadow-md shadow-indigo-100">
+                            <img alt=""
+                                src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                                class="h-56 w-full rounded-md object-cover" />
 
+                            <div class="mt-2">
+                                <dl>
+                                    <div>
+                                        <dt class="sr-only">Price</dt>
 
-                                <br>
-                                <h4>Payment Details</h4>
-                                <p>Total: ${{ number_format($product->price) }}</p>
-                                <br>
-                                <button type="submit"
-                                    class="text-black bg-yellow-300 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-ybg-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-yellow-300 dark:hover:bg-yellow-300 dark:focus:ring-ybg-yellow-300">Pay
-                                    Now <i class="fas fa-arrow-right"></i></button>
+                                        <dd class=" text-gray-500">${{ number_format($product->price) }}</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt class="sr-only">Address</dt>
+
+                                        <dd class="font-medium text-gray-900">{{ $product->title }}</dd>
+                                    </div>
+                                </dl>
+
+                                <div class="mt-6 flex items-center gap-8 text-xs">
+
+                                </div>
                             </div>
-                        </div>
+                        </a>
+
                     </div>
                 </div>
             </form>
