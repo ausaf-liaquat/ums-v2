@@ -16,7 +16,7 @@
             </button>
         </div>
 
-        <div class="w-full flex-grow lg:flex backdrop-blur-md lg:items-center lg:w-auto rounded-[2.5rem] hidden mt-2 lg:mt-0 md:bg-transparent lg:bg-transparent p-4 lg:p-0 z-20"
+        <div class="w-full flex-grow lg:flex bg-purple-600 lg:items-center lg:w-auto rounded-bl-[2rem] rounded-br-[2rem] hidden mt-2 lg:mt-0 md:bg-transparent lg:bg-transparent p-4 lg:p-0 z-20"
             id="nav-content">
 
             <ul class="list-reset text-lg lg:flex justify-end flex-1 items-center mt-5 mb-5">
