@@ -206,17 +206,18 @@
                                     let time = element.datetime.split(' ')[1];
                                     let slots = element.slot
                                     timeHtml += `
-                                   <div>
-                                     <div class="mt-4 w-48 cursor-pointer" style="
-                                        border: 1px solid #9f19f8;
-                                        background: #f5f8f9;
-                                        color: #9e19f7;
-                                        padding: 8px;
-                                        text-align: center;
-                                        font-weight: 600;
-                                      "  >
-                                          ${convertTo12HourFormat(time)}
-                                      </div>
+                                   <div class="w-full">
+
+                                    <div class="flex justify-center text-purple-600 bg-purple-50 px-3 py-1.5 tracking-wide rounded-lg">
+                                      <svg class=" h-6 w-6 mr-2 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                    </svg>
+
+
+
+                                      ${convertTo12HourFormat(time)}
+                                    </div>
+
                                     </div>
                                   `;
                                     let bookedSlots = element.user_courses_count
@@ -288,15 +289,59 @@
                                     </p>
                                   `);
                                 $('.service_details').empty().fadeIn().append(`
-                              <p>${course_name}</p>
-                              <p>${course_price.toLocaleString('en-US', {
-                              style: 'currency',
-                              currency: 'USD',
-                              minimumFractionDigits: 0,
-                              maximumFractionDigits: 0
-                              })}</p>
-                              <br>
-                              <a class="btn btn-primary w-75 disabled" style="border-radius:0px;">Next</a>
+                                 <a href="${slots === bookedSlots?'#':checkoutRoute}"
+                                      class="relative block overflow-hidden rounded-lg mt-4 mb-4 border border-gray-100 p-4 sm:p-6 lg:p-8">
+                                      <span
+                                      class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+
+                                      <div class="sm:flex sm:justify-between sm:gap-4">
+                                          <div>
+                                              <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                                                  ${course_name} | ${course_price.toLocaleString('en-US', {
+                                                  style: 'currency',
+                                                  currency: 'USD',
+                                                  minimumFractionDigits: 0,
+                                                  maximumFractionDigits: 0
+                                                  })}
+                                              </h3>
+                                          </div>
+
+                                          <div class="hidden sm:block sm:shrink-0">
+                                              <img alt="" src="{{ Storage::disk('cms')->url('') }}/${element.course.image}"
+                                                  class="size-16 rounded-lg object-cover shadow-sm" />
+                                          </div>
+                                      </div>
+
+                                      <div class="p-4 mb-4 mt-4 text-sm text-indigo-600 rounded-xl bg-indigo-50 font-normal" role="alert">
+                                      <span class="font-semibold mr-2">Description:</span> ${element.course.description}
+                                      </div>
+
+                                      <div
+                                        class="relative inline-flex rounded-full items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold bg-indigo-50 text-indigo-600 transition-all duration-150 ease-in-out hover:pl-10 hover:pr-6 hover:bg-indigo-100 group">
+
+                                        <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+                                          <svg class="w-5 h-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                              d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                              stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          </svg>
+                                        </span>
+                                        <span
+                                          class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+                                          <svg class="w-5 h-5 text-indigo-700" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                              d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                              stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          </svg>
+                                        </span>
+                                        <span
+                                          class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-indigo-700">Next</span>
+                                      </div>
+                                    </a>
                           `);
                             }
 
