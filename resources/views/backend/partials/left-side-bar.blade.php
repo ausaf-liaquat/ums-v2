@@ -1,7 +1,6 @@
   <!-- Menu -->
   @php
 
-
       $modules = [
           [
               'module_name' => 'posts',
@@ -74,7 +73,7 @@
   <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
           <a href="{{ route('home') }}" class="app-brand-link">
-            <img class="w-25" src="{{ asset('img/logo-1-dark.png') }}" alt="">
+              <img class="w-25" src="{{ asset('img/logo-1-dark.png') }}" alt="">
               {{-- <span class="app-brand-logo demo">
                   <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -120,7 +119,7 @@
                   </svg>
               </span>
              --}}
-             <span class=" demo menu-text text-black fw-bolder ms-2">UNIQUE MED SERVICES</span>
+              <span class=" demo menu-text text-black fw-bolder ms-2">UNIQUE MED SERVICES</span>
           </a>
 
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -265,15 +264,23 @@
               </li>
           @endif
           @if (!auth()->user()->hasRole('clinician'))
-          <li
-          class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
-          <a href="{{ route('backend.shifts') }}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-briefcase"></i>
-              <div data-i18n="Analytics">Shifts</div>
-          </a>
-      </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
+                  <a href="{{ route('backend.shifts') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                      <div data-i18n="Analytics">Shifts</div>
+                  </a>
+              </li>
           @endif
-
+          @if (auth()->user()->hasRole('clinician'))
+              <li
+                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
+                  <a href="{{ route('backend.shifts') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                      <div data-i18n="Analytics">Courses</div>
+                  </a>
+              </li>
+          @endif
           @if (auth()->user()->hasRole('super admin'))
               <li
                   class="menu-item {{ request()->routeIs('backend.frontend-contents') || request()->routeIs('backend.frontend-contents.create') || request()->routeIs('backend.frontend-contents.edit') ? 'active' : '' }}">

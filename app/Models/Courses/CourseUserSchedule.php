@@ -37,5 +37,14 @@ class CourseUserSchedule extends Model
         return $this->belongsTo(Course::class, 'course_id');
     }
 
+    /**
+     * Get the course schedule that owns the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function course_schedule(): BelongsTo
+    {
+        return $this->belongsTo(CourseSchedule::class, 'course_schedule_id');
+    }
 
 }

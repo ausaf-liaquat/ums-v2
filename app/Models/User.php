@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Courses\CourseUserSchedule;
 use App\Models\Facilities\BannedFacilityClinician;
 use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
@@ -164,6 +165,16 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     public function bannedFacilities()
     {
         return $this->hasMany(BannedFacilityClinician::class);
+    }
+
+     /**
+     * Retrieve the user_courses associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user_courses()
+    {
+        return $this->hasMany(CourseUserSchedule::class, 'user_id');
     }
 
     /**
