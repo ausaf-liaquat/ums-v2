@@ -221,37 +221,37 @@
                                 </div>
 
                                 @if ($course->type != 1)
-
                                     <div class="p-4 mb-4 text-sm text-amber-500 rounded-xl bg-amber-50 font-normal"
                                         role="alert">
-                                        <span class="font-semibold mr-2">Schedule At:</span> {{ date('F j, Y h:i a', strtotime($event->datetime)) }}
+                                        <span class="font-semibold mr-2">Schedule At:</span>
+                                        {{ date('F j, Y h:i a', strtotime($event->datetime)) }}
                                     </div>
                                 @endif
 
                                 <button type="submit"
-                                  class="relative inline-flex rounded-full items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold bg-indigo-50 text-indigo-600 transition-all duration-150 ease-in-out hover:pl-10 hover:pr-6 hover:bg-indigo-100 group">
+                                    class="relative inline-flex rounded-full items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold bg-indigo-50 text-indigo-600 transition-all duration-150 ease-in-out hover:pl-10 hover:pr-6 hover:bg-indigo-100 group">
 
-                                  <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-                                    <svg class="w-5 h-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24"
-                                      height="24" viewBox="0 0 24 24" fill="none">
-                                      <path
-                                        d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
-                                        stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    </svg>
-                                  </span>
-                                  <span
-                                    class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-                                    <svg class="w-5 h-5 text-indigo-700" xmlns="http://www.w3.org/2000/svg" width="24"
-                                      height="24" viewBox="0 0 24 24" fill="none">
-                                      <path
-                                        d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
-                                        stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    </svg>
-                                  </span>
-                                  <span
-                                    class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-indigo-700">Next</span>
+                                    <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+                                        <svg class="w-5 h-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                                stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span
+                                        class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+                                        <svg class="w-5 h-5 text-indigo-700" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M14.9385 6L20.9999 12.0613M20.9999 12.0613L14.9385 18.1227M20.9999 12.0613L3 12.0613"
+                                                stroke="currentcolor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span
+                                        class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-indigo-700">Next</span>
                                 </button>
                             </a>
 
