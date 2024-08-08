@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AjaxController;
 use App\Http\Controllers\Backend\Clinicians\ClinicianController;
 use App\Http\Controllers\Backend\Courses\CourseController;
 use App\Http\Controllers\Backend\Courses\CourseScheduleController;
+use App\Http\Controllers\Backend\Courses\UserCourseController;
 use App\Http\Controllers\Backend\Facilities\FacilityController;
 use App\Http\Controllers\Backend\FrontendContentController;
 use App\Http\Controllers\Backend\FundController;
@@ -112,6 +113,7 @@ Route::get('clinicians/dataTable', [ClinicianController::class, 'dataTable'])->n
 Route::get('frontend-contents/dataTable', [FrontendContentController::class, 'dataTable'])->name('frontend-contents.dataTable');
 Route::get('clinician-documents/dataTable', [ClinicianController::class, 'documentsDataTable'])->name('clinician-documents.dataTable');
 Route::get('course-schedules/dataTable', [CourseScheduleController::class, 'dataTable'])->name('course-schedules.dataTable');
+Route::get('my-courses/dataTable', [UserCourseController::class, 'dataTable'])->name('user-courses.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -408,6 +410,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::delete("course-schedules/destroy", "destroy")->name('course-schedules.destroy');
     });
 
+
+
+    /*
+     *
+     *  User Courses Schedule Routes
+     *
+     * ---------------------------------------------------------------------
+     */
+    Route::controller(UserCourseController::class)->group(function () {
+        Route::get("my-courses/{user_course}", "index")->name("user-courses");
+        Route::get("my-courses/{user_course}/create", "create")->name("user-courses.create");
+        Route::post("my-courses/store", "store")->name("user-courses.store");
+        Route::get("my-courses/edit/{user_course}", "edit")->name("user-courses.edit");
+        Route::post("my-courses/update/{user_course}", "update")->name("user-courses.update");
+        Route::patch("course-schedules/status", "status")->name("course-schedules.status");
+        Route::delete("course-schedules/destroy", "destroy")->name('course-schedules.destroy');
+    });
 
     /*
      *
