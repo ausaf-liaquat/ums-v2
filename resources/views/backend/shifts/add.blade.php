@@ -103,8 +103,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="mf_shift_type_id" class="form-label">Shift Note </label><span
-                                class="float-end"><b>What types of shifts are you
-                                    interested in?</b>(Select all that interests you)</span>
+                                class="float-end"><b>AM, PM, NOC(Havewhatever is selected appear in the shift when posted to UMS Moble app)</b> (Select all that interests you)</span>
 
                             <select id="mf_shift_type" name="mf_shift_type_id[]"
                                 data-parsley-errors-container="shift_type-error" multiple class="form-select" required>

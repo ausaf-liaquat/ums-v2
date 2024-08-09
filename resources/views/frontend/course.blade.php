@@ -66,19 +66,26 @@
                 @foreach ($courses as $course)
                     <div>
                         <div class="w-full">
+                           
                             <div
                                 class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
+                                @if ($course->type == 0)
+                                    <div
+                                        class="bg-gray-900 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                        OFFLINE
+                                    </div>
+                                @elseif($course->type == 1)
+                                    <div
+                                        class="bg-green-500 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                        ONLINE
+                                    </div>
+                                @else
+                                    <div
+                                        class="bg-red-500 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                        OFFLINE / ONLINE
+                                    </div>
+                                @endif
 
-                                <div
-                                    class="bg-purple-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
-                                    @if ($course->type == 0)
-                                        Offline
-                                    @elseif($course->type == 1)
-                                        Online
-                                    @else
-                                        Offline / Online
-                                    @endif
-                                </div>
 
                                 <a href="{{ route('courses.register', ['slug' => $course->slug]) }}"
                                     class="flex flex-wrap no-underline hover:no-underline">

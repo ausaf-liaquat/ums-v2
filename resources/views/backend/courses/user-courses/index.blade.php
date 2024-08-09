@@ -2,6 +2,13 @@
 @section('title')
     My Courses
 @endsection
+@section('css')
+    <style>
+        .word-wrap-custom {
+            word-wrap: break-word
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
@@ -20,15 +27,18 @@
         <div class="card">
 
             {{-- <h5 class="card-header">Table Basic</h5> --}}
-            <div class="p-4 table-responsive text-nowrap">
-                <table class="table" id="dataTableSize">
+            <div class="p-4 table-responsive">
+                <table class="table" id="dataTableSize" style="table-layout: fixed; width: 100%">
                     <thead>
                         <tr>
                             <th>Sr. no</th>
-                            <th>Schedule Date</th>
-                            <th>Slot</th>
-                            <th>Address</th>
-                            <th>Status</th>
+                            <th>Course Image</th>
+                            <th>Course Title</th>
+                            <th>Course Address</th>
+                            <th>Course Type</th>
+                            <th>Course Price</th>
+                            <th>Scheduled At</th>
+                            <th>Purchased At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -52,11 +62,10 @@
                     info: "Showing courses _START_ to _END_ of _TOTAL_",
                     lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> courses'
                 },
-
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('course-schedules.dataTable') }}',
+                    url: '{{ route('user-courses.dataTable') }}',
                 },
                 columns: [{
                         "data": "DT_RowIndex",
@@ -67,25 +76,46 @@
 
                     },
                     {
-                        "data": "datetime",
+                        "data": "course.image",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "slot",
+                        "data": "course.name",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+
+                    {
+                        "data": "course.address",
+                        "className": "text-center word-wrap-custom ",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "course.type",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "address",
+                        "data": "course.price",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "status",
+                        "data": "course_schedule.datetime",
+                        // "name":"datetime",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
+                        "data": "created_at",
+                        // "name":"datetime",
                         "className": "text-center",
                         "defaultContent": "",
 
@@ -98,15 +128,24 @@
                     },
 
                 ],
-                columnDefs: [{
+                columnDefs: [
+
+                    {
                         "targets": 4,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
-                            var checked = row.status == 1 ? 'checked' : null;
-                            return `<div class="form-check form-switch mb-2">
-                        <input class="form-check-input js-status-switch" type="checkbox" data-id="${row.id}"  ${checked}>
+                            let typeHtml = ""
+                            if (data == 0) {
+                                typeHtml += `<span class="badge bg-label-secondary">OFFLINE</span>`
+                            } else if (data == 1) {
+                                typeHtml += `<span class="badge bg-label-success">ONLINE</span>`
 
-                      </div>`;
+                            } else {
+                                typeHtml += `<span class="badge bg-label-danger">ONLINE</span>`
+
+                            }
+
+                            return `${typeHtml}`;
                         },
                     },
                     {
@@ -116,20 +155,21 @@
                             var edit = '{{ route('backend.course-schedules.edit', [':course']) }}';
                             edit = edit.replace(':course', data);
 
-                            var content = '{{ route('backend.courses.content', [':course']) }}';
-                            content = content.replace(':course', data);
-                            let contentHtml = ""
+                            var view = '{{ route('backend.user-courses.view', [':user_course']) }}';
+                            view = view.replace(':user_course', data);
+                            let viewHtml = ""
+
                             if (row.type == 1) {
-                                contentHtml += `
-                                  <a href="` + content + `" class="text-info p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
+                                viewHtml = `
+                                  <a href="` + view + `" class="text-info p-1" data-original-title="Edit"    title="Course view" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
                               `
                             }
 
                             let returnData =
                                 `<div class="text-center">
-                                      <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
-                                      ${contentHtml}
-                                      <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${row.id}"></i>
+
+                                      ${viewHtml}
+
                                     </div>`;
 
                             return returnData;

@@ -18,10 +18,10 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <a href="{{ route('backend.courses.create') }}" class="btn btn-primary float-end">Add <i
                         class="tf-icons bx bx-plus-circle"></i></a>
-            </div>
+            </div> --}}
             {{-- <h5 class="card-header">Table Basic</h5> --}}
             <div class="p-4 table-responsive text-nowrap">
                 <table class="table" id="dataTableSize">
@@ -150,7 +150,7 @@
                                 `<div class="text-center">
                                       <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
                                       ${contentHtml}
-                                      <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${row.id}"></i>
+
                                     </div>`;
 
                             return returnData;
