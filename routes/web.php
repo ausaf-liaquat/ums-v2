@@ -419,7 +419,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
      * ---------------------------------------------------------------------
      */
     Route::controller(UserCourseController::class)->group(function () {
-        Route::get("my-courses/{user_course}", "index")->name("user-courses");
+        Route::get("my-courses", "index")->name("user-courses");
         Route::get("my-courses/{user_course}/create", "create")->name("user-courses.create");
         Route::post("my-courses/store", "store")->name("user-courses.store");
         Route::get("my-courses/{user_course}/view", "view")->name("user-courses.view");

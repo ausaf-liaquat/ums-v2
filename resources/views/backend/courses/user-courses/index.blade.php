@@ -18,10 +18,7 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <div class="card-header">
-                <a href="{{ route('backend.course-schedules.create', ['course' => $course->id]) }}"
-                    class="btn btn-primary float-end">Add <i class="tf-icons bx bx-plus-circle"></i></a>
-            </div>
+
             {{-- <h5 class="card-header">Table Basic</h5> --}}
             <div class="p-4 table-responsive text-nowrap">
                 <table class="table" id="dataTableSize">
@@ -59,7 +56,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('course-schedules.dataTable') }}?course_id=' + "{{ $course->id }}",
+                    url: '{{ route('course-schedules.dataTable') }}',
                 },
                 columns: [{
                         "data": "DT_RowIndex",
