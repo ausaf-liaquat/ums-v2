@@ -118,21 +118,28 @@
                     <div
                         class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
 
-                        <div
-                            class="bg-purple-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
-                            @if ($course->type == 0)
-                                Offline
-                            @elseif($course->type == 1)
-                                Online
-                            @else
-                                Offline / Online
-                            @endif
-                        </div>
+                        @if ($course->type == 0)
+                            <div
+                                class="bg-gray-900 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                OFFLINE
+                            </div>
+                        @elseif($course->type == 1)
+                            <div
+                                class="bg-green-500 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                ONLINE
+                            </div>
+                        @else
+                            <div
+                                class="bg-red-500 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+                                OFFLINE / ONLINE
+                            </div>
+                        @endif
+
 
                         <a href="{{ route('courses') }}" class="flex flex-wrap no-underline hover:no-underline">
 
-                            <img class="lg:h-[350px] md:h-[350px] mx-auto" src="{{ Storage::disk('cms')->url($course->image) }}"
-                                alt="">
+                            <img class="lg:h-[350px] md:h-[350px] mx-auto"
+                                src="{{ Storage::disk('cms')->url($course->image) }}" alt="">
 
                             <div class="w-full font-bold text-xl mt-5 text-gray-800 px-6 mb-5">
                                 {{ Str::limit($course->name, 24) }}
