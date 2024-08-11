@@ -34,6 +34,8 @@ class ShiftHourController extends Controller
 
         MFShiftHour::create([
             'name'=>$request->name,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
             'shift_total_hours'=>$request->shift_total_hours
         ]);
 
@@ -54,6 +56,8 @@ class ShiftHourController extends Controller
 
         $shift_hour->update([
             'name'=>$request->name,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
             'shift_total_hours'=>$request->shift_total_hours
         ]);
 

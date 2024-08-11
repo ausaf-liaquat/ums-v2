@@ -114,6 +114,7 @@ Route::get('frontend-contents/dataTable', [FrontendContentController::class, 'da
 Route::get('clinician-documents/dataTable', [ClinicianController::class, 'documentsDataTable'])->name('clinician-documents.dataTable');
 Route::get('course-schedules/dataTable', [CourseScheduleController::class, 'dataTable'])->name('course-schedules.dataTable');
 Route::get('my-courses/dataTable', [UserCourseController::class, 'dataTable'])->name('user-courses.dataTable');
+Route::get('shifts-clinicians/dataTable', [ShiftController::class, 'dataTableAcceptedClinicians'])->name('shifts-clinicians.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -343,6 +344,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::get("shifts/create", "create")->name("shifts.create");
         Route::post("shifts/store", "store")->name("shifts.store");
         Route::get("shifts/edit/{shift}", "edit")->name("shifts.edit");
+        Route::get("shifts/clinicians/{shift}", "acceptedClinicians")->name("shift-clinician.list");
         Route::post("shifts/update/{shift}", "update")->name("shifts.update");
         Route::patch("shifts/status", "status")->name("shifts.status");
         Route::delete("shifts/destroy", "destroy")->name('shifts.destroy');

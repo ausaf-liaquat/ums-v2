@@ -9,6 +9,8 @@ use App\Models\MasterFiles\MFShiftHour;
 use App\Models\Notification;
 use App\Models\Shifts\Shift;
 use App\Models\User;
+use App\Models\UserShift;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,34 @@ class ShiftController extends Controller
             });
 
 
-        return DataTables::eloquent($model)->addIndexColumn()->make(true);
+        return DataTables::eloquent($model)
+            // ->addIndexColumn()
+            ->addColumn('date', function (Shift $shift) {
+                $date = Carbon::parse($shift->date);
+                return $date->format('F j, Y h:i A');
+            })->make(true);
+    }
+    public function dataTableAcceptedClinicians(Request $request)
+    {
+
+        $model = UserShift::query()->with('shift.user', 'clinician')
+            ->where('shift_id', $request->shift_id)->where('status', 1);
+
+        return DataTables::eloquent($model)
+            ->addIndexColumn()
+            ->addColumn('accepted_at', function (UserShift $userShift) {
+                $date = $userShift->accepted_at ? Carbon::parse($userShift->accepted_at)->format('F j, Y h:i A') : 'N/A';
+                return $date;
+            })
+            ->addColumn('clockin', function (UserShift $userShift) {
+                $date = $userShift->clockin ? Carbon::parse($userShift->clockin)->format('F j, Y h:i A') : 'N/A';
+                return $date;
+            })
+            ->addColumn('clockout', function (UserShift $userShift) {
+                $date = $userShift->clockout ? Carbon::parse($userShift->clockout)->format('F j, Y h:i A') : 'N/A';
+                return $date;
+            })
+            ->make(true);
     }
 
     /**
@@ -81,7 +110,7 @@ class ShiftController extends Controller
 
             $user->wallet->pay($shift);
 
-            $cliniciansNotification = User::whereHas('roles', function ($q)  {
+            $cliniciansNotification = User::whereHas('roles', function ($q) {
                 $q->where('name', 'clinician');
             })->pluck('id')->toArray();
 
@@ -128,6 +157,18 @@ class ShiftController extends Controller
         ];
 
         return view('backend.shifts.add', $data);
+    }
+
+    /**
+     * Show the form for accepted the specified resource.
+     */
+    public function acceptedClinicians(Shift $shift)
+    {
+        $data = [
+            'shift' => $shift,
+        ];
+
+        return view('backend.shifts.list', $data);
     }
 
     /**

@@ -23,4 +23,14 @@ class UserShift extends Model
     {
         return $this->belongsTo(Shift::class, 'shift_id', 'id');
     }
+
+     /**
+     * Get the clinician that owns the UserShift
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function clinician(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

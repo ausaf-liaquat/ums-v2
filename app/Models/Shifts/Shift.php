@@ -6,6 +6,7 @@ use App\Models\MasterFiles\MFClinicianType;
 use App\Models\MasterFiles\MFShiftHour;
 use App\Models\MasterFiles\MFShiftType;
 use App\Models\User;
+use App\Models\UserShift;
 use Bavix\Wallet\Interfaces\Customer;
 use Bavix\Wallet\Interfaces\ProductInterface;
 use Bavix\Wallet\Traits\HasWallet;
@@ -92,6 +93,17 @@ class Shift extends Model implements ProductInterface
     {
         return $this->hasMany(ShiftShiftType::class, 'shift_id');
     }
+
+    /**
+     * Get all of the clinicianTypes for the Facility
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shift_clinicians(): HasMany
+    {
+        return $this->hasMany(UserShift::class, 'shift_id');
+    }
+
     /**
      * Get the user that owns the Shift
      *

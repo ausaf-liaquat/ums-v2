@@ -11,5 +11,5 @@ class MFShiftHour extends Model
 
     protected $table = "mf_shift_hours";
 
-    protected $fillable =['name','shift_total_hours', 'status'];
+    protected $fillable =['name','start_time','end_time','shift_total_hours', 'status'];
 }

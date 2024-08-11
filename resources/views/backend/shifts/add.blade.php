@@ -34,15 +34,15 @@
                                 <img src="{{ asset('assets/assets/img/icons/unicons/wallet.png') }}" alt="User">
                             </div>
                             <div>
-                                <small class="text-muted d-block">Total Balance</small>
+                                <small class="text-muted d-block">Facility Total Balance</small>
                                 <div class="d-flex align-items-center">
-                                    <h6 class="mb-0 me-1">${{ balanceData()['currentBalance'] }}</h6>
+                                    <h6 class="mb-0 me-1">${{ balanceData($shift->user_id ??'')['currentBalance'] }}</h6>
                                     <small class="text-success fw-semibold">
                                         <i class="bx bx-chevron-up"></i>
-                                        {{ balanceData()['percentageIncrease'] }}
+                                        {{ balanceData($shift->user_id ??'')['percentageIncrease'] }}
                                     </small>
                                     <input type="hidden" id="current_balance" name="current_balance"
-                                        value="{{ auth()->user()->wallet->balanceFloatNum }}">
+                                        value="{{ balanceData($shift->user_id ??'')['currentBalance'] }}">
                                 </div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="shift_date" class="form-label">Shift Date</label>
-                            <input class="form-control" type="date" name="date" value="{{ $shift->date ?? '' }}"
-                                id="shift_date" required />
+                            <input class="form-control" type="datetime-local" name="date" value="{{ $shift->date ?? '' }}"
+                                id="shift_date" required  @if ($isEdit) readonly @endif />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="course_name" class="form-label">Shift Hours</label>

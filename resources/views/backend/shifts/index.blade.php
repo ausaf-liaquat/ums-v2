@@ -55,7 +55,7 @@
                     <table class="table" id="dataTableSize">
                         <thead>
                             <tr>
-                                <th>Sr. no</th>
+                                {{-- <th>Sr. no</th> --}}
                                 <th>Shift Date</th>
                                 <th>Shift Created By (Facility)</th>
                                 <th>Shift Title</th>
@@ -64,6 +64,7 @@
                                 <th>Rate Per Hour</th>
                                 <th>Total Shift Cost</th>
                                 <th>Shift Notes</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -98,14 +99,15 @@
                 ajax: {
                     url: '{{ route('shifts.dataTable') }}',
                 },
-                columns: [{
-                        "data": "DT_RowIndex",
-                        "orderable": false,
-                        "searchable": false,
-                        "className": "text-center",
-                        "defaultContent": "",
+                columns: [
+                  // {
+                  //       "data": "DT_RowIndex",
+                  //       "orderable": false,
+                  //       "searchable": false,
+                  //       "className": "text-center",
+                  //       "defaultContent": "",
 
-                    },
+                  //   },
                     {
                         "data": "date",
                         "className": "text-center",
@@ -158,6 +160,12 @@
 
                     },
                     {
+                        "data": "status",
+                        "className": "text-center",
+                        "defaultContent": "",
+
+                    },
+                    {
                         "data": "id",
                         "className": "text-center",
                         "defaultContent": "",
@@ -166,7 +174,7 @@
 
                 ],
                 columnDefs: [{
-                        "targets": 7,
+                        "targets": 6,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
 
@@ -174,7 +182,7 @@
                         },
                     },
                     {
-                        "targets": 8,
+                        "targets": 7,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             let notes = ''
@@ -187,15 +195,38 @@
                         },
                     },
                     {
+                        "targets": 8,
+                        "className": "text-center",
+                        "render": function(data, type, row, meta) {
+                            let status =""
+
+                            if (data == 1) {
+                              status = `<span class="badge bg-label-success mb-2">In Process</span>`
+                            } else if (data == 2) {
+                              status = `<span class="badge bg-label-danger mb-2">Expired</span>`
+
+                            }else{
+                              status = `<span class="badge bg-label-secondary mb-2">Deactivated</span>`
+
+                            }
+
+                            return status;
+                        },
+                    },
+                    {
                         "targets": -1,
                         "render": function(data, type, row, meta) {
 
                             var edit = '{{ route('backend.shifts.edit', [':course']) }}';
                             edit = edit.replace(':course', data);
 
+                            var detail = '{{ route('backend.shift-clinician.list', [':shift']) }}';
+                            detail = detail.replace(':shift', data);
+
                             let returnData =
                                 `<div class="text-center">
                                   <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
+                                   <a href="` + detail + `" class="text-info p-1" data-original-title="Edit"    title="Clinicians Details" data-placement="top" data-toggle="tooltip"><i class='bx bx-detail'></i></a>
                                   <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="-"></i>
                                 </div>`;
 

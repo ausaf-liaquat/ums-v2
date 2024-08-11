@@ -265,7 +265,7 @@
           @endif
           @if (!auth()->user()->hasRole('clinician'))
               <li
-                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ? 'active' : '' }}">
+                  class="menu-item {{ request()->routeIs('backend.shifts') || request()->routeIs('backend.shifts.create') || request()->routeIs('backend.shifts.edit') ||request()->routeIs('backend.shift-clinician.list') ? 'active' : '' }}">
                   <a href="{{ route('backend.shifts') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-briefcase"></i>
                       <div data-i18n="Analytics">Shifts</div>

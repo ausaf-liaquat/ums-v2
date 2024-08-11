@@ -566,9 +566,10 @@ if (!function_exists('split_name')) {
     }
 }
 
-function balanceData()
+function balanceData($user_id=null)
 {
-    $user = auth()->user()->wallet;
+    $auth = $user_id ? User::find($user_id) : auth()->user();
+    $user = $auth->wallet;
     $currentBalance = $user->balanceFloatNum;
 
     // Fetch the balance from one month ago

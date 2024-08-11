@@ -43,10 +43,11 @@ class ShiftController extends Controller
         $shift = Shift::findOrFail($id);
 
         UserShift::create([
-            'user_id' => auth()->user()->id,
-            'shift_id' => $shift->id,
-            'status' => 1,
-            'clockin' => now(),
+            'user_id'     => auth()->user()->id,
+            'shift_id'    => $shift->id,
+            'status'      => 1,
+            'accepted_at' => now(),
+            'clockin'     => now(),
         ]);
 
         return $this->success('Shift Accepted', 200);
@@ -58,6 +59,7 @@ class ShiftController extends Controller
         UserShift::create([
             'user_id' => auth()->user()->id,
             'shift_id' => $shift->id,
+            'rejected_at' => now(),
             'status' => 2,
         ]);
 

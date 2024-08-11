@@ -35,6 +35,16 @@
                                 value="{{ $shift_hour->name ?? '' }}" placeholder="Enter name" autofocus="" required>
                         </div>
                         <div class="mb-3 col-md-6">
+                          <label for="start_time" class="form-label">Start Time</label>
+                          <input class="form-control" type="time" id="start_time" name="start_time"
+                              value="{{ $shift_hour->start_time ?? '' }}" placeholder="Enter start time" autofocus="" required>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="end_time" class="form-label">End Time</label>
+                        <input class="form-control" type="time" id="end_time" name="end_time"
+                            value="{{ $shift_hour->end_time ?? '' }}" placeholder="Enter end time" autofocus="" required>
+                    </div>
+                        <div class="mb-3 col-md-6">
                             <label for="shift_total_hour" class="form-label">Shift Total Hours</label>
                             <input class="form-control" type="number" id="shift_total_hour" name="shift_total_hours"
                                 step="0.01" value="{{ $shift_hour->shift_total_hours ?? '' }}"
