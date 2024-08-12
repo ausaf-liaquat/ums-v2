@@ -30,27 +30,43 @@
         <div class="w-full flex flex-col md:flex-row py-6">
             <div class="flex justify-center mb-6 text-black">
                 <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                    <img class="w-24" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
+                    <img class="w-40" id="logoAuto" src="{{ asset('img/logo.png') }}" alt="">
                 </a>
             </div>
 
-            <div class="flex-1">
-                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Links</p>
+            <div class="flex-1 pt-5">
+                <p class="uppercase text-white md:mb-6 font-extrabold text-2xl">Links</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">FAQ</a>
+                        <a href="{{ route('home') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Home</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Help</a>
+                        <a href="{{ route('talk-to-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Talk To Us</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Support</a>
+                        <a href="{{ route('careers') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Careers</a>
                     </li>
                 </ul>
             </div>
-            <div class="flex-1">
-                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Legal</p>
+            <div class="flex-1 pt-5">
+                <p class="uppercase text-white md:mb-6 font-extrabold text-2xl">Company</p>
+                <ul class="list-reset mb-6">
+
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="{{ route('about-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">About Us</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="{{ route('contact-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-1 pt-5">
+                <p class="uppercase text-white md:mb-6 font-extrabold text-2xl">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Terms</a>
@@ -61,40 +77,56 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex-1">
-                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Social</p>
+            <div class="flex-1 m-auto">
+                <div class="w-96 h-48 rounded-md bg-gradient-to-tr from-indigo-600 via-pink-600 to-purple-600 p-0.5">
+                    <div class="w-full h-full rounded-md bg-white  flex items-center justify-center">
+                        {{-- <p
+                            class="text-2xl font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
+                            Pagedone Design System</p> --}}
+                            {{-- <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p> --}}
+                            <ul class="list-reset mb-6 pt-6 font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
+                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                  <a href="#"
+                                      class="no-underline">info@uniquemedsvcs.com</a>
+                              </li>
+                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                  <a href="#"
+                                      class="no-underline">9415291867</a>
+                              </li>
+                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                  <a href="#"
+                                      class="no-underline">Call Us 9am-5pm</a>
+                              </li>
+                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                <a href="#"
+                                    class="no-underline">514 Americas Way PMB 22605 Box Elder, SD 57719</a>
+                            </li>
+
+                          </ul>
+                    </div>
+                </div>
+                {{-- <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Contact Info</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Facebook</a>
+                            class="no-underline hover:underline text-white hover:text-blue-500">info@uniquemedsvcs.com</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Linkedin</a>
+                            class="no-underline hover:underline text-white hover:text-blue-500">9415291867</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Twitter</a>
+                            class="no-underline hover:underline text-white hover:text-blue-500">Call Us 9am-5pm</a>
                     </li>
-                </ul>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                      <a href="#"
+                          class="no-underline hover:underline text-white hover:text-blue-500">514 Americas Way PMB 22605 Box Elder, SD 57719</a>
+                  </li>
+
+                </ul> --}}
             </div>
-            <div class="flex-1">
-                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p>
-                <ul class="list-reset mb-6">
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#" class="no-underline hover:underline text-white hover:text-blue-500">Official
-                            Blog</a>
-                    </li>
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="{{ route('about-us') }}"
-                            class="no-underline hover:underline text-white hover:text-blue-500">About Us</a>
-                    </li>
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="{{ route('contact-us') }}"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Contact</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </section>
     {{-- <div class="container mx-auto max-w-[85rem] px-8">

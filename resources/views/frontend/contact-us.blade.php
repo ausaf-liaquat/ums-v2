@@ -90,7 +90,7 @@
                                     d="M3 10h2a1 1 0 011 1v6a1 1 0 001 1h10a1 1 0 001-1v-6a1 1 0 011-1h2M7 13h10" />
                             </svg>
                         </div>
-                        <div class=" font-bolder text-gray-900 mb-2">Info@uniquemedsvcs.com</div>
+                        <div class=" font-bolder text-gray-900 mb-2">info@uniquemedsvcs.com</div>
                         <div class="text-gray-500"> Email Us 24/7</div>
                     </div>
                 </div>
