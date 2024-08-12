@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class="flex-1 m-auto">
-                <div class="w-96 h-48 rounded-md bg-gradient-to-tr from-indigo-600 via-pink-600 to-purple-600 p-0.5">
+                <div class=" h-48 rounded-md bg-gradient-to-tr from-indigo-600 via-pink-600 to-purple-600 p-0.5">
                     <div class="w-full h-full rounded-md bg-white  flex items-center justify-center">
                         {{-- <p
                             class="text-2xl font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
