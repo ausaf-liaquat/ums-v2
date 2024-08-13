@@ -65,13 +65,13 @@
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label" for="basic-default-name">State</label>
                                 <div class="col-md-8">
-                                    <p>{{ $facility->facility->state->name }}</p>
+                                    <p>{{ $facility->facility?->state?->name }}</p>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label" for="basic-default-name">City</label>
                                 <div class="col-md-8">
-                                    <p>{{ $facility->facility->city->name }}</p>
+                                    <p>{{ $facility->facility?->city?->name }}</p>
                                 </div>
                             </div>
                             <div class="row mb-3">
