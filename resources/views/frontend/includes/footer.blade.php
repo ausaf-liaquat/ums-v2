@@ -83,26 +83,24 @@
                         {{-- <p
                             class="text-2xl font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
                             Pagedone Design System</p> --}}
-                            {{-- <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p> --}}
-                            <ul class="list-reset mb-6 pt-6 font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
-                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                                  <a href="#"
-                                      class="no-underline">info@uniquemedsvcs.com</a>
-                              </li>
-                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                                  <a href="#"
-                                      class="no-underline">9415291867</a>
-                              </li>
-                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                                  <a href="#"
-                                      class="no-underline">Call Us 9am-5pm</a>
-                              </li>
-                              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                                <a href="#"
-                                    class="no-underline">514 Americas Way PMB 22605 Box Elder, SD 57719</a>
+                        {{-- <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p> --}}
+                        <ul
+                            class="list-reset mb-6 pt-6 font-manrope font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-pink-600 to-purple-600">
+                            <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                <a href="#" class="no-underline">info@uniquemedsvcs.com</a>
+                            </li>
+                            <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                <a href="#" class="no-underline">9415291867</a>
+                            </li>
+                            <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                <a href="#" class="no-underline">Call Us 9am-5pm</a>
+                            </li>
+                            <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                                <a href="#" class="no-underline">514 Americas Way PMB 22605 Box Elder, SD
+                                    57719</a>
                             </li>
 
-                          </ul>
+                        </ul>
                     </div>
                 </div>
                 {{-- <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Contact Info</p>
