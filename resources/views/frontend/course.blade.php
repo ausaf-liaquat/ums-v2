@@ -66,7 +66,7 @@
                 @foreach ($courses as $course)
                     <div>
                         <div class="w-full">
-                           
+
                             <div
                                 class="relative left-0 top-0 flex-1 bg-white rounded-[2rem] hover:border-2 border-purple-500 overflow-hidden shadow-xl">
                                 @if ($course->type == 0)
