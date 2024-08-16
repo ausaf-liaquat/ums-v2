@@ -40,7 +40,7 @@ class FundController extends Controller
     {
         $data = [
             'isEdit' => false,
-            'paymentMethods'=>FacilityPaymentMethod::whereStatus(1)->get()
+            'paymentMethods'=>FacilityPaymentMethod::whereStatus(1)->where('facility_id',auth()->user()->facility->id)->get()
         ];
 
         return view('backend.funds.add', $data);
@@ -104,7 +104,7 @@ class FundController extends Controller
     {
         $data = [
             'isEdit' => true,
-            'paymentMethods'=>FacilityPaymentMethod::whereStatus(1)->get()
+            'paymentMethods'=>FacilityPaymentMethod::whereStatus(1)->where('facility_id',auth()->user()->facility->id)->get()
         ];
 
         return view('backend.funds.add', $data);

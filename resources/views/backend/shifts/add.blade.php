@@ -72,7 +72,7 @@
                                 data-parsley-errors-container="clinician_type-error" class="form-select" required>
                                 @if ($isEdit)
                                     <option value="{{ $shift ? $shift->mf_clinician_type_id : '' }}" selected>
-                                        {{ $shift ? $shift->clinician_type->name : '' }}</option>
+                                        {{ $shift ? $shift?->clinician_type?->name : '' }}</option>
                                 @endif
 
                             </select>
