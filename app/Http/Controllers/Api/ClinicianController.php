@@ -49,12 +49,12 @@ class ClinicianController extends Controller
     }
     public function documentType()
     {
-        $document_types = MFDocumentType::whereStatus(1)->get();
+        $document_types = MFDocumentType::get();
         return $this->success(['document_types' => $document_types], 'Document Types', 200);
     }
     public function userDocuments()
     {
-        $documents = Document::where('uploaded_by', auth()->user()->id)->with('documentType')->get();
+        $documents = Document::where('uploaded_by', auth()->user()->id)->with('document_type','uploaded_clinician')->get();
         return $this->success(['documents' => $documents], 'Documents', 200);
     }
     public function w9Form(Request $request)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Traits\ApiResponser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Stripe\StripeClient;
 
 class StripeController extends Controller
 {
@@ -14,8 +15,8 @@ class StripeController extends Controller
 
     public function stripeConnectedAccount(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(
-            env('STRIPE_SECRET_KEY')
+        $stripe = new StripeClient(
+            env('STRIPE_SECRET')
         );
 
         $acc = $stripe->accounts->create([
@@ -75,8 +76,8 @@ class StripeController extends Controller
     }
     public function stripeConnectedAccountLogin(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(
-            env('STRIPE_SECRET_KEY')
+        $stripe = new StripeClient(
+            env('STRIPE_SECRET')
         );
 
         $loginLink = $stripe->accounts->createLoginLink(

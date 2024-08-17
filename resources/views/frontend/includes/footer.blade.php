@@ -65,7 +65,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex-1 pt-5">
+            {{-- <div class="flex-1 pt-5">
                 <p class="uppercase text-white md:mb-6 font-extrabold text-2xl">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
@@ -76,7 +76,7 @@
                             class="no-underline hover:underline text-white hover:text-blue-500">Privacy</a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="flex-1 m-auto">
                 <div class=" h-48 rounded-md bg-gradient-to-tr from-indigo-600 via-pink-600 to-purple-600 p-0.5">
                     <div class="w-full h-full rounded-md bg-white  flex items-center justify-center">

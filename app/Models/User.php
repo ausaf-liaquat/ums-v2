@@ -152,7 +152,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
             'phone_number' => $this->phone ?? 'N/A',
             'image_url' => Storage::disk('cms')->url($this->avatar) ?? 'N/A',
             'unCompleted_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 0)->count() ?? 0,
-            'completed_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 1)->count() ?? 0
+            'completed_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 1)->count() ?? 0,
+            'address'=>$this->address,
+            'state'=>$this->state,
+            'city'=>$this->city,
+            'zip_code'=>$this->zip_code,
 
         ];
     }

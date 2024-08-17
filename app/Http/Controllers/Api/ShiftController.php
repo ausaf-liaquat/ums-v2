@@ -21,20 +21,20 @@ class ShiftController extends Controller
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
         $shifts = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
             $q->where('date', '>=', now()->format('Y-m-d'))->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
-        })->get();
+        })->with(['clinician_type','shift_hour','mfshift_types.types'])->get();
 
         return $this->success(['shifts' => $shifts], 'Shifts', 200);
     }
     public function acceptedShifts()
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
-        $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->get();
+        $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with(['clinician_type','shift_hour','mfshift_types.types'])->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
     }
     public function shiftDetail($id)
     {
-        $shift = Shift::find($id);
+        $shift = Shift::find($id)->load(['clinician_type','shift_hour','mfshift_types.types']);
 
         return $this->success(['shift' => $shift], 'Shift Details', 200);
     }
@@ -47,7 +47,7 @@ class ShiftController extends Controller
             'shift_id'    => $shift->id,
             'status'      => 1,
             'accepted_at' => now(),
-            'clockin'     => now(),
+            // 'clockin'     => now(),
         ]);
 
         return $this->success('Shift Accepted', 200);
@@ -122,7 +122,7 @@ class ShiftController extends Controller
     {
         $shifts = Shift::where(function ($q) use ($request) {
             $q->where('date', date('Y-m-d', strtotime($request->date)))->orWhere('shift_hour', $request->shift_hour)->orWhere('clinician_type', $request->type);
-        })->get();
+        })->with(['clinician_type','shift_hour','mfshift_types.types'])->get();
 
         return $this->success($shifts, 'Shifts', 200);
     }

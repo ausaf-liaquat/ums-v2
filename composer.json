@@ -32,6 +32,7 @@
         "spatie/laravel-medialibrary": "^11.4",
         "spatie/laravel-permission": "^6.4",
         "sqids/sqids": "^0.4.1",
+        "stripe/stripe-php": "^13.18",
         "twilio/sdk": "^8.2",
         "unisharp/laravel-filemanager": "^2.9",
         "yajra/laravel-datatables-oracle": "^11.0"
