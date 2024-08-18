@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AutoReply;
+use App\Mail\ContactMail;
 use App\Mail\SuccessPurchased;
 use App\Models\Courses\Course;
 use App\Models\Courses\CourseSchedule;
@@ -126,6 +128,8 @@ class FrontendController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type,$request->message,$request->phone,$request->email,$request->name));
+        // Mail::to($request->email)->send(new AutoReply());
         return redirect()->back()->with('success', 'Form has been submitted successfully');
     }
 

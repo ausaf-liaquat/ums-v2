@@ -1,23 +1,23 @@
 <?php
-  
+
 namespace App\Mail;
-  
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-  
+
 class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
-   
+
     public $type_contact;
     public $message;
     public $phone;
     public $email;
     public $full_name;
 
-  
+
     /**
      * Create a new message instance.
      *
@@ -31,7 +31,7 @@ class ContactMail extends Mailable
         $this->email = $email;
         $this->full_name = $full_name;
     }
-  
+
     /**
      * Build the message.
      *
@@ -40,6 +40,6 @@ class ContactMail extends Mailable
     public function build()
     {
         return $this->subject('Contact US - '. $this->type_contact)
-        ->markdown('emails.email');
+        ->markdown('mail.contactus');
     }
 }
