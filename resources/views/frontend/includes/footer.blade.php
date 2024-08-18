@@ -46,8 +46,16 @@
                             class="no-underline hover:underline text-white hover:text-blue-500">Talk To Us</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="{{ route('careers') }}"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Careers</a>
+                        <a href="{{ route('contact-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">FAQ</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="{{ route('contact-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">HELP</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="{{ route('contact-us') }}"
+                            class="no-underline hover:underline text-white hover:text-blue-500">SUPPORT</a>
                     </li>
                 </ul>
             </div>
@@ -62,6 +70,35 @@
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                         <a href="{{ route('contact-us') }}"
                             class="no-underline hover:underline text-white hover:text-blue-500">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-1 pt-5">
+                <p class="uppercase text-white md:mb-6 font-extrabold text-2xl">Social</p>
+                <ul class="list-reset mb-6">
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://www.facebook.com/profile.php?id=61563511624645&mibextid=ZbWKwL"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Facebook</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://www.linkedin.com/in/unique-med-services-739a37323?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Linkedin</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://x.com/uniquemedsvcs?t=6Y_Jo6LvJnIije6TsVBdaw&s=09"
+                            class="no-underline hover:underline text-white hover:text-blue-500">X</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://www.instagram.com/uniquemedservices?igsh=cGdtZHRueDg4N2Vo"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Instagram</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://tiktok.com/@unique.med.servic"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Tiktok</a>
+                    </li>
+                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                        <a href="https://youtube.com/@uniquemedservices?si=Eyf6IjTfYGUlm78p"
+                            class="no-underline hover:underline text-white hover:text-blue-500">Youtube</a>
                     </li>
                 </ul>
             </div>
@@ -93,7 +130,7 @@
                                 <a href="#" class="no-underline">9415291867</a>
                             </li>
                             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                                <a href="#" class="no-underline">Call Us 9am-5pm</a>
+                                <a href="#" class="no-underline">Text Us 9am-5pm</a>
                             </li>
                             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                                 <a href="#" class="no-underline">514 Americas Way PMB 22605 Box Elder, SD
@@ -173,23 +210,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex-1">
-                <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Social</p>
-                <ul class="list-reset mb-6">
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Facebook</a>
-                    </li>
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Linkedin</a>
-                    </li>
-                    <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#"
-                            class="no-underline hover:underline text-white hover:text-blue-500">Twitter</a>
-                    </li>
-                </ul>
-            </div>
+
             <div class="flex-1">
                 <p class="uppercase text-white md:mb-6 font-extrabold underline text-lg">Company</p>
                 <ul class="list-reset mb-6">

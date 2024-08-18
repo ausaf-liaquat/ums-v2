@@ -52,7 +52,7 @@
                             <label for="address" class="form-label">Course Address</label>
                             <textarea name="address" class="form-control" id="address" cols="30" rows="3" >{{ $course->address ?? '' }}</textarea>
                         </div>
-                        <div class="mb-3 col-md-3">
+                        {{-- <div class="mb-3 col-md-3">
                             <label for="country" class="form-label">Country </label>
                             <select name="country_id" id="country_id" class="form-control country"
                                 data-parsley-errors-container="#country-error" >
@@ -62,12 +62,13 @@
                                 @endif
                             </select>
                             <div id="country-error"></div>
-                        </div>
+                        </div> --}}
+
                         <div class="mb-3 col-md-3">
                             <label for="state" class="form-label">State </label>
                             <select name="state_id" id="state_id" class="form-control state"
                                 data-parsley-errors-container="#state-error" >
-                                @if ($isEdit && !$course->state_id)
+                                @if ($isEdit && $course->state_id)
                                     <option value="{{ $course->state_id }}" selected>{{ $course?->state?->name }}</option>
                                 @endif
                             </select>
@@ -77,7 +78,7 @@
                             <label for="city" class="form-label">City </label>
                             <select name="city_id" id="city_id" class="form-control city"
                                 data-parsley-errors-container="#city-error" >
-                                @if ($isEdit && !$course->city_id)
+                                @if ($isEdit && $course->city_id)
                                     <option value="{{ $course->city_id }}" selected>{{ $course?->city?->name }}</option>
                                 @endif
                             </select>
@@ -203,7 +204,7 @@
                     data: function(params) {
                         var query = {
                             q: params.term,
-                            country_id: $('.country').val()
+                            country_id: 233
                         }
 
                         return query;
@@ -221,7 +222,7 @@
                     data: function(params) {
                         var query = {
                             q: params.term,
-                            country_id: $('.country').val(),
+                            country_id: 233,
                             state_id: $('.state').val()
                         }
 

@@ -73,7 +73,7 @@
                             </svg>
                         </div>
                         <div class=" font-bolder text-gray-900 mb-2">9415291867</div>
-                        <div class="text-gray-500">Call Us 9am-5pm (Mountain Standard Time)
+                        <div class="text-gray-500">Text Us 9am-5pm (Mountain Standard Time)
 
                         </div>
                     </div>

@@ -100,12 +100,13 @@
                         "render": function(data, type, row, meta) {
                             var type = ""
                             if (data == 0) {
-                              type = '<span class="badge bg-label-secondary">Offline</span>'
-                            } else if( data ==1) {
-                              type = '<span class="badge bg-label-success">Online</span>'
+                                type = '<span class="badge bg-label-secondary">Offline</span>'
+                            } else if (data == 1) {
+                                type = '<span class="badge bg-label-success">Online</span>'
 
-                            }else{
-                              type = '<span class="badge bg-label-secondary">Offline</span> / '+'<span class="badge bg-label-success">Online</span>'
+                            } else {
+                                type = '<span class="badge bg-label-secondary">Offline</span> / ' +
+                                    '<span class="badge bg-label-success">Online</span>'
                             }
 
                             return type;
@@ -136,13 +137,20 @@
                             schedule = schedule.replace(':course', data);
 
                             let contentHtml = ""
-                            if (row.type == 1) {
+                            if (row.type == 0) {
+
                                 contentHtml += `
-                                  <a href="` + content + `" class="text-info p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
+                                  <a href="` + schedule + `" class="text-warning p-1" data-original-title="Edit"    title="Course Schedule" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-time" ></i></a>
+                              `
+                            } else if (row.type == 1) {
+                                contentHtml += `
+                                  <a href="` + content + `" class="text-danger p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
                               `
                             }else{
                               contentHtml += `
-                                  <a href="` + schedule + `" class="text-info p-1" data-original-title="Edit"    title="Course Schedule" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
+                                  <a href="` + schedule + `" class="text-warning p-1" data-original-title="Edit"    title="Course Schedule" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-time" ></i></a>
+
+                                   <a href="` + content + `" class="text-danger p-1" data-original-title="Edit"    title="Course Content" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-message-square-detail" ></i></a>
                               `
                             }
 
