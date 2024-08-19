@@ -128,13 +128,13 @@
 
                     },
                     {
-                        "data": "clinician_type.name",
+                        "data": "clinician_type",
                         "className": "text-center",
                         "defaultContent": "",
 
                     },
                     {
-                        "data": "shift_hour.name",
+                        "data": "shift_hour",
                         "className": "text-center",
                         "defaultContent": "",
 
@@ -181,19 +181,19 @@
                             return `$ ${data}`;
                         },
                     },
-                    {
-                        "targets": 7,
-                        "className": "text-center",
-                        "render": function(data, type, row, meta) {
-                            let notes = ''
-                            data.forEach(element => {
-                                notes +=
-                                    `<span class="badge bg-label-info mb-2">${element.types.name}</span> <br> `
-                            });
+                    // {
+                    //     "targets": 7,
+                    //     "className": "text-center",
+                    //     "render": function(data, type, row, meta) {
+                    //         let notes = ''
+                    //         data.forEach(element => {
+                    //             notes +=
+                    //                 `<span class="badge bg-label-info mb-2">${element.types.name}</span> <br> `
+                    //         });
 
-                            return notes;
-                        },
-                    },
+                    //         return notes;
+                    //     },
+                    // },
                     {
                         "targets": 8,
                         "className": "text-center",

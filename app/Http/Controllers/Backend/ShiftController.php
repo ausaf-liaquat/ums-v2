@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Facilities\FacilityClinicianType;
 use App\Models\MasterFiles\MFClinicianType;
 use App\Models\MasterFiles\MFShiftHour;
 use App\Models\Notification;
@@ -27,22 +26,23 @@ class ShiftController extends Controller
         return view('backend.shifts.index'); //
     }
 
-
     public function dataTable(Request $request)
     {
 
-        $model = Shift::query()->with('clinician_type', 'shift_hour', 'mfshift_types.types', 'user')
+        $model = Shift::query()->with('user')
             ->when(auth()->user()->hasRole('facility'), function ($q) {
                 $q->where('user_id', auth()->user()->id);
             });
 
-
         return DataTables::eloquent($model)
-            // ->addIndexColumn()
+        // ->addIndexColumn()
             ->addColumn('date', function (Shift $shift) {
                 $date = Carbon::parse($shift->date);
-                return $date->format('F j, Y h:i A');
-            })->make(true);
+                return $date->format('F j, Y');
+            })->addColumn('mfshift_types', function (Shift $shift) {
+            $data = $shift->shift_note? implode(', ', json_decode($shift->shift_note)):'N/A';
+            return $data;
+        })->make(true);
     }
     public function dataTableAcceptedClinicians(Request $request)
     {
@@ -86,8 +86,8 @@ class ShiftController extends Controller
      */
     public function store(Request $request)
     {
-
-        $user           = Auth::user();
+        // dd($request->all());
+        $user = Auth::user();
         if ($request->total_amount > $user->wallet->balanceFloatNum) {
             return redirect()->back()->with('error', 'You do not have enough balance to create this shift');
         }
@@ -96,17 +96,20 @@ class ShiftController extends Controller
 
         try {
             $shift = Shift::create([
-                'user_id'              => $user->id,
-                'title'                => $request->title,
-                'address'              => $request->shift_location,
-                'mf_clinician_type_id' => $request->mf_clinician_type_id,
-                'mf_shift_hour_id'     => $request->shift_hour_id,
-                'date'                 => $request->date,
-                'rate_per_hour'        => $request->rate_per_hour,
-                'total_amount'         => $request->total_amount,
-                'additional_comments'   => $request->additional_comment
+                'user_id' => $user->id,
+                'title' => $request->title,
+                'shift_location' => $request->shift_location,
+                'clinician_type' => $request->clinician_type,
+                'shift_hour' => $request->shift_hour,
+                'shift_note' => json_encode($request->mf_shift_type_id),
+                'date' => $request->date,
+                'rate_per_hour' => $request->rate_per_hour,
+                'total_amount' => $request->total_amount,
+                'additional_comments' => $request->additional_comment,
+                // 'mf_shift_hour_id'    => $request->shift_hour_id,
+                // 'mf_clinician_type_id' => $request->mf_clinician_type_id,
             ]);
-            $shift->shift_types()->sync($request->mf_shift_type_id);
+            // $shift->shift_types()->sync($request->mf_shift_type_id);
 
             $user->wallet->pay($shift);
 
@@ -137,12 +140,11 @@ class ShiftController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
 
-            return redirect()->back()->with('error',  $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
 
         return redirect()->route('backend.shifts')->with('success', 'Shift created successfully');
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -178,14 +180,17 @@ class ShiftController extends Controller
     {
 
         $shift->update([
-            'title'                => $request->title,
-            'address'              => $request->shift_location,
-            'mf_clinician_type_id' => $request->mf_clinician_type_id,
-            'date'                 => $request->date,
-            'additional_comments'   => $request->additional_comment
+            // 'mf_clinician_type_id' => $request->mf_clinician_type_id,
+            'additional_comments' => $request->additional_comment,
+            'title' => $request->title,
+            'shift_location' => $request->shift_location,
+            'clinician_type' => $request->clinician_type,
+            'shift_hour' => $request->shift_hour,
+            'shift_note' => json_encode($request->mf_shift_type_id),
+            'date' => $request->date,
         ]);
 
-        $shift->shift_types()->sync($request->mf_shift_type_id);
+        // $shift->shift_types()->sync($request->mf_shift_type_id);
 
         return redirect()->route('backend.shifts')->with('success', 'Shift updated successfully');
     }
@@ -193,10 +198,8 @@ class ShiftController extends Controller
     public function status(Request $request)
     {
 
-
         return response()->json(200);
     }
-
 
     public function destroy(Request $request)
     {

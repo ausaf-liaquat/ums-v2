@@ -24,23 +24,24 @@ class Shift extends Model implements ProductInterface
 
     protected $table = "shifts";
 
-    protected $fillable = [
-        'user_id',
-        'mf_clinician_type_id',
-        'mf_shift_hour_id',
-        'country_id',
-        'state_id',
-        'city_id',
-        'title',
-        'date',
-        'shift_hour',
-        'rate_per_hour',
-        'total_amount',
-        'additional_comments',
-        'address',
-        'zip_code',
-        'status',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+    // protected $fillable = [
+    //     'user_id',
+    //     'mf_clinician_type_id',
+    //     'mf_shift_hour_id',
+    //     'country_id',
+    //     'state_id',
+    //     'city_id',
+    //     'title',
+    //     'date',
+    //     'shift_hour',
+    //     'rate_per_hour',
+    //     'total_amount',
+    //     'additional_comments',
+    //     'address',
+    //     'zip_code',
+    //     'status',
+    // ];
 
     /**
      * The shift_types that belong to the Shift
@@ -65,24 +66,24 @@ class Shift extends Model implements ProductInterface
         ];
     }
 
-    /**
-     * Get the clinician type that owns the Shift
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function clinician_type(): BelongsTo
-    {
-        return $this->belongsTo(MFClinicianType::class, 'mf_clinician_type_id');
-    }
-    /**
-     * Get the shift hour that owns the Shift
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function shift_hour(): BelongsTo
-    {
-        return $this->belongsTo(MFShiftHour::class, 'mf_shift_hour_id');
-    }
+    // /**
+    //  * Get the clinician type that owns the Shift
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    //  */
+    // public function clinician_type(): BelongsTo
+    // {
+    //     return $this->belongsTo(MFClinicianType::class, 'mf_clinician_type_id');
+    // }
+    // /**
+    //  * Get the shift hour that owns the Shift
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    //  */
+    // public function shift_hour(): BelongsTo
+    // {
+    //     return $this->belongsTo(MFShiftHour::class, 'mf_shift_hour_id');
+    // }
 
      /**
      * Get all of the clinicianTypes for the Facility
