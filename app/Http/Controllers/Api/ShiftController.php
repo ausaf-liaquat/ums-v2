@@ -43,11 +43,11 @@ class ShiftController extends Controller
         $shift = Shift::findOrFail($id);
 
         UserShift::create([
-            'user_id'     => auth()->user()->id,
-            'shift_id'    => $shift->id,
-            'status'      => 1,
+            'user_id' => auth()->user()->id,
+            'shift_id' => $shift->id,
+            'status' => 1,
             'accepted_at' => now(),
-            // 'clockin'     => now(),
+            'clockin' => now(),
         ]);
 
         return $this->success('Shift Accepted', 200);
@@ -74,7 +74,7 @@ class ShiftController extends Controller
         }
         UserShift::where([
             'user_id' => auth()->user()->id,
-            'shift_id' => $shift->id
+            'shift_id' => $shift->id,
         ])->update([
             'status' => 3,
         ]);

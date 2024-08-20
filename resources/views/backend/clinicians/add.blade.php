@@ -159,6 +159,8 @@
                     },
                     {
                         "data": "document_type.name",
+                        "orderable": false,
+                        "searchable": false,
                         "className": "text-center",
                         "defaultContent": "",
                     },

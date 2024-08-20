@@ -54,7 +54,7 @@ class ClinicianController extends Controller
     }
     public function userDocuments()
     {
-        $documents = Document::where('uploaded_by', auth()->user()->id)->with('document_type','uploaded_clinician')->get();
+        $documents = Document::where('uploaded_by', auth()->user()->id)->with('documentType','uploaded_clinician')->get();
         return $this->success(['documents' => $documents], 'Documents', 200);
     }
     public function w9Form(Request $request)
