@@ -26,7 +26,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-flex p-4 pt-3">
-                          <div class="alert alert-primary" role="alert"><b>Shift: </b> {{ $shift->title }} <b>|</b> <b>Facility: </b> {{ $shift->user->name }}</div>
+                            <div class="alert alert-primary" role="alert"><b>Shift: </b> {{ $shift->title }} <b>|</b>
+                                <b>Facility: </b> {{ $shift->user->name }}</div>
                         </div>
                     </div>
 
