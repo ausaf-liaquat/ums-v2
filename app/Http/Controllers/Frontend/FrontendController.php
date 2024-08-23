@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Mail\AutoReply;
 use App\Mail\ContactMail;
-use App\Mail\SuccessPurchased;
 use App\Models\Courses\Course;
 use App\Models\Courses\CourseSchedule;
 use App\Models\Courses\CourseUserSchedule;
@@ -98,7 +96,6 @@ class FrontendController extends Controller
         return redirect()->back()->with('status', "Form Submitted Successfully");
     }
 
-
     /**
      * Terms & Conditions Page.
      *
@@ -126,9 +123,9 @@ class FrontendController extends Controller
             'type' => $request->type,
             'message' => $request->message,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
-        Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type,$request->message,$request->phone,$request->email,$request->name));
+        Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type, $request->message, $request->phone, $request->email, $request->name));
         // Mail::to($request->email)->send(new AutoReply());
         return redirect()->back()->with('success', 'Form has been submitted successfully');
     }
@@ -141,7 +138,7 @@ class FrontendController extends Controller
     public function courses()
     {
         $data = [
-            'courses' => Course::whereStatus(1)->get()
+            'courses' => Course::whereStatus(1)->get(),
         ];
         return view('frontend.course', $data);
     }
@@ -187,35 +184,34 @@ class FrontendController extends Controller
                 'email' => auth()->user()->email,
                 'phone' => auth()->user()->phone,
                 'user_id' => auth()->user()->id,
-                'file' => $request->file
+                'file' => $request->file,
             ]);
         } else {
 
             session()->put($request->only([
-                'date', 'cid', 'first_name', 'last_name', 'email', 'phone', 'message', 'file', 'course_schedule_id'
+                'date', 'cid', 'first_name', 'last_name', 'email', 'phone', 'message', 'file', 'course_schedule_id',
             ]));
-
 
             // dd($request->session()->all());
 
             $userExist = User::whereEmail($request->email)->first();
 
             if (empty($userExist)) {
-                $user             = new User();
+                $user = new User();
                 $user->first_name = $request->first_name;
-                $user->last_name  = $request->last_name;
-                $user->name       = $request->first_name . ' ' . $request->last_name;
-                $user->email      = $request->email;
-                $user->phone      = $request->phone;
+                $user->last_name = $request->last_name;
+                $user->name = $request->first_name . ' ' . $request->last_name;
+                $user->email = $request->email;
+                $user->phone = $request->phone;
                 // $user->course_id            = $request->cid;
-                $user->address  = $request->address;
-                $user->city     = $request->city;
-                $user->state    = $request->state;
+                $user->address = $request->address;
+                $user->city = $request->city;
+                $user->state = $request->state;
                 $user->zip_code = $request->zip_code;
                 // $user->type                 = 1;
                 $user->email_verified_at = now();
-                $user->password          = Hash::make($request->password);
-                $user->status            = 1;
+                $user->password = Hash::make($request->password);
+                $user->status = 1;
                 // $user->department_id        = $department_id;
                 $user->save();
 
@@ -247,7 +243,7 @@ class FrontendController extends Controller
             'price_data' => [
                 'currency' => 'usd',
                 'product_data' => [
-                    'name'   => $course->name,
+                    'name' => $course->name,
                     'images' => [$course->image],
                 ],
                 'unit_amount' => $course->price * 100,
@@ -256,10 +252,10 @@ class FrontendController extends Controller
         ];
         // }
         $session = Session::create([
-            'line_items'  => $lineItems,
-            'mode'        => 'payment',
+            'line_items' => $lineItems,
+            'mode' => 'payment',
             'success_url' => route('checkout-course.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url'  => route('checkout-course.cancel', [], true). "?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => route('checkout-course.cancel', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
         ]);
         $fileData = session('file');
         $filename = "";
@@ -268,22 +264,22 @@ class FrontendController extends Controller
             $filename = Storage::disk('cms')->putFile('', $fileData);
         }
         $order = Order::create([
-            'order_number'   => 'ORD-' . strtoupper(uniqid()),
-            'session_id'     => $session->id,
-            'status'         => 'unpaid',
-            'grand_total'    => $course->price,
-            'item_count'     => 1,
-            'user_id'        => session('user_id'),
-            'course_schedule_id'        => session('course_schedule_id'),
-            'course_id'      => $course->id,
+            'order_number' => 'ORD-' . strtoupper(uniqid()),
+            'session_id' => $session->id,
+            'status' => 'unpaid',
+            'grand_total' => $course->price,
+            'item_count' => 1,
+            'user_id' => session('user_id'),
+            'course_schedule_id' => session('course_schedule_id'),
+            'course_id' => $course->id,
             'payment_status' => 0,
             'payment_method' => null,
-            'first_name'     => session('first_name'),
-            'last_name'      => session('last_name'),
-            'email'          => session('email'),
-            'phone_number'   => session('phone'),
-            'notes'          => session('message'),
-            'file'           => $filename
+            'first_name' => session('first_name'),
+            'last_name' => session('last_name'),
+            'email' => session('email'),
+            'phone_number' => session('phone'),
+            'notes' => session('message'),
+            'file' => $filename,
         ]);
         // session()->forget(['date', 'cid', 'first_name', 'last_name', 'email', 'phone', 'message']);
         return view('layouts.stripe-redirect', compact('session'));
@@ -320,14 +316,14 @@ class FrontendController extends Controller
                 CourseUserSchedule::create([
                     'user_id' => session('user_id'),
                     'course_id' => session('cid'),
-                    'course_schedule_id'        => session('course_schedule_id'),
+                    'course_schedule_id' => session('course_schedule_id'),
                     'type' => 0,
                 ]);
             } else {
                 CourseUserSchedule::create([
                     'user_id' => session('user_id'),
                     'course_id' => session('cid'),
-                    'course_schedule_id'        => session('course_schedule_id'),
+                    'course_schedule_id' => session('course_schedule_id'),
                     'type' => 1,
                 ]);
             }
