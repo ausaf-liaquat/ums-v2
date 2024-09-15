@@ -117,11 +117,11 @@ class FrontendController extends Controller
     public function contactUsStore(Request $request)
     {
         DB::table('contact_us')->insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'type' => $request->type,
-            'message' => $request->message,
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'type'       => $request->type,
+            'message'    => $request->message,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

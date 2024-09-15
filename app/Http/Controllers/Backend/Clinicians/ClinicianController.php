@@ -76,6 +76,27 @@ class ClinicianController extends Controller
         return view('backend.clinicians.add', $data);
     }
 
+    public function update(User $clinician, Request $request){
+        $phone = $request->phone;
+        $phoneWithoutPlus = str_replace('+', '', $phone);
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'name'  => $request->first_name . ' ' . $request->last_name,
+            'email' => $request->email,
+            'phone' => $phoneWithoutPlus,
+            'gender' => $request->gender == 'male' ? 0 : 1,
+            'zip_code' => $request->zip_code,
+            'shifts' => $request->shift,
+            'experience' => $request->experience,
+            'reffered_by' => $request->reffered_by,
+            'qualification_type' => $request->qualification_type,
+        ];
+
+        $clinician->update($data);
+        
+    }
+
     public function facilityBanned(Request $request)
     {
         // dd($request->id);

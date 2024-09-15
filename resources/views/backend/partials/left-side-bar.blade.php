@@ -181,23 +181,23 @@
                               <div data-i18n="Analytics">Sizes</div>
                           </a>
                       </li>
-                      <li
+                      {{-- <li
                           class="menu-item {{ request()->routeIs('backend.qualification-types') || request()->routeIs('backend.qualification-types.create') || request()->routeIs('backend.qualification-types.edit') ? 'active' : '' }}">
 
                           <a href="{{ route('backend.qualification-types') }}" class="menu-link">
                               <i class="menu-icon tf-icons bx bx-folder-open"></i>
                               <div data-i18n="Analytics">Qualification Types</div>
                           </a>
-                      </li>
-                      <li
+                      </li> --}}
+                      {{-- <li
                           class="menu-item {{ request()->routeIs('backend.shift-types') || request()->routeIs('backend.shift-types.create') || request()->routeIs('backend.shift-types.edit') ? 'active' : '' }}">
 
                           <a href="{{ route('backend.shift-types') }}" class="menu-link">
                               <i class="menu-icon tf-icons bx bx-folder-open"></i>
                               <div data-i18n="Analytics">Shift Types</div>
                           </a>
-                      </li>
-                      <li
+                      </li> --}}
+                      {{-- <li
                           class="menu-item {{ request()->routeIs('backend.shift-hours') || request()->routeIs('backend.shift-hours.create') || request()->routeIs('backend.shift-hours.edit') ? 'active' : '' }}">
 
                           <a href="{{ route('backend.shift-hours') }}" class="menu-link">
@@ -212,7 +212,7 @@
                               <i class="menu-icon tf-icons bx bx-folder-open"></i>
                               <div data-i18n="Analytics">Clinician Types</div>
                           </a>
-                      </li>
+                      </li> --}}
                   </ul>
               </li>
 

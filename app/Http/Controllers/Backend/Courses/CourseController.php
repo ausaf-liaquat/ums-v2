@@ -106,7 +106,7 @@ class CourseController extends Controller
             'city_id' => $request->city_id,
         ]);
 
-        if ($request->file('image')) {
+        if ($request->file('image') && $course->image) {
             Storage::disk('cms')->delete($course->image);
         }
 

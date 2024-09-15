@@ -26,7 +26,93 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                      <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Info</h4>
+                        {{-- <form action="">
+                            @csrf
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Name</label>
+                                <div class="col-md-3">
+
+                                    <input type="text" name="first_name" value="{{ $clinician->first_name }}"
+                                        class="form-control" required>
+                                </div>
+                                <div class="col-md-3">
+
+                                    <input type="text" name="last_name" value="{{ $clinician->last_name }}"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Email</label>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="email" value="{{ $clinician->email ?? '' }}"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Address</label>
+                                <div class="col-md-6">
+
+                                    <textarea name="address" id="address" class="form-control" cols="30" rows="1">{{ $clinician->address ?? 'N/A' }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Mobile</label>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="phone" value="{{ $clinician->phone ?? '' }}"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Zip Code</label>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="zip_code" value="{{ $clinician->zip_code ?? '' }}"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Referred BY</label>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="referred_by" value="{{ $clinician->referred_by ?? '' }}"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Qualification</label>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="qualification_type"
+                                        value="{{ $clinician->qualification_type ?? '' }}" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">What types of shifts are you
+                                    interested
+                                    in? (Select all that interests you)</label>
+                                <div class="col-md-6">
+
+                                    @foreach (json_decode($clinician->shifts) ?? [] as $item)
+                                        <span class="badge bg-label-primary mb-2">{{ $item }}</span>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Please select your amount of
+                                    licensed work experience below.</label>
+                                <div class="col-md-6">
+
+
+                                    <span class="badge bg-label-primary mb-2">{{ $clinician->experience ?? 'N/A' }}</span>
+
+
+                                </div>
+                            </div>
+                        </form> --}}
+                        <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Info</h4>
                         <div class="row mb-3">
                             <label class="col-md-6 col-form-label" for="basic-default-name">Name</label>
                             <div class="col-md-6">
@@ -96,7 +182,8 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                      <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Documents</h4>
+                        <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Documents
+                        </h4>
                         <div class="p-4 table-responsive text-nowrap">
                             <table class="table" id="dataTableSize">
                                 <thead>
@@ -126,7 +213,7 @@
     <script>
         $(document).ready(function() {
 
-          let table = $("#dataTableSize").DataTable({
+            let table = $("#dataTableSize").DataTable({
                 language: {
                     paginate: {
                         previous: "<i class='mdi mdi-chevron-left'>",
@@ -135,13 +222,13 @@
                     info: "Showing documents _START_ to _END_ of _TOTAL_",
                     lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> documents'
                 },
-                order:[],
+                order: [],
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: '{{ route('clinician-documents.dataTable') }}',
                     data: {
-                      userID:"{{ $clinician->id }}"
+                        userID: "{{ $clinician->id }}"
                     }
                 },
                 columns: [{

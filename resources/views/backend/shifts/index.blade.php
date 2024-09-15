@@ -59,11 +59,11 @@
                                 <th>Shift Date</th>
                                 <th>Shift Created By (Facility)</th>
                                 <th>Shift Title</th>
-                                <th>Clinician Type</th>
-                                <th>Shift Hours</th>
+                                {{-- <th>Clinician Type</th> --}}
+                                {{-- <th>Shift Hours</th> --}}
                                 <th>Rate Per Hour</th>
                                 <th>Total Shift Cost</th>
-                                <th>Shift Notes</th>
+                                {{-- <th>Shift Notes</th> --}}
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -127,18 +127,18 @@
                         "defaultContent": "",
 
                     },
-                    {
-                        "data": "clinician_type",
-                        "className": "text-center",
-                        "defaultContent": "",
+                    // {
+                    //     "data": "clinician_type",
+                    //     "className": "text-center",
+                    //     "defaultContent": "",
 
-                    },
-                    {
-                        "data": "shift_hour",
-                        "className": "text-center",
-                        "defaultContent": "",
+                    // },
+                    // {
+                    //     "data": "shift_hour",
+                    //     "className": "text-center",
+                    //     "defaultContent": "",
 
-                    },
+                    // },
                     {
                         "data": "rate_per_hour",
                         "className": "text-center",
@@ -151,14 +151,14 @@
                         "defaultContent": "",
 
                     },
-                    {
-                        "data": "mfshift_types",
-                        "searchable": false,
-                        "orderable": false,
-                        "className": "text-center",
-                        "defaultContent": "",
+                    // {
+                    //     "data": "mfshift_types",
+                    //     "searchable": false,
+                    //     "orderable": false,
+                    //     "className": "text-center",
+                    //     "defaultContent": "",
 
-                    },
+                    // },
                     {
                         "data": "status",
                         "className": "text-center",
@@ -174,7 +174,7 @@
 
                 ],
                 columnDefs: [{
-                        "targets": 6,
+                        "targets": 3,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
 
@@ -195,7 +195,7 @@
                     //     },
                     // },
                     {
-                        "targets": 8,
+                        "targets": 5,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             let status =""

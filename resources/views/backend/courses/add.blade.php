@@ -34,7 +34,7 @@
                     <div class="row">
 
                         <div class="mb-3 col-md-6">
-                            <label for="course_name" class="form-label">Course Name</label>
+                            <label for="course_name" class="form-label">Course Name (It should be unique)</label>
                             <input class="form-control" type="text" name="course_name" id="course_name"
                                 value="{{ $course->name ?? '' }}" placeholder="Enter course name" name="name"
                                 autofocus="" required>
@@ -107,8 +107,9 @@
                                 value="{{ $course->price ?? '' }}" step="0.01" class="form-control" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="mf_type" class="form-label">Course Image</label>
-                            <input type="file" class="filepond form-control" name="image" required>
+                            <label for="mf_type" class="form-label">Course Image <span class="text-danger">*</span></label>
+                            <input type="file" class="filepond form-control" name="image" data-parsley-errors-container="#image-error" required>
+                            <div id="image-error"></div>
                         </div>
 
                     </div>
