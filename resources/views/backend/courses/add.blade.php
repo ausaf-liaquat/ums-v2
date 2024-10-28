@@ -50,7 +50,7 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Course Address</label>
-                            <textarea name="address" class="form-control" id="address" cols="30" rows="3" >{{ $course->address ?? '' }}</textarea>
+                            <textarea name="address" class="form-control" id="address" cols="30" rows="3">{{ $course->address ?? '' }}</textarea>
                         </div>
                         {{-- <div class="mb-3 col-md-3">
                             <label for="country" class="form-label">Country </label>
@@ -67,7 +67,7 @@
                         <div class="mb-3 col-md-3">
                             <label for="state" class="form-label">State </label>
                             <select name="state_id" id="state_id" class="form-control state"
-                                data-parsley-errors-container="#state-error" >
+                                data-parsley-errors-container="#state-error">
                                 @if ($isEdit && $course->state_id)
                                     <option value="{{ $course->state_id }}" selected>{{ $course?->state?->name }}</option>
                                 @endif
@@ -77,7 +77,7 @@
                         <div class="mb-3 col-md-3">
                             <label for="city" class="form-label">City </label>
                             <select name="city_id" id="city_id" class="form-control city"
-                                data-parsley-errors-container="#city-error" >
+                                data-parsley-errors-container="#city-error">
                                 @if ($isEdit && $course->city_id)
                                     <option value="{{ $course->city_id }}" selected>{{ $course?->city?->name }}</option>
                                 @endif
@@ -87,7 +87,7 @@
                         <div class="mb-3 col-md-3">
                             <label for="zipcode" class="form-label">Zip Code </label>
                             <input type="text" name="zip_code" value="{{ $course->zip_code ?? '' }}" id="zipcode"
-                                placeholder="Enter zip code" class="form-control" >
+                                placeholder="Enter zip code" class="form-control">
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="course_type" class="form-label"> Course Type </label>
@@ -97,9 +97,16 @@
                                 </option>
                                 <option value="1" {{ $isEdit && $course->type == 1 ? 'selected' : '' }}>Online
                                 </option>
-                                <option value="2" {{ $isEdit && $course->type == 2 ? 'selected' : '' }}>Online / Offline
+                                <option value="2" {{ $isEdit && $course->type == 2 ? 'selected' : '' }}>Online /
+                                    Offline
                                 </option>
                             </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="mf_type" class="form-label">Is Upload Unxpired Card? </label>
+                            <div class="form-switch mb-2">
+                                <input class="form-check-input js-status-switch" name="is_upload_card" value="1" {{ $isEdit && $course->is_upload_card?'checked':'' }} type="checkbox">
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="course_price" class="form-label">Course price </label>
@@ -107,8 +114,10 @@
                                 value="{{ $course->price ?? '' }}" step="0.01" class="form-control" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="mf_type" class="form-label">Course Image <span class="text-danger">*</span></label>
-                            <input type="file" class="filepond form-control" name="image" data-parsley-errors-container="#image-error" required>
+                            <label for="mf_type" class="form-label">Course Image <span
+                                    class="text-danger">*</span></label>
+                            <input type="file" class="filepond form-control" name="image"
+                                data-parsley-errors-container="#image-error" required>
                             <div id="image-error"></div>
                         </div>
 

@@ -113,73 +113,81 @@
                             </div>
                         </form> --}}
                         <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Info</h4>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Name</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->name }}</p>
+                        <form action="{{ route('backend.clinicians.update', ['clinician' => $clinician->id]) }}"
+                            method="POST">
+                            @csrf
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Name</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->name }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Email</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->email }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Email</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->email }}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Address</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->address ?? 'N/A' }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Address</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->address ?? 'N/A' }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Mobile</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->phone }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Mobile</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->phone }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Zip Code</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->zip_code ?? 'N/A' }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Zip Code</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->zip_code ?? 'N/A' }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Referred BY</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->referred_by ?? 'N/A' }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Referred BY</label>
+                                <div class="col-md-6">
+                                    <p>{{ $clinician->referred_by ?? 'N/A' }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Qualification</label>
-                            <div class="col-md-6">
-                                <p>{{ $clinician->qualification_type ?? 'N/A' }}</p>
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Qualification</label>
+                                <div class="col-md-6">
+                                    {{-- <p>{{ $clinician->qualification_type ?? 'N/A' }}</p> --}}
+                                    <input type="text" class="form-control" name="qualification_type"
+                                        value="{{ $clinician->qualification_type ?? '' }}">
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">What types of shifts are you
-                                interested
-                                in? (Select all that interests you)</label>
-                            <div class="col-md-6">
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">What types of shifts are you
+                                    interested
+                                    in? (Select all that interests you)</label>
+                                <div class="col-md-6">
 
-                                @foreach (json_decode($clinician->shifts) ?? [] as $item)
-                                    <span class="badge bg-label-primary mb-2">{{ $item }}</span>
-                                @endforeach
+                                    @foreach (json_decode($clinician->shifts) ?? [] as $item)
+                                        <span class="badge bg-label-primary mb-2">{{ $item }}</span>
+                                    @endforeach
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-6 col-form-label" for="basic-default-name">Please select your amount of
-                                licensed work experience below.</label>
-                            <div class="col-md-6">
+                            <div class="row mb-3">
+                                <label class="col-md-6 col-form-label" for="basic-default-name">Please select your amount of
+                                    licensed work experience below.</label>
+                                <div class="col-md-6">
 
 
-                                <span class="badge bg-label-primary mb-2">{{ $clinician->experience ?? 'N/A' }}</span>
+                                    <span class="badge bg-label-primary mb-2">{{ $clinician->experience ?? 'N/A' }}</span>
 
 
+                                </div>
                             </div>
-                        </div>
+
+                            <button class="btn btn-primary"> Submit</button>
+                        </form>
                     </div>
                     <div class="col-md-8">
                         <h4 class="bg-label-primary fw-bolder p-2 rounded text-center text-uppercase">Clinician Documents

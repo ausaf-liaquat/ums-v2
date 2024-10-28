@@ -92,7 +92,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-
+// dd($request->all());
         $course->update([
             'name' => $request->course_name,
             'slug' => $request->slug,
@@ -104,6 +104,7 @@ class CourseController extends Controller
             'country_id' => $request->country_id,
             'state_id' => $request->state_id,
             'city_id' => $request->city_id,
+            'is_upload_card' => $request->is_upload_card??0,
         ]);
 
         if ($request->file('image') && $course->image) {

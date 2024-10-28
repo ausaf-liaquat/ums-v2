@@ -109,18 +109,18 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             @endif
-                            @if ($course->id == 3 || $course->id == 5 || $course->id == 7)
-                                @php
+                            @if ($course->is_upload_card)
+                                {{-- @php
                                     if ($course->id == 3 || $course->id == 5 || $course->id == 7) {
                                         $text = 'unexpired';
                                     } else {
                                         $text = 'current';
                                     }
 
-                                @endphp
+                                @endphp --}}
                                 <div class="mb-5">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        for="user_avatar">Upload {{ $text }}
+                                        for="user_avatar">Upload unexpired
                                         {{ str_replace(' RENEWAL', '', $course->name) }} card</label>
                                     <input
                                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"

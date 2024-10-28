@@ -16,7 +16,7 @@ class Course extends Model
 
     protected $table = "courses";
 
-    protected $fillable = ['country_id', 'state_id', 'city_id', 'name', 'slug', 'description', 'address',  'slot', 'zip_code','price', 'image', 'type','status'];
+    protected $fillable = ['country_id', 'state_id', 'city_id', 'name', 'slug', 'description', 'address',  'slot', 'zip_code','price', 'image', 'type', 'is_upload_card','status'];
 
     /**
      * Get the country that owns the Course
