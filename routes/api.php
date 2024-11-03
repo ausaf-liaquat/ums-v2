@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/get/unread/notifications', 'getUnreadNotifications');
             Route::post('/get/read/notifications', 'getReadNotifications');
             Route::post('/mark/notification/read', 'markAsReadNotification');
+            Route::get('/clinician-types', 'getCliniciansType');
         });
 
         Route::controller(StripeController::class)->group(function () {
@@ -57,6 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/shift/{id}/clockout',  'shiftClockout');
             Route::post('/shift/{id}/clockin',  'shiftClockin');
             Route::post('/shifts/filter',  'shiftsFilter');
+            Route::get('/shift-hours',  'getShiftHours');
         });
     });
 });

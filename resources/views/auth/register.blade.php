@@ -60,19 +60,16 @@
                             </div>
                             <div class="mb-3">
                                 <label for="state" class="form-label">State </label>
-                                <select name="state_id" id="state_id" class="form-control state"
+                                {{-- <select name="state_id" id="state_id" class="form-control state"
                                     data-parsley-errors-container="#state-error" required>
 
                                 </select>
-                                <div id="state-error"></div>
+                                <div id="state-error"></div> --}}
+                                <input type="text" name="state" placeholder="Enter State" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="city" class="form-label">City </label>
-                                <select name="city_id" id="city_id" class="form-control city"
-                                    data-parsley-errors-container="#city-error" required>
-
-                                </select>
-                                <div id="city-error"></div>
+                                <input type="text" name="city" placeholder="Enter City" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="zip_code">Zip Code</label>

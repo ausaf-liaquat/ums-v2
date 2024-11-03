@@ -23,6 +23,7 @@ use App\Http\Controllers\Frontend\ProductController as FrontendProductController
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
 use App\Livewire\Terms;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +40,10 @@ require __DIR__ . '/auth.php';
 // | |   / _ \| '_ ` _ \| '_ ` _ \ / _ \| '_ \
 // | |__| (_) | | | | | | | | | | | (_) | | | |
 // \____\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
-
+Route::get('/clear-cache', function () {
+    $exitCode = Artisan::call('cache:clear');
+    return 'Cache cleared successfully.';
+});
 
 Route::controller(FrontendController::class)->group(function () {
 

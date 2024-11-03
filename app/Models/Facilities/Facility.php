@@ -17,7 +17,7 @@ class Facility extends Model
     use HasFactory;
     protected $table = "facilities";
 
-    protected $fillable = ['user_id',    'country_id',    'state_id',    'city_id',    'unit',    'referred_by',    'passcode', 'zip_code',    'how_many_unit_need'];
+    protected $fillable = ['user_id',    'country_id',    'state_id',    'city_id',    'unit',    'referred_by', 'city', 'state', 'passcode', 'zip_code',    'how_many_unit_need'];
 
     /**
      * The clinician types that belong to the Facility

@@ -32,7 +32,7 @@ class ShiftController extends Controller
         $model = Shift::query()->with('user')
             ->when(auth()->user()->hasRole('facility'), function ($q) {
                 $q->where('user_id', auth()->user()->id);
-            });
+            })->latest();
 
         return DataTables::eloquent($model)
         // ->addIndexColumn()
@@ -205,7 +205,7 @@ class ShiftController extends Controller
     {
 
         $shift = Shift::find($request->id);
-
+        $shift->shift_clinicians()->delete();
         $shift->delete();
         return response()->json(200);
     }

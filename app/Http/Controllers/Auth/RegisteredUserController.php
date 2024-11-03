@@ -54,9 +54,11 @@ class RegisteredUserController extends Controller
         $facility =  Facility::create([
             'user_id' => $user->id,
             'unit' => $request->unit,
-            'state_id' => $request->state_id,
-            'city_id' => $request->city_id,
+            // 'state_id' => $request->state_id,
+            // 'city_id' => $request->city_id,
             'zip_code' => $request->zip_code,
+            'state' => $request->state,
+            'city' => $request->city,
             'referred_by' => $request->referred_by,
             'passcode' => $request->passcode,
             'how_many_unit_need' => $request->facility_unit,
@@ -65,6 +67,8 @@ class RegisteredUserController extends Controller
         $facility->clinician_types()->sync($request->clinician_type);
 
         $user->createAsStripeCustomer();
+
+        $user->sendEmailVerificationNotification();
 
         event(new UserRegistered($request, $user));
 

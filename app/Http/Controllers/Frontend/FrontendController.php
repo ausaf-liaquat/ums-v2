@@ -11,11 +11,13 @@ use App\Models\Order;
 use App\Models\TalkToUs;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use PHPMailer\PHPMailer\PHPMailer;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -116,18 +118,25 @@ class FrontendController extends Controller
     }
     public function contactUsStore(Request $request)
     {
-        DB::table('contact_us')->insert([
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
-            'type'       => $request->type,
-            'message'    => $request->message,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type, $request->message, $request->phone, $request->email, $request->name));
-        // Mail::to($request->email)->send(new AutoReply());
-        return redirect()->back()->with('success', 'Form has been submitted successfully');
+        try {
+            DB::table('contact_us')->insert([
+                'name'       => $request->name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+                'type'       => $request->type,
+                'message'    => $request->message,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type, $request->message, $request->contact_no, $request->email, $request->name));
+
+            return redirect()->back()->with('success', 'Form has been submitted successfully');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Failed to send email.');
+        }
+
     }
 
     /**

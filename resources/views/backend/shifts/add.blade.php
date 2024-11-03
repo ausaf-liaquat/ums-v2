@@ -55,14 +55,15 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="shift_location" class="form-label">Shift Location <span class="text-danger">*</span></label>
-                            <select id="location-select" name="shift_location" class="form-select"
+                            <input type="text" name="shift_location" class="form-control" placeholder="Enter Shift Location">
+                            {{-- <select id="location-select" name="shift_location" class="form-select"
                                 data-parsley-errors-container="shift_location-error" required>
                                 @if ($isEdit)
                                     <option value="{{ $shift ? $shift->shift_location : '' }}" selected>
                                         {{ $shift ? $shift->shift_location : '' }}</option>
                                 @endif
 
-                            </select>
+                            </select> --}}
                             <input type="hidden" id="complete-address" name="complete_address">
                             <div id="shift_location-error"></div>
                         </div>

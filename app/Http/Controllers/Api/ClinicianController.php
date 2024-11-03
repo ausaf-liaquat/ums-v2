@@ -11,6 +11,7 @@ use App\Models\Notification;
 use App\Models\Traits\ApiResponser;
 use App\Models\User;
 use App\Models\W9Form;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -168,5 +169,24 @@ class ClinicianController extends Controller
             'read_at' => now(),
         ]);
         return $this->success([], 'Notification mark as read', 200);
+    }
+
+    public function getCliniciansType(): JsonResponse
+    {
+        $clinicianTypes = [
+            ['value' => 'CNA', 'label' => 'CNA'],
+            ['value' => 'PST', 'label' => 'PST'],
+            ['value' => 'Medication Technician', 'label' => 'Medication Technician'],
+            ['value' => 'PCT', 'label' => 'PCT'],
+            ['value' => 'PT', 'label' => 'PT'],
+            ['value' => 'OT', 'label' => 'OT'],
+            ['value' => 'RT', 'label' => 'RT'],
+            ['value' => 'EKG Technician', 'label' => 'EKG Technician'],
+            ['value' => 'LPN', 'label' => 'LPN'],
+            ['value' => 'LVN/LPN', 'label' => 'LVN/LPN'],
+            ['value' => 'ARNP', 'label' => 'ARNP'],
+        ];
+
+        return response()->json($clinicianTypes);
     }
 }

@@ -93,9 +93,9 @@
                     info: "Showing shifts _START_ to _END_ of _TOTAL_",
                     lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> shifts'
                 },
-
-                processing: true,
-                serverSide: true,
+                order:[0],
+                processing: false,
+                serverSide: false,
                 ajax: {
                     url: '{{ route('shifts.dataTable') }}',
                 },
@@ -227,7 +227,7 @@
                                 `<div class="text-center">
                                   <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
                                    <a href="` + detail + `" class="text-info p-1" data-original-title="Edit"    title="Clinicians Details" data-placement="top" data-toggle="tooltip"><i class='bx bx-detail'></i></a>
-                                  <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="-"></i>
+                                  <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${data}"></i>
                                 </div>`;
 
                             return returnData;
@@ -266,7 +266,7 @@
 
                                         Swal.fire(
                                             'Deleted!',
-                                            'Courses has been deleted.',
+                                            'Shift has been deleted.',
                                             'success'
                                         )
                                         table.draw(false);

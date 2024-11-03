@@ -8,6 +8,7 @@ use App\Models\Facilities\Facility;
 use App\Models\Shifts\Shift;
 use App\Models\Traits\ApiResponser;
 use App\Models\UserShift;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ShiftController extends Controller
@@ -28,15 +29,16 @@ class ShiftController extends Controller
     public function acceptedShifts()
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
-        $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->get();
+        $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
     }
     public function shiftDetail($id)
     {
         $shift = Shift::find($id);
+        $clockInClockOut = UserShift::where('shift_id', $shift->id)->where('user_id', auth()->user()->id)->first();
 
-        return $this->success(['shift' => $shift], 'Shift Details', 200);
+        return $this->success(['shift' => $shift, 'user_shift' => $clockInClockOut], 'Shift Details', 200);
     }
     public function shiftAccept($id)
     {
@@ -120,10 +122,46 @@ class ShiftController extends Controller
     }
     public function shiftsFilter(Request $request)
     {
-        $shifts = Shift::where(function ($q) use ($request) {
-            $q->where('date', date('Y-m-d', strtotime($request->date)))->orWhere('shift_hour', $request->shift_hour)->orWhere('clinician_type', $request->type);
-        })->get();
+        // Fetch banned facility user IDs and used shift IDs only if they are relevant for filtering
+        $facility_ids = BannedFacilityClinician::where('user_id', auth()->id())->pluck('facility_id');
+        $bannedFacilityUserIds = Facility::whereIn('id', $facility_ids)->pluck('user_id');
+        $usedShiftIds = UserShift::where('user_id', auth()->id())->pluck('shift_id');
+
+        // Build the shifts query with conditional filtering
+        $shifts = Shift::whereNotIn('id', $usedShiftIds)
+            ->whereNotIn('user_id', $bannedFacilityUserIds)
+            ->where('date', '>=', now()->format('Y-m-d'))
+            ->when($request->filled('date'), function ($query) use ($request) {
+                $query->where('date', '>=', date('Y-m-d', strtotime($request->date)));
+            })
+            ->when($request->filled('shift_hour'), function ($query) use ($request) {
+                $query->where('shift_hour', $request->shift_hour);
+            })
+            ->when($request->filled('type'), function ($query) use ($request) {
+                $query->where('clinician_type', $request->type);
+            })
+            ->when($request->filled('location'), function ($query) use ($request) {
+                $query->where('shift_location', 'like', '%' . $request->location . '%');
+            })
+            ->get();
 
         return $this->success($shifts, 'Shifts', 200);
+    }
+    public function getShiftHours(): JsonResponse
+    {
+        $shiftHours = [
+            ['value' => '7a-3p(8hrs)', 'label' => '7a-3p(8hrs)'],
+            ['value' => '6:45a-3:15p(8.5hrs)', 'label' => '6:45a-3:15p(8.5hrs)'],
+            ['value' => '3p-11p(8hrs)', 'label' => '3p-11p(8hrs)'],
+            ['value' => '2:45p-11:15p(8.5hrs)', 'label' => '2:45p-11:15p(8.5hrs)'],
+            ['value' => '11p-7a(8.5hrs)', 'label' => '11p-7a(8.5hrs)'],
+            ['value' => '10:45-7:15a(8.5hrs)', 'label' => '10:45-7:15a(8.5hrs)'],
+            ['value' => '7a-7p(12hrs)', 'label' => '7a-7p(12hrs)'],
+            ['value' => '7p-7a(12hrs)', 'label' => '7p-7a(12hrs)'],
+            ['value' => '6:45a-7:15p(12.5hrs)', 'label' => '6:45a-7:15p(12.5hrs)'],
+            ['value' => '6:45p-7:15a(12.5hrs)', 'label' => '6:45p-7:15a(12.5hrs)'],
+        ];
+
+        return response()->json($shiftHours);
     }
 }
