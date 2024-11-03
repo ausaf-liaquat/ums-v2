@@ -430,8 +430,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::post("my-courses/store", "store")->name("user-courses.store");
         Route::get("my-courses/{user_course}/view", "view")->name("user-courses.view");
         Route::post("my-courses/update/{user_course}", "update")->name("user-courses.update");
-        Route::patch("course-schedules/status", "status")->name("course-schedules.status");
-        Route::delete("course-schedules/destroy", "destroy")->name('course-schedules.destroy');
+        Route::patch("my-courses/status", "status")->name("user-courses.status");
+        Route::delete("my-courses/destroy", "destroy")->name('user-courses.destroy');
     });
 
     /*

@@ -143,7 +143,7 @@
 
 
                     $(".js-status-switch").on("change", function() {
-                        let url = "{{ route('backend.courses.status') }}";
+                        let url = "{{ route('backend.course-schedules.status') }}";
 
                         axios.patch(url, {
                             id: $(this).data("id"),

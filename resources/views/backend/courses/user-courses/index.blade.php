@@ -180,7 +180,7 @@
 
 
                     $(".js-status-switch").on("change", function() {
-                        let url = "{{ route('backend.courses.status') }}";
+                        let url = "{{ route('backend.user-courses.status') }}";
 
                         axios.patch(url, {
                             id: $(this).data("id"),
@@ -200,7 +200,7 @@
                             preConfirm: function(n) {
                                 return axios
                                     .post(
-                                        '{{ route('backend.course-schedules.destroy') }}', {
+                                        '{{ route('backend.user-courses.destroy') }}', {
                                             _method: 'delete',
                                             _token: '{{ csrf_token() }}',
                                             id: id,
