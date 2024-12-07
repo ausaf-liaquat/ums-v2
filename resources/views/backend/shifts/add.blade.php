@@ -49,13 +49,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-2">
-                            <label for="course_name" class="form-label">Facility Name <span class="text-danger">*</span></label>
+                            <label for="course_name" class="form-label">Facility Name <span
+                                    class="text-danger">*</span></label>
                             <input type="text" name="title" class="form-control" placeholder="Enter Facility Name"
                                 value="{{ $shift->title ?? '' }}" required>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="shift_location" class="form-label">Shift Location <span class="text-danger">*</span></label>
-                            <input type="text" name="shift_location" class="form-control" placeholder="Enter Shift Location">
+                            <label for="shift_location" class="form-label">Shift Location <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="shift_location" value="{{ $shift->shift_location ?? '' }}"
+                                class="form-control" placeholder="Enter Shift Location">
                             {{-- <select id="location-select" name="shift_location" class="form-select"
                                 data-parsley-errors-container="shift_location-error" required>
                                 @if ($isEdit)
@@ -68,7 +71,8 @@
                             <div id="shift_location-error"></div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="course_name" class="form-label">Clinician Type <span class="text-danger">*</span></label>
+                            <label for="course_name" class="form-label">Clinician Type <span
+                                    class="text-danger">*</span></label>
                             <select class="form-select" name="clinician_type" required>
                                 <option value="">Please Select</option>
                                 <option value="CNA" {{ $isEdit && $shift->clinician_type == 'CNA' ? 'selected' : '' }}>
@@ -97,7 +101,8 @@
                                     LPN</option>
                                 {{-- <option value="RN" {{ $isEdit && $shift->clinician_type == 'RN' ? 'selected' : '' }}>RN
                                 </option> --}}
-                                <option value="LVN/LPN" {{ $isEdit && $shift->clinician_type == 'LVN/LPN' ? 'selected' : '' }}>LVN/LPN
+                                <option value="LVN/LPN"
+                                    {{ $isEdit && $shift->clinician_type == 'LVN/LPN' ? 'selected' : '' }}>LVN/LPN
                                 </option>
                                 <option value="ARNP" {{ $isEdit && $shift->clinician_type == 'ARNP' ? 'selected' : '' }}>
                                     ARNP</option>
@@ -118,48 +123,68 @@
                                 id="shift_date" required @if ($isEdit) readonly @endif />
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="course_name" class="form-label">Shift Hours <span class="text-danger">*</span></label>
+                            <label for="course_name" class="form-label">Shift Hours <span
+                                    class="text-danger">*</span></label>
                             @if ($isEdit)
                                 <input type="text" class="form-control shift_hour" placeholder="" name="shift_hour"
                                     value="{{ $shift->shift_hour }}" required readonly>
                             @else
                                 <select class="form-control form-select shift_hour" name="shift_hour" required>
                                     <option value="">Please Select</option>
-                                    <option value="7a-3p(8hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '7a-3p(8hrs)' ? 'selected' : '' }}>
-                                        7a-3p(8hrs)
-                                    </option>
+                                    <option value="5:45a-6:15p(12hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '5:45a-6:15p(12hrs)' ? 'selected' : '' }}>
+                                        5:45a-6:15p(12hrs)</option>
+                                    <option value="5:45p-6:15a(12hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '5:45p-6:15a(12hrs)' ? 'selected' : '' }}>
+                                        5:45p-6:15a(12hrs)</option>
+                                    <option value="6a-2p(7.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '6a-2p(7.5hrs)' ? 'selected' : '' }}>
+                                        6a-2p(7.5hrs)</option>
+                                    <option value="6a-6p(11.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '6a-6p(11.5hrs)' ? 'selected' : '' }}>
+                                        6a-6p(11.5hrs)</option>
                                     <option value="6:45a-3:15p(8.5hrs)"
                                         {{ $isEdit && $shift->shift_hour == '6:45a-3:15p(8.5hrs)' ? 'selected' : '' }}>
                                         6:45a-3:15p(8.5hrs)</option>
-                                    <option value="3p-11p(8hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '3p-11p(8hrs)' ? 'selected' : '' }}>
-                                        3p-11p(8hrs)
-                                    </option>
-                                    <option value="2:45p-11:15p(8.5hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '2:45p-11:15p(8.5hrs)' ? 'selected' : '' }}>
-                                        2:45p-11:15p(8.5hrs)</option>
-                                    <option value="11p-7a(8.5hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '11p-7a(8.5hrs)' ? 'selected' : '' }}>
-                                        11p-7a(8.5hrs)</option>
-                                    <option value="10:45-7:15a(8.5hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '10:45-7:15a(8.5hrs)' ? 'selected' : '' }}>
-                                        10:45-7:15a(8.5hrs)</option>
-                                    <option value="7a-7p(12hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '7a-7p(12hrs)' ? 'selected' : '' }}>
-                                        7a-7p(12hrs)
-                                    </option>
-                                    <option value="7p-7a(12hrs)"
-                                        {{ $isEdit && $shift->shift_hour == '7p-7a(12hrs)' ? 'selected' : '' }}>
-                                        7p-7a(12hrs)
-                                    </option>
                                     <option value="6:45a-7:15p(12.5hrs)"
                                         {{ $isEdit && $shift->shift_hour == '6:45a-7:15p(12.5hrs)' ? 'selected' : '' }}>
                                         6:45a-7:15p(12.5hrs)</option>
                                     <option value="6:45p-7:15a(12.5hrs)"
                                         {{ $isEdit && $shift->shift_hour == '6:45p-7:15a(12.5hrs)' ? 'selected' : '' }}>
                                         6:45p-7:15a(12.5hrs)</option>
-
+                                    <option value="7a-3p(8hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '7a-3p(8hrs)' ? 'selected' : '' }}>7a-3p(8hrs)
+                                    </option>
+                                    <option value="7a-7p(12hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '7a-7p(12hrs)' ? 'selected' : '' }}>
+                                        7a-7p(12hrs)</option>
+                                    <option value="7p-7a(12hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '7p-7a(12hrs)' ? 'selected' : '' }}>
+                                        7p-7a(12hrs)</option>
+                                    <option value="9:45p-6:15a(8hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '9:45p-6:15a(8hrs)' ? 'selected' : '' }}>
+                                        9:45p-6:15a(8hrs)</option>
+                                    <option value="10:45p-7:15a(8.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '10:45p-7:15a(8.5hrs)' ? 'selected' : '' }}>
+                                        10:45p-7:15a(8.5hrs)</option>
+                                    <option value="10p-6a(7.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '10p-6a(7.5hrs)' ? 'selected' : '' }}>
+                                        10p-6a(7.5hrs)</option>
+                                    <option value="11p-7a(8.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '11p-7a(8.5hrs)' ? 'selected' : '' }}>
+                                        11p-7a(8.5hrs)</option>
+                                    <option value="1:45p-10:15p(8hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '1:45p-10:15p(8hrs)' ? 'selected' : '' }}>
+                                        1:45p-10:15p(8hrs)</option>
+                                    <option value="2:45p-11:15p(8.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '2:45p-11:15p(8.5hrs)' ? 'selected' : '' }}>
+                                        2:45p-11:15p(8.5hrs)</option>
+                                    <option value="2p-10p(7.5hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '2p-10p(7.5hrs)' ? 'selected' : '' }}>
+                                        2p-10p(7.5hrs)</option>
+                                    <option value="3p-11p(8hrs)"
+                                        {{ $isEdit && $shift->shift_hour == '3p-11p(8hrs)' ? 'selected' : '' }}>
+                                        3p-11p(8hrs)</option>
                                 </select>
                             @endif
 
@@ -179,8 +204,8 @@
                             <div id="shift-hour-error"></div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="mf_shift_type_id" class="form-label">Shift Note<span class="text-danger">*</span> </label><span
-                                class="float-end"><b>SELECT TYPE OF SHIFT</b></span>
+                            <label for="mf_shift_type_id" class="form-label">Shift Note<span class="text-danger">*</span>
+                            </label><span class="float-end"><b>SELECT TYPE OF SHIFT</b></span>
 
                             <select id="mf_shift_type" name="mf_shift_type_id[]"
                                 data-parsley-errors-container="shift_type-error" multiple class="form-select" required>
@@ -191,15 +216,24 @@
                                     @endforeach
                                 @endif --}}
 
-                                <option value="AM"  {{ $isEdit && json_decode($shift->shift_note) != null && in_array('AM', json_decode($shift->shift_note)) ? 'selected' : '' }}>AM</option>
-                                <option value="PM" {{ $isEdit && json_decode($shift->shift_note) != null && in_array('PM', json_decode($shift->shift_note)) ? 'selected' : '' }}>PM</option>
-                                <option value="NOC" {{ $isEdit && json_decode($shift->shift_note) != null && in_array('NOC', json_decode($shift->shift_note)) ? 'selected' : '' }}>NOC</option>
-                                <option value="LATE CALL" {{ $isEdit && json_decode($shift->shift_note) != null && in_array('LATE CALL', json_decode($shift->shift_note)) ? 'selected' : '' }}>LATE CALL</option>
+                                <option value="AM"
+                                    {{ $isEdit && json_decode($shift->shift_note) != null && in_array('AM', json_decode($shift->shift_note)) ? 'selected' : '' }}>
+                                    AM</option>
+                                <option value="PM"
+                                    {{ $isEdit && json_decode($shift->shift_note) != null && in_array('PM', json_decode($shift->shift_note)) ? 'selected' : '' }}>
+                                    PM</option>
+                                <option value="NOC"
+                                    {{ $isEdit && json_decode($shift->shift_note) != null && in_array('NOC', json_decode($shift->shift_note)) ? 'selected' : '' }}>
+                                    NOC</option>
+                                <option value="LATE CALL"
+                                    {{ $isEdit && json_decode($shift->shift_note) != null && in_array('LATE CALL', json_decode($shift->shift_note)) ? 'selected' : '' }}>
+                                    LATE CALL</option>
                             </select>
                             <div id="shift_type-error"></div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="rate_per_hour" class="form-label">Rate per hour <span class="text-danger">*</span></label>
+                            <label for="rate_per_hour" class="form-label">Rate per hour <span
+                                    class="text-danger">*</span></label>
 
                             <div class="input-group input-group-merge ">
                                 <span class="input-group-text">$</span>
@@ -223,9 +257,11 @@
 
 
                         <div class="col-md-12 mb-2">
-                            <label for="mf_shift_type_id" class="form-label">Additional Comments <span class="text-danger">*</span></label>
+                            <label for="mf_shift_type_id" class="form-label">Additional Comments <span
+                                    class="text-danger">*</span></label>
 
-                            <textarea name="additional_comment" id="additional_comment" class="form-control" cols="30" rows="1" required>{{ $shift->additional_comments ?? '' }}</textarea>
+                            <textarea name="additional_comment" id="additional_comment" class="form-control" cols="30" rows="1"
+                                required>{{ $shift->additional_comments ?? '' }}</textarea>
                         </div>
                     </div>
                     {{-- <div class="customer_records_dynamic"></div> --}} <div class="mt-5">

@@ -88,10 +88,12 @@
             font-size: small;
 
         }
+        /* .grecaptcha-badge { visibility: hidden !important; } */
     </style>
     {{-- <link href="https://cdn.jsdelivr.net/npm/pagedone@1.1.2/src/css/pagedone.css" /> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @yield('css')
+    {!! RecaptchaV3::initJs() !!}
 </head>
 
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">

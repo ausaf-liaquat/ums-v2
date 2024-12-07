@@ -59,8 +59,8 @@
                                 <th>Shift Date</th>
                                 <th>Shift Created By (Facility)</th>
                                 <th>Shift Title</th>
-                                {{-- <th>Clinician Type</th> --}}
-                                {{-- <th>Shift Hours</th> --}}
+                                <th>Clinician Type</th>
+                                <th>Shift Hours</th>
                                 <th>Rate Per Hour</th>
                                 <th>Total Shift Cost</th>
                                 {{-- <th>Shift Notes</th> --}}
@@ -127,18 +127,18 @@
                         "defaultContent": "",
 
                     },
-                    // {
-                    //     "data": "clinician_type",
-                    //     "className": "text-center",
-                    //     "defaultContent": "",
+                    {
+                        "data": "clinician_type",
+                        "className": "text-center",
+                        "defaultContent": "",
 
-                    // },
-                    // {
-                    //     "data": "shift_hour",
-                    //     "className": "text-center",
-                    //     "defaultContent": "",
+                    },
+                    {
+                        "data": "shift_hour",
+                        "className": "text-center",
+                        "defaultContent": "",
 
-                    // },
+                    },
                     {
                         "data": "rate_per_hour",
                         "className": "text-center",
@@ -174,7 +174,7 @@
 
                 ],
                 columnDefs: [{
-                        "targets": 3,
+                        "targets": 5,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
 
@@ -195,7 +195,7 @@
                     //     },
                     // },
                     {
-                        "targets": 5,
+                        "targets": 7,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             let status =""
@@ -205,6 +205,8 @@
                             } else if (data == 2) {
                               status = `<span class="badge bg-label-danger mb-2">Expired</span>`
 
+                            }else if(data == 3){
+                                status = `<span class="badge bg-label-info mb-2">Completed</span>`;
                             }else{
                               status = `<span class="badge bg-label-secondary mb-2">Deactivated</span>`
 

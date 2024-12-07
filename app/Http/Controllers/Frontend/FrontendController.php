@@ -21,6 +21,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Lunaweb\RecaptchaV3\Facades\RecaptchaV3;
 
 class FrontendController extends Controller
 {
@@ -118,23 +119,53 @@ class FrontendController extends Controller
     }
     public function contactUsStore(Request $request)
     {
+        // $score = RecaptchaV3::verify($request->get('g-recaptcha-response'), 'contact_us');
+        // dd($score);
+         // Step 1: Validate Input
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'contact_no' => 'required|numeric|digits_between:10,15',
+            'type' => 'required|in:Staffing,Online Course,Medical Supplies,Medical Uniforms,Medical coding and billing',
+            'message' => 'required|string|max:1000',
+            'g-recaptcha-response' => 'required|recaptchav3:contact_us,0.9',
+            'honey_pot' => 'nullable|string|max:0', // HoneyPot should be empty
+        ]);
+
+        // Step 2: Check for HoneyPot Field (Spam Detection)
+        if ($request->filled('honey_pot')) {
+            return redirect()->back()->with('error', 'Suspicious activity detected.');
+        }
+
         try {
+            // Step 3: Store Data in Database
             DB::table('contact_us')->insert([
-                'name'       => $request->name,
-                'email'      => $request->email,
-                'phone'      => $request->phone,
-                'type'       => $request->type,
-                'message'    => $request->message,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'type' => $request->type,
+                'message' => $request->message,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            Mail::to('info@uniquemedsvcs.com')->send(new ContactMail($request->type, $request->message, $request->contact_no, $request->email, $request->name));
+            // Step 4: Send Email Notification
+            Mail::to('info@uniquemedsvcs.com')->send(
+                new ContactMail(
+                    $request->type,
+                    $request->message,
+                    $request->phone,
+                    $request->email,
+                    $request->name
+                )
+            );
 
+            // Step 5: Return Success Response
             return redirect()->back()->with('success', 'Form has been submitted successfully');
         } catch (\Exception $e) {
-
-            return redirect()->back()->with('error', 'Failed to send email.');
+            // Step 6: Handle Exceptions Gracefully
+            return redirect()->back()->with('error', 'Failed to send email. Please try again later.');
         }
 
     }

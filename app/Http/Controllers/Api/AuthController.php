@@ -59,72 +59,153 @@ class AuthController extends Controller
     {
         $attributes = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
-            'phone' => ['required', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
+            'last_name'  => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
+            'phone'      => ['required', 'unique:users'],
+            'password'   => ['required', 'string', 'min:6'],
         ]);
+
         $phone = $request->phone;
         $phoneWithoutPlus = str_replace('+', '', $phone);
 
-        $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'name'  => $request->first_name . ' ' . $request->last_name,
-            'email' => $request->email,
-            'phone' => $phoneWithoutPlus,
-            'gender' => $request->gender == 'male' ? 0 : 1,
-            'password' => Hash::make($request['password']),
-            'status' => 1,
-            'zip_code' => $request->zip_code,
-            'shifts' => $request->shift,
-            'experience' => $request->experience,
-            'reffered_by' => $request->reffered_by,
-            'qualification_type' => $request->qualification_type,
-        ];
+        DB::beginTransaction();
+        try {
+            // Prepare user data
+            $data = [
+                'first_name'         => $request->first_name,
+                'last_name'          => $request->last_name,
+                'name'               => $request->first_name . ' ' . $request->last_name,
+                'email'              => $request->email,
+                'phone'              => $phoneWithoutPlus,
+                'gender'             => $request->gender == 'male' ? 0 : 1,
+                'password'           => Hash::make($request['password']),
+                'status'             => 1,
+                'zip_code'           => $request->zip_code,
+                'shifts'             => $request->shift,
+                'experience'         => $request->experience,
+                'reffered_by'        => $request->reffered_by,
+                'qualification_type' => $request->qualification_type,
+            ];
 
-        $user = User::create($data);
-        $user->syncRoles([3]);
-        $username = intval(config('app.initial_username')) + $user->id;
-        $user->username = strval($username);
-        $user->save();
-        if ($request->hasFile('resume')) {
-            $filename = Storage::disk('cms')->putFile('', $request->resume);
+            // Create user
+            $user = User::create($data);
+            $user->syncRoles([3]);
 
-            $user->resume = $filename;
-            // $user->email_verified_at =now();
+            // Set username based on initial configuration and user ID
+            $username = intval(config('app.initial_username')) + $user->id;
+            $user->username = strval($username);
             $user->save();
+
+            // Handle resume upload
+            if ($request->hasFile('resume')) {
+                $filename = Storage::disk('cms')->putFile('', $request->resume);
+                $user->resume = $filename;
+                $user->save();
+            }
+
+            // Generate and send OTP
+            $otp = mt_rand(1000, 9999);
+            $account_sid = config('twilio.sid');
+            $auth_token = config('twilio.token');
+            $twilio_number = config('twilio.from_number');
+            $client = new Client($account_sid, $auth_token);
+            $message = "Your account verification code: $otp";
+
+            $client->messages->create(
+                '+' . $phoneWithoutPlus,
+                ['from' => $twilio_number, 'body' => $message]
+            );
+
+            $user->otp = $otp;
+            $user->save();
+
+            // Commit the transaction if all steps are successful
+            DB::commit();
+
+            // Generate access token for API authentication
+            $token = $user->createToken('APIToken');
+            $accessToken = $token->plainTextToken;
+            $auth_token = explode('|', $accessToken)[1];
+
+            return $this->success(['auth_token' => $auth_token], 'Registered Successfully, Please verify your account with Phone no', 200);
+
+        } catch (\Exception $e) {
+            // Roll back the transaction if any error occurs
+            DB::rollBack();
+
+            // Return a failure response
+            return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], 500);
         }
-
-        $otp = mt_rand(1000, 9999);
-
-
-        // Generate random code
-
-        $account_sid = config('twilio.sid');
-        $auth_token = config('twilio.token');
-        $twilio_number = config('twilio.from_number');
-        $client = new Client($account_sid, $auth_token);
-        $message = "Your account verification code: $otp";
-
-        $client->messages->create(
-            '+' . $phoneWithoutPlus,
-            ['from' => $twilio_number, 'body' => $message]
-        );
-        // // Create a new code
-        // ResetPasswordCode::create([
-        //     'phone'=>$request->phone,
-        //     'code'=>$otp
-        // ]);
-        $user->otp = $otp;
-
-        $user->save();
-
-        $token = $user->createToken('APIToken');
-        $accessToken = $token->plainTextToken;
-        $auth_token = explode('|', $accessToken)[1];
-        return $this->success(['auth_token' => $auth_token], 'Registered Successfully, Please verify your account with Phone no', 200);
     }
+    // public function register(Request $request)
+    // {
+    //     $attributes = $request->validate([
+    //         'first_name' => ['required', 'string', 'max:255'],
+    //         'last_name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
+    //         'phone' => ['required', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:6'],
+    //     ]);
+    //     $phone = $request->phone;
+    //     $phoneWithoutPlus = str_replace('+', '', $phone);
+
+    //     $data = [
+    //         'first_name' => $request->first_name,
+    //         'last_name' => $request->last_name,
+    //         'name'  => $request->first_name . ' ' . $request->last_name,
+    //         'email' => $request->email,
+    //         'phone' => $phoneWithoutPlus,
+    //         'gender' => $request->gender == 'male' ? 0 : 1,
+    //         'password' => Hash::make($request['password']),
+    //         'status' => 1,
+    //         'zip_code' => $request->zip_code,
+    //         'shifts' => $request->shift,
+    //         'experience' => $request->experience,
+    //         'reffered_by' => $request->reffered_by,
+    //         'qualification_type' => $request->qualification_type,
+    //     ];
+
+    //     $user = User::create($data);
+    //     $user->syncRoles([3]);
+    //     $username = intval(config('app.initial_username')) + $user->id;
+    //     $user->username = strval($username);
+    //     $user->save();
+    //     if ($request->hasFile('resume')) {
+    //         $filename = Storage::disk('cms')->putFile('', $request->resume);
+
+    //         $user->resume = $filename;
+    //         // $user->email_verified_at =now();
+    //         $user->save();
+    //     }
+
+    //     $otp = mt_rand(1000, 9999);
+
+    //     // Generate random code
+
+    //     $account_sid = config('twilio.sid');
+    //     $auth_token = config('twilio.token');
+    //     $twilio_number = config('twilio.from_number');
+    //     $client = new Client($account_sid, $auth_token);
+    //     $message = "Your account verification code: $otp";
+
+    //     $client->messages->create(
+    //         '+' . $phoneWithoutPlus,
+    //         ['from' => $twilio_number, 'body' => $message]
+    //     );
+    //     // // Create a new code
+    //     // ResetPasswordCode::create([
+    //     //     'phone'=>$request->phone,
+    //     //     'code'=>$otp
+    //     // ]);
+    //     $user->otp = $otp;
+
+    //     $user->save();
+
+    //     $token = $user->createToken('APIToken');
+    //     $accessToken = $token->plainTextToken;
+    //     $auth_token = explode('|', $accessToken)[1];
+    //     return $this->success(['auth_token' => $auth_token], 'Registered Successfully, Please verify your account with Phone no', 200);
+    // }
     public function verify(Request $request)
     {
         $request->validate([
@@ -154,9 +235,8 @@ class AuthController extends Controller
         $data = $request->validate([
             'phone_no' => 'required|exists:users,phone',
         ]);
-
-
-
+        $phone = $request->phone_no;
+        $phoneWithoutPlus = str_replace('+', '', $phone);
         // Generate random code
         $otp = mt_rand(1000, 9999);
         $account_sid = config('twilio.sid');
@@ -165,11 +245,11 @@ class AuthController extends Controller
         $client = new Client($account_sid, $auth_token);
         $message = "Your account verification code: $otp";
         $client->messages->create(
-            $request->phone_no,
+            $phoneWithoutPlus,
             ['from' => $twilio_number, 'body' => $message]
         );
 
-        $user = User::wherePhone($request->phone_no)->first();
+        $user = User::wherePhone($phoneWithoutPlus)->first();
         $user->otp = $otp;
         $user->save();
         return $this->success('Code sent', 200);
@@ -180,7 +260,8 @@ class AuthController extends Controller
         $data = $request->validate([
             'phone_no' => 'required|exists:users,phone',
         ]);
-
+        $phone = $request->phone_no;
+        $phoneWithoutPlus = str_replace('+', '', $phone);
         // Generate random code
         $otp = mt_rand(1000, 9999);
         $account_sid = config('twilio.sid');
@@ -189,11 +270,11 @@ class AuthController extends Controller
         $client = new Client($account_sid, $auth_token);
         $message = "Your account verification code: $otp";
         $client->messages->create(
-            $request->phone_no,
+            $phoneWithoutPlus,
             ['from' => $twilio_number, 'body' => $message]
         );
 
-        $user = User::wherePhone($request->phone_no)->first();
+        $user = User::wherePhone($phoneWithoutPlus)->first();
         $user->otp = $otp;
         $user->save();
         return $this->success('Code sent', 200);

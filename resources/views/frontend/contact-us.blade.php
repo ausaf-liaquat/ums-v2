@@ -126,84 +126,101 @@
                 </div>
             </div>
 
-            <form action="{{ route('contact-us.store') }}" class="p-5" method="post">
+              <form action="{{ route('contact-us.store') }}" class="p-5" method="post">
                 @csrf
-                <div class=" md:w-2/3 mx-auto shadow-lg rounded-lg p-5 hover:shadow-md hover:shadow-purple-700">
+                <div class="md:w-2/3 mx-auto shadow-lg rounded-lg p-5 hover:shadow-md hover:shadow-purple-700">
                     <div class="flex flex-wrap -m-2">
+                        <!-- Name Input -->
                         <div class="p-2 w-1/2">
                             <div class="relative">
                                 <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
-                                <input type="text" id="name" name="name"
-                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                    placeholder="Enter you name" required>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}"
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('name') ? 'border-red-500' : '' }}"
+                                    placeholder="Enter your name" required>
+                                @error('name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- Email Input -->
                         <div class="p-2 w-1/2">
                             <div class="relative">
                                 <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-                                <input type="email" id="email" name="email"
-                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('email') ? 'border-red-500' : '' }}"
                                     placeholder="Enter your email" required>
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- Phone Number Input -->
                         <div class="p-2 w-1/2">
                             <div class="relative">
-                                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-600">Phone
+                                <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-600">Phone
                                     no</label>
-                                <input type="tel"
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  {{ $errors->has('contact_no') ? 'is-invalid' : '' }}"
-                                    id="phoneNumber" name="contact_no" value="{{ old('contact_no') }}"
+                                <input type="tel" id="phoneNumber" name="contact_no" value="{{ old('contact_no') }}"
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('contact_no') ? 'border-red-500' : '' }}"
                                     placeholder="Enter your phone" required>
-                                <div class="help-block with-errors"></div>
-                                {{-- {{ Form::hidden('prefix_code', null, ['class' => 'prefix_code']) }} --}}
-                                <span class="valid-msg d-none">✓ {{ __('messages.valid') }}</span>
-                                <span class="error-msg d-none"></span>
+                                @error('contact_no')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- Contact Type Dropdown -->
                         <div class="p-2 w-1/2">
                             <div class="relative">
-                                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-600">Contact
+                                <label for="type" class="block mb-2 text-sm font-medium text-gray-600">Contact
                                     Type</label>
-                                {{--                                            {{ Form::select('type', \App\Models\Enquiry::ENQUIRY_ARR, null, ['class' => 'general', 'id' => 'general']) }} --}}
                                 <select name="type"
-                                    class="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    {{--                                                <option value="">{{ __('messages.web_home.select_doctor') }}</option> --}}
-                                    <option value="Staffing">Staffing</option>
-                                    <option value="Online Course">Online Course </option>
-                                    <option value="Medical Supplies">Medical Supplies</option>
-                                    <option value="Medical Uniforms">Medical Uniforms</option>
-                                    <option value=" Medical coding and billing"> Medical coding and billing
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('type') ? 'border-red-500' : '' }}">
+                                    <option value="" disabled selected>Select Contact Type</option>
+                                    <option value="Staffing" {{ old('type') == 'Staffing' ? 'selected' : '' }}>Staffing
                                     </option>
+                                    <option value="Online Course" {{ old('type') == 'Online Course' ? 'selected' : '' }}>
+                                        Online Course</option>
+                                    <option value="Medical Supplies"
+                                        {{ old('type') == 'Medical Supplies' ? 'selected' : '' }}>Medical Supplies</option>
+                                    <option value="Medical Uniforms"
+                                        {{ old('type') == 'Medical Uniforms' ? 'selected' : '' }}>Medical Uniforms</option>
+                                    <option value="Medical coding and billing"
+                                        {{ old('type') == 'Medical coding and billing' ? 'selected' : '' }}>Medical coding
+                                        and billing</option>
                                 </select>
+                                @error('type')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- Message Textarea -->
                         <div class="p-2 w-full">
                             <div class="relative">
                                 <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
                                 <textarea id="message" name="message"
-                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                                    placeholder="Enter you message" required></textarea>
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out {{ $errors->has('message') ? 'border-red-500' : '' }}"
+                                    placeholder="Enter your message" required>{{ old('message') }}</textarea>
+                                @error('message')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
-                        <input type="hidden" value="{{ config('app.recaptcha.sitekey') }}" id="adminRecaptcha">
-                        @if (config('app.recaptcha.sitekey'))
-                            <div class="form-group mb-4 captcha-customize">
-                                <div class="g-recaptcha" id="g-recaptcha"
-                                    data-sitekey="{{ config('app.recaptcha.sitekey') }}">
-                                </div>
-                            </div>
-                        @endif
+                        @error('g-recaptcha-response')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        {!! RecaptchaV3::field('contact_us') !!}
+
+                        <!-- Submit Button -->
                         <div class="p-2 w-full">
                             <button type="submit"
-                                class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                                class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                Submit
+                            </button>
                         </div>
-                        {{-- <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-                      <a class="text-indigo-500">example@email.com</a>
-                      <p class="leading-normal my-5">49 Smith St.
-                          <br>Saint Cloud, MN 56301
-                      </p>
-
-                  </div> --}}
                     </div>
                 </div>
             </form>
