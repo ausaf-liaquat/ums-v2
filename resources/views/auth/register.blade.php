@@ -4,9 +4,9 @@
 @endsection
 @section('css')
     <style>
-      .authentication-wrapper.authentication-basic .authentication-inner{
+        .authentication-wrapper.authentication-basic .authentication-inner {
             max-width: none;
-          }
+        }
     </style>
 @endsection
 @section('content')
@@ -26,14 +26,24 @@
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
-                          <a href="{{ route('home') }}" class="app-brand-link gap-2">
-                            <img class="w-px-50" src="{{ asset('img/logo-1-dark.png') }}" alt="">
-                            <span class="  text-black fw-bolder ms-2">UNIQUE MED SERVICES</span>
-                          </a>
+                            <a href="{{ route('home') }}" class="app-brand-link gap-2">
+                                <img class="w-px-50" src="{{ asset('img/logo-1-dark.png') }}" alt="">
+                                <span class="  text-black fw-bolder ms-2">UNIQUE MED SERVICES</span>
+                            </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Welcome to Unique med services! 👋</h4>
+                        <h4 class="mb-2">Welcome to Unique med services! ðŸ‘‹</h4>
                         <p class="mb-4">Please sign-in to your account and start the adventure</p>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                         <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('register') }}">
                             @csrf
@@ -73,8 +83,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="zip_code">Zip Code</label>
-                                <input type="text" class="form-control" name="zip_code"
-                                    placeholder="Enter tour zip code" id="zip_code" required>
+                                <input type="text" class="form-control" name="zip_code" placeholder="Enter tour zip code"
+                                    id="zip_code" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email</label>
@@ -91,8 +101,7 @@
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                  required
-                                  data-parsley-errors-container="#password-error"
+                                        required data-parsley-errors-container="#password-error"
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 
@@ -113,8 +122,7 @@
 
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="confirmPassword" class="form-control"
-                                        name="password_confirmation"
-                                        data-parsley-equalto="#password"
+                                        name="password_confirmation" data-parsley-equalto="#password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         data-parsley-errors-container="#confirm-password-error"
                                         aria-describedby="password_confirmation" required />
@@ -146,8 +154,8 @@
                             <div class="mb-3">
 
                                 <label for="passcode">Verbal Passcode</label>
-                                <input type="text" class="form-control" name="passcode" placeholder="Enter verbal passcode"
-                                    id="passcode" required>
+                                <input type="text" class="form-control" name="passcode"
+                                    placeholder="Enter verbal passcode" id="passcode" required>
 
                             </div>
                             <div class="mb-3">
@@ -158,23 +166,30 @@
 
                             </div>
                             <div class="mb-3 text-center">
-                              @php
-                                 $contents=  DB::table('frontend_contents')->where('frontend_page_id', 5)->get();
-                              @endphp
+                                @php
+                                    $contents = DB::table('frontend_contents')->where('frontend_page_id', 5)->get();
+                                @endphp
                                 <b>
 
-                                  Please review and agree to our @foreach ($contents as $content)
-                                   , <a
-                                  href="{{ Storage::disk('cms')->url($content->content_file) }}" target="_blank">{{ $content->content_title }}</a>
-                                  @endforeach  </b>
+                                    Please review and agree to our @foreach ($contents as $content)
+                                        , <a href="{{ Storage::disk('cms')->url($content->content_file) }}"
+                                            target="_blank">{{ $content->content_title }}</a>
+                                    @endforeach </b>
                             </div>
                             <div class="mb-3">
                                 <div class="form-check gap-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" required
-                                       >
-                                    <label class="form-check-label" for="defaultCheck2"> I have read and I agree to Unique Med Services Staffing Privacy Policy, UMS Facility Agreement and SMS Terms of Services </label>
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2"
+                                        required>
+                                    <label class="form-check-label" for="defaultCheck2"> I have read and I agree to Unique
+                                        Med Services Staffing Privacy Policy, UMS Facility Agreement and SMS Terms of
+                                        Services </label>
                                 </div>
                             </div>
+                            @error('g-recaptcha-response')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
+                            {!! RecaptchaV3::field('registered') !!}
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Register</button>
                             </div>
@@ -193,8 +208,8 @@
         </div>
     </div>
 @endsection
-
 @section('script')
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
         $(document).ready(function() {
             clinicianTypeSelect2()

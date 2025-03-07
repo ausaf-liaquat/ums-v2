@@ -35,6 +35,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     use Billable;
     use HasWalletFloat;
     use HasApiTokens;
+    use SoftDeletes;
 
     protected $guarded = [
         'id',
@@ -50,7 +51,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
         'password',
         'remember_token',
     ];
-
+    protected $dates = ['deleted_at'];
     /**
      * Get the attributes that should be cast.
      *

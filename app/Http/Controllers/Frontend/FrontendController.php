@@ -32,6 +32,73 @@ class FrontendController extends Controller
      */
     public function index()
     {
+        
+         // Sample input variables
+    $member_id = 1;
+    $payment = 800;
+    $discount = 100;
+
+    // Sample data for testing
+    $members = [
+        1 => [
+            'id' => 1, 'name' => 'John Doe', 'is_onetime_paid' => 0,
+            'fee_voucher' => [
+                ['id' => 101, 'status' => 0, 'voucher_details' => [
+                    ['id' => 201, 'amount' => 500, 'mf_fees_type_id' => 1, 'month' => 'Jan'],
+                    ['id' => 202, 'amount' => 300, 'mf_fees_type_id' => 2, 'month' => 'Feb']
+                ], 'voucher_payment_details' => []]
+            ]
+        ]
+    ];
+
+    $feeVoucherPayments = [];
+    $feeVoucherPaymentDetails = [];
+    $totalPaidAmount = 0;
+    $checkIsAdmissionPaid = false;
+
+    // Simulating getting member data
+    $member = $members[$member_id] ?? null;
+    if (!$member) return ['error' => 'Member not found'];
+
+    foreach ($member['fee_voucher'] as $voucher) {
+        foreach ($voucher['voucher_details'] as $detail) {
+            $amountToPay = min($detail['amount'], $payment);
+            $totalPaidAmount += $amountToPay;
+            $payment -= $amountToPay;
+
+            $feeVoucherPaymentDetails[] = [
+                'fee_voucher_id' => $voucher['id'],
+                'member_id' => $member_id,
+                'mf_fees_type_id' => $detail['mf_fees_type_id'],
+                'month' => $detail['month'],
+                'amount' => $amountToPay
+            ];
+
+            if ($detail['mf_fees_type_id'] == 1) { // Assuming 1 is admission fee
+                $checkIsAdmissionPaid = true;
+            }
+        }
+    }
+
+    $feeVoucherPayments[] = [
+        'member_id' => $member_id,
+        'received_by_id' => 1, // Dummy received by
+        'amount' => $totalPaidAmount,
+        'discount' => $discount
+    ];
+
+    // Updating member is_onetime_paid status
+    if ($checkIsAdmissionPaid) {
+        $members[$member_id]['is_onetime_paid'] = 1;
+    }
+
+    $data= [
+        'feeVoucherPayments' => $feeVoucherPayments,
+        'feeVoucherPaymentDetails' => $feeVoucherPaymentDetails,
+        'updatedMembers' => $members
+    ];
+
+    dd($data);
         return view('frontend.index');
     }
 

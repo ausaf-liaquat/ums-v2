@@ -16,6 +16,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -803,5 +804,22 @@ class UserController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $user = Auth::user();
+
+        // Optionally handle associated data deletion
+        // $user->posts()->delete(); // Example: deleting related posts
+
+        // Delete the user's account
+        $user->delete();
+
+        // Logout the user
+        Auth::logout();
+
+        // Redirect or return response
+        return redirect('/')->with('success', 'Your account has been deleted.');
     }
 }

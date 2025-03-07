@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AjaxController;
 use App\Http\Controllers\Backend\Clinicians\ClinicianController;
 use App\Http\Controllers\Backend\Courses\CourseController;
+use App\Http\Controllers\Backend\Courses\CourseRegistrationController;
 use App\Http\Controllers\Backend\Courses\CourseScheduleController;
 use App\Http\Controllers\Backend\Courses\UserCourseController;
 use App\Http\Controllers\Backend\Facilities\FacilityController;
@@ -18,11 +19,14 @@ use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Select2Controller;
 use App\Http\Controllers\Backend\ShiftController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\LanguageController;
 use App\Livewire\Privacy;
 use App\Livewire\Terms;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -119,6 +123,7 @@ Route::get('clinician-documents/dataTable', [ClinicianController::class, 'docume
 Route::get('course-schedules/dataTable', [CourseScheduleController::class, 'dataTable'])->name('course-schedules.dataTable');
 Route::get('my-courses/dataTable', [UserCourseController::class, 'dataTable'])->name('user-courses.dataTable');
 Route::get('shifts-clinicians/dataTable', [ShiftController::class, 'dataTableAcceptedClinicians'])->name('shifts-clinicians.dataTable');
+Route::get('course-registration/dataTable', [CourseRegistrationController::class, 'dataTable'])->name('course-registration.dataTable');
 
 //     _     _
 //    / \   (_) __ ___  __
@@ -150,6 +155,18 @@ Route::controller(FrontendProductController::class)->group(function () {
     Route::get('services/product/buy/checkout-stripe', 'checkoutStripe')->name('product.checkout.stripe');
     Route::get('services/product/checkout/success', 'checkoutStripeSuccess')->name('checkout-product.success');
     Route::get('services/product/checkout/cancel', 'checkoutStripeCancel')->name('checkout-product.cancel');
+    Route::get('/validate-email', function (Request $request) {
+        $exists = User::where('email', $request->email)->exists();
+
+        if ($exists) {
+            // Return a 500 status code for duplicate emails
+            abort(500, 'Email already exists.');
+        }
+
+        // Return 200 status code for unique emails
+        return response()->json(['message' => 'Email is available.'], 200);
+    })->name('validate.email');
+
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
@@ -173,7 +190,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
         Route::delete("{$module_name}/userProviderDestroy", ['as' => "{$module_name}.userProviderDestroy", 'uses' => "{$controller_name}@userProviderDestroy"]);
     });
 });
-
+Route::get('/account-deletion', function () {
+    return view('frontend.deletion');
+})->name('account.deletion');
 //  ____    _    ____ _  _______ _   _ ____
 // | __ )  / \  / ___| |/ / ____| \ | |  _ \
 // |  _ \ / _ \| |   | ' /|  _| |  \| | | | |
@@ -181,6 +200,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
 // |____/_/   \_\____|_|\_\_____|_| \_|____/
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth']], function () {
+
+   
     /**
      * Backend Dashboard
      * Namespaces indicate folder structure.
@@ -416,7 +437,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::delete("course-schedules/destroy", "destroy")->name('course-schedules.destroy');
     });
 
-
+    Route::controller(CourseRegistrationController::class)->group(function () {
+        Route::get("course-registration", "index")->name("course-registration");
+    });
 
     /*
      *

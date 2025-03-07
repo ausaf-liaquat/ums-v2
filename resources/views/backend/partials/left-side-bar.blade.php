@@ -289,6 +289,13 @@
                       <div data-i18n="Analytics">Frontend Contents</div>
                   </a>
               </li>
+              <li
+                  class="menu-item {{ request()->routeIs('backend.course-registration') ? 'active' : '' }}">
+                  <a href="{{ route('backend.course-registration') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-detail"></i>
+                      <div data-i18n="Analytics">Course Registrations</div>
+                  </a>
+              </li>
           @endif
           {{-- <li class="menu-item ">
               <a href="{{ route('backend.colors') }}" class="menu-link">

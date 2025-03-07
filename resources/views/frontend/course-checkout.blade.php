@@ -75,27 +75,27 @@
                             <div class="mb-5 mt-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                                <input type="text" id="base-input" name="first_name" placeholder="Enter first name"
-                                    required
+                                <input type="text" name="first_name" placeholder="Enter first name" required
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                                <input type="text" id="base-input" name="last_name" placeholder="Enter last name"
-                                    required
+                                <input type="text" name="last_name" placeholder="Enter last name" required
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" id="base-input" name="email" placeholder="Enter email" required
+                                <input type="email" id="email" name="email" placeholder="Enter email" required
+                                    data-parsley-remote="{{ route('validate.email') }}" data-parsley-remote-method="POST"
+                                    data-parsley-remote-message="This email is already taken." data-parsley-trigger="input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                                <input type="number" id="base-input" name="phone" placeholder="Enter phone" required
+                                <input type="number" name="phone" placeholder="Enter phone" required
                                     onkeyup='if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")'
                                     onkeypress='if (/\s/g.test(this.value)) this.value = this.value.replace(/\s/g,"")'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -104,8 +104,7 @@
                                 <div class="mb-5">
                                     <label for="base-input"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input type="password" id="base-input" name="password" placeholder="Enter password"
-                                        required
+                                    <input type="password" name="password" placeholder="Enter password" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             @endif
@@ -144,8 +143,7 @@
                                     <label for="base-input"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
                                         Code</label>
-                                    <input type="text" id="base-input" name="zip_code" placeholder="Enter zip code"
-                                        required
+                                    <input type="text" name="zip_code" placeholder="Enter zip code" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                                 <div class="row">
@@ -278,6 +276,31 @@
             stateSelect2()
             citySelect2()
             let form = $('#formCourse').parsley()
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#formCourse').on('submit', function(e) {
+                var emailField = $('#email').parsley();
+
+                emailField.whenValidate().done(function() {
+                    console.log('Email is valid. Proceeding with form submission.');
+                }).fail(function() {
+                  
+                    e.preventDefault(); // Prevent form submission
+                    console.log('Form submission prevented due to invalid email.');
+                });
+            });
+
+            // Listen for changes on the email input to dynamically validate
+            $('#email').on('input', function() {
+                console.log('fgdfgdf');
+
+                $(this).parsley().validate();
+            });
 
         })
 

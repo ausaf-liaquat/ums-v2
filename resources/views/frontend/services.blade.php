@@ -120,7 +120,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
                     <div class="absolute inset-0 flex items-end p-4">
                         <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
-                            <h6 class="text-lg font-bold dark:text-white text-center">STAFFING</h6>
+                            <h6 class="text-lg font-bold dark:text-white text-center">STAFFING (COMING SOON)</h6>
                             {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
                     <div class="absolute inset-0 flex items-end p-4">
                         <div class="w-full p-4 backdrop-blur-md bg-white/50 rounded-lg text-gray-800">
-                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL SUPPLIES</h6>
+                            <h6 class="text-lg font-bold dark:text-white text-center">MEDICAL SUPPLIES(COMING SOON)</h6>
                             {{-- <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p> --}}
                         </div>
                     </div>
