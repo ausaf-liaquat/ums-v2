@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
             'referred_by'          => ['required', 'string', 'max:255'],
             'clinician_type'       => ['required', 'array', 'min:1'],
             'passcode'             => ['required', 'string', 'max:100'],
-            'facility_unit'        => ['required', 'numeric', 'min:1'],
+            'facility_unit'        => ['nullable', 'string'],
             'g-recaptcha-response' => 'required|recaptchav3:registered,0.9',
         ], [
             'facility_name.required'           => 'The facility name is required.',

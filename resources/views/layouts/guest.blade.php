@@ -55,10 +55,11 @@
 
         <style>
           .parsley-errors-list {
-              list-style: none;
-              color: #9b0000;
-              font-size: small;
-              margin-left: -31px;
+                 list-style: none;
+                color: #ff2222;
+                font-size: small;
+                margin-left: -31px;
+                font-weight: 800;
           }
 
           .form-check {

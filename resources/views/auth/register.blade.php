@@ -46,154 +46,158 @@
                         @endif
 
                         <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('register') }}">
-                            @csrf
+                          @csrf
 
-                            <div class="mb-3">
-                                <label for="facility_name">Facility Name </label>
-                                <input type="text" placeholder="Enter facility name" class="form-control"
-                                    name="facility_name" id="facility_name" required>
+                          <div class="mb-3">
+                              <label for="facility_name">Facility Name </label>
+                              <input type="text" placeholder="Enter facility name" class="form-control"
+                                  name="facility_name" id="facility_name" value="{{ old('facility_name') }}" required>
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="unit">Unit</label>
+                              <input type="text" class="form-control" placeholder="Enter unit" name="unit"
+                                  id="unit" value="{{ old('unit') }}" required>
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="address">Address</label>
+                              <textarea name="address" id="address" class="form-control" cols="30" rows="3" required>{{ old('address') }}</textarea>
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="phone">Mobile Number</label>
+                              <input type="text" class="form-control" name="phone"
+                                  placeholder="Enter number e.g. 1XXXXXXXXXX" id="phone" value="{{ old('phone') }}" required>
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="state" class="form-label">State </label>
+                              <input type="text" name="state" placeholder="Enter State" class="form-control" value="{{ old('state') }}">
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="city" class="form-label">City </label>
+                              <input type="text" name="city" placeholder="Enter City" class="form-control" value="{{ old('city') }}">
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="zip_code">Zip Code</label>
+                              <input type="text" class="form-control" name="zip_code"
+                                  placeholder="Enter your zip code" id="zip_code" value="{{ old('zip_code') }}" required>
+                          </div>
+
+                          <div class="mb-3">
+                              <label for="email">Email</label>
+                              <input type="email" class="form-control" name="email"
+                                  placeholder="Enter your email" id="email" value="{{ old('email') }}" required>
+                          </div>
+
+                          <div class="mb-3 form-password-toggle">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password">Password</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="unit">Unit</label>
-                                <input type="text" class="form-control" placeholder="Enter unit" name="unit"
-                                    id="unit" required>
+                            <div class="input-group input-group-merge">
+                                <input type="password" id="password" class="form-control" name="password"
+                                    required aria-describedby="password"
+                                    data-parsley-errors-container="#password-error"
+                                    data-parsley-minlength="8"
+                                    data-parsley-minlength-message="Password must be at least 8 characters long." />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
-                            <div class="mb-3">
-                                <label for="address">Address</label>
-                                {{-- <input type="text" name="address" required> --}}
-                                <textarea name="address" id="" class="form-control" cols="30" rows="3" required></textarea>
+                             <div id="password-error" class="text-sm text-red-600 dark:text-red-400 space-y-1"></div>
+                            <ul class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                                @foreach ((array) $errors->get('password') as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <div class="mb-3 form-password-toggle">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password_confirmation">Password Confirmation</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="phone">Mobile Number</label>
-                                <input type="text" class="form-control" name="phone"
-                                    placeholder="Enter number e.g. 1XXXXXXXXXX" id="phone" required>
+                            <div class="input-group input-group-merge">
+                                <input type="password" id="confirmPassword" class="form-control"
+                                    name="password_confirmation" aria-describedby="password_confirmation"
+                                     data-parsley-errors-container="#confirm-password-error"
+                                    required data-parsley-equalto="#password"
+                                    data-parsley-equalto-message="Passwords do not match." />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
-                            <div class="mb-3">
-                                <label for="state" class="form-label">State </label>
-                                {{-- <select name="state_id" id="state_id" class="form-control state"
-                                    data-parsley-errors-container="#state-error" required>
+                            <div id="confirm-password-error" class="text-sm text-red-600 dark:text-red-400 space-y-1"></div>
+                            <ul class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                                @foreach ((array) $errors->get('password_confirmation') as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
 
-                                </select>
-                                <div id="state-error"></div> --}}
-                                <input type="text" name="state" placeholder="Enter State" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="city" class="form-label">City </label>
-                                <input type="text" name="city" placeholder="Enter City" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="zip_code">Zip Code</label>
-                                <input type="text" class="form-control" name="zip_code" placeholder="Enter tour zip code"
-                                    id="zip_code" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter your email"
-                                    id="email" required>
-                            </div>
-                            <div class="mb-3 form-password-toggle">
 
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password</label>
+                          <div class="mb-3">
+                              <label for="referred_by">Referred By </label>
+                              <input type="text" class="form-control" name="referred_by"
+                                  placeholder="Enter referred by" id="referred_by" value="{{ old('referred_by') }}" required>
+                          </div>
 
-                                </div>
+                          <div class="mb-3">
+                              <label for="clinician_type" class="form-label"><b>What type of clinicians do you need?</b> (select all that apply)</label>
+                              <select name="clinician_type[]" id="clinician_type" class="form-control clinicianType" multiple required>
+                                  @foreach($clinicianTypes ?? [] as $type)
+                                      <option value="{{ $type->id }}" {{ collect(old('clinician_type'))->contains($type->id) ? 'selected' : '' }}>
+                                          {{ $type->name }}
+                                      </option>
+                                  @endforeach
+                              </select>
+                              <div id="clinician_type-error"></div>
+                          </div>
 
-                                <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        required data-parsley-errors-container="#password-error"
-                                        aria-describedby="password" />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                          <div class="mb-3">
+                              <label for="passcode">Verbal Passcode</label>
+                              <input type="text" class="form-control" name="passcode"
+                                  placeholder="Enter verbal passcode" id="passcode" value="{{ old('passcode') }}" required>
+                          </div>
 
-                                </div>
-                                <div id="password-error"></div>
-                                <ul class= 'text-sm text-red-600 dark:text-red-400 space-y-1'>
-                                    @foreach ((array) $errors->get('password') as $message)
-                                        <li>{{ $message }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="mb-3 form-password-toggle">
+                          <div class="mb-3">
+                              <label for="facility_unit">How many units does your facility need covered?</label>
+                              <input type="text" class="form-control" name="facility_unit"
+                                  placeholder="Enter units" id="facility_unit" value="{{ old('facility_unit') }}" required>
+                          </div>
 
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password Confirmation</label>
+                          <div class="mb-3 text-center">
+                              @php
+                                  $contents = DB::table('frontend_contents')->where('frontend_page_id', 5)->get();
+                              @endphp
+                              <b>
+                                  Please review and agree to our
+                                  @foreach ($contents as $content)
+                                      , <a href="{{ Storage::disk('cms')->url($content->content_file) }}" target="_blank">{{ $content->content_title }}</a>
+                                  @endforeach
+                              </b>
+                          </div>
 
-                                </div>
+                          <div class="mb-3">
+                              <div class="form-check gap-3">
+                                  <input class="form-check-input" type="checkbox" name="terms_agreed" value="1" id="defaultCheck2"
+                                      {{ old('terms_agreed') ? 'checked' : '' }} required>
+                                  <label class="form-check-label" for="defaultCheck2">
+                                      I have read and I agree to Unique Med Services Staffing Privacy Policy,
+                                      UMS Facility Agreement and SMS Terms of Services
+                                  </label>
+                              </div>
+                          </div>
 
-                                <div class="input-group input-group-merge">
-                                    <input type="password" id="confirmPassword" class="form-control"
-                                        name="password_confirmation" data-parsley-equalto="#password"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        data-parsley-errors-container="#confirm-password-error"
-                                        aria-describedby="password_confirmation" required />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                          @error('g-recaptcha-response')
+                              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                          @enderror
 
-                                </div>
-                                <div id="confirm-password-error"></div>
-                                <ul class= 'text-sm text-red-600 dark:text-red-400 space-y-1'>
-                                    @foreach ((array) $errors->get('password_confirmation') as $message)
-                                        <li>{{ $message }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="mb-3">
-                                <label for="referred_by">Referred By </label>
-                                <input type="text" class="form-control" name="referred_by"
-                                    placeholder="Enter referred by" id="referred_by" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="clinician_type" class="form-label "><b>What type of clinicians do you
-                                        need?</b> (select all that apply)</label>
-                                <select name="clinician_type[]" id="clinician_type" class="form-control clinicianType"
-                                    data-parsley-errors-container="#clinician_type-error" multiple required>
+                          {!! RecaptchaV3::field('registered') !!}
 
-                                </select>
-                                <div id="clinician_type-error"></div>
-                            </div>
+                          <div class="mb-3">
+                              <button class="btn btn-primary d-grid w-100" type="submit">Register</button>
+                          </div>
+                      </form>
 
-                            <div class="mb-3">
-
-                                <label for="passcode">Verbal Passcode</label>
-                                <input type="text" class="form-control" name="passcode"
-                                    placeholder="Enter verbal passcode" id="passcode" required>
-
-                            </div>
-                            <div class="mb-3">
-
-                                <label for="facility_unit">How many units does your facility need covered?</label>
-                                <input type="text" class="form-control" name="facility_unit"
-                                    placeholder="Enter units" id="facility_unit" required>
-
-                            </div>
-                            <div class="mb-3 text-center">
-                                @php
-                                    $contents = DB::table('frontend_contents')->where('frontend_page_id', 5)->get();
-                                @endphp
-                                <b>
-
-                                    Please review and agree to our @foreach ($contents as $content)
-                                        , <a href="{{ Storage::disk('cms')->url($content->content_file) }}"
-                                            target="_blank">{{ $content->content_title }}</a>
-                                    @endforeach </b>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check gap-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2"
-                                        required>
-                                    <label class="form-check-label" for="defaultCheck2"> I have read and I agree to Unique
-                                        Med Services Staffing Privacy Policy, UMS Facility Agreement and SMS Terms of
-                                        Services </label>
-                                </div>
-                            </div>
-                            @error('g-recaptcha-response')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-
-                            {!! RecaptchaV3::field('registered') !!}
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Register</button>
-                            </div>
-                        </form>
 
                         <p class="text-center">
                             <span>Already registered?</span>

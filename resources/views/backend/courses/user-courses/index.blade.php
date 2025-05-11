@@ -28,7 +28,7 @@
 
             {{-- <h5 class="card-header">Table Basic</h5> --}}
             <div class="p-4 table-responsive">
-                <table class="table" id="dataTableSize" style="table-layout: fixed; width: 100%">
+                <table class="table" id="dataTableSize" >
                     <thead>
                         <tr>
                             <th>Sr. no</th>
