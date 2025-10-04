@@ -32,73 +32,6 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        
-         // Sample input variables
-    $member_id = 1;
-    $payment = 800;
-    $discount = 100;
-
-    // Sample data for testing
-    $members = [
-        1 => [
-            'id' => 1, 'name' => 'John Doe', 'is_onetime_paid' => 0,
-            'fee_voucher' => [
-                ['id' => 101, 'status' => 0, 'voucher_details' => [
-                    ['id' => 201, 'amount' => 500, 'mf_fees_type_id' => 1, 'month' => 'Jan'],
-                    ['id' => 202, 'amount' => 300, 'mf_fees_type_id' => 2, 'month' => 'Feb']
-                ], 'voucher_payment_details' => []]
-            ]
-        ]
-    ];
-
-    $feeVoucherPayments = [];
-    $feeVoucherPaymentDetails = [];
-    $totalPaidAmount = 0;
-    $checkIsAdmissionPaid = false;
-
-    // Simulating getting member data
-    $member = $members[$member_id] ?? null;
-    if (!$member) return ['error' => 'Member not found'];
-
-    foreach ($member['fee_voucher'] as $voucher) {
-        foreach ($voucher['voucher_details'] as $detail) {
-            $amountToPay = min($detail['amount'], $payment);
-            $totalPaidAmount += $amountToPay;
-            $payment -= $amountToPay;
-
-            $feeVoucherPaymentDetails[] = [
-                'fee_voucher_id' => $voucher['id'],
-                'member_id' => $member_id,
-                'mf_fees_type_id' => $detail['mf_fees_type_id'],
-                'month' => $detail['month'],
-                'amount' => $amountToPay
-            ];
-
-            if ($detail['mf_fees_type_id'] == 1) { // Assuming 1 is admission fee
-                $checkIsAdmissionPaid = true;
-            }
-        }
-    }
-
-    $feeVoucherPayments[] = [
-        'member_id' => $member_id,
-        'received_by_id' => 1, // Dummy received by
-        'amount' => $totalPaidAmount,
-        'discount' => $discount
-    ];
-
-    // Updating member is_onetime_paid status
-    if ($checkIsAdmissionPaid) {
-        $members[$member_id]['is_onetime_paid'] = 1;
-    }
-
-    $data= [
-        'feeVoucherPayments' => $feeVoucherPayments,
-        'feeVoucherPaymentDetails' => $feeVoucherPaymentDetails,
-        'updatedMembers' => $members
-    ];
-
-    dd($data);
         return view('frontend.index');
     }
 
@@ -210,7 +143,7 @@ class FrontendController extends Controller
             DB::table('contact_us')->insert([
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phone,
+                'phone' => $request->contact_no,
                 'type' => $request->type,
                 'message' => $request->message,
                 'created_at' => now(),
@@ -222,7 +155,7 @@ class FrontendController extends Controller
                 new ContactMail(
                     $request->type,
                     $request->message,
-                    $request->phone,
+                    $request->contact_no,
                     $request->email,
                     $request->name
                 )
@@ -419,7 +352,7 @@ class FrontendController extends Controller
                 $order->save();
             }
             $course = Course::find(session('cid'));
-            if ($course?->type == 0) {
+            if ($course->type == 0) {
                 CourseUserSchedule::create([
                     'user_id' => session('user_id'),
                     'course_id' => session('cid'),
@@ -445,6 +378,7 @@ class FrontendController extends Controller
     }
     public function checkoutCancel(Request $request)
     {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $sessionId = $request->get('session_id');
         $session = Session::retrieve($sessionId);
         $order = Order::where('session_id', $session->id)->first();

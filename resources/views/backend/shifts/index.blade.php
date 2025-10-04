@@ -93,21 +93,21 @@
                     info: "Showing shifts _START_ to _END_ of _TOTAL_",
                     lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> shifts'
                 },
-                order:[0],
+                order: [0],
                 processing: false,
                 serverSide: false,
                 ajax: {
                     url: '{{ route('shifts.dataTable') }}',
                 },
                 columns: [
-                  // {
-                  //       "data": "DT_RowIndex",
-                  //       "orderable": false,
-                  //       "searchable": false,
-                  //       "className": "text-center",
-                  //       "defaultContent": "",
+                    // {
+                    //       "data": "DT_RowIndex",
+                    //       "orderable": false,
+                    //       "searchable": false,
+                    //       "className": "text-center",
+                    //       "defaultContent": "",
 
-                  //   },
+                    //   },
                     {
                         "data": "date",
                         "className": "text-center",
@@ -198,17 +198,19 @@
                         "targets": 7,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
-                            let status =""
+                            let status = ""
 
                             if (data == 1) {
-                              status = `<span class="badge bg-label-success mb-2">In Process</span>`
+                                status =
+                                    `<span class="badge bg-label-success mb-2">In Process</span>`
                             } else if (data == 2) {
-                              status = `<span class="badge bg-label-danger mb-2">Expired</span>`
+                                status = `<span class="badge bg-label-danger mb-2">Expired</span>`
 
-                            }else if(data == 3){
+                            } else if (data == 3) {
                                 status = `<span class="badge bg-label-info mb-2">Completed</span>`;
-                            }else{
-                              status = `<span class="badge bg-label-secondary mb-2">Deactivated</span>`
+                            } else {
+                                status =
+                                    `<span class="badge bg-label-secondary mb-2">Deactivated</span>`
 
                             }
 
@@ -265,13 +267,13 @@
                                         })
                                     .then(function(response) {
                                         console.log(response);
-
+                                        table.ajax.reload(null, false);
                                         Swal.fire(
                                             'Deleted!',
                                             'Shift has been deleted.',
                                             'success'
                                         )
-                                        table.draw(false);
+
                                     })
                                     .catch(function(error) {
                                         console.log(error);

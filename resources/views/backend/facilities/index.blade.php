@@ -156,7 +156,7 @@
                             if (data) {
                                 data?.forEach(element => {
                                     html +=
-                                        `<span class="badge bg-label-info mb-2">${element.clinician_type.name}</span> <br> `
+                                        `<span class="badge bg-label-info mb-2">${element.clinician_type?.name}</span> <br> `
                                 });
                             }
                             return html;
@@ -172,9 +172,9 @@
                             let returnData =
                                 `<div class="text-center">
                                   <a class="text-info" href="${edit}"> <i class="tf-icons bx bxs-user-detail"></i></a>
-
+                                  <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${data}"></i>
                                 </div>`;
-                            // <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${row.id}"></i>
+
                             return returnData;
                         },
                     },
@@ -201,7 +201,7 @@
                             preConfirm: function(n) {
                                 return axios
                                     .post(
-                                        '{{ route('backend.funds.destroy') }}', {
+                                        '{{ route('backend.facilities.destroy') }}', {
                                             _method: 'delete',
                                             _token: '{{ csrf_token() }}',
                                             id: id,
@@ -211,7 +211,7 @@
 
                                         Swal.fire(
                                             'Deleted!',
-                                            'Courses has been deleted.',
+                                            'Facility has been deleted.',
                                             'success'
                                         )
                                         table.draw(false);

@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotPasswordMail;
-use App\Models\ResetPasswordCode;
 use App\Models\Traits\ApiResponser;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 
 class AuthController extends Controller
@@ -25,11 +24,11 @@ class AuthController extends Controller
 
         $attributes = $request->validate([
 
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($attributes)) {
+        if (! Auth::attempt($attributes)) {
             return $this->error('Credentials not match', 401);
         }
 
@@ -46,32 +45,41 @@ class AuthController extends Controller
             // return $this->error('Please verify your account with Phone no', 401);
             $accountStatus = "unverified";
         }
-        $token = $user->createToken('APIToken');
+        $token       = $user->createToken('APIToken');
         $accessToken = $token->plainTextToken;
 
         $auth_token = explode('|', $accessToken)[1];
         return $this->success([
-            'token' => $auth_token,
+            'token'         => $auth_token,
             'accountStatus' => $accountStatus,
         ], 'Login Successfully', 200);
     }
     public function register(Request $request)
     {
-        $attributes = $request->validate([
+        // Manual validation
+        $validator = Validator::make($request->only('first_name', 'last_name', 'email', 'phone', 'password'), [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
-            'phone'      => ['required', 'unique:users'],
+            'email'      => ['required', 'string', 'email:filter', 'max:255', 'unique:users,email'],
+            'phone'      => ['required', 'unique:users,phone'],
             'password'   => ['required', 'string', 'min:6'],
         ]);
 
-        $phone = $request->phone;
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(), // return first error message
+                'errors'  => $validator->errors(),          // all errors if needed
+            ], 422);
+        }
+
+        $phone            = $request->phone;
         $phoneWithoutPlus = str_replace('+', '', $phone);
 
         DB::beginTransaction();
         try {
-            // Prepare user data
-            $data = [
+            // Create user
+            $user = User::create([
                 'first_name'         => $request->first_name,
                 'last_name'          => $request->last_name,
                 'name'               => $request->first_name . ' ' . $request->last_name,
@@ -80,132 +88,78 @@ class AuthController extends Controller
                 'gender'             => $request->gender == 'male' ? 0 : 1,
                 'password'           => Hash::make($request['password']),
                 'status'             => 1,
+                'address'            => $request->address,
+                'city'               => $request->city,
+                'state'              => $request->state,
                 'zip_code'           => $request->zip_code,
                 'shifts'             => $request->shift,
                 'experience'         => $request->experience,
                 'reffered_by'        => $request->reffered_by,
                 'qualification_type' => $request->qualification_type,
-            ];
+            ]);
 
-            // Create user
-            $user = User::create($data);
             $user->syncRoles([3]);
 
-            // Set username based on initial configuration and user ID
-            $username = intval(config('app.initial_username')) + $user->id;
+            // Generate username
+            $username       = intval(config('app.initial_username')) + $user->id;
             $user->username = strval($username);
             $user->save();
 
             // Handle resume upload
             if ($request->hasFile('resume')) {
-                $filename = Storage::disk('cms')->putFile('', $request->resume);
+                $filename     = Storage::disk('cms')->putFile('', $request->resume);
                 $user->resume = $filename;
                 $user->save();
             }
 
-            // Generate and send OTP
-            $otp = mt_rand(1000, 9999);
-            $account_sid = config('twilio.sid');
-            $auth_token = config('twilio.token');
-            $twilio_number = config('twilio.from_number');
-            $client = new Client($account_sid, $auth_token);
-            $message = "Your account verification code: $otp";
-
-            $client->messages->create(
-                '+' . $phoneWithoutPlus,
-                ['from' => $twilio_number, 'body' => $message]
-            );
-
+            // Generate OTP
+            $otp       = mt_rand(1000, 9999);
             $user->otp = $otp;
             $user->save();
 
-            // Commit the transaction if all steps are successful
+            // Send OTP (reuse resendCode logic)
+            if (config('ums.otp_via_sms')) {
+                try {
+                    $client = new Client(config('ums.twilio.sid'), config('ums.twilio.token'));
+                    $client->messages->create(
+                        '+' . $phoneWithoutPlus,
+                        ['from' => config('ums.twilio.from'), 'body' => "Your account verification code: $otp"]
+                    );
+                } catch (\Exception $e) {
+                    \Log::error("Twilio SMS error: " . $e->getMessage());
+                }
+            }
+
+            if (config('ums.otp_via_email')) {
+                try {
+                    Mail::send('mail.otp', ['otp' => $otp, 'user' => $user], function ($m) use ($user) {
+                        $m->to($user->email, $user->name)
+                            ->subject('Your Verification Code');
+                    });
+                } catch (\Exception $e) {
+                    \Log::error("Mail error: " . $e->getMessage());
+                }
+            }
+
             DB::commit();
 
-            // Generate access token for API authentication
-            $token = $user->createToken('APIToken');
+            // Generate API token
+            $token       = $user->createToken('APIToken');
             $accessToken = $token->plainTextToken;
-            $auth_token = explode('|', $accessToken)[1];
+            $auth_token  = explode('|', $accessToken)[1];
 
-            return $this->success(['auth_token' => $auth_token], 'Registered Successfully, Please verify your account with Phone no', 200);
+            return $this->success(
+                ['auth_token' => $auth_token],
+                'Registered Successfully, Please verify your account with OTP',
+                200
+            );
 
         } catch (\Exception $e) {
-            // Roll back the transaction if any error occurs
             DB::rollBack();
-
-            // Return a failure response
-            return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], 500);
+            return $this->error('Registration failed: ' . $e->getMessage(), 500);
         }
     }
-    // public function register(Request $request)
-    // {
-    //     $attributes = $request->validate([
-    //         'first_name' => ['required', 'string', 'max:255'],
-    //         'last_name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
-    //         'phone' => ['required', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:6'],
-    //     ]);
-    //     $phone = $request->phone;
-    //     $phoneWithoutPlus = str_replace('+', '', $phone);
 
-    //     $data = [
-    //         'first_name' => $request->first_name,
-    //         'last_name' => $request->last_name,
-    //         'name'  => $request->first_name . ' ' . $request->last_name,
-    //         'email' => $request->email,
-    //         'phone' => $phoneWithoutPlus,
-    //         'gender' => $request->gender == 'male' ? 0 : 1,
-    //         'password' => Hash::make($request['password']),
-    //         'status' => 1,
-    //         'zip_code' => $request->zip_code,
-    //         'shifts' => $request->shift,
-    //         'experience' => $request->experience,
-    //         'reffered_by' => $request->reffered_by,
-    //         'qualification_type' => $request->qualification_type,
-    //     ];
-
-    //     $user = User::create($data);
-    //     $user->syncRoles([3]);
-    //     $username = intval(config('app.initial_username')) + $user->id;
-    //     $user->username = strval($username);
-    //     $user->save();
-    //     if ($request->hasFile('resume')) {
-    //         $filename = Storage::disk('cms')->putFile('', $request->resume);
-
-    //         $user->resume = $filename;
-    //         // $user->email_verified_at =now();
-    //         $user->save();
-    //     }
-
-    //     $otp = mt_rand(1000, 9999);
-
-    //     // Generate random code
-
-    //     $account_sid = config('twilio.sid');
-    //     $auth_token = config('twilio.token');
-    //     $twilio_number = config('twilio.from_number');
-    //     $client = new Client($account_sid, $auth_token);
-    //     $message = "Your account verification code: $otp";
-
-    //     $client->messages->create(
-    //         '+' . $phoneWithoutPlus,
-    //         ['from' => $twilio_number, 'body' => $message]
-    //     );
-    //     // // Create a new code
-    //     // ResetPasswordCode::create([
-    //     //     'phone'=>$request->phone,
-    //     //     'code'=>$otp
-    //     // ]);
-    //     $user->otp = $otp;
-
-    //     $user->save();
-
-    //     $token = $user->createToken('APIToken');
-    //     $accessToken = $token->plainTextToken;
-    //     $auth_token = explode('|', $accessToken)[1];
-    //     return $this->success(['auth_token' => $auth_token], 'Registered Successfully, Please verify your account with Phone no', 200);
-    // }
     public function verify(Request $request)
     {
         $request->validate([
@@ -222,7 +176,7 @@ class AuthController extends Controller
             // $user->is_verified = 'active';
 
             $user->email_verified_at = \Carbon\Carbon::now();
-            $user->otp = null;
+            $user->otp               = null;
             $user->update();
 
             return $this->success([], 'Congrats!! Account verified', 200);
@@ -233,75 +187,180 @@ class AuthController extends Controller
     public function resendCode(Request $request)
     {
         $data = $request->validate([
-            'phone_no' => 'required|exists:users,phone',
+            'email'    => 'required|exists:users,email',
+            'phone_no' => 'required',
         ]);
-        $phone = $request->phone_no;
-        $phoneWithoutPlus = str_replace('+', '', $phone);
-        // Generate random code
-        $otp = mt_rand(1000, 9999);
-        $account_sid = config('twilio.sid');
-        $auth_token = config('twilio.token');
-        $twilio_number = config('twilio.from_number');
-        $client = new Client($account_sid, $auth_token);
-        $message = "Your account verification code: $otp";
-        $client->messages->create(
-            $phoneWithoutPlus,
-            ['from' => $twilio_number, 'body' => $message]
-        );
 
-        $user = User::wherePhone($phoneWithoutPlus)->first();
+        $otp = mt_rand(1000, 9999);
+
+        $user = User::where('email', $request->email)
+            ->orWhere('phone', str_replace('+', '', $request->phone_no))
+            ->first();
+
+        if (! $user) {
+            return $this->error('User not found', 404);
+        }
+
+        // Save OTP once
         $user->otp = $otp;
         $user->save();
+
+        if (config('ums.otp_via_sms')) {
+            try {
+                $phoneWithoutPlus = str_replace('+', '', $request->phone_no);
+
+                $client = new Client(
+                    config('ums.twilio.sid'),
+                    config('ums.twilio.token')
+                );
+
+                $client->messages->create(
+                    $phoneWithoutPlus,
+                    [
+                        'from' => config('ums.twilio.from'),
+                        'body' => "Your account verification code: $otp",
+                    ]
+                );
+            } catch (\Exception $e) {
+                \Log::error("Twilio SMS error: " . $e->getMessage());
+            }
+        }
+
+        if (config('ums.otp_via_email')) {
+            try {
+                Mail::send('mail.otp', ['otp' => $otp, 'user' => $user], function ($m) use ($user) {
+                    $m->to($user->email, $user->name)
+                        ->subject('Your Verification Code');
+                });
+            } catch (\Exception $e) {
+                \Log::error("Mail error: " . $e->getMessage());
+            }
+        }
+
         return $this->success('Code sent', 200);
     }
 
     public function sendResetCode(Request $request)
     {
-        $data = $request->validate([
-            'phone_no' => 'required|exists:users,phone',
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'exists:users,email'],
         ]);
-        $phone = $request->phone_no;
-        $phoneWithoutPlus = str_replace('+', '', $phone);
-        // Generate random code
-        $otp = mt_rand(1000, 9999);
-        $account_sid = config('twilio.sid');
-        $auth_token = config('twilio.token');
-        $twilio_number = config('twilio.from_number');
-        $client = new Client($account_sid, $auth_token);
-        $message = "Your account verification code: $otp";
-        $client->messages->create(
-            $phoneWithoutPlus,
-            ['from' => $twilio_number, 'body' => $message]
-        );
 
-        $user = User::wherePhone($phoneWithoutPlus)->first();
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(), // return first error message
+                'errors'  => $validator->errors(),          // all errors if needed
+            ], 422);
+        }
+
+        $otp = mt_rand(1000, 9999);
+
+        $user = User::where('email', $request->email)
+            ->orWhere('phone', str_replace('+', '', $request->phone_no))
+            ->first();
+
+        if (! $user) {
+            return $this->error('User not found', 404);
+        }
+
+        // Save OTP once
         $user->otp = $otp;
         $user->save();
-        return $this->success('Code sent', 200);
+
+        if (config('ums.otp_via_sms')) {
+            try {
+                $phoneWithoutPlus = str_replace('+', '', $request->phone_no);
+
+                $client = new Client(
+                    config('ums.twilio.sid'),
+                    config('ums.twilio.token')
+                );
+
+                $client->messages->create(
+                    $phoneWithoutPlus,
+                    [
+                        'from' => config('ums.twilio.from'),
+                        'body' => "Your account verification code: $otp",
+                    ]
+                );
+            } catch (\Exception $e) {
+                \Log::error("Twilio SMS error: " . $e->getMessage());
+            }
+        }
+
+        if (config('ums.otp_via_email')) {
+            try {
+                Mail::send('mail.otp', ['otp' => $otp, 'user' => $user], function ($m) use ($user) {
+                    $m->to($user->email, $user->name)
+                        ->subject('Your Verification Code');
+                });
+            } catch (\Exception $e) {
+                \Log::error("Mail error: " . $e->getMessage());
+            }
+        }
+
+        return $this->success('Code sent on your email', 200);
+        // $data = $request->validate([
+        //     'phone_no' => 'required|exists:users,phone',
+        // ]);
+        // $phone            = $request->phone_no;
+        // $phoneWithoutPlus = str_replace('+', '', $phone);
+        // // Generate random code
+        // $otp           = mt_rand(1000, 9999);
+        // $account_sid   = config('twilio.sid');
+        // $auth_token    = config('twilio.token');
+        // $twilio_number = config('twilio.from_number');
+        // $client        = new Client($account_sid, $auth_token);
+        // $message       = "Your account verification code: $otp";
+        // $client->messages->create(
+        //     $phoneWithoutPlus,
+        //     ['from' => $twilio_number, 'body' => $message]
+        // );
+
+        // $user      = User::wherePhone($phoneWithoutPlus)->first();
+        // $user->otp = $otp;
+        // $user->save();
+        // return $this->success($request->all(), 200);
     }
     public function checkResetCode(Request $request)
     {
-        $request->validate([
-            'code' => 'required|string',
-            'phone_no' => 'required|exists:users,phone',
+        $validator = Validator::make($request->all(), [
+            'code'  => ['required', 'string'],
+            'email' => ['required', 'exists:users,email'],
         ]);
 
-        // find the code
-        $passwordReset = ResetPasswordCode::firstWhere('phone_no', $request->phone_no);
-
-        if ($passwordReset->code == $request->code) {
-            User::wherePhone($request->phone_no)->first();
-            $passwordReset->delete();
-            return $this->success('Code Matched. Change your password', 200);
-        } else {
-            return $this->error('Code Mismatch. Please try again.', 500);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors(),
+            ], 422);
         }
+
+        $user = User::where('email', $request->email)->first();
+
+        // Validation ensures $user exists, so no need for extra null check
+        if ($user->otp === $request->code) {
+            $user->update(['otp' => null]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Code Matched. Change your password',
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Code Mismatch. Please try again.',
+        ], 422); // better than 500
     }
+
     public function forget_password(Request $request)
     {
 
-        $credentials = request()->validate(['email' => 'required|email']);
-        $data['user'] = User::whereEmail($request->email)->first();
+        $credentials   = request()->validate(['email' => 'required|email']);
+        $data['user']  = User::whereEmail($request->email)->first();
         $data['token'] = encrypt($data['user']->email . '' . $data['user']->id);
 
         $data['link'] = route('password.resetApi', ['token' => $data['token'], 'email' => $request->email]);
@@ -317,14 +376,14 @@ class AuthController extends Controller
 
         if ($user) {
             DB::table('password_resets')->where('email', $user->email)->update([
-                'email' => $request->email,
-                'token' => $data['token'],
+                'email'      => $request->email,
+                'token'      => $data['token'],
                 'created_at' => Carbon::now(),
             ]);
         } else {
             DB::table('password_resets')->insert([
-                'email' => $request->email,
-                'token' => $data['token'],
+                'email'      => $request->email,
+                'token'      => $data['token'],
                 'created_at' => Carbon::now(),
             ]);
         }
@@ -344,7 +403,7 @@ class AuthController extends Controller
         // }
         $request->validate([
 
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|min:6|confirmed',
         ]);
 
@@ -357,7 +416,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
+        if (! $user) {
             return $this->error('We can\'t find user with this email.', 404);
         }
 

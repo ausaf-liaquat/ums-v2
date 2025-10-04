@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -15,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ClinicianController extends Controller
 {
@@ -22,18 +22,28 @@ class ClinicianController extends Controller
 
     public function documentUpload(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'file' => 'required|file',
-            'document_type_id' => 'required',
+        $validator = Validator::make($request->all(), [
+            'title'            => 'required|string|max:255',
+            'file'             => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx',
+            'document_type_id' => 'required|integer|exists:document_types,id',
+            'expiry_date'      => 'nullable|date|after_or_equal:today',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
         $document = Document::create([
-            'title'               => $request->title,
+            'title'            => $request->title,
             'document_type_id' => $request->document_type_id,
-            'user_id'             => auth()->user()->id,
-            'uploaded_by'         => auth()->user()->id,
-            'notes'               => $request->notes,
+            'user_id'          => auth()->user()->id,
+            'uploaded_by'      => auth()->user()->id,
+            'notes'            => $request->notes,
+            'expired_at'       => $request->expiry_date, // Add expiry date to creation
         ]);
 
         $file = null;
@@ -55,32 +65,32 @@ class ClinicianController extends Controller
     }
     public function userDocuments()
     {
-        $documents = Document::where('uploaded_by', auth()->user()->id)->with('documentType','uploaded_clinician')->get();
+        $documents = Document::where('uploaded_by', auth()->user()->id)->with('documentType', 'uploaded_clinician')->get();
         return $this->success(['documents' => $documents], 'Documents', 200);
     }
     public function w9Form(Request $request)
     {
         $data = [
-            'user_id' => auth()->user()->id,
-            'name' => $request->input('name'),
-            'business_name' => $request->input('business_name'),
+            'user_id'                    => auth()->user()->id,
+            'name'                       => $request->input('name'),
+            'business_name'              => $request->input('business_name'),
             'faderal_tax_classification' => $request->input('faderal_tax_classification'),
-            'classification_detail' => $request->input('classification_detail'),
-            'exempt_payee_code' => $request->input('exempt_payee_code'),
-            'fatca_code' => $request->input('fatca_code'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'state' => $request->input('state'),
-            'zip_code' => $request->input('zip_code'),
-            'requester_first_name' => $request->input('requester_first_name'),
-            'requester_last_name' => $request->input('requester_last_name'),
-            'requester_address' => $request->input('requester_address'),
-            'requester_city' => $request->input('requester_city'),
-            'requester_state' => $request->input('requester_state'),
-            'requester_zip_code' => $request->input('requester_zip_code'),
-            'account_number' => $request->input('account_number'),
-            'social_security_number' => $request->input('social_security_number'),
-            'ei_number' => $request->input('ei_number'),
+            'classification_detail'      => $request->input('classification_detail'),
+            'exempt_payee_code'          => $request->input('exempt_payee_code'),
+            'fatca_code'                 => $request->input('fatca_code'),
+            'address'                    => $request->input('address'),
+            'city'                       => $request->input('city'),
+            'state'                      => $request->input('state'),
+            'zip_code'                   => $request->input('zip_code'),
+            'requester_first_name'       => $request->input('requester_first_name'),
+            'requester_last_name'        => $request->input('requester_last_name'),
+            'requester_address'          => $request->input('requester_address'),
+            'requester_city'             => $request->input('requester_city'),
+            'requester_state'            => $request->input('requester_state'),
+            'requester_zip_code'         => $request->input('requester_zip_code'),
+            'account_number'             => $request->input('account_number'),
+            'social_security_number'     => $request->input('social_security_number'),
+            'ei_number'                  => $request->input('ei_number'),
         ];
 
         W9Form::create($data);
@@ -90,7 +100,7 @@ class ClinicianController extends Controller
 
     public function bcaForm(Request $request)
     {
-        $input = $request->all();
+        $input            = $request->all();
         $input['user_id'] = auth()->user()->id;
         EmpBcaForm::create($input);
 
@@ -98,7 +108,7 @@ class ClinicianController extends Controller
     }
     public function depositForm(Request $request)
     {
-        $input = $request->all();
+        $input            = $request->all();
         $input['user_id'] = auth()->user()->id;
         DepositForm::create($input);
 
@@ -112,38 +122,38 @@ class ClinicianController extends Controller
     }
     public function updateProfile(Request $request)
     {
-
-        $input = $request->all();
-
         $user = User::where('id', getLoggedInUserId())->first();
 
-        if ($request->file('image')) {
-            Storage::disk('cms')->delete($user->avatar);
-        }
+        $file = $user->avatar; // keep old file by default
 
-        $file = null;
-
-        // Check if the request has file
+        // ✅ Only if new file uploaded
         if ($request->hasFile('image')) {
+            // delete old only when new exists
+            if ($user->avatar) {
+                Storage::disk('cms')->delete($user->avatar);
+            }
+
             $path = Storage::disk('cms')->put('', $request->file('image'));
-            $file = $path; // Collect file paths
+            $file = $path;
         }
 
         $user->update([
             'avatar' => $file,
         ]);
-        $phone = $request->phone;
+
+        $phone            = $request->phone;
         $phoneWithoutPlus = str_replace('+', '', $phone);
+
         $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'name'  => $request->first_name . ' ' . $request->last_name,
-            'email' => $request->email,
-            'phone' => $phoneWithoutPlus,
-            'zip_code' => $request->zip_code,
-            'address' => $request->address,
-            'city' => $request->city,
-            'state' => $request->state,
+            'first_name'         => $request->first_name,
+            'last_name'          => $request->last_name,
+            'name'               => $request->first_name . ' ' . $request->last_name,
+            'email'              => $request->email,
+            'phone'              => $phoneWithoutPlus,
+            'zip_code'           => $request->zip_code,
+            'address'            => $request->address,
+            'city'               => $request->city,
+            'state'              => $request->state,
             'qualification_type' => $request->qualification_type,
         ];
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Facilities;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shifts\Shift;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -40,5 +41,16 @@ class FacilityController extends Controller
         ];
 
         return view('backend.facilities.add', $data);
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = User::find($request->id)->load('facility');
+
+        Shift::where('user_id',$user->id)->delete();
+        $user->facility()->delete();
+        $user->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Facility deleted successfully.']);
     }
 }

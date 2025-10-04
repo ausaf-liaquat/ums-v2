@@ -6,6 +6,7 @@ use App\Models\Courses\CourseUserSchedule;
 use App\Models\Facilities\BannedFacilityClinician;
 use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
+use App\Models\Shifts\Shift;
 use App\Models\Traits\HasHashedMediaTrait;
 use Bavix\Wallet\Interfaces\WalletFloat;
 use Bavix\Wallet\Traits\HasWalletFloat;
@@ -35,7 +36,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     use Billable;
     use HasWalletFloat;
     use HasApiTokens;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $guarded = [
         'id',
@@ -180,6 +181,14 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     public function user_courses()
     {
         return $this->hasMany(CourseUserSchedule::class, 'user_id');
+    }
+
+    /**
+     * Shift that belong to the User
+     */
+    public function shifts()
+    {
+        return $this->hasMany(Shift::class, 'user_id');
     }
 
     /**

@@ -630,11 +630,13 @@ function getLoggedInUserId()
  */
 function addNotification($data)
 {
+
     $notificationRecord = [
         'type' => $data[0],
         'user_id' => $data[1],
         'notification_for' => $data[2],
         'title' => $data[3],
+        'meta' => $data[4]->toArray()
     ];
 
     if ($user = User::find($data[1])) {
@@ -660,5 +662,5 @@ function getNotification($role)
     return Notification::whereUserId(Auth::id())->whereNotificationFor(Notification::NOTIFICATION_FOR[$role])->where(
         'read_at',
         null
-    )->orderByDesc('created_at')->toBase()->get();
+    )->orderByDesc('created_at')->get();
 }

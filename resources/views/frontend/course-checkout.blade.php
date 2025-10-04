@@ -100,12 +100,15 @@
                                     onkeypress='if (/\s/g.test(this.value)) this.value = this.value.replace(/\s/g,"")'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
-                            @if ($course->type == 1)
+                            @if ($course->type == 1 || $course->type == 2)
                                 <div class="mb-5">
                                     <label for="base-input"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                     <input type="password" name="password" placeholder="Enter password" required
+                                        data-parsley-errors-container="#password-error" data-parsley-minlength="8"
+                                        data-parsley-minlength-message="Password must be at least 8 characters long."
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <div id="password-error" class="text-sm text-red-600 dark:text-red-400 space-y-1"></div>
                                 </div>
                             @endif
                             @if ($course->is_upload_card)
@@ -289,7 +292,7 @@
                 emailField.whenValidate().done(function() {
                     console.log('Email is valid. Proceeding with form submission.');
                 }).fail(function() {
-                  
+
                     e.preventDefault(); // Prevent form submission
                     console.log('Form submission prevented due to invalid email.');
                 });

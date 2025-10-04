@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -15,76 +14,103 @@ class StripeController extends Controller
 
     public function stripeConnectedAccount(Request $request)
     {
-        $stripe = new StripeClient(
-            env('STRIPE_SECRET')
-        );
+
+        $stripe = new StripeClient(config('ums.secret'));
+
+        //dd($stripe, config('ums.secret'));
 
         $acc = $stripe->accounts->create([
-            'type'          => 'express',
-            'email'         => $request->input('email'),   // Email address associated with the account
-            'business_type' => 'individual',               // Business type (individual, company)
-            'individual'    => [
+            'type'             => 'express',
+            'email'            => $request->input('email'), // Email address associated with the account
+            'business_type'    => 'individual',             // Business type (individual, company)
+            'individual'       => [
                 'first_name' => $request->input('first_name'),
                 'last_name'  => $request->input('last_name'),
-                'ssn_last_4' => $request->input('ssn_last_4'),   // Last 4 digits of SSN
+                'ssn_last_4' => $request->input('ssn_last_4'), // Last 4 digits of SSN
                 'phone'      => $request->input('phone'),
                 'dob'        => [
-                    'day' => $request->input('dob_day'), // Day of birth
+                    'day'   => $request->input('dob_day'),   // Day of birth
                     'month' => $request->input('dob_month'), // Month of birth
-                    'year' => $request->input('dob_year'), // Year of birth
+                    'year'  => $request->input('dob_year'),  // Year of birth
                 ],
-                'address' => [
-                    'line1' => $request->input('address_line1'), // Address line 1
-                    'line2' => $request->input('address_line2'), // Address line 2 (optional)
-                    'city' => $request->input('address_city'), // City
-                    'state' => $request->input('address_state'), // State
+                'address'    => [
+                    'line1'       => $request->input('address_line1'),       // Address line 1
+                    'line2'       => $request->input('address_line2'),       // Address line 2 (optional)
+                    'city'        => $request->input('address_city'),        // City
+                    'state'       => $request->input('address_state'),       // State
                     'postal_code' => $request->input('address_postal_code'), // Postal code
                 ],
             ],
             'external_account' => [
-                'object' => 'bank_account', // Bank account or debit card
-                'country' => 'US', // Country of the bank account or debit card
-                'currency' => 'usd', // Currency of the bank account or debit card
+                'object'         => 'bank_account',                         // Bank account or debit card
+                'country'        => 'US',                                   // Country of the bank account or debit card
+                'currency'       => 'usd',                                  // Currency of the bank account or debit card
                 'routing_number' => $request->input('bank_routing_number'), // Routing number
                 'account_number' => $request->input('bank_account_number'), // Bank account number
             ],
 
-            'metadata' => [
+            'metadata'         => [
                 'industry' => $request->input('industry'), // Industry
             ],
             'business_profile' => [
                 'url' => $request->input('business_url'), // URL of the business (optional)
             ],
-            'capabilities' => [
+            'capabilities'     => [
                 'card_payments' => ['requested' => true],
-                'transfers' => ['requested' => true],
+                'transfers'     => ['requested' => true],
             ],
         ]);
 
-        $account  =  $stripe->accountLinks->create([
-            'account' => $acc->id,
+        $account = $stripe->accountLinks->create([
+            'account'     => $acc->id,
             'refresh_url' => 'https://uniquemedsvcs.com/',
-            'return_url' => 'https://uniquemedsvcs.com/',
-            'type' => 'account_onboarding',
+            'return_url'  => 'https://uniquemedsvcs.com/',
+            'type'        => 'account_onboarding',
         ]);
 
         // auth()->user();
         User::find(auth()->user()->id)->update(['stripe_account_id' => $acc->id]);
 
-
         return $this->success(['onboardingLink' => $account->url], 'Account Connected Successfully', 200);
     }
     public function stripeConnectedAccountLogin(Request $request)
     {
-        $stripe = new StripeClient(
-            env('STRIPE_SECRET')
-        );
+        $stripe = new StripeClient(config('ums.secret'));
 
-        $loginLink = $stripe->accounts->createLoginLink(
-            auth()->user()->stripe_account_id,
-            []
-        );
+        $accountId = auth()->user()->stripe_account_id;
 
-        return $this->success(['login_link' => $loginLink], 'Account Connected Login Link', 200);
+        if (! $accountId) {
+            return $this->error('Stripe account not found for this user', 404);
+        }
+
+        // Fetch account details
+        $account = $stripe->accounts->retrieve($accountId, []);
+
+        // Check if onboarding is incomplete
+        if (! empty($account->requirements->currently_due) || ! empty($account->requirements->eventually_due)) {
+            // Onboarding not complete, give onboarding link again
+            $onboardingLink = $stripe->accountLinks->create([
+                'account'     => $account->id,
+                'refresh_url' => 'https://uniquemedsvcs.com/',
+                'return_url'  => 'https://uniquemedsvcs.com/',
+                'type'        => 'account_onboarding',
+            ]);
+
+            return $this->success(
+                ['onboarding_link' => $onboardingLink->url],
+                'Onboarding not completed. Please complete onboarding.',
+                200
+            );
+        }
+
+        // If onboarding completed, generate login link
+        $loginLink = $stripe->accounts->createLoginLink($account->id);
+
+        return $this->success(
+            ['login_link' => $loginLink->url],
+            'Account Connected Login Link',
+            200
+        );
     }
+
 }

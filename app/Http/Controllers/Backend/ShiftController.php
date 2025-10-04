@@ -130,6 +130,7 @@ class ShiftController extends Controller
                         $key,
                         $notification,
                         'Can you work at: ' . $shift->title . ' ' . date('m/d/Y', strtotime($shift->date)) . ' E: ' . $shift->shift_hour . ' as an ' . $shift->clinician_type . '? Pay Rate: ' . $shift->rate_per_hour . '/hour',
+                        $shift
                     ]);
                 }
             }

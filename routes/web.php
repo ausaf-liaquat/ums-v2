@@ -201,7 +201,7 @@ Route::get('/account-deletion', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth']], function () {
 
-   
+
     /**
      * Backend Dashboard
      * Namespaces indicate folder structure.

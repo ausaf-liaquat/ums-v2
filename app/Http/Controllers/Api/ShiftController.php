@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -10,6 +9,7 @@ use App\Models\Traits\ApiResponser;
 use App\Models\UserShift;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ShiftController extends Controller
 {
@@ -17,10 +17,10 @@ class ShiftController extends Controller
 
     public function shifts()
     {
-        $facility_ids = BannedFacilityClinician::where('user_id', auth()->user()->id)->pluck('facility_id')->toArray();
+        $facility_ids         = BannedFacilityClinician::where('user_id', auth()->user()->id)->pluck('facility_id')->toArray();
         $bannedFaciltyUserIds = Facility::whereIn('id', $facility_ids)->pluck('user_id')->toArray();
-        $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
-        $shifts = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
+        $usedShifts_ids       = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
+        $shifts               = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
             $q->where('date', '>=', now()->format('Y-m-d'))->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
         })->get();
 
@@ -29,13 +29,21 @@ class ShiftController extends Controller
     public function acceptedShifts()
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
-        $shifts = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
+        $shifts         = Shift::whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
+        // $shifts         = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
+
+        return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
+    }
+    public function completedShifts()
+    {
+        $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
+        $shifts         = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
     }
     public function shiftDetail($id)
     {
-        $shift = Shift::find($id);
+        $shift           = Shift::find($id);
         $clockInClockOut = UserShift::where('shift_id', $shift->id)->where('user_id', auth()->user()->id)->first();
 
         return $this->success(['shift' => $shift, 'user_shift' => $clockInClockOut], 'Shift Details', 200);
@@ -44,95 +52,188 @@ class ShiftController extends Controller
     {
         $shift = Shift::findOrFail($id);
 
-        UserShift::create([
-            'user_id' => auth()->user()->id,
+        $shiftUser = UserShift::firstOrNew([
+            'user_id'  => auth()->id(),
             'shift_id' => $shift->id,
-            'status' => 1,
-            'accepted_at' => now(),
-            'clockin' => now(),
         ]);
+
+        if ($shiftUser->exists && $shiftUser->status == 1) {
+            return $this->error('Shift already accepted', 400);
+        }
+
+        $shiftUser->status      = 1; // Accepted
+        $shiftUser->accepted_at = now();
+        $shiftUser->save();
 
         return $this->success('Shift Accepted', 200);
     }
+
     public function shiftDecline($id)
     {
         $shift = Shift::findOrFail($id);
 
-        UserShift::create([
-            'user_id' => auth()->user()->id,
+        $shiftUser = UserShift::firstOrNew([
+            'user_id'  => auth()->id(),
             'shift_id' => $shift->id,
-            'rejected_at' => now(),
-            'status' => 2,
         ]);
+
+        if ($shiftUser->exists && $shiftUser->status == 2) {
+            return $this->error('Shift already declined', 400);
+        }
+
+        $shiftUser->status      = 2; // Rejected
+        $shiftUser->rejected_at = now();
+        $shiftUser->save();
 
         return $this->success('Shift Declined', 200);
     }
+
     public function shiftCancel($id)
     {
-        $shift = Shift::findOrFail($id);
-        $shift_user = UserShift::where(['user_id' => auth()->user()->id, 'shift_id' => $shift->id])->first();
-        if (!$shift_user) {
+        $shiftUser = UserShift::where([
+            'user_id'  => auth()->id(),
+            'shift_id' => $id,
+        ])->first();
+
+        if (! $shiftUser) {
             return $this->error('Shift Not Exist', 404);
         }
-        UserShift::where([
-            'user_id' => auth()->user()->id,
-            'shift_id' => $shift->id,
-        ])->update([
-            'status' => 3,
-        ]);
+
+        if ($shiftUser->status == 3) {
+            return $this->error('Shift already cancelled', 400);
+        }
+
+        $shiftUser->status      = 3;     // Cancelled
+        $shiftUser->canceled_at = now(); // (you should add this column if not already)
+        $shiftUser->save();
 
         return $this->success('Shift Canceled', 200);
     }
-    public function shiftClockout($id)
-    {
-        $shift = Shift::findOrFail($id);
 
-        $shift_user = UserShift::where('shift_id', $shift->id)->first();
-        if (!$shift_user) {
-            return $this->error('Shift Not Exist', 404);
-        }
-        $shift_user->update([
-            'clockout' => now(),
-            'shift_status' => 1,
-        ]);
-        return $this->success('Shift Clockout', 200);
-    }
     public function shiftClockin(Request $request, $id)
     {
-
         $shift = Shift::findOrFail($id);
-        // $attributes = $request->validate([
-        //     'lat' => ['required'],
-        //     'lon' => ['required'],
-        //     'location_name' => ['required'],
 
-        // ]);
-        $shift_user = UserShift::where('shift_id', $shift->id)->first();
-        if (!$shift_user) {
+        // Validate request
+        $validator = Validator::make($request->all(), [
+            'lat'           => ['required', 'numeric'],
+            'lon'           => ['required', 'numeric'],
+            'location_name' => ['nullable', 'string'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        // Check if user already has an active shift (clocked in but not out)
+        $alreadyClockedIn = UserShift::where('user_id', auth()->id())
+            ->whereNotNull('clockin')
+            ->whereNull('clockout')
+            ->first();
+
+        if ($alreadyClockedIn) {
+            return $this->error('You are already clocked in to another shift. Please clock out first.', 400);
+        }
+
+        // Compare shift date with today
+        $today = now()->toDateString();
+
+        if ($shift->date < $today) {
+            return $this->error('This shift has expired (' . $shift->date . ')', 400);
+        }
+
+        if ($shift->date > $today) {
+            return $this->error('You can only clock in on the shift date (' . $shift->date . ')', 400);
+        }
+
+        // Find user’s shift assignment
+        $shiftUser = UserShift::where('shift_id', $shift->id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if (! $shiftUser) {
             return $this->error('Shift Not Exist', 404);
         }
-        $shift_user->update([
-            'clockin' => now(),
-            'lat' => $request->lat,
-            'lon' => $request->lon,
-            'location_name' => $request->location_name,
 
+        if ($shiftUser->clockin) {
+            return $this->error('Already Clocked In', 400);
+        }
+
+        // Update record
+        $shiftUser->update([
+            'clockin'       => now(),
+            'clock_in_lat'  => $request->lat,
+            'clock_in_lon'  => $request->lon,
+            'location_name' => $request->location_name,
+            'shift_status'  => 0, // In process
         ]);
-        return $this->success('Shift Clockin', 200);
+
+        return $this->success('Shift Clocked In', 200);
     }
+
+    public function shiftClockout(Request $request, $id)
+    {
+        $shift = Shift::findOrFail($id);
+
+        // Validate request
+        $validator = Validator::make($request->all(), [
+            'lat' => ['required', 'numeric'],
+            'lon' => ['required', 'numeric'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        // Find user’s shift assignment
+        $shiftUser = UserShift::where('shift_id', $shift->id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if (! $shiftUser) {
+            return $this->error('Shift Not Exist', 404);
+        }
+
+        if (! $shiftUser->clockin) {
+            return $this->error('Cannot clock out before clocking in', 400);
+        }
+
+        if ($shiftUser->clockout) {
+            return $this->error('Already Clocked Out', 400);
+        }
+
+        // Update record
+        $shiftUser->update([
+            'clockout'      => now(),
+            'clock_out_lat' => $request->lat,
+            'clock_out_lon' => $request->lon,
+            'shift_status'  => 1, // Completed
+        ]);
+
+        return $this->success('Shift Clocked Out', 200);
+    }
+
     public function shiftsFilter(Request $request)
     {
         // Fetch banned facility user IDs and used shift IDs only if they are relevant for filtering
-        $facility_ids = BannedFacilityClinician::where('user_id', auth()->id())->pluck('facility_id');
+        $facility_ids          = BannedFacilityClinician::where('user_id', auth()->id())->pluck('facility_id');
         $bannedFacilityUserIds = Facility::whereIn('id', $facility_ids)->pluck('user_id');
-        $usedShiftIds = UserShift::where('user_id', auth()->id())->pluck('shift_id');
+        $usedShiftIds          = UserShift::where('user_id', auth()->id())->pluck('shift_id');
 
         // Build the shifts query with conditional filtering
         $shifts = Shift::whereNotIn('id', $usedShiftIds)
             ->whereNotIn('user_id', $bannedFacilityUserIds)
             ->where('date', '>=', now()->format('Y-m-d'))
             ->when($request->filled('date'), function ($query) use ($request) {
-                $query->where('date', '>=', date('Y-m-d', strtotime($request->date)));
+                $query->where('date', date('Y-m-d', strtotime($request->date)));
             })
             ->when($request->filled('shift_hour'), function ($query) use ($request) {
                 $query->where('shift_hour', $request->shift_hour);

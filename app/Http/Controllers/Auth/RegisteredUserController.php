@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'clinician_type'       => ['required', 'array', 'min:1'],
             'passcode'             => ['required', 'string', 'max:100'],
             'facility_unit'        => ['nullable', 'string'],
-            'g-recaptcha-response' => 'required|recaptchav3:registered,0.9',
+            // 'g-recaptcha-response' => 'required|recaptchav3:registered,0.9',
         ], [
             'facility_name.required'           => 'The facility name is required.',
             'facility_name.string'             => 'The facility name must be a valid string.',
@@ -95,8 +95,8 @@ class RegisteredUserController extends Controller
             'facility_unit.numeric'            => 'The facility unit must be a number.',
             'facility_unit.min'                => 'The facility must have at least one unit.',
 
-            'g-recaptcha-response.required'    => 'Google reCAPTCHA verification is required.',
-            'g-recaptcha-response.recaptchav3' => 'Google reCAPTCHA verification failed.',
+            // 'g-recaptcha-response.required'    => 'Google reCAPTCHA verification is required.',
+            // 'g-recaptcha-response.recaptchav3' => 'Google reCAPTCHA verification failed.',
         ]);
 
         $user = User::create([
