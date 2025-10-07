@@ -199,7 +199,7 @@ Route::get('/account-deletion', function () {
 // | |_) / ___ \ |___| . \| |___| |\  | |_| |
 // |____/_/   \_\____|_|\_\_____|_| \_|____/
 
-Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth','verified']], function () {
 
 
     /**
