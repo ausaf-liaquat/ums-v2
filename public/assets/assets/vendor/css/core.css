@@ -2117,7 +2117,7 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .table-responsive-md {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4792,7 +4792,7 @@ textarea.form-control-lg {
     border-radius: 0;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .modal-fullscreen-md-down {
     width: 100vw;
     max-width: none;
@@ -7986,7 +7986,7 @@ form select.selectpicker.is-invalid ~ .btn {
     flex-direction: column;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .modal .modal-dialog:not(.modal-fullscreen) {
     padding: 0 0.75rem;
     padding-left: 0.75rem !important;
@@ -8474,7 +8474,7 @@ button.list-group-item-gray.active {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .card-img-left {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
@@ -8489,7 +8489,7 @@ button.list-group-item-gray.active {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .card-img-right {
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
@@ -8507,7 +8507,7 @@ button.list-group-item-gray.active {
   border-right: 1px solid #d9dee3;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .card .card-separator {
     border-bottom: 1px solid #d9dee3;
     padding-bottom: 1.5rem;
@@ -15350,7 +15350,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
     white-space: nowrap;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .layout-navbar .navbar-nav .nav-item.dropdown {
     position: static;
     float: left;

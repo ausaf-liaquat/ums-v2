@@ -295,7 +295,7 @@
                 <div class="service-card-modern animate-fadeInUp">
                     <div class="service-image-modern" style="background-image: url({{ asset('img/img-7.jpg') }})">
                         <div class="service-overlay-modern"></div>
-                        <div class="coming-soon-badge">COMING SOON</div>
+                        {{-- <div class="coming-soon-badge">COMING SOON</div> --}}
                     </div>
                     <div class="service-content-modern">
                         <h3 class="service-title-modern">Staffing Solutions</h3>

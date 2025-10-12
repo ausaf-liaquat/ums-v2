@@ -26,18 +26,36 @@
                                 <div class="avatar flex-shrink-0 me-3">
                                     <img src="{{ asset('assets/assets/img/icons/unicons/wallet.png') }}" alt="User">
                                 </div>
+                                @php
+                                    $balance = balanceData();
+                                    $currentBalance = $balance['currentBalance'];
+                                    $percentageChange = $balance['percentageIncrease'];
+                                @endphp
+
                                 <div>
                                     <small class="text-muted d-block">Total Balance</small>
                                     <div class="d-flex align-items-center">
-                                        <h6 class="mb-0 me-1">${{ balanceData()['currentBalance'] }}</h6>
-                                        <small class="text-success fw-semibold">
-                                            <i class="bx bx-chevron-up"></i>
-                                            {{ balanceData()['percentageIncrease'] }}
-                                        </small>
+                                        <h6 class="mb-0 me-1">${{ number_format($currentBalance, 2) }}</h6>
+
+                                        @if ($percentageChange > 0)
+                                            <small class="text-success fw-semibold d-flex align-items-center">
+                                                <i class="bx bx-chevron-up"></i>
+                                                {{ number_format($percentageChange, 2) }}%
+                                            </small>
+                                        @elseif($percentageChange < 0)
+                                            <small class="text-danger fw-semibold d-flex align-items-center">
+                                                <i class="bx bx-chevron-down"></i>
+                                                {{ number_format(abs($percentageChange), 2) }}%
+                                            </small>
+                                        @else
+                                            <small class="text-muted fw-semibold">0.00%</small>
+                                        @endif
+
                                         <input type="hidden" id="current_balance" name="current_balance"
                                             value="{{ auth()->user()->wallet->balanceFloatNum }}">
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-6">

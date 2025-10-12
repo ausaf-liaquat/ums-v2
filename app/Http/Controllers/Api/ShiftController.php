@@ -5,11 +5,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Facilities\BannedFacilityClinician;
 use App\Models\Facilities\Facility;
 use App\Models\Shifts\Shift;
+use App\Models\Shifts\ShiftSummary;
 use App\Models\Traits\ApiResponser;
 use App\Models\UserShift;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class ShiftController extends Controller
 {
@@ -22,7 +25,11 @@ class ShiftController extends Controller
         $usedShifts_ids       = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
         $shifts               = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
             $q->where('date', '>=', now()->format('Y-m-d'))->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
-        })->get();
+        })
+            ->whereDoesntHave('shift_clinicians', function ($query) {
+                $query->where('status', 1); // Exclude if already accepted
+            })
+            ->get();
 
         return $this->success(['shifts' => $shifts], 'Shifts', 200);
     }
@@ -48,17 +55,28 @@ class ShiftController extends Controller
 
         return $this->success(['shift' => $shift, 'user_shift' => $clockInClockOut], 'Shift Details', 200);
     }
+
     public function shiftAccept($id)
     {
         $shift = Shift::findOrFail($id);
 
+        // ✅ Check if shift is already accepted by another clinician
+        $alreadyAccepted = UserShift::where('shift_id', $shift->id)
+            ->where('status', 1)
+            ->exists();
+
+        if ($alreadyAccepted) {
+            return $this->error('Shift already accepted by another clinician', 400);
+        }
+
+        // ✅ Proceed with assigning to current user
         $shiftUser = UserShift::firstOrNew([
             'user_id'  => auth()->id(),
             'shift_id' => $shift->id,
         ]);
 
         if ($shiftUser->exists && $shiftUser->status == 1) {
-            return $this->error('Shift already accepted', 400);
+            return $this->error('You have already accepted this shift', 400);
         }
 
         $shiftUser->status      = 1; // Accepted
@@ -179,7 +197,7 @@ class ShiftController extends Controller
     {
         $shift = Shift::findOrFail($id);
 
-        // Validate request
+        // ✅ Validate request
         $validator = Validator::make($request->all(), [
             'lat' => ['required', 'numeric'],
             'lon' => ['required', 'numeric'],
@@ -193,7 +211,7 @@ class ShiftController extends Controller
             ], 422);
         }
 
-        // Find user’s shift assignment
+        // ✅ Find user’s shift assignment
         $shiftUser = UserShift::where('shift_id', $shift->id)
             ->where('user_id', auth()->id())
             ->first();
@@ -210,15 +228,45 @@ class ShiftController extends Controller
             return $this->error('Already Clocked Out', 400);
         }
 
-        // Update record
-        $shiftUser->update([
-            'clockout'      => now(),
-            'clock_out_lat' => $request->lat,
-            'clock_out_lon' => $request->lon,
-            'shift_status'  => 1, // Completed
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return $this->success('Shift Clocked Out', 200);
+            // ✅ Update shift user record
+            $shiftUser->update([
+                'clockout'      => now(),
+                'clock_out_lat' => $request->lat,
+                'clock_out_lon' => $request->lon,
+                'shift_status'  => 1, // Completed
+            ]);
+
+            // ✅ Calculate summary
+            $summary = calculateSummary($shift, $shiftUser);
+
+            // ✅ Store summary record
+            $shiftSummary = ShiftSummary::create([
+                'shift_id'                => $shift->id,
+                'total_worked_hours'      => $summary['worked_hours'],
+                'clinician_pay'           => $summary['clinician_pay'],
+                'holding_refunded_amount' => $summary['holding_refunded'],
+            ]);
+
+            // ✅ Refund holding amount if applicable
+            if ($shift->user && $summary['holding_refunded'] > 0) {
+                $shift->user->depositFloat($summary['holding_refunded'], [
+                    'type'       => 'holding_refund',
+                    'shift_id'   => $shift->id,
+                    'summary_id' => $shiftSummary->id,
+                ]);
+            }
+
+            DB::commit();
+
+            return $this->success('Shift Clocked Out', 200);
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return $this->error('Something went wrong during clockout. Please try again. ' . $e->getMessage(), 500);
+        }
     }
 
     public function shiftsFilter(Request $request)

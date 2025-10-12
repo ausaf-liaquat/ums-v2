@@ -474,7 +474,7 @@ class UserController extends Controller
             Storage::disk('cms')->delete($$module_name_singular->avatar);
         }
 
-        $file = null;
+        $file = $$module_name_singular->avatar;
 
         // Check if the request has file
         if ($request->hasFile('avatar')) {
@@ -485,6 +485,12 @@ class UserController extends Controller
         $$module_name_singular->update([
             'avatar' => $file,
         ]);
+
+        if ($request->passcode && $$module_name_singular->facility) {
+            $user->facility->update([
+                'passcode' => $request->passcode,
+            ]);
+        }
 
         // Clear Cache
         Artisan::call('cache:clear');

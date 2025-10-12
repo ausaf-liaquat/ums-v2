@@ -62,7 +62,7 @@
                         </div> --}}
                         <div class="col-md-5 mb-3">
                             {{-- <input id="file-multiple-input" name="avatar" type="file" multiple=""> --}}
-                            <input type="file" class="filepond form-control" name="avatar" required>
+                            <input type="file" class="filepond form-control" name="avatar" accept="image/*" required>
 
                         </div>
                     </div>
@@ -102,6 +102,12 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name)->class('form-label') }} {!! field_required($required) !!}
                                 {{ html()->email($field_name)->placeholder($field_placeholder)->class('form-control')->attributes(["$required"]) }}
+                            </div>
+                        </div>
+                         <div class="col-12 col-sm-6 mb-3">
+                            <div class="form-group">
+                                <label for="">Verbal Passcode</label>
+                               <input type="text" name="passcode" class="form-control" placeholder="Enter Verbal Passcode" value="{{ $user->facility->passcode ?? '' }}" >
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 mb-3">

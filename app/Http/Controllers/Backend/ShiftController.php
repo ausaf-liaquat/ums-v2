@@ -96,15 +96,18 @@ class ShiftController extends Controller
 
         try {
             $shift = Shift::create([
-                'user_id' => $user->id,
-                'title' => $request->title,
-                'shift_location' => $request->shift_location,
-                'clinician_type' => $request->clinician_type,
-                'shift_hour' => $request->shift_hour,
-                'shift_note' => json_encode($request->mf_shift_type_id),
-                'date' => $request->date,
-                'rate_per_hour' => $request->rate_per_hour,
-                'total_amount' => $request->total_amount,
+                'user_id'             => $user->id,
+                'title'               => $request->title,
+                'shift_location'      => $request->shift_location,
+                'clinician_type'      => $request->clinician_type,
+                'shift_hour'          => $request->shift_hour,
+                'actual_shift_hour'   => $request->actual_shift_hour,
+                'shift_note'          => json_encode($request->mf_shift_type_id),
+                'date'                => $request->date,
+                'rate_per_hour'       => $request->rate_per_hour,
+                'service_fee'         => config('ums.shift_service_fee'),
+                'holding_fee'         => config('ums.shift_holding_fee'),
+                'total_amount'        => $request->total_amount,
                 'additional_comments' => $request->additional_comment,
                 // 'mf_shift_hour_id'    => $request->shift_hour_id,
                 // 'mf_clinician_type_id' => $request->mf_clinician_type_id,
@@ -185,10 +188,10 @@ class ShiftController extends Controller
             'additional_comments' => $request->additional_comment,
             'title' => $request->title,
             'shift_location' => $request->shift_location,
-            'clinician_type' => $request->clinician_type,
-            'shift_hour' => $request->shift_hour,
+            // 'clinician_type' => $request->clinician_type,
+            // 'shift_hour' => $request->shift_hour,
             'shift_note' => json_encode($request->mf_shift_type_id),
-            'date' => $request->date,
+            // 'date' => $request->date,
         ]);
 
         // $shift->shift_types()->sync($request->mf_shift_type_id);

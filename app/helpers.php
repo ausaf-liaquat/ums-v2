@@ -5,12 +5,15 @@
  */
 
 use App\Models\Notification;
+use App\Models\Shifts\Shift;
 use App\Models\User;
+use App\Models\UserShift;
+use Bavix\Wallet\Models\Transaction;
 use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-if (!function_exists('app_name')) {
+if (! function_exists('app_name')) {
     /**
      * Helper to grab the application name.
      *
@@ -25,7 +28,7 @@ if (!function_exists('app_name')) {
 /*
  * Global helpers file with misc functions.
  */
-if (!function_exists('app_url')) {
+if (! function_exists('app_url')) {
     /**
      * Helper to grab the application name.
      *
@@ -40,7 +43,7 @@ if (!function_exists('app_url')) {
 /*
  * Global helpers file with misc functions.
  */
-if (!function_exists('user_registration')) {
+if (! function_exists('user_registration')) {
     /**
      * Helper to grab the application name.
      *
@@ -64,13 +67,13 @@ if (!function_exists('user_registration')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('label_case')) {
+if (! function_exists('label_case')) {
     /**
      * Prepare the Column Name for Lables.
      */
     function label_case($text)
     {
-        $order = ['_', '-'];
+        $order   = ['_', '-'];
         $replace = ' ';
 
         $new_text = trim(\Illuminate\Support\Str::title(str_replace('"', '', $text)));
@@ -86,7 +89,7 @@ if (!function_exists('label_case')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('show_column_value')) {
+if (! function_exists('show_column_value')) {
     /**
      * Generates the function comment for the given function.
      *
@@ -106,7 +109,7 @@ if (!function_exists('show_column_value')) {
 
         $value = $valueObject->$column_name;
 
-        if (!$value) {
+        if (! $value) {
             return $value;
         }
 
@@ -150,7 +153,7 @@ if (!function_exists('show_column_value')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('field_required')) {
+if (! function_exists('field_required')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -169,7 +172,7 @@ if (!function_exists('field_required')) {
 /**
  * Get or Set the Settings Values.
  */
-if (!function_exists('setting')) {
+if (! function_exists('setting')) {
     function setting($key, $default = null)
     {
         if (is_null($key)) {
@@ -189,12 +192,12 @@ if (!function_exists('setting')) {
 /*
  * Show Human readable file size
  */
-if (!function_exists('humanFilesize')) {
+if (! function_exists('humanFilesize')) {
     function humanFilesize($size, $precision = 2)
     {
         $units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $step = 1024;
-        $i = 0;
+        $step  = 1024;
+        $i     = 0;
 
         while ($size / $step > 0.9) {
             $size /= $step;
@@ -211,7 +214,7 @@ if (!function_exists('humanFilesize')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('encode_id')) {
+if (! function_exists('encode_id')) {
     /**
      * Encode Id to a Hashids / Sqids.
      */
@@ -229,14 +232,14 @@ if (!function_exists('encode_id')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('decode_id')) {
+if (! function_exists('decode_id')) {
     /**
      * Decode Id from Hashids / Sqids.
      */
     function decode_id($hashid)
     {
         $sqids = new Sqids\Sqids(alphabet: 'abcdefghijklmnopqrstuvwxyz123456789');
-        $id = $sqids->decode($hashid);
+        $id    = $sqids->decode($hashid);
 
         if (count($id)) {
             return $id[0];
@@ -252,7 +255,7 @@ if (!function_exists('decode_id')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('slug_format')) {
+if (! function_exists('slug_format')) {
     /**
      * Format a string to Slug.
      */
@@ -277,7 +280,7 @@ if (!function_exists('slug_format')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('icon')) {
+if (! function_exists('icon')) {
     /**
      * Format a string to Slug.
      */
@@ -295,7 +298,7 @@ if (!function_exists('icon')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('logUserAccess')) {
+if (! function_exists('logUserAccess')) {
     /**
      * Format a string to Slug.
      */
@@ -318,13 +321,13 @@ if (!function_exists('logUserAccess')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('bn2enNumber')) {
+if (! function_exists('bn2enNumber')) {
     /**
      * Prepare the Column Name for Lables.
      */
     function bn2enNumber($number)
     {
-        $search_array = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '০'];
+        $search_array  = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '০'];
         $replace_array = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
         return str_replace($search_array, $replace_array, $number);
@@ -338,13 +341,13 @@ if (!function_exists('bn2enNumber')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('en2bnNumber')) {
+if (! function_exists('en2bnNumber')) {
     /**
      * Prepare the Column Name for Lables.
      */
     function en2bnNumber($number)
     {
-        $search_array = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        $search_array  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
         $replace_array = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '০'];
 
         return str_replace($search_array, $replace_array, $number);
@@ -358,34 +361,34 @@ if (!function_exists('en2bnNumber')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('en2bnDate')) {
+if (! function_exists('en2bnDate')) {
     /**
      * Convert a English number to Bengali.
      */
     function en2bnDate($date)
     {
         // Convert numbers
-        $search_array = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        $search_array  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
         $replace_array = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '০'];
-        $bn_date = str_replace($search_array, $replace_array, $date);
+        $bn_date       = str_replace($search_array, $replace_array, $date);
 
         // Convert Short Week Day Names
-        $search_array = ['Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
+        $search_array  = ['Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
         $replace_array = ['শুক্র', 'শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ'];
-        $bn_date = str_replace($search_array, $replace_array, $bn_date);
+        $bn_date       = str_replace($search_array, $replace_array, $bn_date);
 
         // Convert Month Names
-        $search_array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $search_array  = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         $replace_array = ['জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগষ্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
-        $bn_date = str_replace($search_array, $replace_array, $bn_date);
+        $bn_date       = str_replace($search_array, $replace_array, $bn_date);
 
         // Convert Short Month Names
-        $search_array = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $search_array  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $replace_array = ['জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগষ্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
-        $bn_date = str_replace($search_array, $replace_array, $bn_date);
+        $bn_date       = str_replace($search_array, $replace_array, $bn_date);
 
         // Convert AM-PM
-        $search_array = ['am', 'pm', 'AM', 'PM'];
+        $search_array  = ['am', 'pm', 'AM', 'PM'];
         $replace_array = ['পূর্বাহ্ন', 'অপরাহ্ন', 'পূর্বাহ্ন', 'অপরাহ্ন'];
 
         return str_replace($search_array, $replace_array, $bn_date);
@@ -400,7 +403,7 @@ if (!function_exists('en2bnDate')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('banglaDate')) {
+if (! function_exists('banglaDate')) {
     function banglaDate($date_input = '')
     {
         if ($date_input === '') {
@@ -409,17 +412,17 @@ if (!function_exists('banglaDate')) {
 
         $date_input = strtotime($date_input);
 
-        $en_day = intval(date('j', $date_input));
+        $en_day   = intval(date('j', $date_input));
         $en_month = intval(date('n', $date_input));
-        $en_year = intval(date('Y', $date_input));
+        $en_year  = intval(date('Y', $date_input));
 
-        $bn_month_days = [30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 29, 30];
+        $bn_month_days    = [30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 29, 30];
         $bn_month_middate = [13, 12, 14, 13, 14, 14, 15, 15, 15, 16, 14, 14];
-        $bn_months = ['পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র', 'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন', 'কার্তিক', 'অগ্রহায়ণ'];
+        $bn_months        = ['পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র', 'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন', 'কার্তিক', 'অগ্রহায়ণ'];
 
         // Day & Month
         if ($en_day <= $bn_month_middate[$en_month - 1]) {
-            $bn_day = $en_day + $bn_month_days[$en_month - 1] - $bn_month_middate[$en_month - 1];
+            $bn_day   = $en_day + $bn_month_days[$en_month - 1] - $bn_month_middate[$en_month - 1];
             $bn_month = $bn_months[$en_month - 1];
 
             // Leap Year
@@ -427,7 +430,7 @@ if (!function_exists('banglaDate')) {
                 $bn_day += 1;
             }
         } else {
-            $bn_day = $en_day - $bn_month_middate[$en_month - 1];
+            $bn_day   = $en_day - $bn_month_middate[$en_month - 1];
             $bn_month = $bn_months[$en_month % 12];
         }
 
@@ -449,7 +452,7 @@ if (!function_exists('banglaDate')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('generate_rgb_code')) {
+if (! function_exists('generate_rgb_code')) {
     /**
      * Prepare the Column Name for Lables.
      */
@@ -472,7 +475,7 @@ if (!function_exists('generate_rgb_code')) {
  *
  * ------------------------------------------------------------------------
  */
-if (!function_exists('date_today')) {
+if (! function_exists('date_today')) {
     /**
      * Return Date with weekday.
      *
@@ -487,7 +490,7 @@ if (!function_exists('date_today')) {
     }
 }
 
-if (!function_exists('language_direction')) {
+if (! function_exists('language_direction')) {
     /**
      * return direction of languages.
      *
@@ -498,25 +501,25 @@ if (!function_exists('language_direction')) {
         if (empty($language)) {
             $language = app()->getLocale();
         }
-        $language = strtolower(substr($language, 0, 2));
+        $language     = strtolower(substr($language, 0, 2));
         $rtlLanguages = [
-            'ar', //  'العربية', Arabic
+            'ar',  //  'العربية', Arabic
             'arc', //  'ܐܪܡܝܐ', Aramaic
             'bcc', //  'بلوچی مکرانی', Southern Balochi
             'bqi', //  'بختياري', Bakthiari
             'ckb', //  'Soranî / کوردی', Sorani Kurdish
-            'dv', //  'ދިވެހިބަސް', Dhivehi
-            'fa', //  'فارسی', Persian
+            'dv',  //  'ދިވެހިބަސް', Dhivehi
+            'fa',  //  'فارسی', Persian
             'glk', //  'گیلکی', Gilaki
-            'he', //  'עברית', Hebrew
+            'he',  //  'עברית', Hebrew
             'lrc', //- 'لوری', Northern Luri
             'mzn', //  'مازِرونی', Mazanderani
             'pnb', //  'پنجابی', Western Punjabi
-            'ps', //  'پښتو', Pashto
-            'sd', //  'سنڌي', Sindhi
-            'ug', //  'Uyghurche / ئۇيغۇرچە', Uyghur
-            'ur', //  'اردو', Urdu
-            'yi', //  'ייִדיש', Yiddish
+            'ps',  //  'پښتو', Pashto
+            'sd',  //  'سنڌي', Sindhi
+            'ug',  //  'Uyghurche / ئۇيغۇرچە', Uyghur
+            'ur',  //  'اردو', Urdu
+            'yi',  //  'ייִדיש', Yiddish
         ];
         if (in_array($language, $rtlLanguages)) {
             return 'rtl';
@@ -529,7 +532,7 @@ if (!function_exists('language_direction')) {
 /*
  * Application Demo Mode check
  */
-if (!function_exists('demo_mode')) {
+if (! function_exists('demo_mode')) {
     /**
      * Helper to grab the application name.
      *
@@ -550,7 +553,7 @@ if (!function_exists('demo_mode')) {
 /*
  * Split Name to First Name and Last Name
  */
-if (!function_exists('split_name')) {
+if (! function_exists('split_name')) {
     /**
      * Split Name to First Name and Last Name.
      *
@@ -558,49 +561,65 @@ if (!function_exists('split_name')) {
      */
     function split_name($name)
     {
-        $name = trim($name);
-        $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+        $name       = trim($name);
+        $last_name  = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
         $first_name = trim(preg_replace('#' . preg_quote($last_name, '#') . '#', '', $name));
 
         return [$first_name, $last_name];
     }
 }
 
-function balanceData($user_id=null)
+function balanceData($user_id = null)
 {
-    $auth = $user_id ? User::find($user_id) : auth()->user();
-    $user = $auth->wallet;
-    $currentBalance = $user->balanceFloatNum;
+    $user = $user_id ? User::find($user_id) : auth()->user();
 
-    // Fetch the balance from one month ago
-    $oneMonthAgo = Carbon::now()->subMonth();
-    $previousBalanceRecord = Wallet::where('holder_id', $user->id)
-        ->where('holder_type', get_class($user))
-        ->where('created_at', '<=', $oneMonthAgo)
-        ->orderBy('created_at', 'desc')
-        ->first();
-
-    // Handle case where there is no previous balance record
-    if ($previousBalanceRecord) {
-        $previousBalance = $previousBalanceRecord->balanceFloatNum;
-    } else {
-        $previousBalance = 0; // Default to 0 if no previous record is found
+    if (! $user || ! $user->wallet) {
+        return [
+            'currentBalance'     => 0,
+            'previousBalance'    => 0,
+            'percentageIncrease' => 0,
+        ];
     }
 
-    // Calculate the percentage increase
-    if ($previousBalance != 0) {
-        $percentageIncrease = (($currentBalance - $previousBalance) / $previousBalance) * 100;
-    } else {
-        $percentageIncrease = 0; // Handle division by zero
+    $wallet         = $user->wallet;
+    $currentBalance = $wallet->balanceFloatNum;
+
+    // Get last 2 confirmed transactions for this wallet
+    $transactions = Transaction::where('wallet_id', $wallet->id)
+        ->where('confirmed', true)
+        ->orderBy('id', 'desc')
+        ->take(2)
+        ->get();
+
+    // If only one transaction, we can't calculate a change
+    if ($transactions->count() < 2) {
+        return [
+            'currentBalance'     => $currentBalance,
+            'previousBalance'    => 0,
+            'percentageIncrease' => 0,
+        ];
     }
 
-    $data = [
-        'currentBalance' => $currentBalance,
-        'previousBalance' => $previousBalance,
-        'percentageIncrease' => $percentageIncrease
+    // Calculate previous balance by reversing the last transaction
+    $latest   = $transactions[0];
+    $previous = $transactions[1];
+
+    if ($latest->type === 'deposit') {
+        $previousBalance = $currentBalance - ($latest->amount / 100); // if stored in cents
+    } else {
+        $previousBalance = $currentBalance + ($latest->amount / 100);
+    }
+
+    // Calculate percentage change
+    $percentageIncrease = $previousBalance != 0
+        ? round((($currentBalance - $previousBalance) / abs($previousBalance)) * 100, 2)
+        : 0;
+
+    return [
+        'currentBalance'     => $currentBalance,
+        'previousBalance'    => $previousBalance,
+        'percentageIncrease' => $percentageIncrease,
     ];
-
-    return $data;
 }
 function areAnyRoutesActive(array $routes)
 {
@@ -632,11 +651,11 @@ function addNotification($data)
 {
 
     $notificationRecord = [
-        'type' => $data[0],
-        'user_id' => $data[1],
+        'type'             => $data[0],
+        'user_id'          => $data[1],
         'notification_for' => $data[2],
-        'title' => $data[3],
-        'meta' => $data[4]->toArray()
+        'title'            => $data[3],
+        'meta'             => $data[4]->toArray(),
     ];
 
     if ($user = User::find($data[1])) {
@@ -663,4 +682,31 @@ function getNotification($role)
         'read_at',
         null
     )->orderByDesc('created_at')->get();
+}
+
+function calculateSummary(Shift $shift, UserShift $shiftUser): array
+{
+    $clockIn     = Carbon::parse($shiftUser->clockin);
+    $clockOut    = $shiftUser->clockout ? Carbon::parse($shiftUser->clockout) : now();
+    $workedHours = round($clockOut->diffInMinutes($clockIn) / 60, 2);
+
+    // Extract scheduled hours from shift_hour if stored like "8hrs" or "08:00"
+    $scheduledHours = $shift->actual_shift_hour;
+
+    $ratePerHour = (float) $shift->rate_per_hour;
+    $holdingFee  = (float) ($shift->holding_fee ?? 0);
+    $serviceFee  = (float) ($shift->service_fee ?? 0);
+
+    $clinicianPay = $ratePerHour * $workedHours;
+
+    // Calculate holding refund: refund unused holding back to client
+    $expectedPay   = $ratePerHour * $scheduledHours;
+    $holdingRefund = max($holdingFee - max(0, $clinicianPay - $expectedPay + $serviceFee), 0);
+
+    return [
+        'worked_hours'     => $workedHours,
+        'scheduled_hours'  => $scheduledHours,
+        'clinician_pay'    => $clinicianPay,
+        'holding_refunded' => $holdingRefund,
+    ];
 }
