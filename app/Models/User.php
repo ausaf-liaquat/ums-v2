@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Courses\CourseUserSchedule;
@@ -8,8 +7,10 @@ use App\Models\Facilities\Facility;
 use App\Models\Presenters\UserPresenter;
 use App\Models\Shifts\Shift;
 use App\Models\Traits\HasHashedMediaTrait;
+use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Interfaces\WalletFloat;
 use Bavix\Wallet\Traits\HasWalletFloat;
+use function Illuminate\Events\queueable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -23,9 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-use function Illuminate\Events\queueable;
-
-class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletFloat
+class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet, WalletFloat
 {
     use HasFactory;
     use HasHashedMediaTrait;
@@ -34,6 +33,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     use SoftDeletes;
     use UserPresenter;
     use Billable;
+
     use HasWalletFloat;
     use HasApiTokens;
     // use SoftDeletes;
@@ -62,11 +62,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'date_of_birth' => 'datetime',
-            'last_login' => 'datetime',
-            'deleted_at' => 'datetime',
-            'social_profiles' => 'array',
+            'password'          => 'hashed',
+            'date_of_birth'     => 'datetime',
+            'last_login'        => 'datetime',
+            'deleted_at'        => 'datetime',
+            'social_profiles'   => 'array',
         ];
     }
 
@@ -141,29 +141,29 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
         return $this->hasOne(UserAccount::class);
     }
 
-     /**
+    /**
      * @return array
      */
     public function prepareData(): array
     {
         return [
-            'id' => $this->id,
-            'first_name' => $this->first_name ?? 'N/A',
-            'last_name' => $this->last_name ?? 'N/A',
-            'email' => $this->email ?? 'N/A',
-            'phone_number' => $this->phone ?? 'N/A',
-            'image_url' => Storage::disk('cms')->url($this->avatar) ?? 'N/A',
+            'id'                 => $this->id,
+            'first_name'         => $this->first_name ?? 'N/A',
+            'last_name'          => $this->last_name ?? 'N/A',
+            'email'              => $this->email ?? 'N/A',
+            'phone_number'       => $this->phone ?? 'N/A',
+            'image_url'          => Storage::disk('cms')->url($this->avatar) ?? 'N/A',
             'unCompleted_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 0)->count() ?? 0,
-            'completed_shifts' => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 1)->count() ?? 0,
-            'address'=>$this->address,
-            'state'=>$this->state,
-            'city'=>$this->city,
-            'zip_code'=>$this->zip_code,
+            'completed_shifts'   => UserShift::where('user_id', $this->id)->where('status', 1)->where('status', 1)->count() ?? 0,
+            'address'            => $this->address,
+            'state'              => $this->state,
+            'city'               => $this->city,
+            'zip_code'           => $this->zip_code,
 
         ];
     }
 
-     /**
+    /**
      * Retrieve the bannedFacilities associated with the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -173,7 +173,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
         return $this->hasMany(BannedFacilityClinician::class);
     }
 
-     /**
+    /**
      * Retrieve the user_courses associated with the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -192,14 +192,14 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, WalletF
     }
 
     /**
- * The "booted" method of the model.
- */
-protected static function booted(): void
-{
-    static::updated(queueable(function (User $customer) {
-        if ($customer->hasStripeId()) {
-            $customer->syncStripeCustomerDetails();
-        }
-    }));
-}
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::updated(queueable(function (User $customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
 }
