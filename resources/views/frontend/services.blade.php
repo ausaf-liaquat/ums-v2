@@ -293,6 +293,7 @@
             <div class="services-grid-modern">
                 <!-- Staffing Service -->
                 <div class="service-card-modern animate-fadeInUp">
+                  <a href="{{ route('staffing') }}">
                     <div class="service-image-modern" style="background-image: url({{ asset('img/img-7.jpg') }})">
                         <div class="service-overlay-modern"></div>
                         {{-- <div class="coming-soon-badge">COMING SOON</div> --}}
@@ -300,10 +301,11 @@
                     <div class="service-content-modern">
                         <h3 class="service-title-modern">Staffing Solutions</h3>
                         <p class="service-description-modern">Find qualified healthcare professionals to meet your staffing needs with our comprehensive recruitment services.</p>
-                        <a href="{{ route('join-our-team') }}" class="service-link-modern">
+
                             Learn More <i class="fas fa-arrow-right"></i>
-                        </a>
+                        
                     </div>
+                    </a>
                 </div>
 
                 <!-- Courses Service -->

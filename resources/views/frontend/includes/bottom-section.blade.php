@@ -40,7 +40,7 @@
 
 
                     <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400 mb-4 pl-16">
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -56,7 +56,7 @@
                             <span>PST</span>
                         </li>
 
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -71,7 +71,7 @@
                             <span>MAP</span></span>
                         </li>
 
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +87,7 @@
                             <span>PT</span>
                         </li>
 
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -103,7 +103,7 @@
                             <span>RT</span>
                         </li>
 
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 16 12">
@@ -121,7 +121,7 @@
                             <span>RN</span>
                         </li>
 
-                        <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <li class="flex items-center space-x-8 rtl:space-x-reverse">
                             <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 16 12">

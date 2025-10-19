@@ -147,10 +147,10 @@
                 header.classList.add("backdrop-blur-md");
                 header.classList.add("bg-white");
 
-                navaction.classList.remove("bg-white");
-                navaction.classList.add("gradient");
-                navaction.classList.remove("text-gray-800");
-                navaction.classList.add("text-white");
+                // navaction.classList.remove("bg-white");
+                // navaction.classList.add("gradient");
+                // navaction.classList.remove("text-gray-800");
+                // navaction.classList.add("text-white");
                 //Use to switch toggleColour colours
                 for (var i = 0; i < toToggle.length; i++) {
                     toToggle[i].classList.add("text-gray-800");
@@ -167,10 +167,10 @@
             } else {
                 header.classList.remove("backdrop-blur-md");
                 header.classList.remove("bg-white");
-                navaction.classList.remove("gradient");
-                navaction.classList.add("bg-white");
-                navaction.classList.remove("text-white");
-                navaction.classList.add("text-gray-800");
+                // navaction.classList.remove("gradient");
+                // navaction.classList.add("bg-white");
+                // navaction.classList.remove("text-white");
+                // navaction.classList.add("text-gray-800");
                 //Use to switch toggleColour colours
                 for (var i = 0; i < toToggle.length; i++) {
                     toToggle[i].classList.add("text-white");
@@ -227,23 +227,23 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('navAction');
-            const popover = document.getElementById('popover-content');
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const button = document.getElementById('navAction');
+        //     const popover = document.getElementById('popover-content');
 
-            // Toggle popover visibility on button click
-            button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                popover.classList.toggle('hidden');
-            });
+        //     // Toggle popover visibility on button click
+        //     button.addEventListener('click', function(e) {
+        //         e.stopPropagation();
+        //         popover.classList.toggle('hidden');
+        //     });
 
-            // Close popover when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!popover.contains(e.target) && e.target !== button) {
-                    popover.classList.add('hidden');
-                }
-            });
-        });
+        //     // Close popover when clicking outside
+        //     document.addEventListener('click', function(e) {
+        //         if (!popover.contains(e.target) && e.target !== button) {
+        //             popover.classList.add('hidden');
+        //         }
+        //     });
+        // });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/pagedone@1.1.2/src/js/pagedone.js"></script> --}}

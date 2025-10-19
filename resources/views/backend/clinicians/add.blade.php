@@ -197,6 +197,8 @@
                                 <thead>
                                     <tr>
                                         <th>Sr. no</th>
+                                        <th>Expiration Date</th>
+                                        <th>Date Obtained</th>
                                         <th>Document Title</th>
                                         <th>Document Type</th>
                                         <th>Document Notes</th>
@@ -248,6 +250,16 @@
 
                     },
                     {
+                        "data": "expired_at",
+                        "className": "text-center",
+                        "defaultContent": "",
+                    },
+                    {
+                        "data": "obtained_at",
+                        "className": "text-center",
+                        "defaultContent": "",
+                    },
+                    {
                         "data": "title",
                         "className": "text-center",
                         "defaultContent": "",
@@ -272,7 +284,22 @@
 
                 ],
                 columnDefs: [
-
+                    // US Date format
+                    {
+                        targets: [1, 2],
+                        render: function(data, type, row) {
+                            if (data) {
+                                let date = new Date(data);
+                                return date.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'short', // use 'long' for full month name
+                                    day: 'numeric'
+                                });
+                            } else {
+                                return 'N/A';
+                            }
+                        }
+                    }
                 ],
                 drawCallback: function() {
 

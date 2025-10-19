@@ -26,7 +26,7 @@
 
             <!-- Navigation Links -->
             <ul
-                class="list-reset lg:flex justify-end flex-1 items-center space-y-2 lg:space-y-0 mt-3 lg:mt-0 mb-3 lg:mb-0 text-base lg:text-lg">
+                class="list-reset lg:flex justify-end flex-1 items-center space-y-2 lg:space-y-0 mt-3 lg:mt-0 lg:mb-0 text-base lg:text-lg">
                 <li class="lg:mr-4 xl:mr-6">
                     <a class="inline-block py-2 px-3 lg:px-4 hover:bg-white hover:rounded-tl-2xl hover:rounded-br-2xl hover:text-black transition-all duration-300 {{ request()->routeIs('home') ? 'font-extrabold' : '' }}"
                         href="{{ route('home') }}">Home</a>
@@ -67,10 +67,10 @@
                         Dashboard
                     </a>
                 @endauth
-                <button type="button" id="navAction"
+                {{-- <button type="button" id="navAction"
                     class="mx-auto hover:underline bg-white text-gray-800 font-bold rounded-full py-2 px-5 md:px-8 lg:px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out whitespace-nowrap flex-shrink-0 text-sm">
                     Start Today
-                </button>
+                </button> --}}
                 <div class="relative inline-block">
                     <!-- Popover Content -->
                     <div id="popover-content"
@@ -93,7 +93,7 @@
                                             <div>
                                                 <h3 class="text-gray-700 text-sm lg:text-base">Nursing Professionals
                                                 </h3>
-                                                <a href="#"
+                                                <a href="{{ route('join-our-team') }}"
                                                     class="mt-1 lg:mt-2 bg-purple-500 text-white py-1 px-3 lg:px-4 rounded text-sm lg:text-base whitespace-nowrap inline-block">
                                                     Join Our Team
                                                 </a>
@@ -114,7 +114,7 @@
                                             </div>
                                             <div>
                                                 <h3 class="text-gray-700 text-sm lg:text-base">Nursing Facilities</h3>
-                                                <a href="#"
+                                                <a href="{{ route('talk-to-us') }}"
                                                     class="mt-1 lg:mt-2 bg-purple-500 text-white py-1 px-3 lg:px-4 rounded text-sm lg:text-base whitespace-nowrap inline-block">
                                                     Talk To Us
                                                 </a>

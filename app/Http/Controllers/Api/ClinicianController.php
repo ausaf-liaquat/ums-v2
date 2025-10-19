@@ -26,7 +26,7 @@ class ClinicianController extends Controller
             'title'            => 'required|string|max:255',
             'file'             => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx',
             'document_type_id' => 'required|integer|exists:document_types,id',
-            'expiry_date'      => 'nullable|date|after_or_equal:today',
+            // 'expiry_date'      => 'nullable|date|after_or_equal:today',
         ]);
 
         if ($validator->fails()) {
@@ -44,6 +44,7 @@ class ClinicianController extends Controller
             'uploaded_by'      => auth()->user()->id,
             'notes'            => $request->notes,
             'expired_at'       => $request->expiry_date, // Add expiry date to creation
+            'obtained_at'      => $request->obtained_date
         ]);
 
         $file = null;

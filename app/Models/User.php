@@ -198,8 +198,27 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet,
     {
         static::updated(queueable(function (User $customer) {
             if ($customer->hasStripeId()) {
-                $customer->syncStripeCustomerDetails();
+                try {
+                    // Try syncing existing Stripe customer
+                    $customer->syncStripeCustomerDetails();
+                } catch (\Stripe\Exception\InvalidRequestException $e) {
+                    // Handle "No such customer" error
+                    if (str_contains($e->getMessage(), 'No such customer')) {
+                        // Reset stripe_id and recreate the customer
+                        $customer->forceFill(['stripe_id' => null])->save();
+
+                        // Create a new Stripe customer and update stripe_id
+                        $customer->createAsStripeCustomer();
+                    } else {
+                        // Re-throw other errors
+                        throw $e;
+                    }
+                }
+            } else {
+                // If user doesn't have a stripe_id, create one
+                $customer->createAsStripeCustomer();
             }
         }));
     }
+
 }

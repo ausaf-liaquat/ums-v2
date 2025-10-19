@@ -68,6 +68,14 @@
             height: 100%;
         }
 
+        .select2-container--default .select2-selection--multiple {
+            background-color: white;
+            border: 1px solid #ededed;
+            border-radius: 4px;
+            cursor: text;
+        }
+
+
         .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
             color: #696cff;
             cursor: pointer;

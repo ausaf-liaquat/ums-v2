@@ -62,6 +62,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('join-our-team', 'joinOurTeam')->name('join-our-team');
     Route::get('talk-to-us', 'talkToUs')->name('talk-to-us');
     Route::post('/talk-to-us/store', 'talkToUsStore')->name('talk-to-us.store');
+    Route::get('staffing', 'staffing')->name('staffing');
+
 
     Route::get('careers', 'careers')->name('careers');
 

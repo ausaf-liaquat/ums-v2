@@ -122,7 +122,7 @@ class ShiftController extends Controller
         }
 
         $shiftUser->status      = 3;     // Cancelled
-        $shiftUser->canceled_at = now(); // (you should add this column if not already)
+        $shiftUser->cancelled_at = now(); // (you should add this column if not already)
         $shiftUser->save();
 
         return $this->success('Shift Canceled', 200);
@@ -291,6 +291,9 @@ class ShiftController extends Controller
             })
             ->when($request->filled('location'), function ($query) use ($request) {
                 $query->where('shift_location', 'like', '%' . $request->location . '%');
+            })
+            ->whereDoesntHave('shift_clinicians', function ($query) {
+                $query->where('status', 1); // Exclude if already accepted
             })
             ->get();
 

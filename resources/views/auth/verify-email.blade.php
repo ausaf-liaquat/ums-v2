@@ -1,5 +1,7 @@
 @extends('layouts.guest')
-
+@section('title')
+    Verify Email
+@endsection
 @section('content')
     <!-- Session Status -->
 
@@ -38,10 +40,23 @@
                             </div>
                         </form>
 
+                        <div iv class="mb-3">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
+                                <button type="submit" class="btn btn-outline-secondary d-grid w-100">Log
+                                    Out</button>
+                            </form>
+                            <div class="mt-3">
+                                <a href="{{ route('home') }}">
+                                    <i class="bx bx-chevron-left scaleX-n1-rtl"></i> Back to home
+                                </a>
+
+                            </div>
+                        </div>
+                        <!-- /Register -->
                     </div>
                 </div>
-                <!-- /Register -->
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Backend\Clinicians;
 
 use App\Http\Controllers\Controller;
@@ -21,7 +20,6 @@ class ClinicianController extends Controller
         return view('backend.clinicians.index');
     }
 
-
     public function dataTable(Request $request)
     {
 
@@ -38,17 +36,15 @@ class ClinicianController extends Controller
             })->get();
 
             $facilityOptions = "";
-            $statuses = $user->bannedFacilities->pluck('facility_id')->toArray();
+            $statuses        = $user->bannedFacilities->pluck('facility_id')->toArray();
             foreach ($facilities as $key => $facility) {
                 $facilityOptions .= "<option value='$facility->id' " . (in_array($facility->id, $statuses) ? 'selected' : '') . ">{$facility->name}</option>";
             }
 
             return "
-            <div class='mb-3'>
                 <select class='facility_select' data-id='{$user->id}' multiple>
                     $facilityOptions
                 </select>
-            </div>
             ";
         })->rawColumns(['status', 'resume'])->make(true);
     }
@@ -69,14 +65,15 @@ class ClinicianController extends Controller
     public function edit(User $clinician)
     {
         $data = [
-            'isEdit' => true,
-            'clinician' => $clinician
+            'isEdit'    => true,
+            'clinician' => $clinician,
         ];
 
         return view('backend.clinicians.add', $data);
     }
 
-    public function update(User $clinician, Request $request){
+    public function update(User $clinician, Request $request)
+    {
         // $phone = $request->phone;
         // $phoneWithoutPlus = str_replace('+', '', $phone);
         $data = [
@@ -118,14 +115,13 @@ class ClinicianController extends Controller
 
         // Add new facility IDs that are not already associated
         foreach ($request->facility_ids ?? [] as $value) {
-            if (!in_array($value, $existingFacilityIds)) {
+            if (! in_array($value, $existingFacilityIds)) {
                 BannedFacilityClinician::create([
-                    'user_id' => $request->id,
-                    'facility_id' => $value
+                    'user_id'     => $request->id,
+                    'facility_id' => $value,
                 ]);
             }
         }
-
 
         return response()->json([], 200);
     }
