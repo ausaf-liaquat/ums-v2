@@ -100,10 +100,10 @@
                                     Technician</option>
                                 <option value="LPN" {{ $isEdit && $shift->clinician_type == 'LPN' ? 'selected' : '' }}>
                                     LPN</option>
-                                {{-- <option value="RN" {{ $isEdit && $shift->clinician_type == 'RN' ? 'selected' : '' }}>RN
-                                </option> --}}
-                                <option value="LVN/LPN"
-                                    {{ $isEdit && $shift->clinician_type == 'LVN/LPN' ? 'selected' : '' }}>LVN/LPN
+                                <option value="RN" {{ $isEdit && $shift->clinician_type == 'RN' ? 'selected' : '' }}>RN
+                                </option>
+                                <option value="LVN"
+                                    {{ $isEdit && $shift->clinician_type == 'LVN' ? 'selected' : '' }}>LVN
                                 </option>
                                 <option value="ARNP" {{ $isEdit && $shift->clinician_type == 'ARNP' ? 'selected' : '' }}>
                                     ARNP</option>
@@ -334,9 +334,16 @@
                 const type = $('#clinician_type').val()?.toUpperCase() || '';
                 const minRate = minRates[type] || 0;
                 const val = parseFloat($(this).val());
+                const $errorContainer = $('#amount-error');
 
-                if (val < minRate) {
-                    $(this).val(minRate);
+                // Clear previous message
+                $errorContainer.html('');
+
+                // Show message only if below min rate
+                if (!isNaN(val) && val < minRate) {
+                    $errorContainer.html(
+                        `<small class="text-danger">Minimum rate for ${type || 'this type'} is $${minRate}/hr.</small>`
+                    );
                 }
             });
             clinicianSelect2()
