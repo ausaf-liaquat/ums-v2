@@ -209,17 +209,9 @@ class ShiftController extends Controller
     {
         $shift = Shift::with('user', 'shift_clinicians')->findOrFail($request->id);
 
-        // ❌ 1. Stop deletion if any clinician already accepted this shift
-        $isAccepted = $shift->shift_clinicians()
+        $isClinicianAccepted = $shift->shift_clinicians()
             ->where('status', 1)
             ->exists();
-
-        if ($isAccepted) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Shift cannot be deleted because it has already been accepted by a clinician.',
-            ], 400);
-        }
 
         DB::beginTransaction();
 
@@ -233,7 +225,7 @@ class ShiftController extends Controller
                 ->exists();
 
             // ✅ 3. If available → refund the charged amount
-            if ($isAvailable && $shift->user) {
+            if (!$isClinicianAccepted && $isAvailable && $shift->user) {
                 $refundAmount = $shift->total_amount ?? 0;
 
                 if ($refundAmount > 0) {
