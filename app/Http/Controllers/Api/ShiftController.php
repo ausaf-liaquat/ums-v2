@@ -187,15 +187,15 @@ class ShiftController extends Controller
         }
 
         // Compare shift date with today
-        $today = appNow()->toDateString();
+        // $today = appNow()->toDateString();
 
-        if ($shift->date < $today) {
-            return $this->error('This shift has expired (' . $shift->date . ')', 400);
-        }
+        // if ($shift->date < $today) {
+        //     return $this->error('This shift has expired (' . $shift->date . ')', 400);
+        // }
 
-        if ($shift->date > $today) {
-            return $this->error('You can only clock in on the shift date (' . $shift->date . ')', 400);
-        }
+        // if ($shift->date > $today) {
+        //     return $this->error('You can only clock in on the shift date (' . $shift->date . ')', 400);
+        // }
 
         // Find user’s shift assignment
         $shiftUser = UserShift::where('shift_id', $shift->id)
