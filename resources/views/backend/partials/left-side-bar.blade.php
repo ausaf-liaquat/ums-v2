@@ -262,6 +262,14 @@
                       <div data-i18n="Analytics">Funds</div>
                   </a>
               </li>
+
+               <li
+                  class="menu-item {{ request()->routeIs('backend.faqs') ? 'active' : '' }}">
+                  <a href="{{ route('backend.faqs') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bxs-help-circle"></i>
+                      <div data-i18n="Analytics">FAQs</div>
+                  </a>
+              </li>
           @endif
           @if (!auth()->user()->hasRole('clinician'))
               <li

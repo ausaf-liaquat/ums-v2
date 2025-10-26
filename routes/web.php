@@ -19,7 +19,6 @@ use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Select2Controller;
 use App\Http\Controllers\Backend\ShiftController;
-use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\LanguageController;
@@ -64,7 +63,6 @@ Route::controller(FrontendController::class)->group(function () {
     Route::post('/talk-to-us/store', 'talkToUsStore')->name('talk-to-us.store');
     Route::get('staffing', 'staffing')->name('staffing');
 
-
     Route::get('careers', 'careers')->name('careers');
 
     // COURSES
@@ -74,7 +72,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('services/courses/checkout/{slug}/{course_schedule}', 'courseCheckout')->name('course.checkout');
     Route::get('services/course/checkout/stripe', 'checkoutStripe')->name('course.checkout.stripe');
     Route::get('services/course/checkout/success', 'checkoutSuccess')->name('checkout-course.success');
-    Route::get('services/course/checkout/cancel',  'checkoutCancel')->name('checkout-course.cancel');
+    Route::get('services/course/checkout/cancel', 'checkoutCancel')->name('checkout-course.cancel');
 });
 
 // Language Switch
@@ -139,7 +137,6 @@ Route::controller(ColorController::class)->group(function () {
 Route::get('shifts/autocomplete', [AjaxController::class, 'shiftAutocomplete'])->name('shifts.autocomplete');
 Route::get('/course/get-dates', [AjaxController::class, 'getDates'])->name('course.get-dates');
 
-
 //  _____ ____   ___  _   _ _____ _____ _   _ ____
 // |  ___|  _ \ / _ \| \ | |_   _| ____| \ | |  _ \
 // | |_  | |_) | | | |  \| | | | |  _| |  \| | | | |
@@ -181,7 +178,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
         *
         * ---------------------------------------------------------------------
         */
-        $module_name = 'users';
+        $module_name     = 'users';
         $controller_name = 'UserController';
         Route::get('profile/edit', ['as' => "{$module_name}.profileEdit", 'uses' => "{$controller_name}@profileEdit"]);
         Route::patch('profile/edit', ['as' => "{$module_name}.profileUpdate", 'uses' => "{$controller_name}@profileUpdate"]);
@@ -201,8 +198,7 @@ Route::get('/account-deletion', function () {
 // | |_) / ___ \ |___| . \| |___| |\  | |_| |
 // |____/_/   \_\____|_|\_\_____|_| \_|____/
 
-Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth','verified']], function () {
-
+Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin', 'as' => 'backend.', 'middleware' => ['auth', 'verified']], function () {
 
     /**
      * Backend Dashboard
@@ -210,6 +206,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
      */
     // Route::get('/', 'BackendController@index')->name('home');
     Route::get('dashboard', 'BackendController@index')->name('dashboard');
+
+    /**
+     * FAQs Routes
+     */
+    Route::get("faqs", function () {
+        return view('backend.faqs.index');
+    })->name("faqs");
 
     /*
      *
@@ -466,7 +469,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
      * ---------------------------------------------------------------------
      */
     Route::group(['middleware' => ['can:edit_settings']], function () {
-        $module_name = 'settings';
+        $module_name     = 'settings';
         $controller_name = 'SettingController';
         Route::get("{$module_name}", "{$controller_name}@index")->name("{$module_name}");
         Route::post("{$module_name}", "{$controller_name}@store")->name("{$module_name}.store");
@@ -478,7 +481,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    $module_name = 'notifications';
+    $module_name     = 'notifications';
     $controller_name = 'NotificationsController';
     Route::get("{$module_name}", ['as' => "{$module_name}.index", 'uses' => "{$controller_name}@index"]);
     Route::get("{$module_name}/markAllAsRead", ['as' => "{$module_name}.markAllAsRead", 'uses' => "{$controller_name}@markAllAsRead"]);
@@ -491,7 +494,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    $module_name = 'backups';
+    $module_name     = 'backups';
     $controller_name = 'BackupController';
     Route::get("{$module_name}", ['as' => "{$module_name}.index", 'uses' => "{$controller_name}@index"]);
     Route::get("{$module_name}/create", ['as' => "{$module_name}.create", 'uses' => "{$controller_name}@create"]);
@@ -504,7 +507,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    $module_name = 'roles';
+    $module_name     = 'roles';
     $controller_name = 'RolesController';
     Route::resource("{$module_name}", "{$controller_name}");
 
@@ -514,7 +517,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    $module_name = 'users';
+    $module_name     = 'users';
     $controller_name = 'UserController';
     Route::get("{$module_name}/{id}/resend-email-confirmation", ['as' => "{$module_name}.emailConfirmationResend", 'uses' => "{$controller_name}@emailConfirmationResend"]);
 
