@@ -274,7 +274,7 @@
                             showCancelButton: true,
                             confirmButtonText: "Yes, delete it!",
                             showLoaderOnConfirm: true,
-                            allowOutsideClick: false,
+                            allowOutsideClick: true, // allow click outside
                             preConfirm: function() {
                                 return axios
                                     .post(
@@ -284,26 +284,33 @@
                                         id: id,
                                     })
                                     .then(function(response) {
-                                        table.ajax.reload(null, false);
-                                        Swal.fire(
-                                            'Deleted!',
-                                            response.data.message ||
-                                            'Shift has been deleted.',
-                                            'success'
-                                        );
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Deleted!",
+                                            text: response.data
+                                                .message ||
+                                                "Shift has been deleted.",
+                                        }).then(() => {
+                                            // ✅ Reload when user clicks OK or closes the alert
+                                            location.reload();
+                                        });
                                     })
                                     .catch(function(error) {
-                                        console.log(error);
-                                        Swal.fire(
-                                            'Failed!',
-                                            error.response?.data?.message ||
-                                            'Something went wrong!',
-                                            'error'
-                                        );
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Failed!",
+                                            text: error.response?.data
+                                                ?.message ||
+                                                "Something went wrong!",
+                                        }).then(() => {
+                                            // ✅ Also reload when user closes error alert
+                                            location.reload();
+                                        });
                                     });
                             },
                         });
                     });
+
 
                 }
             })
