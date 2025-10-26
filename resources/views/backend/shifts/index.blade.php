@@ -271,39 +271,40 @@
                         Swal.fire({
                             icon: "question",
                             title: "Are you sure?",
-                            showCancelButton: 1,
+                            showCancelButton: true,
                             confirmButtonText: "Yes, delete it!",
-                            showLoaderOnConfirm: 1,
-                            allowOutsideClick: !1,
-                            preConfirm: function(n) {
+                            showLoaderOnConfirm: true,
+                            allowOutsideClick: false,
+                            preConfirm: function() {
                                 return axios
                                     .post(
-                                        '{{ route('backend.shifts.destroy') }}', {
-                                            _method: 'delete',
-                                            _token: '{{ csrf_token() }}',
-                                            id: id,
-                                        })
+                                    '{{ route('backend.shifts.destroy') }}', {
+                                        _method: 'delete',
+                                        _token: '{{ csrf_token() }}',
+                                        id: id,
+                                    })
                                     .then(function(response) {
-                                        console.log(response);
                                         table.ajax.reload(null, false);
                                         Swal.fire(
                                             'Deleted!',
+                                            response.data.message ||
                                             'Shift has been deleted.',
                                             'success'
-                                        )
-
+                                        );
                                     })
                                     .catch(function(error) {
                                         console.log(error);
                                         Swal.fire(
                                             'Failed!',
-                                            error.response.data.error,
+                                            error.response?.data?.message ||
+                                            'Something went wrong!',
                                             'error'
-                                        )
+                                        );
                                     });
                             },
-                        })
+                        });
                     });
+
                 }
             })
 

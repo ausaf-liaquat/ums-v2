@@ -97,7 +97,7 @@ class FrontendController extends Controller
     {
         return view('frontend.staffing');
     }
-    
+
     public function talkToUsStore(Request $request)
     {
         TalkToUs::create($request->all());

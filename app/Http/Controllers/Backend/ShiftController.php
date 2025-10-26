@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
@@ -14,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 use Yajra\DataTables\Facades\DataTables;
 
 class ShiftController extends Controller
@@ -40,7 +40,7 @@ class ShiftController extends Controller
                 $date = Carbon::parse($shift->date);
                 return $date->format('F j, Y');
             })->addColumn('mfshift_types', function (Shift $shift) {
-            $data = $shift->shift_note? implode(', ', json_decode($shift->shift_note)):'N/A';
+            $data = $shift->shift_note ? implode(', ', json_decode($shift->shift_note)) : 'N/A';
             return $data;
         })->make(true);
     }
@@ -73,9 +73,9 @@ class ShiftController extends Controller
     public function create()
     {
         $data = [
-            'isEdit' => false,
+            'isEdit'         => false,
             'clinicianTypes' => MFClinicianType::whereStatus(1)->get(),
-            'shiftHours' => MFShiftHour::whereStatus(1)->get(),
+            'shiftHours'     => MFShiftHour::whereStatus(1)->get(),
         ];
 
         return view('backend.shifts.add', $data);
@@ -133,7 +133,7 @@ class ShiftController extends Controller
                         $key,
                         $notification,
                         'Can you work at: ' . $shift->title . ' ' . date('m/d/Y', strtotime($shift->date)) . ' E: ' . $shift->shift_hour . ' as an ' . $shift->clinician_type . '? Pay Rate: ' . $shift->rate_per_hour . '/hour',
-                        $shift
+                        $shift,
                     ]);
                 }
             }
@@ -156,10 +156,10 @@ class ShiftController extends Controller
     public function edit(Shift $shift)
     {
         $data = [
-            'isEdit' => true,
-            'shift' => $shift,
+            'isEdit'         => true,
+            'shift'          => $shift,
             'clinicianTypes' => MFClinicianType::whereStatus(1)->get(),
-            'shiftHours' => MFShiftHour::whereStatus(1)->get(),
+            'shiftHours'     => MFShiftHour::whereStatus(1)->get(),
         ];
 
         return view('backend.shifts.add', $data);
@@ -186,11 +186,11 @@ class ShiftController extends Controller
         $shift->update([
             // 'mf_clinician_type_id' => $request->mf_clinician_type_id,
             'additional_comments' => $request->additional_comment,
-            'title' => $request->title,
-            'shift_location' => $request->shift_location,
+            'title'               => $request->title,
+            'shift_location'      => $request->shift_location,
             // 'clinician_type' => $request->clinician_type,
             // 'shift_hour' => $request->shift_hour,
-            'shift_note' => json_encode($request->mf_shift_type_id),
+            'shift_note'          => json_encode($request->mf_shift_type_id),
             // 'date' => $request->date,
         ]);
 
@@ -207,10 +207,65 @@ class ShiftController extends Controller
 
     public function destroy(Request $request)
     {
+        $shift = Shift::with('user', 'shift_clinicians')->findOrFail($request->id);
 
-        $shift = Shift::find($request->id);
-        $shift->shift_clinicians()->delete();
-        $shift->delete();
-        return response()->json(200);
+        // ❌ 1. Stop deletion if any clinician already accepted this shift
+        $isAccepted = $shift->shift_clinicians()
+            ->where('status', 1)
+            ->exists();
+
+        if ($isAccepted) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shift cannot be deleted because it has already been accepted by a clinician.',
+            ], 400);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // ✅ 2. Check if shift is still available (future date + not accepted)
+            $isAvailable = Shift::where('id', $shift->id)
+                ->whereDate('date', '>=', now()->format('Y-m-d'))
+                ->whereDoesntHave('shift_clinicians', function ($q) {
+                    $q->where('status', 1);
+                })
+                ->exists();
+
+            // ✅ 3. If available → refund the charged amount
+            if ($isAvailable && $shift->user) {
+                $refundAmount = $shift->total_amount ?? 0;
+
+                if ($refundAmount > 0) {
+                    $shift->user->depositFloat($refundAmount, [
+                        'type'        => 'shift_refund',
+                        'shift_id'    => $shift->id,
+                        'description' => 'Shift cancelled while still available in UMS app',
+                    ]);
+                }
+            }
+
+            // ✅ 4. Delete related clinicians and shift itself
+            $shift->shift_clinicians()->delete();
+            $shift->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $isAvailable
+                    ? 'Shift cancelled and refund issued to facility balance.'
+                    : 'Shift cancelled. No refund applicable.',
+            ], 200);
+
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong during cancellation: ' . $e->getMessage(),
+            ], 500);
+        }
     }
+
 }

@@ -56,6 +56,7 @@
                                 <th>Name</th>
                                 <th>Unit</th>
                                 <th>Phone</th>
+                                <th>Email</th>
                                 <th>Address</th>
                                 <th>Balance</th>
                                 <th>Clinicians Needs</th>
@@ -115,6 +116,11 @@
                         "defaultContent": "",
                     },
                     {
+                        "data": "email",
+                        "className": "text-center",
+                        "defaultContent": "",
+                    },
+                    {
                         "data": "address",
                         "className": "text-center",
                         "defaultContent": "",
@@ -148,7 +154,7 @@
                     //       },
                     //   },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "className": "text-center",
                         "render": function(data, type, row, meta) {
                             let html = ''

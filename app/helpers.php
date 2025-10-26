@@ -569,6 +569,34 @@ if (! function_exists('split_name')) {
     }
 }
 
+if (!function_exists('appNow')) {
+    /**
+     * Return the current datetime in the application's preferred timezone.
+     *
+     * @param  string|null  $timezone  Optional timezone (default: 'UTC')
+     * @return \Carbon\Carbon
+     */
+    function appNow($timezone = null): Carbon
+    {
+        $tz = $timezone ?? config('app.timezone', 'UTC');
+        return Carbon::now($tz);
+    }
+}
+
+if (!function_exists('appToday')) {
+    /**
+     * Return the current date (Y-m-d) in the application's preferred timezone.
+     *
+     * @param  string|null  $timezone  Optional timezone (default: 'UTC')
+     * @return string
+     */
+    function appToday($timezone = null): string
+    {
+        $tz = $timezone ?? config('app.timezone', 'UTC');
+        return Carbon::now($tz)->toDateString();
+    }
+}
+
 function balanceData($user_id = null)
 {
     $user = $user_id ? User::find($user_id) : auth()->user();

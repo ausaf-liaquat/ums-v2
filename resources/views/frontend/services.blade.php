@@ -25,7 +25,7 @@
             height: 60vh;
             min-height: 500px;
             background: linear-gradient(rgba(109, 40, 217, 0.8), rgba(139, 92, 246, 0.8)),
-                        url('{{ asset('img/hero-bg.jpg') }}');
+                url('{{ asset('img/hero-bg.jpg') }}');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -160,7 +160,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
         }
 
         .service-content-modern {
@@ -236,6 +236,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -293,78 +294,90 @@
             <div class="services-grid-modern">
                 <!-- Staffing Service -->
                 <div class="service-card-modern animate-fadeInUp">
-                  <a href="{{ route('staffing') }}">
-                    <div class="service-image-modern" style="background-image: url({{ asset('img/img-7.jpg') }})">
-                        <div class="service-overlay-modern"></div>
-                        {{-- <div class="coming-soon-badge">COMING SOON</div> --}}
-                    </div>
-                    <div class="service-content-modern">
-                        <h3 class="service-title-modern">Staffing Solutions</h3>
-                        <p class="service-description-modern">Find qualified healthcare professionals to meet your staffing needs with our comprehensive recruitment services.</p>
+                    <a href="{{ route('staffing') }}">
+                        <div class="service-image-modern" style="background-image: url({{ asset('img/img-7.jpg') }})">
+                            <div class="service-overlay-modern"></div>
+                            {{-- <div class="coming-soon-badge">COMING SOON</div> --}}
+                        </div>
+                        <div class="service-content-modern">
+                            <h3 class="service-title-modern">Staffing Solutions</h3>
+                            <p class="service-description-modern">Find qualified healthcare professionals to meet your
+                                staffing needs with our comprehensive recruitment services.</p>
 
                             Learn More <i class="fas fa-arrow-right"></i>
-                        
-                    </div>
+
+                        </div>
                     </a>
                 </div>
 
                 <!-- Courses Service -->
                 <div class="service-card-modern animate-fadeInUp">
-                    <div class="service-image-modern" style="background-image: url({{ asset('img/img-9.jpg') }})">
-                        <div class="service-overlay-modern"></div>
-                    </div>
-                    <div class="service-content-modern">
-                        <h3 class="service-title-modern">Professional Courses</h3>
-                        <p class="service-description-modern">Enhance your skills with our specialized healthcare training programs and certification courses.</p>
-                        <a href="{{ route('courses') }}" class="service-link-modern">
+                    <a href="{{ route('courses') }}">
+                        <div class="service-image-modern" style="background-image: url({{ asset('img/img-9.jpg') }})">
+                            <div class="service-overlay-modern"></div>
+                        </div>
+                        <div class="service-content-modern">
+                            <h3 class="service-title-modern">Professional Courses</h3>
+                            <p class="service-description-modern">Enhance your skills with our specialized healthcare
+                                training programs and certification courses.</p>
+
                             Explore Courses <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Medical Supplies Service -->
                 <div class="service-card-modern animate-fadeInUp">
-                    <div class="service-image-modern" style="background-image: url({{ asset('img/img-10.jpg') }})">
-                        <div class="service-overlay-modern"></div>
-                        <div class="coming-soon-badge">COMING SOON</div>
-                    </div>
-                    <div class="service-content-modern">
-                        <h3 class="service-title-modern">Medical Supplies</h3>
-                        <p class="service-description-modern">High-quality medical equipment and supplies for healthcare facilities and professionals.</p>
-                        <a href="{{ route('medical-supplies') }}" class="service-link-modern">
+                    <a href="{{ route('medical-supplies') }}">
+                        <div class="service-image-modern" style="background-image: url({{ asset('img/img-10.jpg') }})">
+                            <div class="service-overlay-modern"></div>
+                            <div class="coming-soon-badge">COMING SOON</div>
+                        </div>
+                        <div class="service-content-modern">
+                            <h3 class="service-title-modern">Medical Supplies</h3>
+                            <p class="service-description-modern">High-quality medical equipment and supplies for healthcare
+                                facilities and professionals.</p>
+
                             View Products <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Medical Uniforms Service -->
                 <div class="service-card-modern animate-fadeInUp">
-                    <div class="service-image-modern" style="background-image: url({{ asset('img/img-11.jpg') }})">
-                        <div class="service-overlay-modern"></div>
-                        <div class="coming-soon-badge">COMING SOON</div>
-                    </div>
-                    <div class="service-content-modern">
-                        <h3 class="service-title-modern">Medical Uniforms</h3>
-                        <p class="service-description-modern">Professional and comfortable medical uniforms designed for healthcare environments.</p>
-                        <a href="{{ route('medical-uniforms') }}" class="service-link-modern">
+                    <a href="{{ route('medical-uniforms') }}">
+                        <div class="service-image-modern" style="background-image: url({{ asset('img/img-11.jpg') }})">
+                            <div class="service-overlay-modern"></div>
+                            <div class="coming-soon-badge">COMING SOON</div>
+                        </div>
+                        <div class="service-content-modern">
+                            <h3 class="service-title-modern">Medical Uniforms</h3>
+                            <p class="service-description-modern">Professional and comfortable medical uniforms designed for
+                                healthcare environments.</p>
+
                             Browse Collection <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Medical Coding and Billing Service -->
                 <div class="service-card-modern animate-fadeInUp">
-                    <div class="service-image-modern" style="background-image: url({{ asset('img/img-12.jpg') }})">
-                        <div class="service-overlay-modern"></div>
-                        <div class="coming-soon-badge">COMING SOON</div>
-                    </div>
-                    <div class="service-content-modern">
-                        <h3 class="service-title-modern">Medical Coding & Billing</h3>
-                        <p class="service-description-modern">Comprehensive medical coding and billing services to streamline your healthcare practice.</p>
-                        <a href="#" class="service-link-modern">
+                    <a href="#">
+                        <div class="service-image-modern" style="background-image: url({{ asset('img/img-12.jpg') }})">
+                            <div class="service-overlay-modern"></div>
+                            <div class="coming-soon-badge">COMING SOON</div>
+                        </div>
+                        <div class="service-content-modern">
+                            <h3 class="service-title-modern">Medical Coding & Billing</h3>
+                            <p class="service-description-modern">Comprehensive medical coding and billing services to
+                                streamline your healthcare practice.</p>
+
                             Learn More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

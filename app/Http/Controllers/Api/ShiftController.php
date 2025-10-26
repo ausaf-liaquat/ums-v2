@@ -24,7 +24,7 @@ class ShiftController extends Controller
         $bannedFaciltyUserIds = Facility::whereIn('id', $facility_ids)->pluck('user_id')->toArray();
         $usedShifts_ids       = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
         $shifts               = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
-            $q->where('date', '>=', now()->format('Y-m-d'))->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
+            $q->where('date', '>=', appToday())->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
         })
             ->whereDoesntHave('shift_clinicians', function ($query) {
                 $query->where('status', 1); // Exclude if already accepted
@@ -37,14 +37,14 @@ class ShiftController extends Controller
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
         $shifts         = Shift::whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
-        // $shifts         = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
+        // $shifts         = Shift::where('date', '>=', appToday())->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
     }
     public function completedShifts()
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
-        $shifts         = Shift::where('date', '>=', now()->format('Y-m-d'))->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
+        $shifts         = Shift::where('date', '>=', appToday())->whereIn('id', $usedShifts_ids)->with('shift_clinicians')->get();
 
         return $this->success(['shifts' => $shifts], 'Clinicians Shifts', 200);
     }
@@ -80,7 +80,7 @@ class ShiftController extends Controller
         }
 
         $shiftUser->status      = 1; // Accepted
-        $shiftUser->accepted_at = now();
+        $shiftUser->accepted_at = appNow();
         $shiftUser->save();
 
         return $this->success('Shift Accepted', 200);
@@ -100,7 +100,7 @@ class ShiftController extends Controller
         }
 
         $shiftUser->status      = 2; // Rejected
-        $shiftUser->rejected_at = now();
+        $shiftUser->rejected_at = appNow();
         $shiftUser->save();
 
         return $this->success('Shift Declined', 200);
@@ -109,23 +109,52 @@ class ShiftController extends Controller
     public function shiftCancel($id)
     {
         $shiftUser = UserShift::where([
-            'user_id'  => auth()->id(),
+            'user_id'  => auth()->id(), // current clinician
             'shift_id' => $id,
         ])->first();
 
         if (! $shiftUser) {
-            return $this->error('Shift Not Exist', 404);
+            return $this->error('Shift not found or not assigned to you.', 404);
         }
 
         if ($shiftUser->status == 3) {
-            return $this->error('Shift already cancelled', 400);
+            return $this->error('Shift already cancelled.', 400);
         }
 
-        $shiftUser->status      = 3;     // Cancelled
-        $shiftUser->cancelled_at = now(); // (you should add this column if not already)
-        $shiftUser->save();
+        $shift = $shiftUser->shift;
+        if (! $shift || ! $shift->user) {
+            return $this->error('Shift or facility not found.', 404);
+        }
 
-        return $this->success('Shift Canceled', 200);
+        DB::beginTransaction();
+
+        try {
+            $refundAmount = $shift->total_amount ?? 0;
+
+            if ($refundAmount > 0) {
+                $shift->user->depositFloat($refundAmount, [
+                    'type'        => 'shift_refund',
+                    'shift_id'    => $shift->id,
+                    'description' => 'Shift cancelled by clinician after acceptance in UMS app',
+                ]);
+            }
+
+            $shiftUser->status       = 3; // 3 = Cancelled
+            $shiftUser->cancelled_at = appNow();
+            $shiftUser->save();
+
+            DB::commit();
+
+            return $this->success(
+                'Shift cancelled successfully.',
+                200
+            );
+
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return $this->error('Cancellation failed: ' . $e->getMessage(), 500);
+        }
     }
 
     public function shiftClockin(Request $request, $id)
@@ -158,7 +187,7 @@ class ShiftController extends Controller
         }
 
         // Compare shift date with today
-        $today = now()->toDateString();
+        $today = appNow()->toDateString();
 
         if ($shift->date < $today) {
             return $this->error('This shift has expired (' . $shift->date . ')', 400);
@@ -183,7 +212,7 @@ class ShiftController extends Controller
 
         // Update record
         $shiftUser->update([
-            'clockin'       => now(),
+            'clockin'       => appNow(),
             'clock_in_lat'  => $request->lat,
             'clock_in_lon'  => $request->lon,
             'location_name' => $request->location_name,
@@ -233,7 +262,7 @@ class ShiftController extends Controller
 
             // ✅ Update shift user record
             $shiftUser->update([
-                'clockout'      => now(),
+                'clockout'      => appNow(),
                 'clock_out_lat' => $request->lat,
                 'clock_out_lon' => $request->lon,
                 'shift_status'  => 1, // Completed
@@ -279,7 +308,7 @@ class ShiftController extends Controller
         // Build the shifts query with conditional filtering
         $shifts = Shift::whereNotIn('id', $usedShiftIds)
             ->whereNotIn('user_id', $bannedFacilityUserIds)
-            ->where('date', '>=', now()->format('Y-m-d'))
+            ->where('date', '>=', appToday())
             ->when($request->filled('date'), function ($query) use ($request) {
                 $query->where('date', date('Y-m-d', strtotime($request->date)));
             })
