@@ -42,67 +42,6 @@
 
 
     </section>
-    {{-- <div class="relative -mt-12 lg:-mt-24">
-        <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <path
-                        d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
-                        opacity="0.100000001"></path>
-                    <path
-                        d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
-                        opacity="0.100000001"></path>
-                    <path
-                        d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
-                        id="Path-4" opacity="0.200000003"></path>
-                </g>
-                <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <path
-                        d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z">
-                    </path>
-                </g>
-            </g>
-        </svg>
-    </div> --}}
-    {{-- <section class="bg-white border-b py-8">
-
-        <div class="flex flex-wrap">
-            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Our Talk
-            </h1>
-            <div class="w-full mb-4">
-                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-            </div>
-        </div>
-        <div class="container mx-auto max-w-[85rem] grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 pb-12 px-3">
-
-            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img-1.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="relative w-full bg-cover md:w-full bg-center rounded-lg h-96 animate-fadeIn"
-                style="background-image: url({{ asset('img/img-2.jpg') }})">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#9061f952] rounded-lg"></div>
-                <div class="md:absolute bottom-0 left-0 w-full p-4 text-white ">
-                    <h6 class="text-lg font-bold dark:text-white">Home Visits</h6>
-                    <p class="text-lg">Lorem ipsum dolor sit amet, consec adipiscing elit.</p>
-                </div>
-            </div>
-        </div>
-    </section> --}}
     <section class="bg-white border-b py-8 bg-cover bg-center">
         <div class="container mx-auto max-w-[85rem] flex flex-wrap pt-4 pb-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -236,11 +175,256 @@
             </div>
         </div>
     </section>
-    <!-- Change the colour #f8fafc to match the previous section colour -->
+
+    <!-- FAQ Section -->
+    <section class="bg-gradient-to-br from-purple-50 to-blue-50 py-12">
+        <div class="container mx-auto max-w-[85rem] px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">
+                    FACILITIES FAQs
+                </h2>
+                <div class="h-1 mx-auto gradient w-64 opacity-25 rounded-t"></div>
+                <p class="mt-6 max-w-2xl mx-auto">
+                    Find answers to common questions about our staffing services, pricing, and facility management.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column -->
+                <div class="space-y-6">
+                    <!-- Pricing & Fees Section -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-purple-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-dollar-sign text-white text-lg"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Pricing & Fees</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    How much is UMS Staffing services?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    <strong class="text-purple-600">$3.00 per hour</strong> service fee per shift.
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    Are there any additional fees when I post a shift?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    There will be a <strong class="text-purple-600">$400 holding fee</strong> for:
+                                    <ul class="mt-2 space-y-1">
+                                        <li class="flex items-center"><i
+                                                class="fas fa-circle text-purple-500 text-xs mr-2"></i>Patient emergencies
+                                        </li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-circle text-purple-500 text-xs mr-2"></i>Wait for another
+                                            clinician relief</li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-circle text-purple-500 text-xs mr-2"></i>Patient charting
+                                        </li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-circle text-purple-500 text-xs mr-2"></i>Other emergencies
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    What does URGENT CALL mean?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    When shifts are labeled <strong class="text-purple-600">URGENT CALL</strong>, the
+                                    facility agrees to pay
+                                    for the whole shift if the health professional clocks in within an hour after
+                                    accepting the shift.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing & Payments Section -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-purple-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-credit-card text-white text-lg"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Billing & Payments</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    When will the facility be charged for services?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    The facility will be charged <strong class="text-purple-600">immediately after posting a
+                                        shift</strong>.
+                                    The total amount will be charged from the facility balance.
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    How many hours in advance can I cancel without being charged?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    Facilities need to cancel the shift <strong class="text-purple-600">2 hours before shift
+                                        starts</strong>
+                                    to avoid being charged 2 hours of clinician pay and service fee.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Shift Management Section -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-purple-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-calendar-alt text-white text-lg"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Shift Management</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    How many shifts can I post?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    Facilities can post as many shifts as long as their <strong
+                                        class="text-purple-600">account balance can
+                                        cover the cost</strong>.
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    What happens when no clinician picks up?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    The amount charged from the facility account balance will be <strong
+                                        class="text-purple-600">refunded
+                                        back</strong> to the facility account balance within 2 to 5 business days.
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    What happens when a clinician cancels the shift?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                   Possibly another clinician may pick it up. Or the amount charged from the facility account balance will be refunded back to the facility account balance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Management Section -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-purple-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-user-cog text-white text-lg"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Account Management</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    How to register your facility?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    <ol class="space-y-2">
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">1.</span>Go to Unique Med Services
+                                        </li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">2.</span>Click LOGIN in the upper
+                                            right</li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">3.</span>Click CREATE AN ACCOUNT
+                                        </li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">4.</span>Fill out facility
+                                            information</li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">5.</span>Click REGISTER</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
+                                <button
+                                    class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
+                                    How is the facility FAQ in the facility account?
+                                    <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
+                                </button>
+                                <div class="faq-answer mt-3 text-gray-600 hidden">
+                                    <ol class="space-y-2">
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">1.</span> Go to <a
+                                                class="underline text-purple-600 font-bold mx-2" target="_blank"
+                                                href="{{ route('home') }}">
+                                                Unique Med Services</a>
+                                        </li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">2.</span>Click <a
+                                                class="underline text-purple-600 font-bold mx-2" target="_blank"
+                                                href="{{ route('login') }}">LOGIN</a> in the upper
+                                            right of the web page</li>
+                                        <li class="flex items-start"><span
+                                                class="text-purple-600 font-bold mr-2">3.</span>Click <a
+                                                class="underline text-purple-600 font-bold mx-2" target="_blank"
+                                                href="{{ route('backend.faqs') }}">Facility FAQ</a> to the
+                                            left of page</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="text-center mt-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
+                <h3 class="text-2xl font-bold mb-4">Still Have Questions?</h3>
+                <p class="text-purple-100 mb-6 max-w-2xl mx-auto">
+                    Our team is here to help you with any questions about our staffing services and how we can support your
+                    facility.
+                </p>
+
+            </div>
+        </div>
+    </section>
 @endsection
+
 @section('script')
     <script>
         $(document).ready(function() {
+            // Form functionality
             $('#facility_type').on('change', function() {
                 if ($(this).val() === 'Other') {
                     $('#other_field').slideDown();
@@ -250,6 +434,7 @@
                     $('#other_input').removeAttr('required').val('');
                 }
             });
+
             $('#staffing_needs').on('change', function() {
                 if ($(this).val() === 'OTHER') {
                     $('#other_staffing_need').slideDown();
@@ -260,6 +445,69 @@
                 }
             });
 
+            // FAQ functionality
+            $('.faq-question').on('click', function() {
+                const $answer = $(this).next('.faq-answer');
+                const $icon = $(this).find('i');
+
+                // Close all other answers
+                $('.faq-answer').not($answer).slideUp(300);
+                $('.faq-question i').not($icon).removeClass('fa-chevron-up').addClass('fa-chevron-down');
+
+                // Toggle current answer
+                $answer.slideToggle(300);
+                $icon.toggleClass('fa-chevron-up fa-chevron-down');
+
+                // Close other items in the same category
+                $(this).closest('.faq-item').siblings().find('.faq-answer').slideUp(300);
+                $(this).closest('.faq-item').siblings().find('.faq-question i').removeClass('fa-chevron-up')
+                    .addClass('fa-chevron-down');
+            });
+
+            // Add hover effects
+            $('.faq-item').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-2px)');
+                    $(this).css('box-shadow',
+                        '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                    $(this).css('box-shadow', 'none');
+                }
+            );
         });
     </script>
+
+    <style>
+        .gradient {
+            background: linear-gradient(135deg, #9061f9 0%, #6c2bd9 100%);
+        }
+
+        .faq-item {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .faq-item:hover {
+            border-color: #9061f9;
+        }
+
+        .faq-question {
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: #9061f9;
+        }
+
+        .faq-answer {
+            border-left: 3px solid transparent;
+            padding-left: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            border-left-color: #9061f9;
+        }
+    </style>
 @endsection

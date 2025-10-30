@@ -4,6 +4,10 @@
 @endsection
 @section('css')
     <style>
+        .accordion-header+.accordion-collapse .accordion-body {
+            padding-top: 20px !important;
+        }
+
         .faq-section {
             border-left: 4px solid #696cff;
             padding-left: 1rem;
@@ -48,7 +52,7 @@
 
         .card-title {
             color: #566a7f;
-            font-weight: 600;
+            fontWeight: 600;
         }
 
         .faq-section h5 {
@@ -92,84 +96,69 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- Pricing & Fees Section -->
+                        <!-- Account Management Section -->
                         <div class="faq-section mb-4 mt-4">
-                            <h5 class="text-primary mb-3"><i class="bx bx-dollar-circle me-2"></i>Pricing & Fees</h5>
-                            <div class="accordion" id="pricingAccordion">
+                            <h5 class="text-primary mb-3"><i class="bx bx-user me-2"></i>Account Management</h5>
+                            <div class="accordion" id="accountAccordion">
                                 <!-- Question 1 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#pricing1">
-                                            How much is UMS Staffing services?
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#account1">
+                                            How does DNR negatively affect your organization?
                                         </button>
                                     </h2>
-                                    <div id="pricing1" class="accordion-collapse collapse"
-                                        data-bs-parent="#pricingAccordion">
+                                    <div id="account1" class="accordion-collapse collapse"
+                                        data-bs-parent="#accountAccordion">
                                         <div class="accordion-body">
-                                            <strong>$3.00 per hour</strong> service fee per shift.
+                                            <em>Information about how DNR (Do not return) affects your organization would be
+                                                detailed here soon.</em>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Question 7 -->
+                                <!-- Question 2 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#pricing7">
-                                            Are there any additional fees when I post a shift?
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#account2">
+                                            How to add credit/debit card to facility account?
                                         </button>
                                     </h2>
-                                    <div id="pricing7" class="accordion-collapse collapse"
-                                        data-bs-parent="#pricingAccordion">
+                                    <div id="account2" class="accordion-collapse collapse"
+                                        data-bs-parent="#accountAccordion">
                                         <div class="accordion-body">
-                                            There will be a <strong>$400 holding fee</strong> for:
-                                            <ul class="mt-2 mb-0">
-                                                <li>Patient emergencies</li>
-                                                <li>Wait for another clinician relief</li>
-                                                <li>Patient charting</li>
-                                                <li>Other emergencies</li>
+                                            <ul class="mb-0">
+                                                <li>Go to Unique Med Services</li>
+                                                <li>Click LOGIN in the upper right of the web page</li>
+                                                <li>Click Payment Method to the left of page</li>
+                                                <li>Click Add button</li>
+                                                <li>Fill out credit card information</li>
+                                                <li>Click Save Changes button</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Question 18 -->
+                                <!-- Question 3 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#pricing18">
-                                            Are there any additional fees when I post a shift?
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#account3">
+                                            How to add money to your account balance?
                                         </button>
                                     </h2>
-                                    <div id="pricing18" class="accordion-collapse collapse"
-                                        data-bs-parent="#pricingAccordion">
+                                    <div id="account3" class="accordion-collapse collapse"
+                                        data-bs-parent="#accountAccordion">
                                         <div class="accordion-body">
-                                            There will be a <strong>$400 holding fee</strong> for:
-                                            <ul class="mt-2 mb-0">
-                                                <li>Patient emergencies</li>
-                                                <li>Wait for another clinician relief</li>
-                                                <li>Patient charting</li>
-                                                <li>Other emergencies</li>
+                                            <ul class="mb-0">
+                                                <li>Go to Unique Med Services</li>
+                                                <li>Click LOGIN in the upper right of the web page</li>
+                                                <li>Click Funds to the left of page</li>
+                                                <li>Click Add button</li>
+                                                <li>Fill out amount information and select payment method</li>
+                                                <li>Click Save Changes button</li>
                                             </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 20 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#pricing20">
-                                            What does URGENT CALL mean?
-                                        </button>
-                                    </h2>
-                                    <div id="pricing20" class="accordion-collapse collapse"
-                                        data-bs-parent="#pricingAccordion">
-                                        <div class="accordion-body">
-                                            When shifts are labeled <strong>URGENT CALL</strong>, the facility agrees to pay
-                                            for the whole shift if the health professional clocks in within an hour after
-                                            accepting the shift.
                                         </div>
                                     </div>
                                 </div>
@@ -180,19 +169,36 @@
                         <div class="faq-section mb-4">
                             <h5 class="text-primary mb-3"><i class="bx bx-credit-card me-2"></i>Billing & Payments</h5>
                             <div class="accordion" id="billingAccordion">
-                                <!-- Question 2 -->
+                                <!-- Question 4 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#billing2">
+                                            data-bs-target="#billing4">
                                             When will the facility be charged for services?
                                         </button>
                                     </h2>
-                                    <div id="billing2" class="accordion-collapse collapse"
+                                    <div id="billing4" class="accordion-collapse collapse"
                                         data-bs-parent="#billingAccordion">
                                         <div class="accordion-body">
-                                            The facility will be charged <strong>immediately after posting a shift</strong>.
+                                            The facility will be charged <strong>immediately after posting a shift(s)</strong>.
                                             The total amount will be charged from the facility balance.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Question 5 -->
+                                <div class="accordion-item faq-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#billing5">
+                                            How many hours in advance can I cancel a clinician booked shift without being charged?
+                                        </button>
+                                    </h2>
+                                    <div id="billing5" class="accordion-collapse collapse"
+                                        data-bs-parent="#billingAccordion">
+                                        <div class="accordion-body">
+                                            Facilities need to cancel the shift <strong>2 hours before shift starts</strong>
+                                            to avoid being charged 2 hours of clinician pay and service fee.
                                         </div>
                                     </div>
                                 </div>
@@ -202,49 +208,19 @@
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#billing6">
-                                            How many hours in advance can I cancel without being charged?
+                                            Are there any additional fees when I post a shift?
                                         </button>
                                     </h2>
                                     <div id="billing6" class="accordion-collapse collapse"
                                         data-bs-parent="#billingAccordion">
                                         <div class="accordion-body">
-                                            Facilities need to cancel the shift <strong>2 hours before shift starts</strong>
-                                            to avoid being charged 2 hours of clinician pay and service fee.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 13 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#billing13">
-                                            When will the facility be charged for services?
-                                        </button>
-                                    </h2>
-                                    <div id="billing13" class="accordion-collapse collapse"
-                                        data-bs-parent="#billingAccordion">
-                                        <div class="accordion-body">
-                                            The facility will be charged <strong>immediately after posting a shift</strong>.
-                                            The total amount will be charged from the facility balance.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 17 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#billing17">
-                                            How many hours in advance can I cancel a clinician book shift without being
-                                            charged?
-                                        </button>
-                                    </h2>
-                                    <div id="billing17" class="accordion-collapse collapse"
-                                        data-bs-parent="#billingAccordion">
-                                        <div class="accordion-body">
-                                            Facilities need to cancel the shift <strong>2 hours before shift starts</strong>
-                                            to avoid being charged 2 hours of clinician pay and service fee.
+                                            There will be a <strong>$400 holding fee</strong> just in case a clinician will have to do the following:
+                                            <ul class="mt-2 mb-0">
+                                                <li>Patient emergencies</li>
+                                                <li>Wait for another clinician relief</li>
+                                                <li>Patient charting</li>
+                                                <li>Other emergencies</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -255,157 +231,34 @@
                         <div class="faq-section mb-4">
                             <h5 class="text-primary mb-3"><i class="bx bx-calendar me-2"></i>Shift Management</h5>
                             <div class="accordion" id="shiftAccordion">
-                                <!-- Question 3 -->
+                                <!-- Question 7 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift3">
+                                            data-bs-toggle="collapse" data-bs-target="#shift7">
                                             How many shifts can I post?
                                         </button>
                                     </h2>
-                                    <div id="shift3" class="accordion-collapse collapse"
+                                    <div id="shift7" class="accordion-collapse collapse"
                                         data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            Facilities can post as many shifts as long as their <strong>account balance can
-                                                cover the cost</strong>.
+                                            Facilities can post as many shifts as long as their <strong>account balance can cover this cost</strong>.
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Question 4 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift4">
-                                            What happens when no clinician picks up?
-                                        </button>
-                                    </h2>
-                                    <div id="shift4" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            The amount charged from the facility account balance will be <strong>refunded
-                                                back</strong> to the facility account balance.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 5 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift5">
-                                            What happens when a clinician cancels the shift?
-                                        </button>
-                                    </h2>
-                                    <div id="shift5" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            Possibly another clinician may pick it up, or the amount charged will be
-                                            <strong>refunded back</strong> to the facility account balance.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 14 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift14">
-                                            How many shifts can I post?
-                                        </button>
-                                    </h2>
-                                    <div id="shift14" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            Facilities can post as many shifts as long as their <strong>account balance can
-                                                cover the cost</strong>.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 15 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift15">
-                                            What happens when no clinician picks up?
-                                        </button>
-                                    </h2>
-                                    <div id="shift15" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            The amount charged from the facility account balance will be <strong>refunded
-                                                back</strong> to the facility account balance.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 16 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift16">
-                                            What happens when a clinician cancels the shift?
-                                        </button>
-                                    </h2>
-                                    <div id="shift16" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            Possibly another clinician may pick it up, or the amount charged will be
-                                            <strong>refunded back</strong> to the facility account balance.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 19 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#shift19">
-                                            How to post shifts?
-                                        </button>
-                                    </h2>
-                                    <div id="shift19" class="accordion-collapse collapse"
-                                        data-bs-parent="#shiftAccordion">
-                                        <div class="accordion-body">
-                                            <ol class="mb-0">
-                                                <li>Go to Unique Med Services</li>
-                                                <li>Click LOGIN in the upper right</li>
-                                                <li>Click 3 lines in the upper right</li>
-                                                <li>Click Dashboard</li>
-                                                <li>Click Shift to the left side</li>
-                                                <li>Click Add button right side of page</li>
-                                                <li>Fill in information including note</li>
-                                                <li>Click Post Shift</li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Account Management Section -->
-                        <div class="faq-section mb-4">
-                            <h5 class="text-primary mb-3"><i class="bx bx-user me-2"></i>Account Management</h5>
-                            <div class="accordion" id="accountAccordion">
                                 <!-- Question 8 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account8">
-                                            How to register your facility?
+                                            data-bs-toggle="collapse" data-bs-target="#shift8">
+                                            What happens when no clinician picks up?
                                         </button>
                                     </h2>
-                                    <div id="account8" class="accordion-collapse collapse"
-                                        data-bs-parent="#accountAccordion">
+                                    <div id="shift8" class="accordion-collapse collapse"
+                                        data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            <ol class="mb-0">
-                                                <li>Go to Unique Med Services</li>
-                                                <li>Click LOGIN in the upper right</li>
-                                                <li>Click CREATE AN ACCOUNT</li>
-                                                <li>Fill out facility information</li>
-                                                <li>Click REGISTER</li>
-                                            </ol>
+                                            The amount charged from the facility account balance will be <strong>refunded back</strong> to the facility account balance.
                                         </div>
                                     </div>
                                 </div>
@@ -414,18 +267,14 @@
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account9">
-                                            How is the facility FAQ in the facility account?
+                                            data-bs-toggle="collapse" data-bs-target="#shift9">
+                                            What happens when a clinician cancels the shift?
                                         </button>
                                     </h2>
-                                    <div id="account9" class="accordion-collapse collapse"
-                                        data-bs-parent="#accountAccordion">
+                                    <div id="shift9" class="accordion-collapse collapse"
+                                        data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            <ol class="mb-0">
-                                                <li>Go to Unique Med Services</li>
-                                                <li>Click LOGIN in the upper right</li>
-                                                <li>Click Facility FAQ to the left of page</li>
-                                            </ol>
+                                            Possibly another clinician may pick it up. Or the amount charged from the facility account balance will be <strong>refunded back</strong> to the facility account balance.
                                         </div>
                                     </div>
                                 </div>
@@ -434,15 +283,23 @@
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account10">
-                                            How does DNR negatively affect your organization?
+                                            data-bs-toggle="collapse" data-bs-target="#shift10">
+                                            How to post shifts?
                                         </button>
                                     </h2>
-                                    <div id="account10" class="accordion-collapse collapse"
-                                        data-bs-parent="#accountAccordion">
+                                    <div id="shift10" class="accordion-collapse collapse"
+                                        data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            <em>Information about how DNR (Do Not Resuscitate) affects your organization
-                                                would be detailed here.</em>
+                                            <ul class="mb-0">
+                                                <li>Go to Unique Med Services</li>
+                                                <li>Click LOGIN in the upper right of the web page</li>
+                                                <li>Click 3 lines in the upper right of the web page</li>
+                                                <li>Click Dashboard</li>
+                                                <li>Click Shift to the left side</li>
+                                                <li>Click Add button right side of page</li>
+                                                <li>Fill in information including note</li>
+                                                <li>Click Post Shift</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -451,44 +308,14 @@
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account11">
-                                            How to add credit/debit card to facility account?
+                                            data-bs-toggle="collapse" data-bs-target="#shift11">
+                                            What does URGENT CALL mean?
                                         </button>
                                     </h2>
-                                    <div id="account11" class="accordion-collapse collapse"
-                                        data-bs-parent="#accountAccordion">
+                                    <div id="shift11" class="accordion-collapse collapse"
+                                        data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            <ol class="mb-0">
-                                                <li>Go to Unique Med Services</li>
-                                                <li>Click LOGIN in the upper right</li>
-                                                <li>Click Payment Method to the left of page</li>
-                                                <li>Click Add button</li>
-                                                <li>Fill out credit card information</li>
-                                                <li>Click Save Changes button</li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Question 12 -->
-                                <div class="accordion-item faq-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account12">
-                                            How to add money to your account balance?
-                                        </button>
-                                    </h2>
-                                    <div id="account12" class="accordion-collapse collapse"
-                                        data-bs-parent="#accountAccordion">
-                                        <div class="accordion-body">
-                                            <ol class="mb-0">
-                                                <li>Go to Unique Med Services</li>
-                                                <li>Click LOGIN in the upper right</li>
-                                                <li>Click Funds to the left of page</li>
-                                                <li>Click Add button</li>
-                                                <li>Fill out amount information and select payment method</li>
-                                                <li>Click Save Changes button</li>
-                                            </ol>
+                                            Occasionally facilities may have shifts that need to be filled last minute, which are labeled URGENT CALL. When shifts are labeled URGENT CALL, the facility agrees to pay for the whole shift if the health professional clocks in within an hour after accepting the shift.
                                         </div>
                                     </div>
                                 </div>
