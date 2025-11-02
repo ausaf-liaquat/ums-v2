@@ -141,6 +141,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet,
         return $this->hasOne(UserAccount::class);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'uploaded_by');
+    }
     /**
      * @return array
      */

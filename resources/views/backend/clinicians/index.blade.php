@@ -18,51 +18,33 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    {{-- <div class="col-md-6">
-                        <div class="d-flex p-4 pt-3">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="{{ asset('assets/assets/img/icons/unicons/wallet.png') }}" alt="User">
-                            </div>
-                            <div>
-                                <small class="text-muted d-block">Total Balance</small>
-                                <div class="d-flex align-items-center">
-                                    <h6 class="mb-0 me-1">${{ balanceData()['currentBalance'] }}</h6>
-                                    <small class="text-success fw-semibold">
-                                        <i class="bx bx-chevron-up"></i>
-                                        {{ balanceData()['percentageIncrease'] }}
-                                    </small>
-                                    <input type="hidden" id="current_balance" name="current_balance"
-                                        value="{{ auth()->user()->wallet->balanceFloatNum }}">
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-md-6">
-                        <a href="{{ route('backend.funds.create') }}" class="btn btn-primary float-end">Add <i
-                                class="tf-icons bx bx-plus-circle"></i></a>
-                    </div> --}}
-                </div>
-            </div>
-
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
 
-                <div class="p-4 table-responsive text-nowrap">
-                    <table class="table" id="dataTableSize">
-                        <thead>
-                            <tr>
-                                <th>Sr. no</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th style="width: 320px;">Status</th>
-                                <th>Resume</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                    </table>
+                        <label for="expiryDateFilter" class="form-label">Expiry Date</label>
+                        <input type="text" id="expiryDateFilter" class="form-control" placeholder="Filter by Expiry Date"
+                            style="max-width: 250px;">
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="p-4 table-responsive text-nowrap">
+                            <table class="dataTable table table-sm table-striped" id="dataTableSize">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. no</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th style="width: 320px;">Status</th>
+                                        <th>Resume</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             {{-- <h5 class="card-header">Table Basic</h5> --}}
@@ -76,6 +58,19 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            flatpickr("#expiryDateFilter", {
+                dateFormat: "M d, Y", // e.g., "May 12, 2024"
+                allowInput: true,
+                onChange: function(selectedDates, dateStr, instance) {
+                    table.draw(); // refresh DataTable (will trigger AJAX with new date)
+                },
+            });
+
+            // Optional: clear filter when manually cleared
+            $("#expiryDateFilter").on("input", function() {
+                if (!this.value) table.draw();
+            });
+
             let table = $("#dataTableSize").DataTable({
                 language: {
                     paginate: {
@@ -85,11 +80,14 @@
                     info: "Showing clinicians _START_ to _END_ of _TOTAL_",
                     lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> clinicians'
                 },
-                order:[],
+                order: [],
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: '{{ route('clinicians.dataTable') }}',
+                    data: function(d) {
+                        d.document_expiry = $("#expiryDateFilter").val(); // send the flatpickr value
+                    }
                 },
                 columns: [{
                         "data": "DT_RowIndex",
@@ -126,6 +124,15 @@
                     },
                     {
                         "data": "resume",
+                        "className": "text-center",
+                        "defaultContent": "",
+                    },
+                    // Document column expired_at searchable true
+                    {
+                        "data": "document_expiry",
+                        "name": "documents.expired_at",
+                        "visible": false,
+                        "searchable": true,
                         "className": "text-center",
                         "defaultContent": "",
                     },
@@ -253,7 +260,9 @@
                                 };
 
                                 // Make POST request
-                                axios.patch("{{ route('backend.clinicians.facility.banned.update') }}", data)
+                                axios.patch(
+                                        "{{ route('backend.clinicians.facility.banned.update') }}",
+                                        data)
                                     .then((res) => {
                                         Swal.fire({
                                             title: "Done!",

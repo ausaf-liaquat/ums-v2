@@ -103,8 +103,8 @@
                                 <!-- Question 1 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account1">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#account1">
                                             How does DNR negatively affect your organization?
                                         </button>
                                     </h2>
@@ -120,8 +120,8 @@
                                 <!-- Question 2 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account2">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#account2">
                                             How to add credit/debit card to facility account?
                                         </button>
                                     </h2>
@@ -143,8 +143,8 @@
                                 <!-- Question 3 -->
                                 <div class="accordion-item faq-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#account3">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#account3">
                                             How to add money to your account balance?
                                         </button>
                                     </h2>
@@ -180,7 +180,8 @@
                                     <div id="billing4" class="accordion-collapse collapse"
                                         data-bs-parent="#billingAccordion">
                                         <div class="accordion-body">
-                                            The facility will be charged <strong>immediately after posting a shift(s)</strong>.
+                                            The facility will be charged <strong>immediately after posting a
+                                                shift(s)</strong>.
                                             The total amount will be charged from the facility balance.
                                         </div>
                                     </div>
@@ -191,14 +192,16 @@
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#billing5">
-                                            How many hours in advance can I cancel a clinician booked shift without being charged?
+                                            How many hours in advance can I cancel a clinician booked shift without being
+                                            charged?
                                         </button>
                                     </h2>
                                     <div id="billing5" class="accordion-collapse collapse"
                                         data-bs-parent="#billingAccordion">
                                         <div class="accordion-body">
-                                            Facilities need to cancel the shift <strong>2 hours before shift starts</strong>
-                                            to avoid being charged 2 hours of clinician pay and service fee.
+                                            Facilities need to cancel the shift <strong>2 or more hours before shift
+                                                starts</strong> to avoid being
+                                            charged 2 hours of clinician pay and service fee.
                                         </div>
                                     </div>
                                 </div>
@@ -214,12 +217,16 @@
                                     <div id="billing6" class="accordion-collapse collapse"
                                         data-bs-parent="#billingAccordion">
                                         <div class="accordion-body">
-                                            There will be a <strong>$400 holding fee</strong> just in case a clinician will have to do the following:
+                                            There will be a <strong>$400 holding fee</strong> if clinicians have to stay
+                                            after hours for the following:
                                             <ul class="mt-2 mb-0">
                                                 <li>Patient emergencies</li>
                                                 <li>Wait for another clinician relief</li>
                                                 <li>Patient charting</li>
                                                 <li>Other emergencies</li>
+                                                <li>After the clinician clocks out, the difference of the holding fee will
+                                                    be refunded back to
+                                                    facility balance in 2-5 business days.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -242,7 +249,8 @@
                                     <div id="shift7" class="accordion-collapse collapse"
                                         data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            Facilities can post as many shifts as long as their <strong>account balance can cover this cost</strong>.
+                                            Facilities can post as many shifts as long as their <strong>account balance can
+                                                cover this cost</strong>.
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +266,10 @@
                                     <div id="shift8" class="accordion-collapse collapse"
                                         data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            The amount charged from the facility account balance will be <strong>refunded back</strong> to the facility account balance.
+                                            The amount charged from the facility account balance will be <strong>refunded
+                                                back</strong> to the
+                                            facility account balance within 2 to 5 business days.
+
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +285,12 @@
                                     <div id="shift9" class="accordion-collapse collapse"
                                         data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            Possibly another clinician may pick it up. Or the amount charged from the facility account balance will be <strong>refunded back</strong> to the facility account balance.
+                                            Possibly another clinician may pick it up. Or the amount charged from the
+                                            facility account
+                                            balance will be <strong>refunded back</strong> to the facility account balance
+                                            within 2 to 5
+                                            business days.
+
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +331,10 @@
                                     <div id="shift11" class="accordion-collapse collapse"
                                         data-bs-parent="#shiftAccordion">
                                         <div class="accordion-body">
-                                            Occasionally facilities may have shifts that need to be filled last minute, which are labeled URGENT CALL. When shifts are labeled URGENT CALL, the facility agrees to pay for the whole shift if the health professional clocks in within an hour after accepting the shift.
+                                            Occasionally facilities may have shifts that need to be filled last minute,
+                                            which are labeled URGENT CALL. When shifts are labeled URGENT CALL, the facility
+                                            agrees to pay for the whole shift if the health professional clocks in within an
+                                            hour after accepting the shift.
                                         </div>
                                     </div>
                                 </div>

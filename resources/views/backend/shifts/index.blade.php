@@ -70,7 +70,7 @@
             <div class="card-body">
 
                 <div class="p-4 table-responsive text-nowrap">
-                    <table class="table" id="dataTableSize">
+                    <table class="dataTable table table-sm table-striped" id="dataTableSize">
                         <thead>
                             <tr>
                                 {{-- <th>Sr. no</th> --}}

@@ -23,9 +23,19 @@ class ClinicianController extends Controller
     public function dataTable(Request $request)
     {
 
-        $model = User::query()->whereHas('roles', function ($q) {
-            $q->where('name', 'clinician');
-        });
+        $model = User::query()
+            ->with(['documents' => function ($q) {
+                $q->select('id', 'uploaded_by', 'expired_at');
+            }])
+            ->whereHas('roles', function ($q) {
+                $q->where('name', 'clinician');
+            })
+            ->when($request->has('document_expiry') && !empty($request->document_expiry), function ($q) use ($request) {
+                $date = \Carbon\Carbon::parse($request->document_expiry)->format('Y-m-d');
+                $q->whereHas('documents', function ($query) use ($date) {
+                    $query->whereDate('expired_at', $date);
+                });
+            });
 
         return DataTables::eloquent($model)->addIndexColumn()->addColumn('resume', function (User $user) {
             $asset = Storage::disk('cms')->url($user->resume);
@@ -46,7 +56,15 @@ class ClinicianController extends Controller
                     $facilityOptions
                 </select>
             ";
-        })->rawColumns(['status', 'resume'])->make(true);
+        })
+        // ->filterColumn('documents.expired_at', function ($query, $keyword) {
+        //     // dd($keyword);
+        //     $date = \Carbon\Carbon::parse($keyword)->format('Y-m-d');
+        //     $query->whereHas('documents', function ($q) use ($date) {
+        //         $q->whereDate('expired_at', $date);
+        //     });
+        // })
+            ->rawColumns(['status', 'resume'])->make(true);
     }
     public function documentsDataTable(Request $request)
     {

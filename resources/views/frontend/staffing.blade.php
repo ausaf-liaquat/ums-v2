@@ -219,7 +219,7 @@
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">
-                                    There will be a <strong class="text-purple-600">$400 holding fee</strong> for:
+                                    There will be a <strong class="text-purple-600">$400 holding fee</strong>(refund difference) if clinicians have to stay after hours for the:
                                     <ul class="mt-2 space-y-1">
                                         <li class="flex items-center"><i
                                                 class="fas fa-circle text-purple-500 text-xs mr-2"></i>Patient emergencies
@@ -269,7 +269,8 @@
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">
-                                    The facility will be charged <strong class="text-purple-600">immediately after posting a
+                                    The facility will be charged <strong class="text-purple-600">immediately after posting
+                                        a
                                         shift</strong>.
                                     The total amount will be charged from the facility balance.
                                 </div>
@@ -282,7 +283,8 @@
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">
-                                    Facilities need to cancel the shift <strong class="text-purple-600">2 hours before shift
+                                    Facilities need to cancel the shift <strong class="text-purple-600">2 hours before
+                                        shift
                                         starts</strong>
                                     to avoid being charged 2 hours of clinician pay and service fee.
                                 </div>
@@ -335,7 +337,8 @@
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">
-                                   Possibly another clinician may pick it up. Or the amount charged from the facility account balance will be refunded back to the facility account balance.
+                                    Possibly another clinician may pick it up. Or the amount charged from the facility
+                                    account balance will be refunded back to the facility account balance.
                                 </div>
                             </div>
                         </div>
@@ -379,7 +382,7 @@
                             <div class="faq-item bg-gray-50 rounded-lg p-4 hover:bg-purple-50 transition duration-200">
                                 <button
                                     class="faq-question w-full text-left font-semibold text-gray-700 flex justify-between items-center">
-                                    How is the facility FAQ in the facility account?
+                                    Where is the facility FAQ in the facility account?
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">

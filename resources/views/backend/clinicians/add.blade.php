@@ -296,7 +296,7 @@
                                     day: 'numeric'
                                 });
                             } else {
-                                return 'N/A';
+                                return '';
                             }
                         }
                     }
