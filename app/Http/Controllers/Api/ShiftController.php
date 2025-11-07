@@ -20,11 +20,20 @@ class ShiftController extends Controller
 
     public function shifts()
     {
-        $facility_ids         = BannedFacilityClinician::where('user_id', auth()->user()->id)->pluck('facility_id')->toArray();
+        $user = auth()->user();
+
+        $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
+
+        $today = appToday($userTimezone);
+
+        $facility_ids         = BannedFacilityClinician::where('user_id', $user->id)->pluck('facility_id')->toArray();
         $bannedFaciltyUserIds = Facility::whereIn('id', $facility_ids)->pluck('user_id')->toArray();
-        $usedShifts_ids       = UserShift::where('user_id', auth()->user()->id)->pluck('shift_id')->toArray();
-        $shifts               = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds) {
-            $q->where('date', '>=', appToday())->whereNotIn('id', $usedShifts_ids)->whereNotIn('user_id', $bannedFaciltyUserIds);
+        $usedShifts_ids       = UserShift::where('user_id', $user->id)->pluck('shift_id')->toArray();
+
+        $shifts = Shift::where(function ($q) use ($usedShifts_ids, $bannedFaciltyUserIds, $today) {
+            $q->where('date', '>=', $today)
+                ->whereNotIn('id', $usedShifts_ids)
+                ->whereNotIn('user_id', $bannedFaciltyUserIds);
         })
             ->whereDoesntHave('shift_clinicians', function ($query) {
                 $query->where('status', 1); // Exclude if already accepted
@@ -33,6 +42,7 @@ class ShiftController extends Controller
 
         return $this->success(['shifts' => $shifts], 'Shifts', 200);
     }
+
     public function acceptedShifts()
     {
         $usedShifts_ids = UserShift::where('user_id', auth()->user()->id)->where('status', 1)->pluck('shift_id')->toArray();
@@ -58,6 +68,7 @@ class ShiftController extends Controller
 
     public function shiftAccept($id)
     {
+        $user  = auth()->user();
         $shift = Shift::findOrFail($id);
 
         // ✅ Check if shift is already accepted by another clinician
@@ -71,7 +82,7 @@ class ShiftController extends Controller
 
         // ✅ Proceed with assigning to current user
         $shiftUser = UserShift::firstOrNew([
-            'user_id'  => auth()->id(),
+            'user_id'  => $user->id,
             'shift_id' => $shift->id,
         ]);
 
@@ -79,8 +90,14 @@ class ShiftController extends Controller
             return $this->error('You have already accepted this shift', 400);
         }
 
+        $timezone   = $user->timezone ?? config('app.timezone', 'UTC');
+        $acceptedAt = appNow($timezone);
+
+        // If your DB stores timestamps in UTC, convert before saving:
+        // $acceptedAt = $acceptedAt->timezone('UTC');
+
         $shiftUser->status      = 1; // Accepted
-        $shiftUser->accepted_at = appNow();
+        $shiftUser->accepted_at = $acceptedAt;
         $shiftUser->save();
 
         return $this->success('Shift Accepted', 200);
@@ -88,6 +105,7 @@ class ShiftController extends Controller
 
     public function shiftDecline($id)
     {
+        $user  = auth()->user();
         $shift = Shift::findOrFail($id);
 
         $shiftUser = UserShift::firstOrNew([
@@ -99,8 +117,11 @@ class ShiftController extends Controller
             return $this->error('Shift already declined', 400);
         }
 
+        $timezone   = $user->timezone ?? config('app.timezone', 'UTC');
+        $rejectedAt = appNow($timezone);
+
         $shiftUser->status      = 2; // Rejected
-        $shiftUser->rejected_at = appNow();
+        $shiftUser->rejected_at = $rejectedAt;
         $shiftUser->save();
 
         return $this->success('Shift Declined', 200);
@@ -108,6 +129,7 @@ class ShiftController extends Controller
 
     public function shiftCancel($id)
     {
+        $user      = auth()->user();
         $shiftUser = UserShift::where([
             'user_id'  => auth()->id(), // current clinician
             'shift_id' => $id,
@@ -128,6 +150,9 @@ class ShiftController extends Controller
 
         DB::beginTransaction();
 
+        $timezone    = $user->timezone ?? config('app.timezone', 'UTC');
+        $cancelledAt = appNow($timezone);
+
         try {
             $refundAmount = $shift->total_amount ?? 0;
 
@@ -140,7 +165,7 @@ class ShiftController extends Controller
             }
 
             $shiftUser->status       = 3; // 3 = Cancelled
-            $shiftUser->cancelled_at = appNow();
+            $shiftUser->cancelled_at = $cancelledAt;
             $shiftUser->save();
 
             DB::commit();
@@ -186,16 +211,22 @@ class ShiftController extends Controller
             return $this->error('You are already clocked in to another shift. Please clock out first.', 400);
         }
 
+        $user = auth()->user();
+
+        $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
+
+        $today = appToday($userTimezone);
+
         // Compare shift date with today
         // $today = appNow()->toDateString();
 
-        // if ($shift->date < $today) {
-        //     return $this->error('This shift has expired (' . $shift->date . ')', 400);
-        // }
+        if ($shift->date < $today) {
+            return $this->error('This shift has expired (' . $shift->date . ')', 400);
+        }
 
-        // if ($shift->date > $today) {
-        //     return $this->error('You can only clock in on the shift date (' . $shift->date . ')', 400);
-        // }
+        if ($shift->date > $today) {
+            return $this->error('You can only clock in on the shift date (' . $shift->date . ')', 400);
+        }
 
         // Find user’s shift assignment
         $shiftUser = UserShift::where('shift_id', $shift->id)
@@ -210,9 +241,11 @@ class ShiftController extends Controller
             return $this->error('Already Clocked In', 400);
         }
 
+        $clockIn = appNow($userTimezone);
+
         // Update record
         $shiftUser->update([
-            'clockin'       => appNow(),
+            'clockin'       => $clockIn,
             'clock_in_lat'  => $request->lat,
             'clock_in_lon'  => $request->lon,
             'location_name' => $request->location_name,
@@ -257,12 +290,18 @@ class ShiftController extends Controller
             return $this->error('Already Clocked Out', 400);
         }
 
+        $user = auth()->user();
+
+        $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
+
+        $clockOut = appNow($userTimezone);
+
         try {
             DB::beginTransaction();
 
             // ✅ Update shift user record
             $shiftUser->update([
-                'clockout'      => appNow(),
+                'clockout'      => $clockOut,
                 'clock_out_lat' => $request->lat,
                 'clock_out_lon' => $request->lon,
                 'shift_status'  => 1, // Completed

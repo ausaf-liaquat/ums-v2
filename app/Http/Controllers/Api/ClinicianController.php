@@ -44,7 +44,7 @@ class ClinicianController extends Controller
             'uploaded_by'      => auth()->user()->id,
             'notes'            => $request->notes,
             'expired_at'       => $request->expiry_date, // Add expiry date to creation
-            'obtained_at'      => $request->obtained_date
+            'obtained_at'      => $request->obtained_date,
         ]);
 
         $file = null;
@@ -146,16 +146,17 @@ class ClinicianController extends Controller
         $phoneWithoutPlus = str_replace('+', '', $phone);
 
         $data = [
-            'first_name'         => $request->first_name,
-            'last_name'          => $request->last_name,
-            'name'               => $request->first_name . ' ' . $request->last_name,
-            'email'              => $request->email,
+            'first_name'         => $request->first_name ?? $user->first_name,
+            'last_name'          => $request->last_name ?? $user->last_name,
+            'name'               => ($request->first_name ?? $user->first_name) . ' ' . ($request->last_name ?? $user->last_name),
+            'email'              => $request->email ?? $user->email,
             'phone'              => $phoneWithoutPlus,
-            'zip_code'           => $request->zip_code,
-            'address'            => $request->address,
-            'city'               => $request->city,
-            'state'              => $request->state,
-            'qualification_type' => $request->qualification_type,
+            'zip_code'           => $request->zip_code ?? $user->zip_code,
+            'address'            => $request->address ?? $user->address,
+            'city'               => $request->city ?? $user->city,
+            'state'              => $request->state ?? $user->state,
+            'qualification_type' => $request->qualification_type ?? $user->qualification_type,
+            'timezone'           => $request->timezone ?? $user->timezone,
         ];
 
         $user->update($data);

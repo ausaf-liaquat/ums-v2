@@ -70,6 +70,9 @@
         .accordion-body li {
             margin-bottom: 0.25rem;
         }
+        ul{
+          list-style: none;
+        }
     </style>
 @endsection
 @section('content')

@@ -163,7 +163,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Wallet,
             'state'              => $this->state,
             'city'               => $this->city,
             'zip_code'           => $this->zip_code,
-
+            'timezone'           => $this->timezone,
         ];
     }
 

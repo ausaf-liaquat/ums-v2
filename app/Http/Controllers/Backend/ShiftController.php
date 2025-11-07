@@ -46,23 +46,36 @@ class ShiftController extends Controller
     }
     public function dataTableAcceptedClinicians(Request $request)
     {
-
-        $model = UserShift::query()->with('shift.user', 'clinician')
-            ->where('shift_id', $request->shift_id)->where('status', 1);
+        $model = UserShift::query()
+            ->with(['shift.user', 'clinician'])
+            ->where('shift_id', $request->shift_id)
+            ->where('status', 1);
 
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->addColumn('accepted_at', function (UserShift $userShift) {
-                $date = $userShift->accepted_at ? Carbon::parse($userShift->accepted_at)->format('F j, Y h:i A') : 'N/A';
-                return $date;
+                $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
+                return $userShift->accepted_at
+                    ? Carbon::parse($userShift->accepted_at)
+                    ->timezone($timezone)
+                    ->format('F j, Y h:i A')
+                    : 'N/A';
             })
             ->addColumn('clockin', function (UserShift $userShift) {
-                $date = $userShift->clockin ? Carbon::parse($userShift->clockin)->format('F j, Y h:i A') : 'N/A';
-                return $date;
+                $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
+                return $userShift->clockin
+                    ? Carbon::parse($userShift->clockin)
+                    ->timezone($timezone)
+                    ->format('F j, Y h:i A')
+                    : 'N/A';
             })
             ->addColumn('clockout', function (UserShift $userShift) {
-                $date = $userShift->clockout ? Carbon::parse($userShift->clockout)->format('F j, Y h:i A') : 'N/A';
-                return $date;
+                $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
+                return $userShift->clockout
+                    ? Carbon::parse($userShift->clockout)
+                    ->timezone($timezone)
+                    ->format('F j, Y h:i A')
+                    : 'N/A';
             })
             ->make(true);
     }
@@ -225,7 +238,7 @@ class ShiftController extends Controller
                 ->exists();
 
             // ✅ 3. If available → refund the charged amount
-            if (!$isClinicianAccepted && $isAvailable && $shift->user) {
+            if (! $isClinicianAccepted && $isAvailable && $shift->user) {
                 $refundAmount = $shift->total_amount ?? 0;
 
                 if ($refundAmount > 0) {

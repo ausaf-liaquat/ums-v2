@@ -219,7 +219,8 @@
                                     <i class="fas fa-chevron-down text-purple-600 transition-transform duration-300"></i>
                                 </button>
                                 <div class="faq-answer mt-3 text-gray-600 hidden">
-                                    There will be a <strong class="text-purple-600">$400 holding fee</strong>(refund difference) if clinicians have to stay after hours for the:
+                                    There will be a <strong class="text-purple-600">$400 holding fee</strong>(refund
+                                    difference) if clinicians have to stay after hours for the:
                                     <ul class="mt-2 space-y-1">
                                         <li class="flex items-center"><i
                                                 class="fas fa-circle text-purple-500 text-xs mr-2"></i>Patient emergencies
@@ -232,6 +233,11 @@
                                         </li>
                                         <li class="flex items-center"><i
                                                 class="fas fa-circle text-purple-500 text-xs mr-2"></i>Other emergencies
+                                        </li>
+                                        <li class="flex items-center">
+                                           <i class="fas fa-circle text-purple-500 text-xs mr-2"></i> After the clinician clocks out, the difference of the holding fee will be
+                                            refunded back
+                                            to facility balance in 2-5 business days.
                                         </li>
                                     </ul>
                                 </div>
