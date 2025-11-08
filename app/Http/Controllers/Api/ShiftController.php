@@ -327,6 +327,10 @@ class ShiftController extends Controller
                 ]);
             }
 
+            $shift->update([
+                'status' => 3, // Completed
+            ]);
+
             DB::commit();
 
             return $this->success('Shift Clocked Out', 200);

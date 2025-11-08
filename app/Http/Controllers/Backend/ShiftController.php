@@ -28,22 +28,32 @@ class ShiftController extends Controller
 
     public function dataTable(Request $request)
     {
-
-        $model = Shift::query()->with('user')
+        $model = Shift::query()
+            ->with(['user', 'shift_clinicians' => function ($q) {
+                $q->select('id', 'shift_id', 'clockin', 'clockout');
+            }])
             ->when(auth()->user()->hasRole('facility'), function ($q) {
                 $q->where('user_id', auth()->user()->id);
-            })->latest();
+            })
+            ->latest();
 
         return DataTables::eloquent($model)
-        // ->addIndexColumn()
             ->addColumn('date', function (Shift $shift) {
-                $date = Carbon::parse($shift->date);
-                return $date->format('F j, Y');
-            })->addColumn('mfshift_types', function (Shift $shift) {
-            $data = $shift->shift_note ? implode(', ', json_decode($shift->shift_note)) : 'N/A';
-            return $data;
-        })->make(true);
+                return Carbon::parse($shift->date)->format('F j, Y');
+            })
+            ->addColumn('mfshift_types', function (Shift $shift) {
+                return $shift->shift_note ? implode(', ', json_decode($shift->shift_note)) : 'N/A';
+            })
+            ->addColumn('can_delete', function (Shift $shift) {
+                // Check if any clinician has clocked in or out
+                $hasActivity = $shift->shift_clinicians->contains(function ($us) {
+                    return ! is_null($us->clockin) || ! is_null($us->clockout);
+                });
+                return $hasActivity ? false : true;
+            })
+            ->make(true);
     }
+
     public function dataTableAcceptedClinicians(Request $request)
     {
         $model = UserShift::query()
@@ -57,7 +67,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->accepted_at
                     ? Carbon::parse($userShift->accepted_at)
-                    ->timezone($timezone)
+                // ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })
@@ -65,7 +75,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->clockin
                     ? Carbon::parse($userShift->clockin)
-                    ->timezone($timezone)
+                // ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })
@@ -73,7 +83,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->clockout
                     ? Carbon::parse($userShift->clockout)
-                    ->timezone($timezone)
+                // ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })

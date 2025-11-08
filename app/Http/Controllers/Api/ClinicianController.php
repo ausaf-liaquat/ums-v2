@@ -10,6 +10,7 @@ use App\Models\Notification;
 use App\Models\Traits\ApiResponser;
 use App\Models\User;
 use App\Models\W9Form;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -163,24 +164,68 @@ class ClinicianController extends Controller
 
         return $this->success($user->prepareData(), 'User profile updated successfully', 200);
     }
-
     public function getUnreadNotifications()
     {
+        $user         = auth()->user();
+        $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
 
-        return $this->success(getNotification(Notification::CLINICIAN), 'Unread Notifications', 200);
+        $notifications = getNotification(Notification::CLINICIAN)
+            ->map(function ($n) use ($userTimezone) {
+                if (! empty($n->created_at)) {
+                    $n->created_at = Carbon::parse($n->created_at, 'UTC')
+                        ->setTimezone($userTimezone)
+                        ->toIso8601String();
+                }
+
+                if (! empty($n->read_at)) {
+                    $n->read_at = Carbon::parse($n->read_at, 'UTC')
+                        ->setTimezone($userTimezone)
+                        ->toIso8601String();
+                }
+
+                return $n;
+            });
+
+        return $this->success($notifications, 'Unread Notifications', 200);
     }
+
     public function getReadNotifications()
     {
-        $notifications = Notification::whereUserId(Auth::id())->whereNotificationFor(Notification::NOTIFICATION_FOR[Notification::CLINICIAN])->whereNotNull('read_at')->orderByDesc('created_at')->toBase()->get();
+        $user         = auth()->user();
+        $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
+
+        $notifications = Notification::whereUserId($user->id)
+            ->whereNotificationFor(Notification::NOTIFICATION_FOR[Notification::CLINICIAN])
+            ->whereNotNull('read_at')
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($n) use ($userTimezone) {
+                if (! empty($n->created_at)) {
+                    $n->created_at = Carbon::parse($n->created_at, 'UTC')
+                        ->setTimezone($userTimezone)
+                        ->toIso8601String();
+                }
+
+                if (! empty($n->read_at)) {
+                    $n->read_at = Carbon::parse($n->read_at, 'UTC')
+                        ->setTimezone($userTimezone)
+                        ->toIso8601String();
+                }
+
+                return $n;
+            });
+
         return $this->success($notifications, 'Read Notifications', 200);
     }
+
     public function markAsReadNotification(Request $request)
     {
-        $notification = Notification::whereId($request->id)->firstOrFail();
+        $notification = Notification::findOrFail($request->id);
         $notification->update([
-            'read_at' => now(),
+            'read_at' => now(), // stays in UTC in DB
         ]);
-        return $this->success([], 'Notification mark as read', 200);
+
+        return $this->success([], 'Notification marked as read', 200);
     }
 
     public function getCliniciansType(): JsonResponse

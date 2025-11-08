@@ -245,16 +245,23 @@
                             var detail = '{{ route('backend.shift-clinician.list', [':shift']) }}';
                             detail = detail.replace(':shift', data);
 
-                            let returnData =
-                                `<div class="text-center">
-                                  <a href="` + edit + `" class="text-info p-1" data-original-title="Edit"    title="" data-placement="top" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt" ></i></a>
-                                   <a href="` + detail + `" class="text-info p-1" data-original-title="Edit"    title="Clinicians Details" data-placement="top" data-toggle="tooltip"><i class='bx bx-detail'></i></a>
-                                  <i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer"  data-id="${data}"></i>
-                                </div>`;
+                            let deleteIcon = '';
+                            if (row.can_delete) {
+                                deleteIcon =
+                                    `<i class="tf-icons text-danger bx bx-trash js-delete-item cursor-pointer" data-id="${data}"></i>`;
+                            }
+
+                            let returnData = `
+                              <div class="text-center">
+                                  <a href="${edit}" class="text-info p-1" title="Edit" data-toggle="tooltip"><i class="tf-icons bx bx-edit-alt"></i></a>
+                                  <a href="${detail}" class="text-info p-1" title="Clinicians Details" data-toggle="tooltip"><i class="bx bx-detail"></i></a>
+                                  ${deleteIcon}
+                              </div>`;
 
                             return returnData;
                         },
-                    },
+                    }
+
                 ],
                 drawCallback: function() {
                     $(".js-status-switch").on("change", function() {
@@ -278,11 +285,11 @@
                             preConfirm: function() {
                                 return axios
                                     .post(
-                                    '{{ route('backend.shifts.destroy') }}', {
-                                        _method: 'delete',
-                                        _token: '{{ csrf_token() }}',
-                                        id: id,
-                                    })
+                                        '{{ route('backend.shifts.destroy') }}', {
+                                            _method: 'delete',
+                                            _token: '{{ csrf_token() }}',
+                                            id: id,
+                                        })
                                     .then(function(response) {
                                         Swal.fire({
                                             icon: "success",
