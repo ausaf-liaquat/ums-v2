@@ -67,7 +67,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->accepted_at
                     ? Carbon::parse($userShift->accepted_at)
-                // ->timezone($timezone)
+                    ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })
@@ -75,7 +75,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->clockin
                     ? Carbon::parse($userShift->clockin)
-                // ->timezone($timezone)
+                    ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })
@@ -83,7 +83,7 @@ class ShiftController extends Controller
                 $timezone = $userShift->clinician->timezone ?? config('app.timezone', 'UTC');
                 return $userShift->clockout
                     ? Carbon::parse($userShift->clockout)
-                // ->timezone($timezone)
+                    ->timezone($timezone)
                     ->format('F j, Y h:i A')
                     : 'N/A';
             })
