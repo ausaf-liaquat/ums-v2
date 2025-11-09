@@ -220,7 +220,7 @@
 
                             if (data == 1) {
                                 status =
-                                    `<span class="badge bg-label-success mb-2">In Process</span>`
+                                    `<span class="badge bg-label-secondary mb-2">In Process</span>`
                             } else if (data == 2) {
                                 status = `<span class="badge bg-label-danger mb-2">Expired</span>`
 

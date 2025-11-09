@@ -91,7 +91,7 @@ class ShiftController extends Controller
         }
 
         $timezone   = $user->timezone ?? config('app.timezone', 'UTC');
-        $acceptedAt = appNow($timezone);
+        $acceptedAt = appNow();
 
         // If your DB stores timestamps in UTC, convert before saving:
         // $acceptedAt = $acceptedAt->timezone('UTC');
@@ -118,7 +118,7 @@ class ShiftController extends Controller
         }
 
         $timezone   = $user->timezone ?? config('app.timezone', 'UTC');
-        $rejectedAt = appNow($timezone);
+        $rejectedAt = appNow();
 
         $shiftUser->status      = 2; // Rejected
         $shiftUser->rejected_at = $rejectedAt;
@@ -151,7 +151,11 @@ class ShiftController extends Controller
         DB::beginTransaction();
 
         $timezone    = $user->timezone ?? config('app.timezone', 'UTC');
-        $cancelledAt = appNow($timezone);
+        $cancelledAt = appNow();
+        $today       = appToday($timezone);
+        if ($shift->date < $today) {
+            return $this->error('This shift has expired (' . $shift->date . ')', 400);
+        }
 
         try {
             $refundAmount = $shift->total_amount ?? 0;
@@ -241,7 +245,7 @@ class ShiftController extends Controller
             return $this->error('Already Clocked In', 400);
         }
 
-        $clockIn = appNow($userTimezone);
+        $clockIn = appNow();
 
         // Update record
         $shiftUser->update([
@@ -294,7 +298,7 @@ class ShiftController extends Controller
 
         $userTimezone = $user->timezone ?? config('app.timezone', 'UTC');
 
-        $clockOut = appNow($userTimezone);
+        $clockOut = appNow();
 
         try {
             DB::beginTransaction();
